@@ -60,12 +60,12 @@
         "*.asset": "yaml",
         "*.meta": "yaml",
         "*.prefab": "yaml",
-        "*.unity": "yaml",
+        "*.unity": "yaml"
     },
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "VIDEOJUEGOS.slnx"
+    "dotnet.defaultSolution": "Pomelo_Videojuegos2C2026.slnx"
 }

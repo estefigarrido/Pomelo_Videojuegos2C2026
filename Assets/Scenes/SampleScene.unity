@@ -374,12 +374,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aecf0e490cb560548ad9cf1fcdc31647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoPersonaje
-  velocidad: 5
-  multiplicadorSprint: 1.5
+  velocidad: 3.5
+  multiplicadorSprint: 2
   duracionSprint: 8
   cooldownSprint: 3
+  alturaSaltoPx: 120
+  alturaSuperSaltoPx: 350
+  pixelesPorUnidad: 100
   duracionMaximaToque: 0.3
   ventanaEntreToques: 0.45
+  anguloMaximoPiso: 50
+  tiempoCoyote: 0.12
+  bufferSalto: 0.12
   mostrarDebug: 0
 --- !u!95 &582101487
 Animator:

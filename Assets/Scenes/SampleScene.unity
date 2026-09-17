@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 1237655473}
@@ -636,7 +636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 2136710127}
@@ -931,7 +931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 1365574981}
@@ -1397,7 +1397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 590425784}
@@ -1938,13 +1938,16 @@ MonoBehaviour:
   cooldownSprint: 3
   alturaSaltoPx: 120
   alturaSuperSaltoPx: 350
+  ventanaSuperSalto: 0.25
   pixelesPorUnidad: 100
-  distanciaDashPx: 500
-  duracionDash: 0.2
+  duracionDespegue: 0.05
+  duracionAterrizaje: 0.1
+  distanciaDashPx: 600
+  duracionDash: 0.3
   esperaDash: 0.5
-  intervaloEstela: 0.035
-  duracionEstela: 0.3
-  colorEstela: {r: 1, g: 1, b: 1, a: 0.5}
+  destelloDash: {fileID: 21300000, guid: 051f43a4ad79b7e4a94f678b8bddd83b, type: 3}
+  frameFinalDash: {fileID: 21300000, guid: 25a5767b19007ea488efee9e593abe60, type: 3}
+  colorDestello: {r: 1, g: 1, b: 1, a: 1}
   duracionMaximaToque: 0.3
   ventanaEntreToques: 0.45
   anguloMaximoPiso: 50
@@ -2356,7 +2359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 1849660369}
@@ -2822,7 +2825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 1259715678}
@@ -3374,7 +3377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 402322919}
@@ -3649,7 +3652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 331366468}
@@ -3920,7 +3923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 52360978}
@@ -4152,7 +4155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 1093230049}
@@ -4410,7 +4413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 2088629580}
@@ -6388,7 +6391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 1145792421}
@@ -6667,7 +6670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 414475758}
@@ -7053,7 +7056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c700673fac64f49ab8e4e4da84fd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlataformaQuebradiza
-  segundosHastaCaer: 6
+  segundosHastaCaer: 5
   segundosEnElPiso: 3
   segundosParaVolver: 1.5
   dibujo: {fileID: 1145188593}

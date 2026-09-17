@@ -1,12 +1,15 @@
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Animations;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 // Deja listo el DASH:
 //  1. Reimporta los 3 PNG de chica_dash igual que los del sprint (mismo tamano y mismo punto de apoyo).
-//  2. Crea la animacion ChicaDash: los 3 frames en 0,1 s y el tercero quieto hasta el final (0,2 s).
-//  3. Agrega el parametro "dash" y el estado "Dash" al Animator, y rearma las transiciones.
+//  2. Importa el destello (dash_003 desenfocado) alineado con el frame 3.
+//  3. Crea la animacion ChicaDash: los 3 frames en 0,1 s y el tercero quieto hasta el final (0,3 s).
+//  4. Agrega el parametro "dash" y el estado "Dash" al Animator, y rearma las transiciones.
+//  5. Le asigna el destello a la chica de la escena abierta.
 // Menu:  Pomelo -> Configurar dash
 public static class ConfigurarDash
 {
@@ -14,6 +17,11 @@ public static class ConfigurarDash
     private const string ReferenciaSprint = Carpeta + "chica_sprinting_12fps/001.png";
     private const string RutaClip = Carpeta + "ChicaDash.anim";
     private const string RutaController = Carpeta + "Personaje.controller";
+    private const string RutaDestello = Carpeta + "chica_dash/dash_003_destello.png";
+
+    // el destello tiene 140 px mas de lienzo a la izquierda (para la estela) sobre un frame de 626 px
+    private const float RellenoDestello = 140f;
+    private const float AnchoFrame = 626f;
 
     private static readonly string[] frames =
     {
@@ -23,7 +31,7 @@ public static class ConfigurarDash
     };
 
     private const float DuracionArranque = 0.1f;   // los 3 frames
-    private const float DuracionDash = 0.2f;       // el tercero queda hasta aca
+    private const float DuracionDash = 0.3f;       // el tercero queda hasta aca (igual que duracionDash de la chica)
 
     [MenuItem("Pomelo/Configurar dash")]
     public static void Configurar()
@@ -35,6 +43,7 @@ public static class ConfigurarDash
         }
 
         if (!ReimportarFrames()) return;
+        if (!ImportarDestello()) return;
 
         var clip = CrearClip();
         if (clip == null) return;
@@ -42,7 +51,51 @@ public static class ConfigurarDash
         if (!PrepararController(clip)) return;
 
         ArreglarAnimator.Arreglar();
-        Debug.Log("Dash configurado: " + RutaClip + " y estado Dash en el Animator.");
+        AsignarDestelloALaChica();
+        Debug.Log("Dash configurado: " + RutaClip + ", estado Dash en el Animator y destello asignado.");
+    }
+
+    private static bool ImportarDestello()
+    {
+        var referencia = AssetImporter.GetAtPath(ReferenciaSprint) as TextureImporter;
+        var importador = AssetImporter.GetAtPath(RutaDestello) as TextureImporter;
+        if (referencia == null || importador == null)
+        {
+            Debug.LogError("No encontre el destello en " + RutaDestello);
+            return false;
+        }
+
+        var ajustes = new TextureImporterSettings();
+        referencia.ReadTextureSettings(ajustes);
+
+        // mismo PPU que el frame, y el pivote corrido por el lienzo extra de la izquierda,
+        // asi queda justo debajo del frame 3
+        Vector2 pivote = ajustes.spritePivot;
+        float anchoDestello = AnchoFrame + RellenoDestello;
+        ajustes.spriteAlignment = (int)SpriteAlignment.Custom;
+        ajustes.spritePivot = new Vector2((pivote.x * AnchoFrame + RellenoDestello) / anchoDestello, pivote.y);
+
+        importador.SetTextureSettings(ajustes);
+        importador.textureCompression = referencia.textureCompression;
+        importador.maxTextureSize = referencia.maxTextureSize;
+        importador.SaveAndReimport();
+        return true;
+    }
+
+    private static void AsignarDestelloALaChica()
+    {
+        var chica = Object.FindFirstObjectByType<MovimientoPersonaje>();
+        if (chica == null)
+        {
+            Debug.LogWarning("No hay ninguna chica (MovimientoPersonaje) en la escena abierta para asignarle el destello.");
+            return;
+        }
+
+        var so = new SerializedObject(chica);
+        so.FindProperty("destelloDash").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(RutaDestello);
+        so.FindProperty("frameFinalDash").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(frames[frames.Length - 1]);
+        so.ApplyModifiedProperties();
+        EditorSceneManager.MarkSceneDirty(chica.gameObject.scene);
     }
 
     private static bool ReimportarFrames()

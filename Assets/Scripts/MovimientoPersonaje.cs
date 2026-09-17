@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
@@ -24,6 +25,21 @@ public class MovimientoPersonaje : MonoBehaviour
     [SerializeField] private float alturaSuperSaltoPx = 350f;
     [Tooltip("Cuantos pixeles del dibujo entran en 1 unidad de Unity. El personaje esta importado a 100.")]
     [SerializeField] private float pixelesPorUnidad = 100f;
+
+    [Header("Dash  (E)")]
+    [Tooltip("Distancia del dash, en pixeles (100 px = 1 unidad).")]
+    [SerializeField] private float distanciaDashPx = 500f;
+    [Tooltip("Segundos que tarda en recorrer esa distancia.")]
+    [SerializeField] private float duracionDash = 0.2f;
+    [Tooltip("Segundos de espera desde que termina un dash hasta que se puede hacer otro.")]
+    [SerializeField] private float esperaDash = 0.5f;
+
+    [Header("Estela del dash")]
+    [Tooltip("Cada cuantos segundos deja una copia transparente mientras dashea.")]
+    [SerializeField] private float intervaloEstela = 0.035f;
+    [Tooltip("Segundos que tarda cada copia en desaparecer.")]
+    [SerializeField] private float duracionEstela = 0.3f;
+    [SerializeField] private Color colorEstela = new Color(1f, 1f, 1f, 0.5f);
 
     [Header("Deteccion del doble toque")]
     [Tooltip("Tiempo maximo que puede durar una pulsacion para contar como toque y no como mantenida.")]
@@ -61,11 +77,32 @@ public class MovimientoPersonaje : MonoBehaviour
     private float ultimaVezEnPiso = -99f;
     private float ultimoPedidoDeSalto = -99f;
 
+    private SpriteRenderer dibujo;
+    private bool animatorTieneDash;
+    private bool pedidoDash;
+    private bool dashActivo;
+    private float dashRestante;
+    private float direccionDash;
+    private float finUltimoDash = -99f;
+    private float gravedadNormal = 1f;
+    private float proximaCopia;
+
+    private struct CopiaEstela
+    {
+        public SpriteRenderer sr;
+        public float nacimiento;
+    }
+    private readonly List<CopiaEstela> estela = new List<CopiaEstela>();
+
     private readonly DetectorDobleToque toqueA = new DetectorDobleToque();
     private readonly DetectorDobleToque toqueD = new DetectorDobleToque();
 
     public bool SprintActivo => sprintActivo;
+    public bool DashActivo => dashActivo;
     public bool EnPiso => enPiso;
+
+    // 500 px en 0.2 s = 25 unidades por segundo
+    private float VelocidadDash => (distanciaDashPx / Mathf.Max(1f, pixelesPorUnidad)) / Mathf.Max(0.01f, duracionDash);
     public float SegundosRestantesSprint => Mathf.Max(0f, finSprint - Time.time);
     public float SegundosRestantesCooldown => Mathf.Max(0f, finCooldown - Time.time);
 
@@ -81,6 +118,17 @@ public class MovimientoPersonaje : MonoBehaviour
         // Si Unity duerme el cuerpo cuando esta quieta, deja de avisar que toca el piso
         // y no se puede saltar hasta moverse. Con esto no se duerme nunca.
         rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
+
+        dibujo = GetComponent<SpriteRenderer>();
+        gravedadNormal = rb.gravityScale;
+        animatorTieneDash = TieneParametro("dash");
+    }
+
+    private void OnDisable()
+    {
+        foreach (var copia in estela)
+            if (copia.sr != null) Destroy(copia.sr.gameObject);
+        estela.Clear();
     }
 
     private void Update()
@@ -98,18 +146,137 @@ public class MovimientoPersonaje : MonoBehaviour
         if (dobleToqueA || dobleToqueD) ActivarSprint();
 
         ApagarSprintSiSeVencio();
-        LeerSalto(teclado);
+
+        // DASH: se puede siempre, en el piso o en el aire, respetando la espera
+        if (teclado.eKey.wasPressedThisFrame && PuedeDashear()) pedidoDash = true;
+
+        if (dashActivo)
+        {
+            // durante el dash no salta, pero se guarda el pedido por si fue justo al final
+            if (teclado.spaceKey.wasPressedThisFrame) ultimoPedidoDeSalto = Time.time;
+        }
+        else
+        {
+            LeerSalto(teclado);
+        }
 
         // La animacion de correr va siempre que se mueva, con A o D sola.
         // El sprint no cambia la animacion, solo la velocidad.
         if (animator != null) animator.SetBool("sprint", direccion != 0f);
 
-        if (direccion != 0f)
+        // mientras dashea sigue mirando para el lado del dash
+        if (direccion != 0f && !dashActivo && !pedidoDash) MirarHacia(direccion);
+
+        if (dashActivo && Time.time >= proximaCopia)
         {
-            Vector3 escala = transform.localScale;
-            escala.x = Mathf.Abs(escala.x) * (direccion < 0f ? -1f : 1f);
-            transform.localScale = escala;
+            DejarCopia();
+            proximaCopia = Time.time + Mathf.Max(0.01f, intervaloEstela);
         }
+        ActualizarEstela();
+    }
+
+    private void MirarHacia(float lado)
+    {
+        Vector3 escala = transform.localScale;
+        escala.x = Mathf.Abs(escala.x) * (lado < 0f ? -1f : 1f);
+        transform.localScale = escala;
+    }
+
+    // ---------------- DASH ----------------
+
+    private bool PuedeDashear()
+    {
+        return !dashActivo && !pedidoDash && Time.time >= finUltimoDash + esperaDash;
+    }
+
+    private void EmpezarDash()
+    {
+        // sale para el lado de la tecla apretada; si no hay ninguna, para donde mira
+        float lado = direccion != 0f ? Mathf.Sign(direccion) : Mathf.Sign(transform.localScale.x);
+        if (lado == 0f) lado = 1f;
+
+        dashActivo = true;
+        direccionDash = lado;
+        dashRestante = duracionDash;
+        proximaCopia = Time.time;
+        MirarHacia(lado);
+
+        // va recto: sin gravedad, y corta cualquier subida o caida que tuviera
+        gravedadNormal = rb.gravityScale;
+        rb.gravityScale = 0f;
+        rb.linearVelocity = new Vector2(lado * VelocidadDash, 0f);
+
+        if (animator != null)
+        {
+            animator.ResetTrigger("salto");
+            if (animatorTieneDash) animator.SetBool("dash", true);
+        }
+        if (mostrarDebug) Debug.Log("[Dash] hacia " + (lado > 0f ? "la derecha" : "la izquierda"));
+    }
+
+    private void TerminarDash()
+    {
+        dashActivo = false;
+        finUltimoDash = Time.time;
+
+        // al terminar vuelve a caer normalmente
+        rb.gravityScale = gravedadNormal;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+
+        if (animator != null && animatorTieneDash) animator.SetBool("dash", false);
+    }
+
+    private void DejarCopia()
+    {
+        if (dibujo == null || dibujo.sprite == null) return;
+
+        var copia = new GameObject("Estela dash");
+        copia.transform.SetPositionAndRotation(dibujo.transform.position, dibujo.transform.rotation);
+        copia.transform.localScale = dibujo.transform.lossyScale;
+
+        var sr = copia.AddComponent<SpriteRenderer>();
+        sr.sprite = dibujo.sprite;
+        sr.flipX = dibujo.flipX;
+        sr.flipY = dibujo.flipY;
+        sr.sharedMaterial = dibujo.sharedMaterial;
+        sr.sortingLayerID = dibujo.sortingLayerID;
+        sr.sortingOrder = dibujo.sortingOrder - 1;
+        sr.color = colorEstela;
+
+        estela.Add(new CopiaEstela { sr = sr, nacimiento = Time.time });
+    }
+
+    private void ActualizarEstela()
+    {
+        for (int i = estela.Count - 1; i >= 0; i--)
+        {
+            var copia = estela[i];
+            if (copia.sr == null)
+            {
+                estela.RemoveAt(i);
+                continue;
+            }
+
+            float avance = (Time.time - copia.nacimiento) / Mathf.Max(0.01f, duracionEstela);
+            if (avance >= 1f)
+            {
+                Destroy(copia.sr.gameObject);
+                estela.RemoveAt(i);
+                continue;
+            }
+
+            Color color = colorEstela;
+            color.a *= 1f - avance;
+            copia.sr.color = color;
+        }
+    }
+
+    private bool TieneParametro(string nombre)
+    {
+        if (animator == null || animator.runtimeAnimatorController == null) return false;
+        foreach (var parametro in animator.parameters)
+            if (parametro.name == nombre) return true;
+        return false;
     }
 
     // ---------------- SPRINT ----------------
@@ -224,6 +391,21 @@ public class MovimientoPersonaje : MonoBehaviour
         {
             ultimaVezEnPiso = Time.time;
             if (estabaEnElAire) superSaltoUsado = false;
+        }
+
+        if (pedidoDash)
+        {
+            pedidoDash = false;
+            EmpezarDash();
+        }
+
+        // El dash se cuenta en pasos de fisica para que recorra exactamente la distancia
+        if (dashActivo)
+        {
+            rb.linearVelocity = new Vector2(direccionDash * VelocidadDash, 0f);
+            dashRestante -= Time.fixedDeltaTime;
+            if (dashRestante <= 0.0001f) TerminarDash();
+            return;
         }
 
         float velocidadActual = sprintActivo ? velocidad * multiplicadorSprint : velocidad;

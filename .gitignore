@@ -12,6 +12,10 @@
 /[Uu]ser[Ss]ettings/
 *.log
 
+# copia de emergencia que hace Unity cuando se cierra mal: no es parte del juego
+/[Aa]ssets/_[Rr]ecovery/
+/[Aa]ssets/_[Rr]ecovery.meta
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/

@@ -1937,7 +1937,7 @@ MonoBehaviour:
   duracionSprint: 8
   cooldownSprint: 3
   alturaSaltoPx: 120
-  alturaSuperSaltoPx: 500
+  alturaSuperSaltoPx: 350
   ventanaSuperSalto: 0.25
   pixelesPorUnidad: 100
   duracionDespegue: 0.05

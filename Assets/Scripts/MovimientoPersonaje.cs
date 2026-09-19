@@ -9,7 +9,7 @@ public class MovimientoPersonaje : MonoBehaviour
     [Tooltip("En unidades por segundo. 1 unidad = 100 pixeles de pantalla, asi que 3.5 son 350 px/s.")]
     [SerializeField] private float velocidad = 3.5f;
 
-    [Header("Sprint  (doble toque de A o de D)")]
+    [Header("Sprint  (doble toque de A o de D, o Shift + A/D)")]
     [Tooltip("2 = corre el doble de rapido que el correr normal.")]
     [SerializeField] private float multiplicadorSprint = 2f;
     [Tooltip("Cuantos segundos dura el sprint. Poner 0 para que no se apague solo.")]
@@ -23,7 +23,7 @@ public class MovimientoPersonaje : MonoBehaviour
     [Tooltip("Altura del supersalto (doble toque de espacio), en pixeles del dibujo.")]
     [SerializeField] private float alturaSuperSaltoPx = 350f;
     [Tooltip("Segundos que hay para el segundo toque de espacio, contados desde el primero. Un doble click tipico de juego va de 0.2 a 0.3.")]
-    [SerializeField] private float ventanaSuperSalto = 0.25f;
+    [SerializeField] private float ventanaSuperSalto = 0.5f;
     [Tooltip("Cuantos pixeles del dibujo entran en 1 unidad de Unity. El personaje esta importado a 100.")]
     [SerializeField] private float pixelesPorUnidad = 100f;
 
@@ -37,9 +37,9 @@ public class MovimientoPersonaje : MonoBehaviour
     [Tooltip("Distancia del dash, en pixeles (100 px = 1 unidad).")]
     [SerializeField] private float distanciaDashPx = 600f;
     [Tooltip("Segundos que tarda en recorrer esa distancia.")]
-    [SerializeField] private float duracionDash = 0.3f;
+    [SerializeField] private float duracionDash = 0.6f;
     [Tooltip("Segundos de espera desde que termina un dash hasta que se puede hacer otro.")]
-    [SerializeField] private float esperaDash = 0.5f;
+    [SerializeField] private float esperaDash = 2f;
 
     [Header("Destello del dash")]
     [Tooltip("El ultimo frame del dash desenfocado. Se ve detras de la chica mientras queda quieto el ultimo frame.")]
@@ -161,7 +161,10 @@ public class MovimientoPersonaje : MonoBehaviour
 
         bool dobleToqueA = toqueA.Evaluar(teclado.aKey, duracionMaximaToque, ventanaEntreToques);
         bool dobleToqueD = toqueD.Evaluar(teclado.dKey, duracionMaximaToque, ventanaEntreToques);
-        if (dobleToqueA || dobleToqueD) ActivarSprint();
+        // el sprint sale con doble toque o manteniendo Shift mientras camina; en los dos
+        // casos dura lo mismo y despues hay que esperar igual
+        bool conShift = teclado.shiftKey.isPressed && direccion != 0f;
+        if (dobleToqueA || dobleToqueD || conShift) ActivarSprint();
 
         ApagarSprintSiSeVencio();
 

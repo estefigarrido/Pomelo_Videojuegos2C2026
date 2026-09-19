@@ -1378,7 +1378,7 @@ Transform:
   m_GameObject: {fileID: 403556607}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.18, y: -5.8, z: 0}
+  m_LocalPosition: {x: -28.18, y: -6.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1792,7 +1792,7 @@ Transform:
   m_GameObject: {fileID: 582101481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.954, y: -28.866, z: 0}
+  m_LocalPosition: {x: -26.25, y: -12.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1813,7 +1813,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1860,7 +1860,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.7924765, y: 2.4}
+  m_Size: {x: 0.79, y: 2.4}
   m_Direction: 0
 --- !u!212 &582101485
 SpriteRenderer:
@@ -1938,11 +1938,11 @@ MonoBehaviour:
   duracionSprint: 8
   cooldownSprint: 3
   alturaSaltoPx: 120
-  alturaSuperSaltoPx: 500
+  alturaSuperSaltoPx: 400
   ventanaSuperSalto: 0.5
   pixelesPorUnidad: 100
   duracionDespegue: 0.05
-  duracionAterrizaje: 0.1
+  duracionAterrizaje: 0.05
   distanciaDashPx: 600
   duracionDash: 0.6
   esperaDash: 2
@@ -3450,7 +3450,7 @@ Transform:
   m_GameObject: {fileID: 1382890827}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.8, y: 3, z: 0}
+  m_LocalPosition: {x: -27.8, y: 1.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3725,7 +3725,7 @@ Transform:
   m_GameObject: {fileID: 1437942649}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34.16, y: -9.6, z: 0}
+  m_LocalPosition: {x: -34.16, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4543,7 +4543,7 @@ Transform:
   m_GameObject: {fileID: 1671733984}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.81, y: -1.04, z: 0}
+  m_LocalPosition: {x: -35.81, y: -2.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

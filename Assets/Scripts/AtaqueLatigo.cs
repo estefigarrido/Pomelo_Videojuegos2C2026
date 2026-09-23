@@ -30,6 +30,7 @@ public class AtaqueLatigo : MonoBehaviour
     [SerializeField] private ZonaDeGolpe[] zonas;
 
     private SpriteRenderer dibujo;
+    private AtaqueSabiduria otroAtaque;
     private bool atacando;
     private float inicio;
     private float finUltimo = -99f;
@@ -40,6 +41,7 @@ public class AtaqueLatigo : MonoBehaviour
     private void Awake()
     {
         dibujo = GetComponent<SpriteRenderer>();
+        otroAtaque = GetComponent<AtaqueSabiduria>();
     }
 
     private void Update()
@@ -73,6 +75,7 @@ public class AtaqueLatigo : MonoBehaviour
     public bool Atacar()
     {
         if (atacando || frames == null || frames.Length == 0 || Time.time < finUltimo + espera) return false;
+        if (otroAtaque != null && otroAtaque.Atacando) return false;
         atacando = true;
         inicio = Time.time;
         golpeados.Clear();

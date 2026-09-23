@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c2c6e124555383a4db3607b13f32cacb
+guid: 2002a30f93ed495438bad783c1f4a625
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 438895471204581479
-    second: 005_0
+      213: -6763299137539669891
+    second: flores_destello06_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
-  alignment: 9
-  spritePivot: {x: 0.50062, y: 0.32406}
-  spritePixelsToUnits: 1343.33
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 005_0
+      name: flores_destello06_0
       rect:
         serializedVersion: 2
-        x: 141
-        y: 64
-        width: 1779
-        height: 3054
+        x: 44
+        y: 26
+        width: 102
+        height: 142
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7604dae0b15471600800000000000000
-      internalID: 438895471204581479
+      spriteID: d700e35944fe322a0800000000000000
+      internalID: -6763299137539669891
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      005_0: 438895471204581479
+      flores_destello06_0: -6763299137539669891
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

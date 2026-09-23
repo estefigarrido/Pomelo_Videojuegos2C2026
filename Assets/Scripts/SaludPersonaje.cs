@@ -6,7 +6,14 @@ public class SaludPersonaje : MonoBehaviour
     [Tooltip("Donde reaparece al morir. Si queda vacio, reaparece donde empezo el nivel.")]
     [SerializeField] private Transform puntoDeReaparicion;
 
+    [Header("Regeneracion")]
+    [Tooltip("Vida que recupera en cada tic (20 = 20% de la vida maxima).")]
+    [SerializeField] private float regeneracion = 20f;
+    [Tooltip("Segundos entre cada tic. Cada golpe nuevo reinicia la cuenta.")]
+    [SerializeField] private float intervaloRegeneracion = 5f;
+
     private float vida;
+    private float proximaRegeneracion;
     private Vector3 puntoGuardado;
     private Rigidbody2D rb;
 
@@ -20,11 +27,21 @@ public class SaludPersonaje : MonoBehaviour
         vida = vidaMaxima;
     }
 
+    private void Update()
+    {
+        if (vida <= 0f || vida >= vidaMaxima || Time.time < proximaRegeneracion) return;
+
+        vida = Mathf.Min(vidaMaxima, vida + regeneracion);
+        proximaRegeneracion = Time.time + intervaloRegeneracion;
+        Debug.Log("[Vida] +" + regeneracion + " -> " + vida + "/" + vidaMaxima);
+    }
+
     public void RecibirDanio(float cantidad)
     {
         if (vida <= 0f) return;
 
         vida = Mathf.Max(0f, vida - cantidad);
+        proximaRegeneracion = Time.time + intervaloRegeneracion;
         Debug.Log("[Vida] -" + cantidad + " -> " + vida + "/" + vidaMaxima);
 
         if (vida <= 0f) Morir();

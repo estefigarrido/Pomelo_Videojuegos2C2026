@@ -4614,8 +4614,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -4971,7 +4974,7 @@ Transform:
   m_GameObject: {fileID: 300479982}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.470001, y: 21.428995, z: 0}
+  m_LocalPosition: {x: 32.14, y: 21.428995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4989,8 +4992,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4197dee60c2e0459dd757a67215859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComelibrosPatrulla
-  xMinimo: 25.213001
-  xMaximo: 35.727
+  xMinimo: 24.85
+  xMaximo: 37.5
   velocidad: 1.5
   dibujoMiraIzquierda: 1
 --- !u!95 &300479985
@@ -5107,10 +5110,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 51f2b2fb5d00dc143ad921d46a76b425, type: 3}
   - {fileID: 21300000, guid: aa0303759872a864b91557cd94db843c, type: 3}
   fps: 8
+  frameMordida: 3
   centroAgro: {x: 0.0051600933, y: 0.71000004}
   tamanoAgro: {x: 6.9336004, y: 1.702}
+  duracionAgro: 10
   danio: 20
-  esperaEntreGolpes: 1
+  esperaEntreMordidas: 0.6
   velocidadAtaque: 2.5
   dibujoMiraIzquierda: 1
 --- !u!70 &300479990
@@ -5323,8 +5328,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -5720,8 +5728,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -6616,10 +6627,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 51f2b2fb5d00dc143ad921d46a76b425, type: 3}
   - {fileID: 21300000, guid: aa0303759872a864b91557cd94db843c, type: 3}
   fps: 8
+  frameMordida: 3
   centroAgro: {x: 0.0051600933, y: 0.71000004}
   tamanoAgro: {x: 6.9336004, y: 1.702}
+  duracionAgro: 10
   danio: 20
-  esperaEntreGolpes: 1
+  esperaEntreMordidas: 0.6
   velocidadAtaque: 2.5
   dibujoMiraIzquierda: 1
 --- !u!70 &495036890
@@ -6832,8 +6845,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -6905,7 +6921,7 @@ Transform:
   m_GameObject: {fileID: 513564652}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 48.5215, y: 21.428995, z: 0}
+  m_LocalPosition: {x: 48.38, y: 21.428995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6923,8 +6939,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4197dee60c2e0459dd757a67215859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComelibrosPatrulla
-  xMinimo: 42.001
-  xMaximo: 55.042
+  xMinimo: 41
+  xMaximo: 57.73
   velocidad: 1.5
   dibujoMiraIzquierda: 1
 --- !u!95 &513564655
@@ -7041,10 +7057,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 51f2b2fb5d00dc143ad921d46a76b425, type: 3}
   - {fileID: 21300000, guid: aa0303759872a864b91557cd94db843c, type: 3}
   fps: 8
+  frameMordida: 3
   centroAgro: {x: 0.0051600933, y: 0.71000004}
   tamanoAgro: {x: 6.9336004, y: 1.702}
+  duracionAgro: 10
   danio: 20
-  esperaEntreGolpes: 1
+  esperaEntreMordidas: 0.6
   velocidadAtaque: 2.5
   dibujoMiraIzquierda: 1
 --- !u!70 &513564660
@@ -7932,8 +7950,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -8205,6 +8226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SaludPersonaje
   vidaMaxima: 100
   puntoDeReaparicion: {fileID: 0}
+  regeneracion: 20
+  intervaloRegeneracion: 5
 --- !u!114 &582101489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8949,8 +8972,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -9487,8 +9513,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -10377,8 +10406,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -10592,8 +10624,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -13898,10 +13933,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 51f2b2fb5d00dc143ad921d46a76b425, type: 3}
   - {fileID: 21300000, guid: aa0303759872a864b91557cd94db843c, type: 3}
   fps: 8
+  frameMordida: 3
   centroAgro: {x: 0.0051600933, y: 0.71000004}
   tamanoAgro: {x: 6.9336004, y: 1.702}
+  duracionAgro: 10
   danio: 20
-  esperaEntreGolpes: 1
+  esperaEntreMordidas: 0.6
   velocidadAtaque: 2.5
   dibujoMiraIzquierda: 1
 --- !u!70 &1522489954
@@ -14520,8 +14557,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -15722,8 +15762,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -16511,8 +16554,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd54bd2f4253ad741b40ea85d5d110b4, type: 3}
   fpsPicada: 12
   radioAgro: 1.8457143
+  duracionAgro: 10
   danio: 20
   velocidadPicada: 9
+  alcancePicada: 4
+  tiempoRemonte: 0.8
   velocidadRegreso: 4
   espera: 1.5
   dibujoMiraDerecha: 1
@@ -16959,10 +17005,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 51f2b2fb5d00dc143ad921d46a76b425, type: 3}
   - {fileID: 21300000, guid: aa0303759872a864b91557cd94db843c, type: 3}
   fps: 8
+  frameMordida: 3
   centroAgro: {x: 0.0051600933, y: 0.71000004}
   tamanoAgro: {x: 6.9336004, y: 1.702}
+  duracionAgro: 10
   danio: 20
-  esperaEntreGolpes: 1
+  esperaEntreMordidas: 0.6
   velocidadAtaque: 2.5
   dibujoMiraIzquierda: 1
 --- !u!70 &1898961563

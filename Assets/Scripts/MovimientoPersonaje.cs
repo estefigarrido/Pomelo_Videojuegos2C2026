@@ -8,13 +8,17 @@ public class MovimientoPersonaje : MonoBehaviour
     [Header("Teclas")]
     [SerializeField] private Key teclaIzquierda = Key.LeftArrow;
     [SerializeField] private Key teclaDerecha = Key.RightArrow;
+    [Tooltip("Segunda tecla para ir a la izquierda (sirve igual, sprint incluido).")]
+    [SerializeField] private Key teclaIzquierda2 = Key.A;
+    [Tooltip("Segunda tecla para ir a la derecha (sirve igual, sprint incluido).")]
+    [SerializeField] private Key teclaDerecha2 = Key.D;
     [SerializeField] private Key teclaDash = Key.F;
 
-    [Header("Correr  (flechas izquierda y derecha)")]
+    [Header("Correr  (flechas o A / D)")]
     [Tooltip("En unidades por segundo. 1 unidad = 100 pixeles de pantalla, asi que 3.5 son 350 px/s.")]
     [SerializeField] private float velocidad = 3.5f;
 
-    [Header("Sprint  (doble toque de una flecha, o Shift + flecha)")]
+    [Header("Sprint  (doble toque de una flecha o de A/D, o Shift + direccion)")]
     [Tooltip("2 = corre el doble de rapido que el correr normal.")]
     [SerializeField] private float multiplicadorSprint = 2f;
     [Tooltip("Cuantos segundos dura el sprint. Poner 0 para que no se apague solo.")]
@@ -124,6 +128,8 @@ public class MovimientoPersonaje : MonoBehaviour
 
     private readonly DetectorDobleToque toqueIzquierda = new DetectorDobleToque();
     private readonly DetectorDobleToque toqueDerecha = new DetectorDobleToque();
+    private readonly DetectorDobleToque toqueIzquierda2 = new DetectorDobleToque();
+    private readonly DetectorDobleToque toqueDerecha2 = new DetectorDobleToque();
 
     public bool SprintActivo => sprintActivo;
     public bool DashActivo => dashActivo;
@@ -160,18 +166,22 @@ public class MovimientoPersonaje : MonoBehaviour
         if (teclado == null) return;
 
         // el input se lee aca, en el frame exacto en que pasa
-        KeyControl izquierda = teclado[teclaIzquierda];
-        KeyControl derecha = teclado[teclaDerecha];
+        // cada lado tiene dos teclas (flecha y A/D); cualquiera de las dos sirve
+        KeyControl izquierda = teclado[teclaIzquierda], izquierda2 = teclado[teclaIzquierda2];
+        KeyControl derecha = teclado[teclaDerecha], derecha2 = teclado[teclaDerecha2];
         direccion = 0f;
-        if (izquierda.isPressed) direccion -= 1f;
-        if (derecha.isPressed) direccion += 1f;
+        if (izquierda.isPressed || izquierda2.isPressed) direccion -= 1f;
+        if (derecha.isPressed || derecha2.isPressed) direccion += 1f;
 
-        bool dobleToqueIzquierda = toqueIzquierda.Evaluar(izquierda, duracionMaximaToque, ventanaEntreToques);
-        bool dobleToqueDerecha = toqueDerecha.Evaluar(derecha, duracionMaximaToque, ventanaEntreToques);
+        // el doble toque se cuenta por tecla (dos toques de la misma tecla)
+        bool dobleToque = toqueIzquierda.Evaluar(izquierda, duracionMaximaToque, ventanaEntreToques);
+        dobleToque |= toqueDerecha.Evaluar(derecha, duracionMaximaToque, ventanaEntreToques);
+        dobleToque |= toqueIzquierda2.Evaluar(izquierda2, duracionMaximaToque, ventanaEntreToques);
+        dobleToque |= toqueDerecha2.Evaluar(derecha2, duracionMaximaToque, ventanaEntreToques);
         // el sprint sale con doble toque o manteniendo Shift mientras camina; en los dos
         // casos dura lo mismo y despues hay que esperar igual
         bool conShift = teclado.shiftKey.isPressed && direccion != 0f;
-        if (dobleToqueIzquierda || dobleToqueDerecha || conShift) ActivarSprint();
+        if (dobleToque || conShift) ActivarSprint();
 
         ApagarSprintSiSeVencio();
 
@@ -188,7 +198,7 @@ public class MovimientoPersonaje : MonoBehaviour
             LeerSalto(teclado);
         }
 
-        // La animacion de correr va siempre que se mueva, con una flecha sola.
+        // La animacion de correr va siempre que se mueva, con una flecha o A/D.
         // El sprint no cambia la animacion, solo la velocidad.
         if (animator != null) animator.SetBool("sprint", direccion != 0f);
 
@@ -298,6 +308,8 @@ public class MovimientoPersonaje : MonoBehaviour
         finCooldown = Time.time + cooldownSprint;
         toqueIzquierda.Reiniciar();
         toqueDerecha.Reiniciar();
+        toqueIzquierda2.Reiniciar();
+        toqueDerecha2.Reiniciar();
 
         if (mostrarDebug) Debug.Log("[Sprint] termino. Espera de " + cooldownSprint + "s");
     }

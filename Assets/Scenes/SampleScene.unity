@@ -8374,6 +8374,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoPersonaje
   teclaIzquierda: 61
   teclaDerecha: 62
+  teclaIzquierda2: 15
+  teclaDerecha2: 18
   teclaDash: 20
   velocidad: 5
   multiplicadorSprint: 1.8182

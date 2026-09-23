@@ -7346,7 +7346,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -8118,6 +8118,7 @@ GameObject:
   - component: {fileID: 582101487}
   - component: {fileID: 582101488}
   - component: {fileID: 582101489}
+  - component: {fileID: 582101490}
   m_Layer: 0
   m_Name: personaje
   m_TagString: Untagged
@@ -8275,8 +8276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aecf0e490cb560548ad9cf1fcdc31647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoPersonaje
-  velocidad: 3.5
-  multiplicadorSprint: 2
+  velocidad: 3.85
+  multiplicadorSprint: 1.8182
   duracionSprint: 8
   cooldownSprint: 3
   alturaSaltoPx: 120
@@ -8335,6 +8336,8 @@ MonoBehaviour:
   puntoDeReaparicion: {fileID: 0}
   regeneracion: 20
   intervaloRegeneracion: 5
+  colorGolpe: {r: 1, g: 0.45, b: 0.45, a: 1}
+  duracionDestello: 0.12
 --- !u!114 &582101489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8374,6 +8377,80 @@ MonoBehaviour:
   - frame: 6
     centro: {x: 0.85, y: -0.145}
     tamano: {x: 4.24, y: 1.83}
+--- !u!114 &582101490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582101481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ce18cadebfc224d982819808f69bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AtaqueSabiduria
+  tecla: 32
+  espera: 0.3
+  frames:
+  - {fileID: 21300000, guid: 9a7f98a15eb5a454eae0fb698adc30df, type: 3}
+  - {fileID: 21300000, guid: 77d8d4de58ab22d45b6bc1b4894774ea, type: 3}
+  - {fileID: 21300000, guid: a312d2ab843b54c41860faec384b73b2, type: 3}
+  - {fileID: 21300000, guid: 494e0e97fe48c3543908f828a836a49f, type: 3}
+  - {fileID: 21300000, guid: 1e62ca2a9ee201f4aa6023240f0cbf07, type: 3}
+  - {fileID: 21300000, guid: c2c6e124555383a4db3607b13f32cacb, type: 3}
+  - {fileID: 21300000, guid: 499ba2abf6252404186a62b3937d677b, type: 3}
+  - {fileID: 21300000, guid: 9e56c107ba1b5e64d80265f0c9962bd8, type: 3}
+  - {fileID: 21300000, guid: 933d7946ddfbc1c4b95863825da021c0, type: 3}
+  - {fileID: 21300000, guid: 18f8d21be8cddd34eb95daca0db7d3bd, type: 3}
+  - {fileID: 21300000, guid: 84bfab1580ca84f4c97d247ac3080553, type: 3}
+  - {fileID: 21300000, guid: 032b4fb0312902a4b82bef5239f72768, type: 3}
+  - {fileID: 21300000, guid: d2d2192209fb2714aa56991332846056, type: 3}
+  - {fileID: 21300000, guid: af2e91857a7240644a45fa5e76552510, type: 3}
+  - {fileID: 21300000, guid: 05ff927cc4f30934ea0573d3e6805189, type: 3}
+  - {fileID: 21300000, guid: 19be3787fce443742839f72e2d4af479, type: 3}
+  - {fileID: 21300000, guid: 73eb425450520fc44b083f44ce969f64, type: 3}
+  - {fileID: 21300000, guid: 73eb425450520fc44b083f44ce969f64, type: 3}
+  - {fileID: 21300000, guid: 73eb425450520fc44b083f44ce969f64, type: 3}
+  fps: 24
+  frameLanzamiento: 15
+  estela:
+  - {fileID: 21300000, guid: 7b161e1cbc3ab7a4687e72ddfe9c9cf5, type: 3}
+  - {fileID: 21300000, guid: 7b161e1cbc3ab7a4687e72ddfe9c9cf5, type: 3}
+  - {fileID: 21300000, guid: 7b161e1cbc3ab7a4687e72ddfe9c9cf5, type: 3}
+  - {fileID: 21300000, guid: 8c2ff6968be7ffe4f8558d4c2f5ff220, type: 3}
+  - {fileID: 21300000, guid: 8c2ff6968be7ffe4f8558d4c2f5ff220, type: 3}
+  - {fileID: 21300000, guid: 8c2ff6968be7ffe4f8558d4c2f5ff220, type: 3}
+  - {fileID: 21300000, guid: 1ce8dd3262d8d9d44814f9c10ae80654, type: 3}
+  - {fileID: 21300000, guid: 1ce8dd3262d8d9d44814f9c10ae80654, type: 3}
+  - {fileID: 21300000, guid: 8e0aac93eba629e4da642d25aeae38ca, type: 3}
+  - {fileID: 21300000, guid: 8e0aac93eba629e4da642d25aeae38ca, type: 3}
+  - {fileID: 21300000, guid: c8e21e82b802a5e45acda3f7935939c8, type: 3}
+  - {fileID: 21300000, guid: c8e21e82b802a5e45acda3f7935939c8, type: 3}
+  - {fileID: 21300000, guid: 4daba8675dd064d4d917f07ffcfecc8f, type: 3}
+  - {fileID: 21300000, guid: 4daba8675dd064d4d917f07ffcfecc8f, type: 3}
+  - {fileID: 21300000, guid: ed771d58e6fe21643a6e2b0d0e23fedd, type: 3}
+  - {fileID: 21300000, guid: ed771d58e6fe21643a6e2b0d0e23fedd, type: 3}
+  - {fileID: 21300000, guid: ed771d58e6fe21643a6e2b0d0e23fedd, type: 3}
+  - {fileID: 21300000, guid: ed771d58e6fe21643a6e2b0d0e23fedd, type: 3}
+  - {fileID: 21300000, guid: ed771d58e6fe21643a6e2b0d0e23fedd, type: 3}
+  colorEstela: {r: 0.85, g: 0.25, b: 0.27, a: 0.37}
+  opacidadSostenida: 0.6
+  bola: {fileID: 21300000, guid: d6cc6d59859d11c40823bffd46afb798, type: 3}
+  materialBrillo: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  salida: {x: 0.75, y: 0.3}
+  velocidad: 10
+  alcance: 14
+  danio: 25
+  giro: 240
+  radio: 0.3
+  anguloPunteria: 30
+  destellos:
+  - {fileID: 21300000, guid: ca16beac9d9de024e9fa4b1e202b5417, type: 3}
+  - {fileID: 21300000, guid: ab6abe0795bf59e478ab0e95b2a882f9, type: 3}
+  - {fileID: 21300000, guid: ddbac8c4331a6a44aa1b19d26ca441aa, type: 3}
+  - {fileID: 21300000, guid: 58f16acd1ecc1904faa5bf93088e6c24, type: 3}
+  - {fileID: 21300000, guid: 4f4d08e74ce95f64f9f54c7a96ea2afb, type: 3}
+  fpsDestello: 16
 --- !u!1 &590425783
 GameObject:
   m_ObjectHideFlags: 0
@@ -9997,7 +10074,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -13241,7 +13318,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

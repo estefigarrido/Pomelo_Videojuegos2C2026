@@ -8276,7 +8276,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aecf0e490cb560548ad9cf1fcdc31647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoPersonaje
-  velocidad: 3.85
+  teclaIzquierda: 61
+  teclaDerecha: 62
+  teclaDash: 20
+  velocidad: 5
   multiplicadorSprint: 1.8182
   duracionSprint: 8
   cooldownSprint: 3
@@ -8350,6 +8353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 775dc35c19dca934fb1a46f0ace38424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AtaqueLatigo
+  tecla: 31
   frames:
   - {fileID: 21300000, guid: 32b42742ba1d0124a8040a664df79bae, type: 3}
   - {fileID: 21300000, guid: 64c6c2be1e2f52047b8da893da0a4b34, type: 3}
@@ -8389,7 +8393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ce18cadebfc224d982819808f69bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AtaqueSabiduria
-  tecla: 32
+  tecla: 19
   espera: 0.3
   frames:
   - {fileID: 21300000, guid: 9a7f98a15eb5a454eae0fb698adc30df, type: 3}

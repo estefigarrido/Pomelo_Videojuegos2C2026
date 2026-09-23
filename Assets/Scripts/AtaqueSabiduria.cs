@@ -17,7 +17,7 @@ public class AtaqueSabiduria : MonoBehaviour
     }
 
     [Header("Control")]
-    [SerializeField] private Key tecla = Key.R;
+    [SerializeField] private Key tecla = Key.E;
     [Tooltip("Segundos de espera desde que termina un golpe hasta poder tirar otro.")]
     [SerializeField] private float espera = 0.3f;
 

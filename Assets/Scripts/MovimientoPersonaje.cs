@@ -5,11 +5,16 @@ using UnityEngine.InputSystem.Controls;
 [RequireComponent(typeof(Rigidbody2D))]
 public class MovimientoPersonaje : MonoBehaviour
 {
-    [Header("Correr  (A y D)")]
+    [Header("Teclas")]
+    [SerializeField] private Key teclaIzquierda = Key.LeftArrow;
+    [SerializeField] private Key teclaDerecha = Key.RightArrow;
+    [SerializeField] private Key teclaDash = Key.F;
+
+    [Header("Correr  (flechas izquierda y derecha)")]
     [Tooltip("En unidades por segundo. 1 unidad = 100 pixeles de pantalla, asi que 3.5 son 350 px/s.")]
     [SerializeField] private float velocidad = 3.5f;
 
-    [Header("Sprint  (doble toque de A o de D, o Shift + A/D)")]
+    [Header("Sprint  (doble toque de una flecha, o Shift + flecha)")]
     [Tooltip("2 = corre el doble de rapido que el correr normal.")]
     [SerializeField] private float multiplicadorSprint = 2f;
     [Tooltip("Cuantos segundos dura el sprint. Poner 0 para que no se apague solo.")]
@@ -33,7 +38,7 @@ public class MovimientoPersonaje : MonoBehaviour
     [Tooltip("Segundos que tarda el aterrizaje (frames 023-027) al tocar el piso.")]
     [SerializeField] private float duracionAterrizaje = 0.1f;
 
-    [Header("Dash  (E)")]
+    [Header("Dash  (F)")]
     [Tooltip("Distancia del dash, en pixeles (100 px = 1 unidad).")]
     [SerializeField] private float distanciaDashPx = 600f;
     [Tooltip("Segundos que tarda en recorrer esa distancia.")]
@@ -117,8 +122,8 @@ public class MovimientoPersonaje : MonoBehaviour
     private float finUltimoDash = -99f;
     private float gravedadNormal = 1f;
 
-    private readonly DetectorDobleToque toqueA = new DetectorDobleToque();
-    private readonly DetectorDobleToque toqueD = new DetectorDobleToque();
+    private readonly DetectorDobleToque toqueIzquierda = new DetectorDobleToque();
+    private readonly DetectorDobleToque toqueDerecha = new DetectorDobleToque();
 
     public bool SprintActivo => sprintActivo;
     public bool DashActivo => dashActivo;
@@ -155,21 +160,23 @@ public class MovimientoPersonaje : MonoBehaviour
         if (teclado == null) return;
 
         // el input se lee aca, en el frame exacto en que pasa
+        KeyControl izquierda = teclado[teclaIzquierda];
+        KeyControl derecha = teclado[teclaDerecha];
         direccion = 0f;
-        if (teclado.aKey.isPressed) direccion -= 1f;
-        if (teclado.dKey.isPressed) direccion += 1f;
+        if (izquierda.isPressed) direccion -= 1f;
+        if (derecha.isPressed) direccion += 1f;
 
-        bool dobleToqueA = toqueA.Evaluar(teclado.aKey, duracionMaximaToque, ventanaEntreToques);
-        bool dobleToqueD = toqueD.Evaluar(teclado.dKey, duracionMaximaToque, ventanaEntreToques);
+        bool dobleToqueIzquierda = toqueIzquierda.Evaluar(izquierda, duracionMaximaToque, ventanaEntreToques);
+        bool dobleToqueDerecha = toqueDerecha.Evaluar(derecha, duracionMaximaToque, ventanaEntreToques);
         // el sprint sale con doble toque o manteniendo Shift mientras camina; en los dos
         // casos dura lo mismo y despues hay que esperar igual
         bool conShift = teclado.shiftKey.isPressed && direccion != 0f;
-        if (dobleToqueA || dobleToqueD || conShift) ActivarSprint();
+        if (dobleToqueIzquierda || dobleToqueDerecha || conShift) ActivarSprint();
 
         ApagarSprintSiSeVencio();
 
         // DASH: se puede siempre, en el piso o en el aire, respetando la espera
-        if (teclado.eKey.wasPressedThisFrame && PuedeDashear()) pedidoDash = true;
+        if (teclado[teclaDash].wasPressedThisFrame && PuedeDashear()) pedidoDash = true;
 
         if (dashActivo)
         {
@@ -181,7 +188,7 @@ public class MovimientoPersonaje : MonoBehaviour
             LeerSalto(teclado);
         }
 
-        // La animacion de correr va siempre que se mueva, con A o D sola.
+        // La animacion de correr va siempre que se mueva, con una flecha sola.
         // El sprint no cambia la animacion, solo la velocidad.
         if (animator != null) animator.SetBool("sprint", direccion != 0f);
 
@@ -289,8 +296,8 @@ public class MovimientoPersonaje : MonoBehaviour
 
         sprintActivo = false;
         finCooldown = Time.time + cooldownSprint;
-        toqueA.Reiniciar();
-        toqueD.Reiniciar();
+        toqueIzquierda.Reiniciar();
+        toqueDerecha.Reiniciar();
 
         if (mostrarDebug) Debug.Log("[Sprint] termino. Espera de " + cooldownSprint + "s");
     }

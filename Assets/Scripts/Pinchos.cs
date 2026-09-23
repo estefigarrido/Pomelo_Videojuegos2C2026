@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// Los pinchos son solidos: la chica camina por encima (no los atraviesa) y mientras los toca
+// recibe dano cada 'intervalo' segundos. Sirve tanto con collider solido como con trigger.
 [RequireComponent(typeof(Collider2D))]
 public class Pinchos : MonoBehaviour
 {
@@ -11,29 +13,31 @@ public class Pinchos : MonoBehaviour
     private SaludPersonaje victima;
     private float proximoGolpe;
 
-    private void Reset()
-    {
-        GetComponent<Collider2D>().isTrigger = true;
-    }
+    private void OnCollisionEnter2D(Collision2D choque) => Entrar(choque.collider);
+    private void OnCollisionExit2D(Collision2D choque) => Salir(choque.collider);
+    private void OnTriggerEnter2D(Collider2D otro) => Entrar(otro);
+    private void OnTriggerExit2D(Collider2D otro) => Salir(otro);
 
-    private void OnTriggerEnter2D(Collider2D otro)
+    private void Entrar(Collider2D otro)
     {
         var salud = otro.GetComponentInParent<SaludPersonaje>();
         if (salud == null) return;
 
+        bool nuevo = victima != salud;
         victima = salud;
-        Golpear();
+        if (nuevo && Time.time >= proximoGolpe) Golpear();
     }
 
-    private void OnTriggerStay2D(Collider2D otro)
+    private void Salir(Collider2D otro)
     {
-        if (victima == null || otro.GetComponentInParent<SaludPersonaje>() != victima) return;
-        if (Time.time >= proximoGolpe) Golpear();
+        if (victima != null && otro.GetComponentInParent<SaludPersonaje>() == victima) victima = null;
     }
 
-    private void OnTriggerExit2D(Collider2D otro)
+    // Se controla aca y no con OnCollisionStay2D: si la chica se queda quieta, la fisica
+    // la "duerme" y deja de avisar el contacto, pero sigue parada sobre los pinchos.
+    private void Update()
     {
-        if (otro.GetComponentInParent<SaludPersonaje>() == victima) victima = null;
+        if (victima != null && Time.time >= proximoGolpe) Golpear();
     }
 
     private void Golpear()

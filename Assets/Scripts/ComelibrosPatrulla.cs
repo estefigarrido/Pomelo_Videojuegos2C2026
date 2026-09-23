@@ -18,6 +18,9 @@ public class ComelibrosPatrulla : MonoBehaviour
     private SpriteRenderer dibujo;
     private float sentido = 1f;
 
+    public float XMinimo => xMinimo;
+    public float XMaximo => xMaximo;
+
     public void ConfigurarRecorrido(float minimo, float maximo)
     {
         xMinimo = Mathf.Min(minimo, maximo);

@@ -24,6 +24,8 @@ public class PajaroRevoloteo : MonoBehaviour
     private Vector2 direccion;
     private Vector2 radiosUtiles;
 
+    public Vector2 CentroZona => centroZona;
+
     public void ConfigurarZona(Vector2 centro, Vector2 radios)
     {
         centroZona = centro;

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4daba8675dd064d4d917f07ffcfecc8f
+guid: 94a56bece41124345a244bab6f3eba6b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4176266018145675638
-    second: estela_012_0
+      213: 4157459394558496409
+    second: bola de sabiduria_estela_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,8 +50,8 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 9
-  spritePivot: {x: 0.50062, y: 0.32406}
-  spritePixelsToUnits: 335.36148
+  spritePivot: {x: 0.7717391, y: 0.50044346}
+  spritePixelsToUnits: 359
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -100,12 +100,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: estela_012_0
+      name: bola de sabiduria_estela_0
       rect:
         serializedVersion: 2
-        x: 94
-        y: 403
-        width: 386
+        x: 141
+        y: 77
+        width: 848
         height: 296
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a8654ecee2cea06c0800000000000000
-      internalID: -4176266018145675638
+      spriteID: 99e05ccca4342b930800000000000000
+      internalID: 4157459394558496409
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      estela_012_0: -4176266018145675638
+      bola de sabiduria_estela_0: 4157459394558496409
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -5040,7 +5040,7 @@ Transform:
   m_GameObject: {fileID: 300479982}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.042573165, w: 0.99909335}
-  m_LocalPosition: {x: 32.14, y: 21.103996, z: 0}
+  m_LocalPosition: {x: 31.43, y: 21.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5058,9 +5058,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4197dee60c2e0459dd757a67215859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComelibrosPatrulla
-  xMinimo: 24.85
-  xMaximo: 37.5
-  velocidad: 1.5
+  xMinimo: 22
+  xMaximo: 40.8
+  velocidad: 2.5
   dibujoMiraIzquierda: 1
 --- !u!95 &300479985
 Animator:
@@ -5178,11 +5178,11 @@ MonoBehaviour:
   fps: 8
   frameMordida: 3
   centroAgro: {x: 0.0051600933, y: 0.71000004}
-  tamanoAgro: {x: 6.9336004, y: 1.702}
+  tamanoAgro: {x: 18.97, y: 1.702}
   duracionAgro: 10
   danio: 20
-  esperaEntreMordidas: 0.6
-  velocidadAtaque: 2.5
+  esperaEntreMordidas: 0.3
+  velocidadAtaque: 1
   dibujoMiraIzquierda: 1
 --- !u!70 &300479990
 CapsuleCollider2D:
@@ -6571,7 +6571,7 @@ Transform:
   m_GameObject: {fileID: 495036882}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.042573165, w: 0.99909335}
-  m_LocalPosition: {x: 11.5075, y: 7.055996, z: 0}
+  m_LocalPosition: {x: 11.33, y: 7.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6589,9 +6589,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4197dee60c2e0459dd757a67215859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComelibrosPatrulla
-  xMinimo: 6.908
-  xMaximo: 16.106998
-  velocidad: 1.5
+  xMinimo: 2.1
+  xMaximo: 19
+  velocidad: 2.5
   dibujoMiraIzquierda: 1
 --- !u!95 &495036885
 Animator:
@@ -6708,12 +6708,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: aa0303759872a864b91557cd94db843c, type: 3}
   fps: 8
   frameMordida: 3
-  centroAgro: {x: 0.0051600933, y: 0.71000004}
-  tamanoAgro: {x: 6.9336004, y: 1.702}
+  centroAgro: {x: -0.71, y: 0.71000004}
+  tamanoAgro: {x: 17.3, y: 1.702}
   duracionAgro: 10
   danio: 20
-  esperaEntreMordidas: 0.6
-  velocidadAtaque: 2.5
+  esperaEntreMordidas: 0.3
+  velocidadAtaque: 1
   dibujoMiraIzquierda: 1
 --- !u!70 &495036890
 CapsuleCollider2D:
@@ -7015,7 +7015,7 @@ Transform:
   m_GameObject: {fileID: 513564652}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.042573165, w: 0.99909335}
-  m_LocalPosition: {x: 48.38, y: 21.103996, z: 0}
+  m_LocalPosition: {x: 49.93, y: 21.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7033,9 +7033,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4197dee60c2e0459dd757a67215859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComelibrosPatrulla
-  xMinimo: 41
-  xMaximo: 57.73
-  velocidad: 1.5
+  xMinimo: 40.6
+  xMaximo: 59.1
+  velocidad: 2.5
   dibujoMiraIzquierda: 1
 --- !u!95 &513564655
 Animator:
@@ -7153,11 +7153,11 @@ MonoBehaviour:
   fps: 8
   frameMordida: 3
   centroAgro: {x: 0.0051600933, y: 0.71000004}
-  tamanoAgro: {x: 6.9336004, y: 1.702}
+  tamanoAgro: {x: 18.97, y: 1.702}
   duracionAgro: 10
   danio: 20
-  esperaEntreMordidas: 0.6
-  velocidadAtaque: 2.5
+  esperaEntreMordidas: 0.3
+  velocidadAtaque: 1
   dibujoMiraIzquierda: 1
 --- !u!70 &513564660
 CapsuleCollider2D:
@@ -8134,7 +8134,7 @@ Transform:
   m_GameObject: {fileID: 582101481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.74, y: 22.9, z: 0}
+  m_LocalPosition: {x: -9.73, y: 7.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14100,7 +14100,7 @@ Transform:
   m_GameObject: {fileID: 1522489946}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.042573165, w: 0.99909335}
-  m_LocalPosition: {x: -5.482, y: 3.8399959, z: 0}
+  m_LocalPosition: {x: -5.76, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14118,8 +14118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4197dee60c2e0459dd757a67215859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComelibrosPatrulla
-  xMinimo: -6.542
-  xMaximo: -4.422
+  xMinimo: -9.31
+  xMaximo: -2.21
   velocidad: 1.5
   dibujoMiraIzquierda: 1
 --- !u!95 &1522489949
@@ -14238,11 +14238,11 @@ MonoBehaviour:
   fps: 8
   frameMordida: 3
   centroAgro: {x: 0.0051600933, y: 0.71000004}
-  tamanoAgro: {x: 6.9336004, y: 1.702}
+  tamanoAgro: {x: 7.13, y: 1.702}
   duracionAgro: 10
   danio: 20
-  esperaEntreMordidas: 0.6
-  velocidadAtaque: 2.5
+  esperaEntreMordidas: 0.3
+  velocidadAtaque: 1
   dibujoMiraIzquierda: 1
 --- !u!70 &1522489954
 CapsuleCollider2D:
@@ -17186,7 +17186,7 @@ Transform:
   m_GameObject: {fileID: 1898961555}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.042573165, w: 0.99909335}
-  m_LocalPosition: {x: 24.604, y: 4.928996, z: 0}
+  m_LocalPosition: {x: 24.614002, y: 5.0649996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17327,8 +17327,8 @@ MonoBehaviour:
   tamanoAgro: {x: 6.9336004, y: 1.702}
   duracionAgro: 10
   danio: 20
-  esperaEntreMordidas: 0.6
-  velocidadAtaque: 2.5
+  esperaEntreMordidas: 0.3
+  velocidadAtaque: 1
   dibujoMiraIzquierda: 1
 --- !u!70 &1898961563
 CapsuleCollider2D:

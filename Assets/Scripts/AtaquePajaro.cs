@@ -1,11 +1,12 @@
 using UnityEngine;
 
-// Cuando la chica entra al rango de agro: anticipacion en el lugar, picada hacia donde
-// estaba la chica y vuelta volando a su zona. Pega si las hitboxes se tocan durante la picada.
+// Cuando la chica entra al rango de agro, queda enganchado durante 'duracionAgro' segundos
+// y encadena ataques completos: anticipacion -> picada hacia donde estaba la chica -> remonte.
+// Al terminar la ventana, completa el ataque en curso y vuelve volando a su zona.
 [RequireComponent(typeof(PajaroRevoloteo))]
 public class AtaquePajaro : MonoBehaviour
 {
-    private enum Fase { Revoloteando, Anticipacion, Picada, Regreso }
+    private enum Fase { Revoloteando, Anticipacion, Picada, Remonte, Regreso }
 
     [Header("Animaciones")]
     [SerializeField] private Sprite[] framesAnticipacion;
@@ -15,15 +16,21 @@ public class AtaquePajaro : MonoBehaviour
 
     [Header("Rango de agro (circulo centrado en el pajaro)")]
     [SerializeField] private float radioAgro = 1.85f;
+    [Tooltip("Segundos que sigue atacando desde que la chica entra al agro, aunque se aleje.")]
+    [SerializeField] private float duracionAgro = 10f;
 
     [Header("Ataque")]
     [Tooltip("Vida que le saca a la chica por picada (su vida maxima es 100).")]
     [SerializeField] private float danio = 20f;
     [Tooltip("Velocidad de la picada (unidades por segundo).")]
     [SerializeField] private float velocidadPicada = 9f;
-    [Tooltip("Velocidad con la que vuelve a su zona despues de atacar.")]
+    [Tooltip("Distancia maxima de cada picada: si la chica esta mas lejos, se tira hacia ella pero sin irse de su zona.")]
+    [SerializeField] private float alcancePicada = 4f;
+    [Tooltip("Segundos que remonta (hacia su zona) despues de cada picada, antes de la siguiente.")]
+    [SerializeField] private float tiempoRemonte = 0.8f;
+    [Tooltip("Velocidad al remontar y al volver a su zona.")]
     [SerializeField] private float velocidadRegreso = 4f;
-    [Tooltip("Segundos de espera, ya de vuelta en su zona, antes de poder atacar otra vez.")]
+    [Tooltip("Segundos de espera, ya de vuelta en su zona, antes de poder engancharse otra vez.")]
     [SerializeField] private float espera = 1.5f;
     [Tooltip("El dibujo original mira hacia la derecha.")]
     [SerializeField] private bool dibujoMiraDerecha = true;
@@ -36,6 +43,7 @@ public class AtaquePajaro : MonoBehaviour
 
     private Fase fase = Fase.Revoloteando;
     private float inicioFase;
+    private float finAgro;
     private float libreDesde;
     private Vector2 objetivo;
     private bool pego;
@@ -64,8 +72,8 @@ public class AtaquePajaro : MonoBehaviour
             case Fase.Revoloteando:
                 if (Time.time >= libreDesde && VictimaEnAgro())
                 {
+                    finAgro = Time.time + duracionAgro;
                     revoloteo.enabled = false;
-                    MirarHacia(hitboxVictima.bounds.center.x);
                     CambiarFase(Fase.Anticipacion);
                 }
                 break;
@@ -74,7 +82,8 @@ public class AtaquePajaro : MonoBehaviour
                 MirarHacia(hitboxVictima.bounds.center.x);
                 if (Time.time - inicioFase >= Duracion(framesAnticipacion, fpsAnticipacion))
                 {
-                    objetivo = hitboxVictima.bounds.center;
+                    Vector2 desde = transform.position;
+                    objetivo = desde + Vector2.ClampMagnitude((Vector2)hitboxVictima.bounds.center - desde, alcancePicada);
                     pego = false;
                     CambiarFase(Fase.Picada);
                 }
@@ -88,7 +97,18 @@ public class AtaquePajaro : MonoBehaviour
                     pego = true;
                     victima.RecibirDanio(danio);
                 }
-                if (pego || Vector2.Distance(transform.position, objetivo) < 0.05f) CambiarFase(Fase.Regreso);
+                // La picada sigue de largo hasta el objetivo aunque ya haya pegado, y no se corta
+                // antes de mostrar la animacion completa.
+                float enPicada = Time.time - inicioFase;
+                bool llego = Vector2.Distance(transform.position, objetivo) < 0.05f;
+                if ((llego && enPicada >= Duracion(framesPicada, fpsPicada)) || enPicada > 2f) CambiarFase(Fase.Remonte);
+                break;
+
+            case Fase.Remonte:
+                MirarHacia(revoloteo.CentroZona.x);
+                Mover(revoloteo.CentroZona, velocidadRegreso);
+                if (Time.time - inicioFase >= tiempoRemonte)
+                    CambiarFase(Time.time < finAgro ? Fase.Anticipacion : Fase.Regreso);
                 break;
 
             case Fase.Regreso:

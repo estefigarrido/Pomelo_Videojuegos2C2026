@@ -1,24 +1,32 @@
 using UnityEngine;
 
-// Cuando la chica entra al rango de agro, deja de patrullar, se da vuelta hacia ella,
-// se acerca (sin salir de su recorrido) y muerde en loop. Pega si las hitboxes se tocan.
+// Cuando la chica entra al rango de agro, queda enganchado durante 'duracionAgro' segundos
+// (aunque ella salga del rango): la persigue dentro de su recorrido y muerde cada vez que la
+// alcanza. Cada mordida es la animacion completa; el dano entra en el frame de la mordida
+// si las hitboxes se tocan. Al terminar la ventana, completa la mordida en curso y vuelve a patrullar.
 [RequireComponent(typeof(ComelibrosPatrulla))]
 public class AtaqueComelibros : MonoBehaviour
 {
+    private enum Estado { Patrullando, Persiguiendo, Mordiendo }
+
     [Header("Animacion (comelibros-ataque)")]
     [SerializeField] private Sprite[] frames;
     [SerializeField] private float fps = 8f;
+    [Tooltip("Frame de la animacion en el que muerde (saca las pinzas). Empieza en 1.")]
+    [SerializeField] private int frameMordida = 3;
 
     [Header("Rango de agro (capsula horizontal, relativa al comelibros)")]
     [SerializeField] private Vector2 centroAgro = new Vector2(0f, 0.72f);
     [SerializeField] private Vector2 tamanoAgro = new Vector2(6.9f, 1.7f);
+    [Tooltip("Segundos que sigue atacando desde que la chica entra al agro, aunque se aleje.")]
+    [SerializeField] private float duracionAgro = 10f;
 
     [Header("Ataque")]
     [Tooltip("Vida que le saca a la chica por mordida (su vida maxima es 100).")]
     [SerializeField] private float danio = 20f;
-    [Tooltip("Segundos entre mordida y mordida mientras siguen tocandose.")]
-    [SerializeField] private float esperaEntreGolpes = 1f;
-    [Tooltip("Velocidad con la que se acerca a la chica (unidades por segundo).")]
+    [Tooltip("Pausa entre una mordida y la siguiente.")]
+    [SerializeField] private float esperaEntreMordidas = 0.6f;
+    [Tooltip("Velocidad con la que la persigue (unidades por segundo).")]
     [SerializeField] private float velocidadAtaque = 2.5f;
     [Tooltip("El dibujo original mira hacia la izquierda.")]
     [SerializeField] private bool dibujoMiraIzquierda = true;
@@ -28,11 +36,14 @@ public class AtaqueComelibros : MonoBehaviour
     private Collider2D hitbox;
     private SaludPersonaje victima;
     private Collider2D hitboxVictima;
-    private bool atacando;
-    private float inicioAtaque;
-    private float proximoGolpe;
 
-    public bool Atacando => atacando;
+    private Estado estado = Estado.Patrullando;
+    private float finAgro;
+    private float inicioMordida;
+    private float proximaMordida;
+    private bool mordidaAplicada;
+
+    public bool Atacando => estado != Estado.Patrullando;
 
     private void Awake()
     {
@@ -49,44 +60,77 @@ public class AtaqueComelibros : MonoBehaviour
 
     private void Update()
     {
-        if (hitboxVictima == null) return;
+        if (hitboxVictima == null || hitbox == null) return;
 
-        if (!VictimaEnAgro())
+        switch (estado)
         {
-            if (atacando) { atacando = false; patrulla.enabled = true; }
-            return;
-        }
+            case Estado.Patrullando:
+                if (VictimaEnAgro())
+                {
+                    finAgro = Time.time + duracionAgro;
+                    proximaMordida = Time.time;
+                    patrulla.enabled = false;
+                    estado = Estado.Persiguiendo;
+                }
+                break;
 
-        if (!atacando)
-        {
-            atacando = true;
-            inicioAtaque = Time.time;
-            patrulla.enabled = false;
-        }
+            case Estado.Persiguiendo:
+                if (Time.time >= finAgro)
+                {
+                    patrulla.enabled = true;
+                    estado = Estado.Patrullando;
+                    break;
+                }
+                MirarHaciaVictima();
+                if (Tocando())
+                {
+                    if (Time.time >= proximaMordida)
+                    {
+                        inicioMordida = Time.time;
+                        mordidaAplicada = false;
+                        estado = Estado.Mordiendo;
+                    }
+                }
+                else
+                {
+                    Vector3 p = transform.position;
+                    p.x = Mathf.MoveTowards(p.x, hitboxVictima.bounds.center.x, velocidadAtaque * Time.deltaTime);
+                    p.x = Mathf.Clamp(p.x, patrulla.XMinimo, patrulla.XMaximo);
+                    transform.position = p;
+                }
+                break;
 
-        float objetivoX = hitboxVictima.bounds.center.x;
-        bool tocando = hitbox != null && hitbox.Distance(hitboxVictima).isOverlapped;
-
-        Vector3 p = transform.position;
-        if (!tocando)
-        {
-            p.x = Mathf.MoveTowards(p.x, objetivoX, velocidadAtaque * Time.deltaTime);
-            p.x = Mathf.Clamp(p.x, patrulla.XMinimo, patrulla.XMaximo);
-            transform.position = p;
-        }
-        if (dibujo != null) dibujo.flipX = dibujoMiraIzquierda ? objetivoX > p.x : objetivoX < p.x;
-
-        if (tocando && Time.time >= proximoGolpe)
-        {
-            victima.RecibirDanio(danio);
-            proximoGolpe = Time.time + esperaEntreGolpes;
+            case Estado.Mordiendo:
+                int frame = FrameMordida();
+                if (!mordidaAplicada && frame >= frameMordida)
+                {
+                    mordidaAplicada = true;
+                    if (Tocando()) victima.RecibirDanio(danio);
+                }
+                if (frame > frames.Length)
+                {
+                    proximaMordida = Time.time + esperaEntreMordidas;
+                    estado = Estado.Persiguiendo;
+                }
+                break;
         }
     }
 
     private void LateUpdate()
     {
-        if (atacando && frames != null && frames.Length > 0)
-            dibujo.sprite = frames[Mathf.FloorToInt((Time.time - inicioAtaque) * fps) % frames.Length];
+        if (estado == Estado.Mordiendo && frames != null && frames.Length > 0)
+            dibujo.sprite = frames[Mathf.Clamp(FrameMordida() - 1, 0, frames.Length - 1)];
+    }
+
+    private int FrameMordida() => Mathf.FloorToInt((Time.time - inicioMordida) * fps) + 1;
+
+    private bool Tocando() => hitbox.Distance(hitboxVictima).isOverlapped;
+
+    private void MirarHaciaVictima()
+    {
+        if (dibujo == null) return;
+        float x = hitboxVictima.bounds.center.x;
+        dibujo.flipX = dibujoMiraIzquierda ? x > transform.position.x : x < transform.position.x;
     }
 
     private bool VictimaEnAgro()

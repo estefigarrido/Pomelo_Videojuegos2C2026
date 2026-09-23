@@ -7,7 +7,7 @@ public class SaludPersonaje : MonoBehaviour
     [SerializeField] private Transform puntoDeReaparicion;
 
     private float vida;
-    private Vector3 posicionInicial;
+    private Vector3 puntoGuardado;
     private Rigidbody2D rb;
 
     public float Vida => vida;
@@ -16,7 +16,7 @@ public class SaludPersonaje : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        posicionInicial = transform.position;
+        puntoGuardado = transform.position;
         vida = vidaMaxima;
     }
 
@@ -35,9 +35,17 @@ public class SaludPersonaje : MonoBehaviour
         puntoDeReaparicion = punto;
     }
 
+    // guarda una posicion fija (el checkpoint se mueve y despues desaparece)
+    public void DefinirPuntoDeReaparicion(Vector3 posicion)
+    {
+        puntoDeReaparicion = null;
+        puntoGuardado = posicion;
+        Debug.Log("[Vida] nuevo punto de reaparicion: " + posicion);
+    }
+
     private void Morir()
     {
-        Vector3 destino = puntoDeReaparicion != null ? puntoDeReaparicion.position : posicionInicial;
+        Vector3 destino = puntoDeReaparicion != null ? puntoDeReaparicion.position : puntoGuardado;
         Debug.Log("[Vida] murio, reaparece en " + destino);
 
         transform.position = destino;

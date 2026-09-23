@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: ce5d3f39b10595943a433b117b1b25fe
+guid: f22a1e34ffd487e4198e3336a41a9f56
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3002081082422247221
-    second: LUCES_0
+      213: -1458668061080441324
+    second: particles-01_0
   - first:
-      213: -6400766255711240402
-    second: LUCES_1
+      213: 3575506309839264983
+    second: particles-01_1
   - first:
-      213: 5311424033623142132
-    second: LUCES_2
+      213: -8986241259269279661
+    second: particles-01_2
+  - first:
+      213: 5248932992193947782
+    second: particles-01_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -78,7 +81,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -106,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LUCES_0
+      name: particles-01_0
       rect:
         serializedVersion: 2
-        x: 4351
-        y: 0
-        width: 7517
-        height: 9346
+        x: 105
+        y: 123
+        width: 51
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bc04d4749277656d0800000000000000
-      internalID: -3002081082422247221
+      spriteID: 41ea7167025c1cbe0800000000000000
+      internalID: -1458668061080441324
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LUCES_1
+      name: particles-01_1
       rect:
         serializedVersion: 2
-        x: 9230
-        y: 0
-        width: 7028
-        height: 9346
+        x: 168
+        y: 152
+        width: 33
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e2f360ec009eb27a0800000000000000
-      internalID: -6400766255711240402
+      spriteID: 7dc13228b00ce9130800000000000000
+      internalID: 3575506309839264983
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LUCES_2
+      name: particles-01_2
       rect:
         serializedVersion: 2
-        x: 14201
-        y: 0
-        width: 5439
-        height: 9346
+        x: 237
+        y: 100
+        width: 37
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,8 +168,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4fe64977408f5b940800000000000000
-      internalID: 5311424033623142132
+      spriteID: 350bb439f257a4380800000000000000
+      internalID: -8986241259269279661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: particles-01_3
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 95
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6886c811fb4f7d840800000000000000
+      internalID: 5248932992193947782
       vertices: []
       indices: 
       edges: []
@@ -175,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -185,9 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      LUCES_0: -3002081082422247221
-      LUCES_1: -6400766255711240402
-      LUCES_2: 5311424033623142132
+      particles-01_0: -1458668061080441324
+      particles-01_1: 3575506309839264983
+      particles-01_2: -8986241259269279661
+      particles-01_3: 5248932992193947782
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

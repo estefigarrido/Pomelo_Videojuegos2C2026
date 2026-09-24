@@ -28,6 +28,13 @@ public class SaludPersonaje : MonoBehaviour
     public float Vida => vida;
     public float VidaMaxima => vidaMaxima;
 
+    // Avisa cuando muere, antes de reaparecer (la pelea con Umbrae lo usa).
+    public event System.Action AlMorir;
+    private Vector3? reaparicionUnaVez;
+
+    // Solo para la proxima muerte: reaparece aca en vez del ultimo checkpoint.
+    public void ReaparecerUnaVezEn(Vector3 posicion) => reaparicionUnaVez = posicion;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -84,7 +91,9 @@ public class SaludPersonaje : MonoBehaviour
 
     private void Morir()
     {
-        Vector3 destino = puntoDeReaparicion != null ? puntoDeReaparicion.position : puntoGuardado;
+        AlMorir?.Invoke();
+        Vector3 destino = reaparicionUnaVez ?? (puntoDeReaparicion != null ? puntoDeReaparicion.position : puntoGuardado);
+        reaparicionUnaVez = null;
         Debug.Log("[Vida] murio, reaparece en " + destino);
 
         transform.position = destino;

@@ -4,6 +4,8 @@ using UnityEngine;
 //  - las primeras veces reaparece en el medio de la arena ('reaparicion') y la pelea sigue.
 //  - a la tercera, reaparece en el ultimo spawnpoint que agarro y la pelea se reinicia
 //    (Umbrae vuelve a su lugar con la vida llena).
+//  - despues de 'reiniciosAntesDeVolverAlInicio' reinicios, la vez siguiente que pierde vuelve al primer
+//    spawnpoint del nivel y reaparecen todos los mobs (lo hace ReinicioNivel).
 [RequireComponent(typeof(ZonaCamaraFija))]
 public class PeleaUmbrae : MonoBehaviour
 {
@@ -12,10 +14,14 @@ public class PeleaUmbrae : MonoBehaviour
     [SerializeField] private Transform reaparicion;
     [Tooltip("A esta cantidad de muertes vuelve al ultimo spawnpoint y se reinicia la pelea.")]
     [SerializeField] private int muertesParaReiniciar = 3;
+    [Tooltip("Cuantas veces se puede reiniciar la pelea. La siguiente vez que la pierde, vuelve al primer spawnpoint y reaparecen todos los mobs.")]
+    [SerializeField] private int reiniciosAntesDeVolverAlInicio = 3;
+    [SerializeField] private ReinicioNivel reinicioNivel;
 
     private ZonaCamaraFija zona;
     private SaludPersonaje salud;
     private int muertes;
+    private int reinicios;
 
     private void Start()
     {
@@ -41,12 +47,23 @@ public class PeleaUmbrae : MonoBehaviour
             return;
         }
 
-        // tercera muerte: vuelve al ultimo spawnpoint (lo hace SaludPersonaje solo) y se reinicia todo
+        // tercera muerte: se reinicia la pelea (Umbrae a su lugar con la vida llena)
         muertes = 0;
+        reinicios++;
         jefe.Reiniciar();
         var vida = jefe.GetComponent<VidaEnemigo>();
         if (vida != null) vida.Reiniciar();
-        Debug.Log("[Pelea Umbrae] " + muertesParaReiniciar + " muertes: vuelve al spawnpoint y se reinicia la pelea");
+
+        if (reinicioNivel != null && reinicios > reiniciosAntesDeVolverAlInicio)
+        {
+            // perdio la pelea una vez mas despues de los reinicios: vuelve al primer spawnpoint y reaparecen los mobs
+            reinicios = 0;
+            reinicioNivel.VolverAlInicio(salud);
+            Debug.Log("[Pelea Umbrae] se perdio la pelea " + (reiniciosAntesDeVolverAlInicio + 1) + " veces: vuelve al inicio del nivel");
+            return;
+        }
+        // vuelve al ultimo spawnpoint (lo hace SaludPersonaje solo)
+        Debug.Log("[Pelea Umbrae] " + muertesParaReiniciar + " muertes: vuelve al spawnpoint y se reinicia la pelea (reinicio " + reinicios + " de " + reiniciosAntesDeVolverAlInicio + ")");
     }
 
     private void OnDrawGizmos()

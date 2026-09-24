@@ -11665,6 +11665,8 @@ MonoBehaviour:
   jefe: {fileID: 646305525}
   reaparicion: {fileID: 1840736611}
   muertesParaReiniciar: 3
+  reiniciosAntesDeVolverAlInicio: 3
+  reinicioNivel: {fileID: 1891578454}
 --- !u!1 &841153301
 GameObject:
   m_ObjectHideFlags: 0
@@ -12925,6 +12927,7 @@ Transform:
   - {fileID: 1936111576}
   - {fileID: 802381104}
   - {fileID: 213537413}
+  - {fileID: 1891578455}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1093230048
@@ -19239,6 +19242,51 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 4.105
+--- !u!1 &1891578453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1891578455}
+  - component: {fileID: 1891578454}
+  m_Layer: 0
+  m_Name: Reinicio del nivel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1891578454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891578453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f263914a24dac214dbb748b2e21a946f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReinicioNivel
+  primerSpawnpoint: {fileID: 385919873}
+--- !u!4 &1891578455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891578453}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1019174294}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1898961555
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public static class PonerFondo
     private const string Origen = @"D:\AAVIDEOJUEGOS\fondoultimo.png";
     private const string Destino = "Assets/Assets/fondoultimo.png";
     private const string NombreObjeto = "Fondo";
-    private const int OrdenDelFondo = -10;   // el mapa esta en 0 y las piedras en -1
+    private const int OrdenDelFondo = -20;   // el mapa esta en 0, las piedras en -1 y la puerta del portal en -12
     private const int TamanoMaximo = 8192;
 
     // El fondo y el mapa salen del mismo diseno, asi que van a la misma escala: PPU 100.
@@ -41,11 +41,13 @@ public static class PonerFondo
         AssetDatabase.ImportAsset(Destino, ImportAssetOptions.ForceUpdate);
 
         // 2. el mapa manda: el fondo tiene que medir lo mismo de ancho
-        var suelo = GameObject.Find("Ground");
+        // (el dibujo del mapa es "Piso", adentro del grupo "Ground")
+        var suelo = GameObject.Find("Piso");
+        if (suelo == null) suelo = GameObject.Find("Ground");
         var srSuelo = suelo != null ? suelo.GetComponent<SpriteRenderer>() : null;
         if (srSuelo == null || srSuelo.sprite == null)
         {
-            Debug.LogError("No encontre el objeto Ground con su sprite para tomarle la medida.");
+            Debug.LogError("No encontre el objeto Piso (dentro de Ground) con su sprite para tomarle la medida.");
             return;
         }
         float anchoMapa = srSuelo.sprite.bounds.size.x;
@@ -93,12 +95,20 @@ public static class PonerFondo
         }
 
         // 3. ponerlo en la escena, centrado con el mapa
+        // si ya habia un fondo (suelto o dentro de un grupo como "Fondo y ambiente"), se reemplaza en el mismo lugar
         var escena = EditorSceneManager.GetActiveScene();
+        Transform grupo = null;
         foreach (var raiz in escena.GetRootGameObjects())
-            if (raiz.name == NombreObjeto) Undo.DestroyObjectImmediate(raiz);
+            foreach (var t in raiz.GetComponentsInChildren<Transform>(true))
+                if (t != null && t.name == NombreObjeto && t.GetComponent<SpriteRenderer>() != null)
+                {
+                    grupo = t.parent;
+                    Undo.DestroyObjectImmediate(t.gameObject);
+                }
 
         var fondo = new GameObject(NombreObjeto);
         Undo.RegisterCreatedObjectUndo(fondo, "Poner el fondo");
+        if (grupo != null) fondo.transform.SetParent(grupo, false);
 
         // la esquina de arriba a la izquierda del mapa, corrida lo que midio la referencia
         Vector2 esquinaMapa = new Vector2(srSuelo.bounds.min.x, srSuelo.bounds.max.y);

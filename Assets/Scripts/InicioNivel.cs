@@ -32,6 +32,7 @@ public class InicioNivel : MonoBehaviour
     private Transform chica;
     private SpriteRenderer dibujoChica;
     private SpriteMask mascaraChica;
+    private float bordeCerrada = float.NaN;
 
     private void Start()
     {
@@ -136,12 +137,15 @@ public class InicioNivel : MonoBehaviour
         AcomodarMascaraChica();
     }
 
-    // tapa a la chica en el hueco de la puerta (y un poco mas abajo, hasta el piso)
+    // tapa a la chica en el hueco de la puerta. Con la puerta cerrada tapa tambien un poco mas abajo
+    // (los pies, que quedan debajo del borde de la puerta); ese margen se va apenas la puerta empieza a subir.
     private void AcomodarMascaraChica()
     {
         if (mascaraChica == null) return;
         Bounds b = puerta.bounds;
-        float arriba = b.max.y, abajo = b.min.y - 0.6f;
+        if (float.IsNaN(bordeCerrada)) bordeCerrada = b.min.y;
+        float subio = b.min.y - bordeCerrada;
+        float arriba = b.max.y, abajo = Mathf.Min(b.min.y, bordeCerrada - 0.6f + subio * 2f);
         mascaraChica.transform.position = new Vector3(b.center.x, (arriba + abajo) / 2f, 0f);
         mascaraChica.transform.localScale = new Vector3(b.size.x, arriba - abajo, 1f);
     }

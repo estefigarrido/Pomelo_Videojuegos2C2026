@@ -58,7 +58,8 @@ public class InicioNivel : MonoBehaviour
         if (rb != null) { rb.linearVelocity = Vector2.zero; rb.simulated = false; }
 
         // parada adentro del portal, de frente, mirando hacia la derecha al terminar
-        chica.position = new Vector3(posicionChica.x, posicionChica.y, chica.position.z);
+        // en z = 0 como todo el nivel: si quedara mas cerca de la camara, la mascara no la tapa detras de la puerta
+        chica.position = new Vector3(posicionChica.x, posicionChica.y, 0f);
         var escala = chica.localScale; escala.x = Mathf.Abs(escala.x); chica.localScale = escala;
         MostrarChica(framesSalida != null && framesSalida.Length > 0 ? framesSalida[0] : null);
 

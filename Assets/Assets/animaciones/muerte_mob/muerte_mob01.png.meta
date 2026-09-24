@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 1ce8dd3262d8d9d44814f9c10ae80654
+guid: 38fd6874afaf8924a9ac48e86fedb655
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1071985993842486423
-    second: estela_006_0
+      213: -4368698247040929914
+    second: muerte_mob01_0
+  - first:
+      213: 3354405387453207605
+    second: muerte_mob01_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,8 +53,8 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 9
-  spritePivot: {x: 0.50062, y: 0.32406}
-  spritePixelsToUnits: 335.36148
+  spritePivot: {x: 0.5, y: 0.008695652}
+  spritePixelsToUnits: 250
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +75,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: estela_006_0
+      name: muerte_mob01_0
       rect:
         serializedVersion: 2
-        x: 94
-        y: 403
-        width: 384
-        height: 370
+        x: 335
+        y: 7
+        width: 195
+        height: 242
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 96313d01b6a8f11f0800000000000000
-      internalID: -1071985993842486423
+      spriteID: 68fe04637144f53c0800000000000000
+      internalID: -4368698247040929914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_mob01_1
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 0
+        width: 125
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5341ecf6ded3d8e20800000000000000
+      internalID: 3354405387453207605
       vertices: []
       indices: 
       edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      estela_006_0: -1071985993842486423
+      muerte_mob01_0: -4368698247040929914
+      muerte_mob01_1: 3354405387453207605
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

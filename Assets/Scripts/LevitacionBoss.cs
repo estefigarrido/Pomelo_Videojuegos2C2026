@@ -19,9 +19,23 @@ public class LevitacionBoss : MonoBehaviour
     private Transform sombra;
     private SpriteRenderer dibujoSombra;
 
-    private void Start()
+    // Punto del piso sobre el que flota. Otro script (UmbraeBoss) lo mueve al escapar o teletransportarse.
+    public Vector3 PosicionBase
+    {
+        get => posicionBase;
+        set => posicionBase = value;
+    }
+
+    // 1 = sombra normal, 0 = sin sombra (por ejemplo mientras desaparece en el teleport)
+    public float VisibilidadSombra { get; set; } = 1f;
+
+    private void Awake()
     {
         posicionBase = transform.position;
+    }
+
+    private void Start()
+    {
         CrearSombra();
     }
 
@@ -36,7 +50,7 @@ public class LevitacionBoss : MonoBehaviour
         sombra.position = posicionBase;
         float k = Mathf.InverseLerp(altura + amplitud, altura - amplitud, y); // 1 = mas cerca del piso
         sombra.localScale = new Vector3(anchoSombra * Mathf.Lerp(0.85f, 1f, k), anchoSombra * 0.18f * Mathf.Lerp(0.85f, 1f, k), 1f);
-        dibujoSombra.color = new Color(0f, 0f, 0f, opacidadSombra * Mathf.Lerp(0.7f, 1f, k));
+        dibujoSombra.color = new Color(0f, 0f, 0f, opacidadSombra * Mathf.Lerp(0.7f, 1f, k) * Mathf.Clamp01(VisibilidadSombra));
     }
 
     private void CrearSombra()

@@ -11,6 +11,9 @@ public class VidaEnemigo : MonoBehaviour
     [Tooltip("Frames de la animacion que queda en el lugar al morir (muerte_mob).")]
     [SerializeField] private Sprite[] framesMuerte;
     [SerializeField] private float fpsMuerte = 14f;
+    [Tooltip("Activado (mobs): la animacion se apoya en la base del mob y se escala segun su ancho. " +
+             "Desactivado (Umbrae): se dibuja en el lugar del mob, a su tamano y mirando para el mismo lado.")]
+    [SerializeField] private bool ajustarMuerteAlTamano = true;
 
     private float vida;
     private SpriteRenderer dibujo;
@@ -20,11 +23,22 @@ public class VidaEnemigo : MonoBehaviour
     public float Vida => vida;
     public bool Vivo => vida > 0f;
 
+    // Avisa justo antes de desactivarse al morir (por ejemplo, para la muerte especial de Umbrae).
+    public event System.Action AlMorir;
+
     private void Awake()
     {
         vida = vidaMaxima;
         dibujo = GetComponent<SpriteRenderer>();
         if (dibujo != null) colorOriginal = dibujo.color;
+    }
+
+    // Vuelve a la vida maxima (por ejemplo, al reiniciar la pelea con Umbrae).
+    public void Reiniciar()
+    {
+        vida = vidaMaxima;
+        finDestello = -1f;
+        if (dibujo != null) dibujo.color = colorOriginal;
     }
 
     public void RecibirDanio(float cantidad)
@@ -37,6 +51,7 @@ public class VidaEnemigo : MonoBehaviour
         if (!Vivo)
         {
             CrearEfectoMuerte();
+            AlMorir?.Invoke();
             gameObject.SetActive(false);
             return;
         }
@@ -69,11 +84,20 @@ public class VidaEnemigo : MonoBehaviour
         float escala = Mathf.Clamp(b.size.x * 1.1f / Mathf.Max(0.01f, anchoDibujo), 0.4f, 2f);
 
         var go = new GameObject("Muerte " + name);
-        go.transform.position = new Vector3(b.center.x, b.min.y, transform.position.z);
-        go.transform.localScale = Vector3.one * escala;
+        if (ajustarMuerteAlTamano)
+        {
+            go.transform.position = new Vector3(b.center.x, b.min.y, transform.position.z);
+            go.transform.localScale = Vector3.one * escala;
+        }
+        else
+        {
+            go.transform.position = transform.position;
+            go.transform.localScale = new Vector3(Mathf.Abs(transform.lossyScale.x), Mathf.Abs(transform.lossyScale.y), 1f);
+        }
         var sr = go.AddComponent<SpriteRenderer>();
         if (dibujo != null)
         {
+            sr.flipX = dibujo.flipX;
             sr.sharedMaterial = dibujo.sharedMaterial;
             sr.sortingLayerID = dibujo.sortingLayerID;
             sr.sortingOrder = dibujo.sortingOrder + 1;

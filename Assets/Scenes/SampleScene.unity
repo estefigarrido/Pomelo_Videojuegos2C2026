@@ -4845,7 +4845,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b0cd9ed11f5eac5439952b11e38de262, type: 3}
   - {fileID: 21300000, guid: 1d334c6df22bcec4b856d5740d052070, type: 3}
   - {fileID: 21300000, guid: 8b627964fdfc39f46979326fc2b9d21c, type: 3}
-  fpsGiro: 5
+  duracionGiro: 0.45
   esperaAntesDeBajar: 0.5
   duracionBajadaPuerta: 2.5
   centroCamara: {x: -85.8, y: 38.7}
@@ -8368,7 +8368,7 @@ Transform:
   m_GameObject: {fileID: 582101481}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.026202476, z: -0, w: 0.9996567}
-  m_LocalPosition: {x: -32, y: -29.063004, z: 0}
+  m_LocalPosition: {x: 22.9, y: 26.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8588,7 +8588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 775dc35c19dca934fb1a46f0ace38424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AtaqueLatigo
-  tecla: 31
+  tecla: 37
   frames:
   - {fileID: 21300000, guid: 32b42742ba1d0124a8040a664df79bae, type: 3}
   - {fileID: 21300000, guid: 64c6c2be1e2f52047b8da893da0a4b34, type: 3}
@@ -19449,7 +19449,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2bec7a94ae897aa46b4ebf7d4df7b53e, type: 3}
   - {fileID: 21300000, guid: cce93d4515ebc4a4cbc3d41f65f56e37, type: 3}
   - {fileID: 21300000, guid: c9bb0d382f6cc0447908967cb1bfaf01, type: 3}
-  fpsSalida: 5
+  duracionGiro: 0.35
   esperaInicial: 5
   duracionSubidaPuerta: 2.5
   esperaDespuesDeAbrir: 2

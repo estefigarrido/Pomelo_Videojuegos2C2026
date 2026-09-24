@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ba2f86680e3c1ed46a67e14cc165731b
+guid: 2461fa2cb28586142bf05afdf9d44916
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7417498029127908629
-    second: 002_0
+      213: -1011074405215562778
+    second: a_Portal_gris_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,9 +49,9 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
-  alignment: 0
+  alignment: 9
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1370
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 002_0
+      name: a_Portal_gris_0
       rect:
         serializedVersion: 2
-        x: 265
-        y: 100
-        width: 1372
-        height: 1371
+        x: 0
+        y: 0
+        width: 1157
+        height: 1888
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 51d345c682f30f660800000000000000
-      internalID: 7417498029127908629
+      spriteID: 6e313a37f21f7f1f0800000000000000
+      internalID: -1011074405215562778
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      002_0: 7417498029127908629
+      a_Portal_gris_0: -1011074405215562778
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -34,6 +34,23 @@ public class GemaEnMano : MonoBehaviour
     private SpriteRenderer srBrillo;
     private Vector2 ultimaMano;
     private bool ultimaOculta;
+    private bool suelta;
+
+    // Donde quedaria la gema (en el mundo) si la chica mostrara ese dibujo estando en 'posicionChica'.
+    public Vector3 PosicionGema(Sprite s, Vector3 posicionChica)
+    {
+        Vector2 mano = ultimaMano;
+        if (s != null && indice.TryGetValue(s, out int i) && i < manos.Length) mano = manos[i];
+        Vector3 local = mano + ajuste;
+        return posicionChica + transform.TransformVector(local);
+    }
+
+    // La chica suelta la gema (por ejemplo, para ponerla en el engarce del portal): deja de seguir la mano.
+    public Transform Soltar()
+    {
+        suelta = true;
+        return objetoGema;
+    }
 
     private void Awake()
     {
@@ -75,7 +92,7 @@ public class GemaEnMano : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!TieneGema || objetoGema == null) return;
+        if (!TieneGema || objetoGema == null || suelta) return;
 
         if (dibujo.sprite != null && indice.TryGetValue(dibujo.sprite, out int i) && i < manos.Length)
         {

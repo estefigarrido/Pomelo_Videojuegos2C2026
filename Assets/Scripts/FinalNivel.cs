@@ -8,7 +8,7 @@ using UnityEngine;
 //  2) la gema queda encajada en el engarce, con destellos; la puerta recupera su color.
 //  3) a los 2 segundos de los destellos, el portal recupera su color y se van las enredaderas.
 //  4) la puerta sube (sin asomarse por arriba del portal), la chica se da vuelta (chica_entradaportal)
-//     y la puerta baja detras de ella.
+//     ya de espaldas pasa detras de la puerta y del portal, y la puerta baja delante de ella.
 public class FinalNivel : MonoBehaviour
 {
     [Header("Portal y puerta")]
@@ -56,7 +56,8 @@ public class FinalNivel : MonoBehaviour
     [SerializeField] private float duracionSubidaPuerta = 2.5f;
     [Header("La chica se da vuelta (chica_entradaportal)")]
     [SerializeField] private Sprite[] framesGiro;
-    [SerializeField] private float fpsGiro = 5f;
+    [Tooltip("Cuanto tarda en darse vuelta (los frames se funden entre si).")]
+    [SerializeField] private float duracionGiro = 0.45f;
     [SerializeField] private float esperaAntesDeBajar = 0.5f;
     [SerializeField] private float duracionBajadaPuerta = 2.5f;
 
@@ -224,16 +225,19 @@ public class FinalNivel : MonoBehaviour
         Vector3 abierta = cerrada + Vector3.up * puerta.bounds.size.y;
         yield return Deslizar(puerta.transform, cerrada, abierta, duracionSubidaPuerta);
 
-        // la chica se da vuelta y queda de espaldas
-        if (framesGiro != null)
-            foreach (var f in framesGiro)
-            {
-                MostrarChica(f);
-                yield return new WaitForSeconds(1f / Mathf.Max(1f, fpsGiro));
-            }
+        // la chica se da vuelta y queda de espaldas (desde el dibujo que tenia, fundiendo los frames)
+        if (framesGiro != null && framesGiro.Length > 0 && dibujoChica != null)
+        {
+            var giro = new Sprite[framesGiro.Length + 1];
+            giro[0] = dibujoChica.sprite;
+            framesGiro.CopyTo(giro, 1);
+            yield return GiroSuave.Reproducir(dibujoChica, giro, duracionGiro);
+        }
+        // ya de espaldas, pasa detras de la puerta y del portal
+        if (dibujoChica != null && puerta != null) dibujoChica.sortingOrder = puerta.sortingOrder - 1;
         yield return new WaitForSeconds(esperaAntesDeBajar);
 
-        // la puerta baja detras de ella
+        // la puerta baja (tapandola: ya entro al portal)
         yield return Deslizar(puerta.transform, abierta, cerrada, duracionBajadaPuerta);
         termino = true;
     }

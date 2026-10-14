@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 653466c1573d36b4d9395546d9a8758b
+guid: 96f95702aff554e44a8b72ee637af208
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7990554942336498057
-    second: Escaleras_piso_4_0
+      213: 621333076719683259
+    second: Columna_redimensionada_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Escaleras_piso_4_0
+      name: Columna_redimensionada_0
       rect:
         serializedVersion: 2
-        x: 213
-        y: 197
-        width: 11281
-        height: 5915
+        x: 0
+        y: 0
+        width: 852
+        height: 4029
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7768acf9d98db1190800000000000000
-      internalID: -7990554942336498057
+      spriteID: bb6c31d242b6f9800800000000000000
+      internalID: 621333076719683259
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Escaleras_piso_4_0: -7990554942336498057
+      Columna_redimensionada_0: 621333076719683259
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

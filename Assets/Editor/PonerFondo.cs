@@ -9,7 +9,7 @@ using UnityEngine;
 public static class PonerFondo
 {
     private const string Origen = @"D:\AAVIDEOJUEGOS\fondoultimo.png";
-    private const string Destino = "Assets/Assets/fondoultimo.png";
+    private const string Destino = "Assets/_entorno/fondoultimo.png";
     private const string NombreObjeto = "Fondo";
     private const int OrdenDelFondo = -20;   // el mapa esta en 0, las piedras en -1 y la puerta del portal en -12
     private const int TamanoMaximo = 8192;
@@ -36,7 +36,7 @@ public static class PonerFondo
             Debug.LogError("No encontre el archivo en " + Origen);
             return;
         }
-        string destinoAbsoluto = Path.Combine(Application.dataPath, "Assets/fondoultimo.png");
+        string destinoAbsoluto = Path.Combine(Application.dataPath, "_entorno/fondoultimo.png");
         File.Copy(Origen, destinoAbsoluto, true);
         AssetDatabase.ImportAsset(Destino, ImportAssetOptions.ForceUpdate);
 

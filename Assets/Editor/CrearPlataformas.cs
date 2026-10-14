@@ -9,7 +9,7 @@ using UnityEngine;
 // Si ya existen, las borra y las vuelve a crear (se puede deshacer con Ctrl+Z).
 public static class CrearPlataformas
 {
-    private const string Carpeta = "Assets/Assets/Plataformas/";
+    private const string Carpeta = "Assets/_entorno/_Plataformas/";
     private const string NombreRaiz = "Plataformas";
 
     // Pixels Per Unit de cada archivo, para que midan lo mismo que en el mapa de referencia.

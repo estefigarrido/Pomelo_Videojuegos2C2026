@@ -13,11 +13,11 @@ using UnityEngine;
 // Menu:  Pomelo -> Configurar dash
 public static class ConfigurarDash
 {
-    private const string Carpeta = "Assets/Assets/animaciones/";
-    private const string ReferenciaSprint = Carpeta + "chica_sprinting_12fps/001.png";
+    private const string Carpeta = "Assets/_animaciones/";
+    private const string ReferenciaSprint = Carpeta + "_chica_sprinting_12fps/001.png";
     private const string RutaClip = Carpeta + "ChicaDash.anim";
     private const string RutaController = Carpeta + "Personaje.controller";
-    private const string RutaDestello = Carpeta + "chica_dash/dash_003_destello.png";
+    private const string RutaDestello = Carpeta + "_chica_dash/dash_003_destello.png";
 
     // el destello tiene 140 px mas de lienzo a la izquierda (para la estela) sobre un frame de 626 px
     private const float RellenoDestello = 140f;
@@ -25,9 +25,9 @@ public static class ConfigurarDash
 
     private static readonly string[] frames =
     {
-        Carpeta + "chica_dash/dash_001.png",
-        Carpeta + "chica_dash/dash_002.png",
-        Carpeta + "chica_dash/dash_003.png",
+        Carpeta + "_chica_dash/dash_001.png",
+        Carpeta + "_chica_dash/dash_002.png",
+        Carpeta + "_chica_dash/dash_003.png",
     };
 
     private const float DuracionArranque = 0.1f;   // los 3 frames

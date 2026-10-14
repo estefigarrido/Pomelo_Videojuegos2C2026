@@ -12,7 +12,7 @@ using UnityEngine;
 // Menu:  Pomelo -> Dejar el collider quieto
 public static class ColliderSegunDibujo
 {
-    private const string Carpeta = "Assets/Assets/animaciones/";
+    private const string Carpeta = "Assets/_animaciones/";
 
     private static readonly string[] rutasClips =
     {

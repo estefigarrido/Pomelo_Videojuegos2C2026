@@ -8,11 +8,11 @@ using UnityEngine;
 // Menu:  Pomelo -> Arreglar Animator del personaje
 public static class ArreglarAnimator
 {
-    private const string RutaController = "Assets/Assets/animaciones/Personaje.controller";
-    private const string RutaSaltoOriginal = "Assets/Assets/animaciones/chica_salto.anim";
+    private const string RutaController = "Assets/_animaciones/Personaje.controller";
+    private const string RutaSaltoOriginal = "Assets/_animaciones/chica_salto.anim";
     // copia de chica_salto con los mismos PNG pero repartidos parejo, para que el script
     // pueda elegir cada frame por numero. La original no se toca.
-    private const string RutaSaltoPorAltura = "Assets/Assets/animaciones/ChicaSaltoPorAltura.anim";
+    private const string RutaSaltoPorAltura = "Assets/_animaciones/ChicaSaltoPorAltura.anim";
     private const int FramesEsperados = 27;
 
     [MenuItem("Pomelo/Arreglar Animator del personaje")]

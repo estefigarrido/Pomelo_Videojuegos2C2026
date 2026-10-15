@@ -12,16 +12,11 @@ public class SaludPersonaje : MonoBehaviour
     [Tooltip("Segundos entre cada tic. Cada golpe nuevo reinicia la cuenta.")]
     [SerializeField] private float intervaloRegeneracion = 5f;
 
-    [Header("Destello al recibir un golpe")]
-    [Tooltip("Color que toma un instante al recibir un golpe.")]
-    [SerializeField] private Color colorGolpe = new Color(1f, 0.45f, 0.45f, 1f);
-    [SerializeField] private float duracionDestello = 0.12f;
+    [Header("Parpadeo al recibir un golpe")]
+    [SerializeField] private ParpadeoDanio parpadeo = new ParpadeoDanio();
 
     private float vida;
     private float proximaRegeneracion;
-    private SpriteRenderer dibujo;
-    private Color colorOriginal = Color.white;
-    private float finDestello = -1f;
     private Vector3 puntoGuardado;
     private Rigidbody2D rb;
 
@@ -40,17 +35,12 @@ public class SaludPersonaje : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         puntoGuardado = transform.position;
         vida = vidaMaxima;
-        dibujo = GetComponent<SpriteRenderer>();
-        if (dibujo != null) colorOriginal = dibujo.color;
+        parpadeo.Iniciar(GetComponent<SpriteRenderer>());
     }
 
     private void Update()
     {
-        if (finDestello >= 0f && Time.time >= finDestello)
-        {
-            dibujo.color = colorOriginal;
-            finDestello = -1f;
-        }
+        parpadeo.Actualizar();
 
         if (vida <= 0f || vida >= vidaMaxima || Time.time < proximaRegeneracion) return;
 
@@ -67,11 +57,8 @@ public class SaludPersonaje : MonoBehaviour
         proximaRegeneracion = Time.time + intervaloRegeneracion;
         Debug.Log("[Vida] -" + cantidad + " -> " + vida + "/" + vidaMaxima);
 
-        if (dibujo != null)
-        {
-            dibujo.color = colorGolpe;
-            finDestello = Time.time + duracionDestello;
-        }
+        // solo cambia el color: no frena el movimiento ni los ataques
+        parpadeo.Empezar();
 
         if (vida <= 0f) Morir();
     }

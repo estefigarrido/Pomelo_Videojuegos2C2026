@@ -52,35 +52,54 @@ public class ProyectilSabiduria : MonoBehaviour
 
         velocidad = Mathf.MoveTowards(velocidad, velocidadMaxima, aceleracion * Time.deltaTime);
         float paso = velocidad * Time.deltaTime;
-        transform.position += (Vector3)(direccion * paso);
-        recorrido += paso;
+        bool choco = Avanzar(paso);
 
         float rapidez = velocidadMaxima > 0f ? velocidad / velocidadMaxima : 1f;
         if (bola != null) bola.Rotate(0f, 0f, -Mathf.Sign(direccion.x) * giroMaximo * Mathf.Lerp(0.3f, 1f, rapidez) * Time.deltaTime);
         ActualizarEstela();
         SoltarFlores();
 
-        foreach (var col in Physics2D.OverlapCircleAll(transform.position, radio))
+        if (choco || recorrido >= alcance) Frenar();
+    }
+
+    // Revisa todo el tramo que recorre en este cuadro (no solo el punto de llegada): a mucha
+    // velocidad el paso es mas largo que la bola y podria atravesar un enemigo flaco o una pared.
+    // Avanza hasta el primer choque y devuelve si choco.
+    private bool Avanzar(float paso)
+    {
+        Vector2 desde = transform.position;
+        var choques = Physics2D.CircleCastAll(desde, radio, direccion, paso);
+        System.Array.Sort(choques, (a, b) => a.distance.CompareTo(b.distance));
+
+        foreach (var choque in choques)
         {
+            var col = choque.collider;
             if (col == ignorar || col.GetComponentInParent<SaludPersonaje>() != null) continue;
 
             var enemigo = col.GetComponentInParent<VidaEnemigo>();
             if (enemigo != null)
             {
                 if (!enemigo.Vivo) continue;
+                IrHasta(desde, choque.distance);
                 enemigo.RecibirDanio(danio);
-                Frenar();
-                return;
+                return true;
             }
             // paredes, piso, pinchos, plataformas (los triggers como checkpoints no la frenan)
             if (!col.isTrigger)
             {
-                Frenar();
-                return;
+                IrHasta(desde, choque.distance);
+                return true;
             }
         }
 
-        if (recorrido >= alcance) Frenar();
+        IrHasta(desde, paso);
+        return false;
+    }
+
+    private void IrHasta(Vector2 desde, float distancia)
+    {
+        transform.position = desde + direccion * distancia;
+        recorrido += distancia;
     }
 
     // la estela se alarga y se hace mas visible a medida que la bola toma velocidad

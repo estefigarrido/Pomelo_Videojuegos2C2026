@@ -2,15 +2,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Piedra que levita. Cuando algo con peso se para encima empieza a quebrarse (tiembla cada
-// vez mas). Si sigue encima 5 s, cae con la gravedad; se queda 3 s en el piso y vuelve
-// flotando a su lugar. Si se bajan antes de los 5 s, se recupera y el contador vuelve a cero.
+// vez mas). Si sigue encima 3 s, cae con la gravedad; se queda 3 s en el piso y vuelve
+// flotando a su lugar. Si se bajan antes de los 3 s, se recupera y el contador vuelve a cero.
 // Mientras cae y vuelve solo choca con el mapa: atraviesa a la chica y a las otras piedras.
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlataformaQuebradiza : MonoBehaviour
 {
     [Header("Tiempos")]
-    [Tooltip("Segundos que hay que estar parada encima para que se caiga (lo que dura el temblor).")]
-    [SerializeField] private float segundosHastaCaer = 5f;
+    [Tooltip("Segundos que hay que estar parada encima para que se caiga (lo que dura el temblor). Antes eran 5; ahora 2 menos.")]
+    [SerializeField] private float segundosHastaCaer = 3f;
     [Tooltip("Segundos que se queda en el piso, contados desde que lo toca.")]
     [SerializeField] private float segundosEnElPiso = 3f;
     [Tooltip("Segundos que tarda en volver flotando a su lugar.")]

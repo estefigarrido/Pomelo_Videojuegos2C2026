@@ -28,15 +28,16 @@ public class AtaqueLatigo : MonoBehaviour
     [Header("Golpe")]
     [Tooltip("Vida que saca a cada enemigo (la vida maxima de los mobs es 100).")]
     [SerializeField] private float danio = 50f;
-    [Tooltip("Segundos de espera desde que termina un latigazo hasta poder tirar otro.")]
-    [SerializeField] private float espera = 0.2f;
+    [Tooltip("Segundos desde que se tira un latigazo hasta poder tirar el siguiente. Si la animacion " +
+             "todavia no termino, se corta y empieza de nuevo. Antes eran 1.03 s (animacion 0.83 s + 0.2 s de espera); ahora 0.5 s menos.")]
+    [SerializeField] private float intervaloEntreUsos = 0.53f;
     [SerializeField] private ZonaDeGolpe[] zonas;
 
     private SpriteRenderer dibujo;
     private AtaqueSabiduria otroAtaque;
     private bool atacando;
     private float inicio;
-    private float finUltimo = -99f;
+    private float ultimoUso = -99f;
     private readonly HashSet<VidaEnemigo> golpeados = new HashSet<VidaEnemigo>();
 
     public bool Atacando => atacando;
@@ -58,7 +59,6 @@ public class AtaqueLatigo : MonoBehaviour
         if (frame > frames.Length)
         {
             atacando = false;
-            finUltimo = Time.time;
             return;
         }
 
@@ -75,12 +75,14 @@ public class AtaqueLatigo : MonoBehaviour
         }
     }
 
+    // Si el latigazo anterior todavia se esta dibujando, se corta y la animacion arranca de nuevo.
     public bool Atacar()
     {
-        if (atacando || frames == null || frames.Length == 0 || Time.time < finUltimo + espera) return false;
+        if (frames == null || frames.Length == 0 || Time.time < ultimoUso + intervaloEntreUsos) return false;
         if (otroAtaque != null && otroAtaque.Atacando) return false;
         atacando = true;
         inicio = Time.time;
+        ultimoUso = Time.time;
         golpeados.Clear();
         return true;
     }

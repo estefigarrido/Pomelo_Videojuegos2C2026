@@ -3,9 +3,8 @@ using UnityEngine;
 public class VidaEnemigo : MonoBehaviour
 {
     [SerializeField] private float vidaMaxima = 100f;
-    [Tooltip("Color que toma un instante al recibir un golpe.")]
-    [SerializeField] private Color colorGolpe = new Color(1f, 0.45f, 0.45f, 1f);
-    [SerializeField] private float duracionDestello = 0.12f;
+    [Header("Parpadeo al recibir un golpe")]
+    [SerializeField] private ParpadeoDanio parpadeo = new ParpadeoDanio();
 
     [Header("Muerte")]
     [Tooltip("Frames de la animacion que queda en el lugar al morir (muerte_mob).")]
@@ -17,8 +16,6 @@ public class VidaEnemigo : MonoBehaviour
 
     private float vida;
     private SpriteRenderer dibujo;
-    private Color colorOriginal = Color.white;
-    private float finDestello = -1f;
 
     public float Vida => vida;
     public bool Vivo => vida > 0f;
@@ -30,15 +27,14 @@ public class VidaEnemigo : MonoBehaviour
     {
         vida = vidaMaxima;
         dibujo = GetComponent<SpriteRenderer>();
-        if (dibujo != null) colorOriginal = dibujo.color;
+        parpadeo.Iniciar(dibujo);
     }
 
     // Vuelve a la vida maxima (por ejemplo, al reiniciar la pelea con Umbrae).
     public void Reiniciar()
     {
         vida = vidaMaxima;
-        finDestello = -1f;
-        if (dibujo != null) dibujo.color = colorOriginal;
+        parpadeo.Cortar();
     }
 
     public void RecibirDanio(float cantidad)
@@ -56,21 +52,11 @@ public class VidaEnemigo : MonoBehaviour
             return;
         }
 
-        if (dibujo != null)
-        {
-            dibujo.color = colorGolpe;
-            finDestello = Time.time + duracionDestello;
-        }
+        // solo cambia el color: el mob sigue patrullando y atacando
+        parpadeo.Empezar();
     }
 
-    private void Update()
-    {
-        if (finDestello >= 0f && Time.time >= finDestello)
-        {
-            dibujo.color = colorOriginal;
-            finDestello = -1f;
-        }
-    }
+    private void Update() => parpadeo.Actualizar();
 
     // La animacion se apoya en la base del mob y se escala segun su ancho (el pajaro es mas chico
     // que el comelibros). Es un objeto aparte porque el mob se desactiva enseguida.

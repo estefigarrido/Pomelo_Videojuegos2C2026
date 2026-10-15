@@ -18,8 +18,10 @@ public class AtaqueSabiduria : MonoBehaviour
 
     [Header("Control")]
     [SerializeField] private Key tecla = Key.E;
-    [Tooltip("Segundos de espera desde que termina un golpe hasta poder tirar otro.")]
-    [SerializeField] private float espera = 0.3f;
+    [Tooltip("Segundos desde que se tira una bola hasta poder tirar la siguiente. Si la animacion todavia no " +
+             "termino, se corta y empieza de nuevo (pero nunca antes de que salga la bola). Antes eran 0.69 s " +
+             "(animacion 0.59 s + 0.1 s de espera); ahora 0.5 s menos.")]
+    [SerializeField] private float intervaloEntreUsos = 0.19f;
 
     [Header("Animacion (chica_golpe2)")]
     [SerializeField] private Sprite[] frames;
@@ -49,10 +51,10 @@ public class AtaqueSabiduria : MonoBehaviour
     [Tooltip("De donde sale, relativo al personaje mirando a la derecha (la mano de adelante).")]
     [SerializeField] private Vector2 salida = new Vector2(0.75f, 0.3f);
     [Tooltip("Velocidad al soltarla; despues acelera hasta la maxima.")]
-    [SerializeField] private float velocidadInicial = 2.5f;
-    [SerializeField] private float velocidadMaxima = 16f;
+    [SerializeField] private float velocidadInicial = 5f;
+    [SerializeField] private float velocidadMaxima = 26f;
     [Tooltip("Unidades por segundo que gana de velocidad por cada segundo.")]
-    [SerializeField] private float aceleracion = 38f;
+    [SerializeField] private float aceleracion = 90f;
     [SerializeField] private float alcance = 14f;
     [Tooltip("Vida que saca a un enemigo (la vida maxima de los mobs es 100).")]
     [SerializeField] private float danio = 25f;
@@ -71,7 +73,7 @@ public class AtaqueSabiduria : MonoBehaviour
     private bool atacando;
     private bool lanzo;
     private float inicio;
-    private float finUltimo = -99f;
+    private float ultimoUso = -99f;
     private int zonaAnterior = -1;
     private Vector2 movimientoZona;
     private float acumulado;
@@ -112,19 +114,22 @@ public class AtaqueSabiduria : MonoBehaviour
         if (frame > frames.Length)
         {
             atacando = false;
-            finUltimo = Time.time;
             return;
         }
         EmitirDelBrazo(frame - 1);
     }
 
+    // Si el golpe anterior todavia se esta dibujando, se corta y la animacion arranca de nuevo.
+    // Solo se puede cortar despues de que salio la bola: si no, se perderia el disparo.
     public bool Atacar()
     {
-        if (atacando || frames == null || frames.Length == 0 || Time.time < finUltimo + espera) return false;
+        if (frames == null || frames.Length == 0 || Time.time < ultimoUso + intervaloEntreUsos) return false;
+        if (atacando && !lanzo) return false;
         if (latigo != null && latigo.Atacando) return false;
         atacando = true;
         lanzo = false;
         inicio = Time.time;
+        ultimoUso = Time.time;
         zonaAnterior = -1;
         acumulado = 0f;
         return true;

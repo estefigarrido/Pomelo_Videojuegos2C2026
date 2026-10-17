@@ -18,32 +18,37 @@ public class CamaraSeguidora : MonoBehaviour
     private Vector2 centroFijo;
     private float tamanoFijo;
     private float mezcla; // 0 = sigue a la chica, 1 = encuadre fijo
+    private float duracionActual;
 
     private void Awake()
     {
         cam = GetComponent<Camera>();
         tamanoNormal = cam.orthographicSize;
+        duracionActual = duracionTransicion;
     }
 
     // La camara deja de seguir y se queda quieta mostrando ese lugar (con un zoom suave hasta 'tamano').
-    public void FijarEncuadre(Vector2 centro, float tamano)
+    // 'duracion' cambia lo que tarda la transicion (si no se pasa, usa duracionTransicion).
+    public void FijarEncuadre(Vector2 centro, float tamano, float duracion = -1f)
     {
         fijo = true;
         centroFijo = centro;
         tamanoFijo = tamano;
+        duracionActual = duracion > 0f ? duracion : duracionTransicion;
     }
 
     // Vuelve a seguir a la chica con el zoom normal.
-    public void Liberar()
+    public void Liberar(float duracion = -1f)
     {
         fijo = false;
+        duracionActual = duracion > 0f ? duracion : duracionTransicion;
     }
 
     private void LateUpdate()
     {
         if (objetivo == null) return;
 
-        mezcla = Mathf.MoveTowards(mezcla, fijo ? 1f : 0f, Time.deltaTime / Mathf.Max(0.01f, duracionTransicion));
+        mezcla = Mathf.MoveTowards(mezcla, fijo ? 1f : 0f, Time.deltaTime / Mathf.Max(0.01f, duracionActual));
         float k = Mathf.SmoothStep(0f, 1f, mezcla);
 
         // donde estaria siguiendo a la chica, con el zoom normal

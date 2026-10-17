@@ -3,10 +3,11 @@ using UnityEngine;
 
 // Comienzo del nivel en el portal de entrada:
 //  1) la chica esta adentro del portal, detras de la puerta cerrada, y no se puede controlar.
-//  2) a los 5 segundos de empezar, la puerta sube (sin asomarse por arriba del portal) y desaparece;
+//     La camara se aleja (deszoom) para mostrar el portal y lo que lo rodea.
+//  2) a los 3 segundos de empezar, la puerta sube (sin asomarse por arriba del portal) y desaparece;
 //     a medida que sube se ve a la chica de frente (chica_salidaportal 000).
-//  3) 2 segundos despues de que termina de abrirse, la chica se gira de perfil (chica_salidaportal)
-//     y recien ahi se le devuelven los controles: empieza el juego.
+//  3) poco despues de que termina de abrirse, la chica se gira de perfil (chica_salidaportal),
+//     la camara vuelve al zoom normal y recien ahi se le devuelven los controles: empieza el juego.
 public class InicioNivel : MonoBehaviour
 {
     [Tooltip("Apagalo para probar el nivel desde otro lado sin la intro.")]
@@ -21,13 +22,26 @@ public class InicioNivel : MonoBehaviour
     [SerializeField] private Vector2 posicionChica = new Vector2(-32f, -29f);
     [Tooltip("chica_salidaportal: 000 de frente ... el ultimo de perfil.")]
     [SerializeField] private Sprite[] framesSalida;
-    [Tooltip("Cuanto tarda en girarse de perfil (los frames se funden entre si).")]
-    [SerializeField] private float duracionGiro = 0.35f;
+    [Tooltip("Cuanto tarda en girarse de perfil (los frames se funden entre si). Antes 0.35 s.")]
+    [SerializeField] private float duracionGiro = 0.18f;
 
     [Header("Tiempos")]
-    [SerializeField] private float esperaInicial = 5f;
-    [SerializeField] private float duracionSubidaPuerta = 2.5f;
-    [SerializeField] private float esperaDespuesDeAbrir = 2f;
+    [Tooltip("Segundos hasta que la puerta empieza a subir. Antes 5 s.")]
+    [SerializeField] private float esperaInicial = 3f;
+    [Tooltip("Lo que tarda la puerta en subir. Antes 2.5 s.")]
+    [SerializeField] private float duracionSubidaPuerta = 1.5f;
+    [Tooltip("Espera entre que la puerta termina de abrirse y la chica se gira. Antes 2 s.")]
+    [SerializeField] private float esperaDespuesDeAbrir = 0.8f;
+
+    [Header("Camara")]
+    [Tooltip("Zoom de la intro (tamano de la camara ortografica; el normal es 5.4, mas grande = mas lejos).")]
+    [SerializeField] private float tamanoIntro = 7.5f;
+    [Tooltip("Centro del encuadre de la intro, respecto de la chica.")]
+    [SerializeField] private Vector2 centroIntro = new Vector2(6.8f, 1f);
+    [Tooltip("Segundos que tarda en alejarse al empezar.")]
+    [SerializeField] private float duracionDeszoom = 1.5f;
+    [Tooltip("Segundos que tarda en volver al zoom normal, justo antes de poder caminar.")]
+    [SerializeField] private float duracionZoom = 1f;
 
     private Transform chica;
     private SpriteRenderer dibujoChica;
@@ -63,6 +77,10 @@ public class InicioNivel : MonoBehaviour
         var escala = chica.localScale; escala.x = Mathf.Abs(escala.x); chica.localScale = escala;
         MostrarChica(framesSalida != null && framesSalida.Length > 0 ? framesSalida[0] : null);
 
+        // deszoom: la camara se aleja para mostrar el portal
+        var camara = FindFirstObjectByType<CamaraSeguidora>();
+        if (camara != null) camara.FijarEncuadre((Vector2)chica.position + centroIntro, tamanoIntro, duracionDeszoom);
+
         // la puerta solo se ve por debajo del borde de arriba del portal; la chica solo por fuera de la puerta
         CrearMascaraPuerta();
         CrearMascaraChica();
@@ -87,6 +105,13 @@ public class InicioNivel : MonoBehaviour
 
         // se gira de perfil
         yield return GiroSuave.Reproducir(dibujoChica, framesSalida, duracionGiro);
+
+        // zoom: la camara vuelve a seguirla de cerca y recien despues puede caminar
+        if (camara != null)
+        {
+            camara.Liberar(duracionZoom);
+            yield return new WaitForSeconds(duracionZoom);
+        }
 
         // empieza el juego
         if (rb != null) { rb.simulated = true; rb.linearVelocity = Vector2.zero; }

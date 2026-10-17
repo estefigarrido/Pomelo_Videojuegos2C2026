@@ -14,6 +14,11 @@ public class VidaEnemigo : MonoBehaviour
              "Desactivado (Umbrae): se dibuja en el lugar del mob, a su tamano y mirando para el mismo lado.")]
     [SerializeField] private bool ajustarMuerteAlTamano = true;
 
+    [Header("Sabiduria")]
+    [Tooltip("Liquido de sabiduria que junta la chica con cada golpe que le da a este enemigo: " +
+             "lo mismo que el enemigo le saca a ella por golpe (comelibros y pajaros 20, Umbrae 40).")]
+    [SerializeField] private float sabiduriaPorGolpe = 20f;
+
     private float vida;
     private SpriteRenderer dibujo;
 
@@ -22,6 +27,9 @@ public class VidaEnemigo : MonoBehaviour
 
     // Avisa justo antes de desactivarse al morir (por ejemplo, para la muerte especial de Umbrae).
     public event System.Action AlMorir;
+
+    // Avisa cada golpe que recibe cualquier enemigo, con la sabiduria que gana la chica (la suma SaludPersonaje).
+    public static event System.Action<float> Golpeado;
 
     private void Awake()
     {
@@ -43,6 +51,7 @@ public class VidaEnemigo : MonoBehaviour
 
         vida = Mathf.Max(0f, vida - cantidad);
         Debug.Log("[Enemigo] " + name + " -" + cantidad + " -> " + vida + "/" + vidaMaxima);
+        Golpeado?.Invoke(sabiduriaPorGolpe);
 
         if (!Vivo)
         {

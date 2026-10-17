@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: a5ffac6c4a0a4e34aa4b7f85b7ad1673
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1077292183730703587
+    second: cascada_A_0
+  - first:
+      213: 7022517411347799006
+    second: cascada_A_1
+  - first:
+      213: -9171549676414035634
+    second: cascada_A_2
+  - first:
+      213: -8189358183575037179
+    second: cascada_A_3
+  - first:
+      213: 329673010942768014
+    second: cascada_A_4
+  - first:
+      213: -2383381231476703889
+    second: cascada_A_5
+  - first:
+      213: 6640710268911910384
+    second: cascada_A_6
+  - first:
+      213: -8557219918374011686
+    second: cascada_A_7
+  - first:
+      213: 2271385767559031489
+    second: cascada_A_8
+  - first:
+      213: -8387042971236928039
+    second: cascada_A_9
+  - first:
+      213: 5910074307845504856
+    second: cascada_A_10
+  - first:
+      213: 6344159465351605261
+    second: cascada_A_11
+  - first:
+      213: 2873487130772620589
+    second: cascada_A_12
+  - first:
+      213: 1472137559000890970
+    second: cascada_A_13
+  - first:
+      213: 8021041643314521743
+    second: cascada_A_14
+  - first:
+      213: -7595048350879694229
+    second: cascada_A_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 1
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cascada_A_0
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 193
+        width: 43
+        height: 3019
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ecc29a888f43fe00800000000000000
+      internalID: 1077292183730703587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_1
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 159
+        width: 19
+        height: 2852
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edb9164f06ef47160800000000000000
+      internalID: 7022517411347799006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_2
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 162
+        width: 298
+        height: 3087
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e491e79892c18b080800000000000000
+      internalID: -9171549676414035634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_3
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 208
+        width: 10
+        height: 3017
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50b52910f1e895e80800000000000000
+      internalID: -8189358183575037179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_4
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 168
+        width: 87
+        height: 3006
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e83f6455bdb339400800000000000000
+      internalID: 329673010942768014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_5
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 328
+        width: 17
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6d7f7dc5678ceed0800000000000000
+      internalID: -2383381231476703889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_6
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 159
+        width: 36
+        height: 3020
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fd78ca3eca882c50800000000000000
+      internalID: 6640710268911910384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_7
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 225
+        width: 16
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adc7b6482d5ae3980800000000000000
+      internalID: -8557219918374011686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_8
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 141
+        width: 101
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1caeb3f3255958f10800000000000000
+      internalID: 2271385767559031489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_9
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 146
+        width: 68
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d57c77aadc3b9b80800000000000000
+      internalID: -8387042971236928039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_10
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 149
+        width: 176
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85f3b43254dc40250800000000000000
+      internalID: 5910074307845504856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_11
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 101
+        width: 191
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0ce6b2cb6bfa0850800000000000000
+      internalID: 6344159465351605261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_12
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 112
+        width: 89
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d25cb50325da0e720800000000000000
+      internalID: 2873487130772620589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_13
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 88
+        width: 102
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5e32c86f451e6410800000000000000
+      internalID: 1472137559000890970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_14
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 97
+        width: 45
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f86a06690e6705f60800000000000000
+      internalID: 8021041643314521743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_A_15
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 79
+        width: 169
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6246e1e3c7f89690800000000000000
+      internalID: -7595048350879694229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      cascada_A_0: 1077292183730703587
+      cascada_A_1: 7022517411347799006
+      cascada_A_10: 5910074307845504856
+      cascada_A_11: 6344159465351605261
+      cascada_A_12: 2873487130772620589
+      cascada_A_13: 1472137559000890970
+      cascada_A_14: 8021041643314521743
+      cascada_A_15: -7595048350879694229
+      cascada_A_2: -9171549676414035634
+      cascada_A_3: -8189358183575037179
+      cascada_A_4: 329673010942768014
+      cascada_A_5: -2383381231476703889
+      cascada_A_6: 6640710268911910384
+      cascada_A_7: -8557219918374011686
+      cascada_A_8: 2271385767559031489
+      cascada_A_9: -8387042971236928039
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

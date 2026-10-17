@@ -1,0 +1,741 @@
+fileFormatVersion: 2
+guid: 6cd61ad773bf9cb439be98aedb96bee3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1091120609074944041
+    second: hilos_agua_0
+  - first:
+      213: -6714140603127279892
+    second: hilos_agua_1
+  - first:
+      213: 4486769497063264720
+    second: hilos_agua_2
+  - first:
+      213: -7224810997697527913
+    second: hilos_agua_3
+  - first:
+      213: 8841138164224564604
+    second: hilos_agua_4
+  - first:
+      213: -5419447026795420008
+    second: hilos_agua_5
+  - first:
+      213: -8359758888698350479
+    second: hilos_agua_6
+  - first:
+      213: -9127651815341485596
+    second: hilos_agua_7
+  - first:
+      213: -7317572813023956334
+    second: hilos_agua_8
+  - first:
+      213: 4988894382003037820
+    second: hilos_agua_9
+  - first:
+      213: -1757088146488291730
+    second: hilos_agua_10
+  - first:
+      213: 418162728056655497
+    second: hilos_agua_11
+  - first:
+      213: 7984491269274518702
+    second: hilos_agua_12
+  - first:
+      213: 6708710697006625924
+    second: hilos_agua_13
+  - first:
+      213: -3693381039472708595
+    second: hilos_agua_14
+  - first:
+      213: -7753614281064242945
+    second: hilos_agua_15
+  - first:
+      213: 8045942583698939189
+    second: hilos_agua_16
+  - first:
+      213: 7780997811893626071
+    second: hilos_agua_17
+  - first:
+      213: 1130004377199219646
+    second: hilos_agua_18
+  - first:
+      213: -7346827127972619956
+    second: hilos_agua_19
+  - first:
+      213: 6191413470546518510
+    second: hilos_agua_20
+  - first:
+      213: -5811348573178339937
+    second: hilos_agua_21
+  - first:
+      213: -5493128072021110161
+    second: hilos_agua_22
+  - first:
+      213: 8964363636651035978
+    second: hilos_agua_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 1
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hilos_agua_0
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 632
+        width: 8
+        height: 1429
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9281507b960742f00800000000000000
+      internalID: 1091120609074944041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_1
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 843
+        width: 7
+        height: 1218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cee429ac1b492d2a0800000000000000
+      internalID: -6714140603127279892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_2
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 1020
+        width: 7
+        height: 1041
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d1938de515344e30800000000000000
+      internalID: 4486769497063264720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_3
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 891
+        width: 6
+        height: 1170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79f37e02da05cbb90800000000000000
+      internalID: -7224810997697527913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_4
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 651
+        width: 8
+        height: 1410
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7d11c8615802ba70800000000000000
+      internalID: 8841138164224564604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_5
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 510
+        width: 7
+        height: 1551
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 896efc084a14ac4b0800000000000000
+      internalID: -5419447026795420008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_6
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 923
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1747837259b2cfb80800000000000000
+      internalID: -8359758888698350479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_7
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 844
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e11f19c801145180800000000000000
+      internalID: -9127651815341485596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_8
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 802
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 292b6a5fb42c27a90800000000000000
+      internalID: -7317572813023956334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_9
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 744
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c76ab35120d1c3540800000000000000
+      internalID: 4988894382003037820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_10
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 767
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6e0485e3a19d97e0800000000000000
+      internalID: -1757088146488291730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_11
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 692
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98e002029cc9dc500800000000000000
+      internalID: 418162728056655497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_12
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 645
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea4c059718c9ece60800000000000000
+      internalID: 7984491269274518702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_13
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 613
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48471fba5d02a1d50800000000000000
+      internalID: 6708710697006625924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_14
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 549
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d04f01253897ebcc0800000000000000
+      internalID: -3693381039472708595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_15
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 567
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff025cb44e0a56490800000000000000
+      internalID: -7753614281064242945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_16
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 568
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53d5090962ee8af60800000000000000
+      internalID: 8045942583698939189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_17
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 486
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d4e200d848abfb60800000000000000
+      internalID: 7780997811893626071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_18
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 444
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb398997ef49eaf00800000000000000
+      internalID: 1130004377199219646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_19
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 429
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c491dfaf6a3da0a90800000000000000
+      internalID: -7346827127972619956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_20
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 377
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee16e797fb15ce550800000000000000
+      internalID: 6191413470546518510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_21
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 379
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9d5bb53341f95fa0800000000000000
+      internalID: -5811348573178339937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_22
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 321
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6294715f1d74c3b0800000000000000
+      internalID: -5493128072021110161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilos_agua_23
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 232
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4d83087b31d76c70800000000000000
+      internalID: 8964363636651035978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      hilos_agua_0: 1091120609074944041
+      hilos_agua_1: -6714140603127279892
+      hilos_agua_10: -1757088146488291730
+      hilos_agua_11: 418162728056655497
+      hilos_agua_12: 7984491269274518702
+      hilos_agua_13: 6708710697006625924
+      hilos_agua_14: -3693381039472708595
+      hilos_agua_15: -7753614281064242945
+      hilos_agua_16: 8045942583698939189
+      hilos_agua_17: 7780997811893626071
+      hilos_agua_18: 1130004377199219646
+      hilos_agua_19: -7346827127972619956
+      hilos_agua_2: 4486769497063264720
+      hilos_agua_20: 6191413470546518510
+      hilos_agua_21: -5811348573178339937
+      hilos_agua_22: -5493128072021110161
+      hilos_agua_23: 8964363636651035978
+      hilos_agua_3: -7224810997697527913
+      hilos_agua_4: 8841138164224564604
+      hilos_agua_5: -5419447026795420008
+      hilos_agua_6: -8359758888698350479
+      hilos_agua_7: -9127651815341485596
+      hilos_agua_8: -7317572813023956334
+      hilos_agua_9: 4988894382003037820
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

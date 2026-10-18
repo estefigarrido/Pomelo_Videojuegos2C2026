@@ -34,10 +34,12 @@ public class InicioNivel : MonoBehaviour
     [SerializeField] private float esperaDespuesDeAbrir = 0.8f;
 
     [Header("Camara")]
-    [Tooltip("Zoom de la intro (tamano de la camara ortografica; el normal es 5.4, mas grande = mas lejos).")]
-    [SerializeField] private float tamanoIntro = 7.5f;
-    [Tooltip("Centro del encuadre de la intro, respecto de la chica.")]
-    [SerializeField] private Vector2 centroIntro = new Vector2(6.8f, 1f);
+    [Tooltip("Zoom de la intro (tamano de la camara ortografica; el normal es 5.4, mas grande = mas lejos). " +
+             "6.7 muestra de la columna espiral hasta los arcos de la derecha, como el encuadre del Figma.")]
+    [SerializeField] private float tamanoEncuadreIntro = 6.7f;
+    [Tooltip("Centro del encuadre de la intro, en el mundo. (-25.86, -26.19) es el centro del encuadre del Figma " +
+             "(x 12420 a 14570 px, y 9545 a 10881 px del frame del mapa): la columna espiral queda en el borde izquierdo.")]
+    [SerializeField] private Vector2 centroEncuadreIntro = new Vector2(-25.86f, -26.19f);
     [Tooltip("Segundos que tarda en alejarse al empezar.")]
     [SerializeField] private float duracionDeszoom = 1.5f;
     [Tooltip("Segundos que tarda en volver al zoom normal, justo antes de poder caminar.")]
@@ -79,7 +81,7 @@ public class InicioNivel : MonoBehaviour
 
         // deszoom: la camara se aleja para mostrar el portal
         var camara = FindFirstObjectByType<CamaraSeguidora>();
-        if (camara != null) camara.FijarEncuadre((Vector2)chica.position + centroIntro, tamanoIntro, duracionDeszoom);
+        if (camara != null) camara.FijarEncuadre(centroEncuadreIntro, tamanoEncuadreIntro, duracionDeszoom);
 
         // la puerta solo se ve por debajo del borde de arriba del portal; la chica solo por fuera de la puerta
         CrearMascaraPuerta();

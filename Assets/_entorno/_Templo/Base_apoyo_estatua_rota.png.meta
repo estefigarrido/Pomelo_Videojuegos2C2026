@@ -103,10 +103,10 @@ TextureImporter:
       name: Base_apoyo_estatua_rota_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 9
-        width: 516
-        height: 186
+        x: 18
+        y: 23
+        width: 1444
+        height: 518
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

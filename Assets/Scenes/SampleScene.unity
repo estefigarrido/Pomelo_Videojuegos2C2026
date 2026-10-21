@@ -12494,7 +12494,7 @@ SpriteRenderer:
   m_Size: {x: 5.01, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!114 &300479988
 MonoBehaviour:
@@ -18834,7 +18834,7 @@ SpriteRenderer:
   m_Size: {x: 5.01, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!114 &495036888
 MonoBehaviour:
@@ -19492,7 +19492,7 @@ SpriteRenderer:
   m_Size: {x: 5.01, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!114 &513564658
 MonoBehaviour:
@@ -48045,7 +48045,7 @@ SpriteRenderer:
   m_Size: {x: 5.01, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1522489952
 MonoBehaviour:
@@ -61378,7 +61378,7 @@ SpriteRenderer:
   m_Size: {x: 5.01, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1898961561
 MonoBehaviour:

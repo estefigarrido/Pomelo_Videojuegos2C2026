@@ -57,12 +57,6 @@ public class MovimientoPersonaje : MonoBehaviour
     [SerializeField] private Sprite frameFinalDash;
     [SerializeField] private Color colorDestello = Color.white;
 
-    [Header("Deteccion del doble toque")]
-    [Tooltip("Tiempo maximo que puede durar una pulsacion para contar como toque y no como mantenida.")]
-    [SerializeField] private float duracionMaximaToque = 0.3f;
-    [Tooltip("Tiempo maximo entre un toque y el siguiente.")]
-    [SerializeField] private float ventanaEntreToques = 0.45f;
-
     [Header("Piso")]
     [Tooltip("Inclinacion maxima que puede tener una superficie para que cuente como piso.")]
     [SerializeField] private float anguloMaximoPiso = 50f;
@@ -126,11 +120,6 @@ public class MovimientoPersonaje : MonoBehaviour
     private float direccionDash;
     private float finUltimoDash = -99f;
     private float gravedadNormal = 1f;
-
-    private readonly DetectorDobleToque toqueIzquierda = new DetectorDobleToque();
-    private readonly DetectorDobleToque toqueDerecha = new DetectorDobleToque();
-    private readonly DetectorDobleToque toqueIzquierda2 = new DetectorDobleToque();
-    private readonly DetectorDobleToque toqueDerecha2 = new DetectorDobleToque();
 
     public bool SprintActivo => sprintActivo;
     public bool DashActivo => dashActivo;
@@ -196,7 +185,7 @@ public class MovimientoPersonaje : MonoBehaviour
             LeerSalto(teclado);
         }
 
-        // Moviendose sin sprint va la animacion de caminar; con el sprint activo (Shift o doble toque), la de correr.
+        // Moviendose sin sprint va la animacion de caminar; con el sprint activo (Shift), la de correr.
         if (animator != null)
         {
             bool moviendose = direccion != 0f;
@@ -314,10 +303,6 @@ public class MovimientoPersonaje : MonoBehaviour
         sprintActivo = false;
         if (!conEspera) return;
         finCooldown = Time.time + cooldownSprint;
-        toqueIzquierda.Reiniciar();
-        toqueDerecha.Reiniciar();
-        toqueIzquierda2.Reiniciar();
-        toqueDerecha2.Reiniciar();
 
         if (mostrarDebug) Debug.Log("[Sprint] termino. Espera de " + cooldownSprint + "s");
     }
@@ -543,43 +528,5 @@ public class MovimientoPersonaje : MonoBehaviour
 
         float velocidadActual = sprintActivo ? velocidad * multiplicadorSprint : velocidad;
         rb.linearVelocity = new Vector2(direccion * velocidadActual, rb.linearVelocity.y);
-    }
-
-    // Detecta "tocar dos veces rapido" una tecla. Mantenerla apretada no cuenta.
-    private class DetectorDobleToque
-    {
-        private float inicioPulsacion = -1f;
-        private float momentoUltimoToque = -99f;
-
-        public bool Evaluar(KeyControl tecla, float duracionMaximaToque, float ventanaEntreToques)
-        {
-            if (tecla.wasPressedThisFrame)
-            {
-                if (Time.time - momentoUltimoToque <= ventanaEntreToques)
-                {
-                    Reiniciar();
-                    return true;
-                }
-
-                inicioPulsacion = Time.time;
-            }
-
-            if (tecla.wasReleasedThisFrame && inicioPulsacion >= 0f)
-            {
-                float duracion = Time.time - inicioPulsacion;
-                inicioPulsacion = -1f;
-
-                // solo una pulsacion corta cuenta como toque; mantener apretado no
-                momentoUltimoToque = duracion <= duracionMaximaToque ? Time.time : -99f;
-            }
-
-            return false;
-        }
-
-        public void Reiniciar()
-        {
-            inicioPulsacion = -1f;
-            momentoUltimoToque = -99f;
-        }
     }
 }

@@ -90,6 +90,25 @@ public class SaludPersonaje : MonoBehaviour
         if (vida <= 0f) Morir();
     }
 
+    // Cae al agua venenosa: pierde 'danio' de vida (una vida = 20) y reaparece en 'lugar'.
+    // Si con eso se queda sin vida, muere como siempre (reaparece en el ultimo checkpoint con la vida llena).
+    public void CaerAlAguaVenenosa(float danio, Vector3 lugar)
+    {
+        if (vida <= 0f) return;
+
+        vida = Mathf.Max(0f, vida - danio);
+        Debug.Log("[Vida] cayo al agua venenosa: -" + danio + " -> " + vida + "/" + vidaMaxima);
+        if (vida <= 0f) { Morir(); return; }
+
+        parpadeo.Empezar();
+        transform.position = lugar;
+        if (rb != null)
+        {
+            rb.position = lugar;
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
+
     public void DefinirPuntoDeReaparicion(Transform punto)
     {
         puntoDeReaparicion = punto;

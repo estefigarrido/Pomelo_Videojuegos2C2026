@@ -11,10 +11,10 @@ public class FlorElevadora : MonoBehaviour
     [Header("Viento")]
     [Tooltip("La zona del viento (el BoxCollider2D marcado como trigger).")]
     [SerializeField] private BoxCollider2D zona;
-    [Tooltip("Velocidad a la que sube la chica adentro de la zona (unidades por segundo).")]
-    [SerializeField] private float velocidadSubida = 3f;
-    [Tooltip("Que tan rapido llega a esa velocidad (unidades por segundo, por segundo).")]
-    [SerializeField] private float aceleracion = 14f;
+    [Tooltip("Velocidad a la que la propulsa hacia arriba adentro de la zona (unidades por segundo).")]
+    [SerializeField] private float velocidadPropulsion = 6f;
+    [Tooltip("Que tan rapido llega a esa velocidad (unidades por segundo, por segundo), ademas de anular la gravedad.")]
+    [SerializeField] private float aceleracionPropulsion = 30f;
 
     [Header("Cristalitos")]
     [SerializeField] private Sprite[] cristales;
@@ -51,7 +51,10 @@ public class FlorElevadora : MonoBehaviour
         var v = rb.linearVelocity;
         // sube hasta el borde de arriba de la zona; ahi deja de empujar
         if (otro.bounds.min.y > zona.bounds.max.y) return;
-        v.y = Mathf.MoveTowards(v.y, velocidadSubida, aceleracion * Time.fixedDeltaTime);
+        // anula la gravedad de la chica (esta en x2) y la propulsa hacia arriba
+        float gravedad = Mathf.Abs(Physics2D.gravity.y) * rb.gravityScale;
+        v.y += gravedad * Time.fixedDeltaTime;
+        v.y = Mathf.MoveTowards(v.y, velocidadPropulsion, aceleracionPropulsion * Time.fixedDeltaTime);
         rb.linearVelocity = v;
     }
 

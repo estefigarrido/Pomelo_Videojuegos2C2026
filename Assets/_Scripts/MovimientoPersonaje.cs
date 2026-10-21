@@ -18,7 +18,7 @@ public class MovimientoPersonaje : MonoBehaviour
     [Tooltip("En unidades por segundo. 1 unidad = 100 pixeles de pantalla, asi que 3.5 son 350 px/s.")]
     [SerializeField] private float velocidad = 3.5f;
 
-    [Header("Sprint  (doble toque de una flecha o de A/D, o Shift + direccion)")]
+    [Header("Sprint  (mantener Shift + direccion; al soltar Shift vuelve a caminar)")]
     [Tooltip("2 = corre el doble de rapido que el correr normal.")]
     [SerializeField] private float multiplicadorSprint = 2f;
     [Tooltip("Cuantos segundos dura el sprint. Poner 0 para que no se apague solo.")]
@@ -118,6 +118,7 @@ public class MovimientoPersonaje : MonoBehaviour
 
     private bool animatorTieneDash;
     private bool animatorTieneSalto;
+    private bool animatorTieneCaminando;
 
     private bool pedidoDash;
     private bool dashActivo;
@@ -156,6 +157,7 @@ public class MovimientoPersonaje : MonoBehaviour
 
         animatorTieneDash = TieneParametro("dash");
         animatorTieneSalto = TieneParametro("saltando") && TieneParametro("tiempoSalto");
+        animatorTieneCaminando = TieneParametro("caminando");
 
         CrearDestello();
     }
@@ -173,15 +175,11 @@ public class MovimientoPersonaje : MonoBehaviour
         if (izquierda.isPressed || izquierda2.isPressed) direccion -= 1f;
         if (derecha.isPressed || derecha2.isPressed) direccion += 1f;
 
-        // el doble toque se cuenta por tecla (dos toques de la misma tecla)
-        bool dobleToque = toqueIzquierda.Evaluar(izquierda, duracionMaximaToque, ventanaEntreToques);
-        dobleToque |= toqueDerecha.Evaluar(derecha, duracionMaximaToque, ventanaEntreToques);
-        dobleToque |= toqueIzquierda2.Evaluar(izquierda2, duracionMaximaToque, ventanaEntreToques);
-        dobleToque |= toqueDerecha2.Evaluar(derecha2, duracionMaximaToque, ventanaEntreToques);
-        // el sprint sale con doble toque o manteniendo Shift mientras camina; en los dos
-        // casos dura lo mismo y despues hay que esperar igual
+        // el sprint va solo mientras se mantiene Shift moviendose: al soltar Shift (o frenar) vuelve a caminar.
+        // Si se mantiene mas de duracionSprint, se corta y hay que esperar cooldownSprint.
         bool conShift = teclado.shiftKey.isPressed && direccion != 0f;
-        if (dobleToque || conShift) ActivarSprint();
+        if (conShift) ActivarSprint();
+        else if (sprintActivo) TerminarSprint(false);
 
         ApagarSprintSiSeVencio();
 
@@ -198,9 +196,13 @@ public class MovimientoPersonaje : MonoBehaviour
             LeerSalto(teclado);
         }
 
-        // La animacion de correr va siempre que se mueva, con una flecha o A/D.
-        // El sprint no cambia la animacion, solo la velocidad.
-        if (animator != null) animator.SetBool("sprint", direccion != 0f);
+        // Moviendose sin sprint va la animacion de caminar; con el sprint activo (Shift o doble toque), la de correr.
+        if (animator != null)
+        {
+            bool moviendose = direccion != 0f;
+            animator.SetBool("sprint", moviendose && sprintActivo);
+            if (animatorTieneCaminando) animator.SetBool("caminando", moviendose && !sprintActivo);
+        }
 
         // mientras dashea sigue mirando para el lado del dash
         if (direccion != 0f && !dashActivo && !pedidoDash) MirarHacia(direccion);
@@ -303,8 +305,14 @@ public class MovimientoPersonaje : MonoBehaviour
     private void ApagarSprintSiSeVencio()
     {
         if (!sprintActivo || Time.time < finSprint) return;
+        TerminarSprint(true);
+    }
 
+    // conEspera: si se termino por tiempo hay que esperar cooldownSprint; si solto Shift, no
+    private void TerminarSprint(bool conEspera)
+    {
         sprintActivo = false;
+        if (!conEspera) return;
         finCooldown = Time.time + cooldownSprint;
         toqueIzquierda.Reiniciar();
         toqueDerecha.Reiniciar();

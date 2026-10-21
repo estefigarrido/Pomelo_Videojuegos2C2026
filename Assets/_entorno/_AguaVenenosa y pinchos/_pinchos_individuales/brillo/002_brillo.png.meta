@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 131031d1a1698bc48bac190783dca2ac
+guid: acf7b1bdada8946478f94461969d385f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 749131533330517345
-    second: cortina_lianas_brillo_0
+      213: -2196261490301793372
+    second: 002_brillo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +49,7 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 1
+  alignment: 9
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cortina_lianas_brillo_0
+      name: 002_brillo_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 24
-        width: 1143
-        height: 1595
+        x: 4
+        y: 4
+        width: 91
+        height: 485
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 16d85361923756a00800000000000000
-      internalID: 749131533330517345
+      spriteID: 4ab01b49fcf4581e0800000000000000
+      internalID: -2196261490301793372
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cortina_lianas_brillo_0: 749131533330517345
+      002_brillo_0: -2196261490301793372
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

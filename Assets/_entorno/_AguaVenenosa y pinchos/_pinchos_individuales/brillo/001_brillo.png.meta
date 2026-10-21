@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7846290785e9a3842b670a81e5a1bd4d
+guid: 0d2d70bd5b90d0f4db4db8e6ad4d7274
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3021904148128273735
-    second: liana_hojas_larga_brillo_0
+      213: -4393851656857886498
+    second: 001_brillo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +49,7 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 1
+  alignment: 9
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: liana_hojas_larga_brillo_0
+      name: 001_brillo_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 12
-        width: 332
-        height: 1642
+        x: 5
+        y: 4
+        width: 95
+        height: 583
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 745177edfc5ffe920800000000000000
-      internalID: 3021904148128273735
+      spriteID: ed0693d9237e503c0800000000000000
+      internalID: -4393851656857886498
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      liana_hojas_larga_brillo_0: 3021904148128273735
+      001_brillo_0: -4393851656857886498
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -82,6 +82,13 @@ public class TroncoMeditador : MonoBehaviour
     [SerializeField] private Vector2 tamanoBrilloPinchos = new Vector2(0.9f, 1.4f);
     [SerializeField] private float parpadeosPorSegundo = 0.8f;
 
+    [Header("Dano por estar cerca")]
+    [Tooltip("Zona alrededor del tronco (centro relativo y tamano, en unidades del mundo).")]
+    [SerializeField] private Vector2 centroZonaDanio = new Vector2(0f, -0.3f);
+    [SerializeField] private Vector2 tamanoZonaDanio = new Vector2(5.5f, 4.5f);
+    [Tooltip("Vida que le saca por cada segundo dentro de la zona (la vida maxima es 100).")]
+    [SerializeField] private float danioPorSegundo = 5f;
+
     [Header("Muerte")]
     [SerializeField] private SpriteRenderer piezaEstatua;
     [Tooltip("Cuanto cae la pieza hasta el piso (unidades del dibujo).")]
@@ -101,6 +108,8 @@ public class TroncoMeditador : MonoBehaviour
     private Transform chica;
     private Rigidbody2D rbChica;
     private MovimientoPersonaje movimiento;
+    private SaludPersonaje salud;
+    private float proximoDanio;
 
     private Vector3 cabezaInicial;
     private float faseFlotar;
@@ -135,7 +144,7 @@ public class TroncoMeditador : MonoBehaviour
     private void Start()
     {
         camara = FindFirstObjectByType<CamaraSeguidora>();
-        var salud = FindFirstObjectByType<SaludPersonaje>();
+        salud = FindFirstObjectByType<SaludPersonaje>();
         if (salud != null)
         {
             chica = salud.transform;
@@ -155,6 +164,7 @@ public class TroncoMeditador : MonoBehaviour
         if (estado == Estado.Muerto || chica == null) return;
 
         Vector2 p = chica.position;
+        DaniarSiEstaCerca(p);
         float x0 = inicioAgro.x, x1 = inicioAgro.x + tamanoAgro.x;
         float piso = inicioAgro.y;
 
@@ -189,6 +199,17 @@ public class TroncoMeditador : MonoBehaviour
                     StartCoroutine(Guardar(true));
                 break;
         }
+    }
+
+    // mientras la chica este pegada al tronco, pierde vida de a un golpe por segundo
+    private void DaniarSiEstaCerca(Vector2 p)
+    {
+        if (salud == null) return;
+        var zona = new Rect((Vector2)transform.position + centroZonaDanio - tamanoZonaDanio / 2f, tamanoZonaDanio);
+        if (!zona.Contains(p)) { proximoDanio = Time.time + 1f; return; }
+        if (Time.time < proximoDanio) return;
+        salud.RecibirDanio(danioPorSegundo);
+        proximoDanio = Time.time + 1f;
     }
 
     private bool SobreUnArea(float x)
@@ -333,6 +354,9 @@ public class TroncoMeditador : MonoBehaviour
         if (camaraAlejada && camara != null) camara.Liberar();
         camaraAlejada = false;
         if (cabeza != null && ojos.Length > 0) cabeza.sprite = ojos[0];
+        // los pinchos dejan de lastimar enseguida y se guardan para siempre
+        foreach (var p in pinchos) foreach (var c in p.cols) if (c != null) c.enabled = false;
+        foreach (var p in pinchos) p.cols = new Collider2D[0];
         StartCoroutine(Guardar(false));
         StartCoroutine(CaerCabeza());
         StartCoroutine(SoltarPieza());
@@ -550,6 +574,8 @@ public class TroncoMeditador : MonoBehaviour
     {
         Gizmos.color = new Color(1f, 0.3f, 0.3f, 0.8f);
         Gizmos.DrawWireCube(inicioAgro + tamanoAgro / 2f, tamanoAgro);
+        Gizmos.color = new Color(1f, 0.6f, 0.1f, 0.9f);
+        Gizmos.DrawWireCube((Vector2)transform.position + centroZonaDanio, tamanoZonaDanio);
         Gizmos.color = new Color(0.6f, 0.9f, 1f, 0.6f);
         Gizmos.DrawWireCube(inicioAgro + new Vector2(tamanoAgro.x / 2f, tamanoAgro.y / 2f + 0.5f),
                             new Vector2(tamanoAgro.x + margenCamara * 2f, tamanoAgro.y + 7f));

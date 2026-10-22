@@ -9133,6 +9133,7 @@ GameObject:
   - component: {fileID: 200569325}
   - component: {fileID: 200569327}
   - component: {fileID: 200569326}
+  - component: {fileID: 200569328}
   m_Layer: 0
   m_Name: Pajaro 9
   m_TagString: Untagged
@@ -9353,6 +9354,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &200569328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200569319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &203543427
 GameObject:
   m_ObjectHideFlags: 0
@@ -12837,6 +12858,7 @@ GameObject:
   - component: {fileID: 300479990}
   - component: {fileID: 300479989}
   - component: {fileID: 300479991}
+  - component: {fileID: 300479992}
   m_Layer: 0
   m_Name: Comelibros 1
   m_TagString: Untagged
@@ -13064,6 +13086,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InclinacionComelibros
   angulo: -4.88
+--- !u!114 &300479992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300479982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &301504991
 GameObject:
   m_ObjectHideFlags: 0
@@ -13461,6 +13503,7 @@ GameObject:
   - component: {fileID: 315116952}
   - component: {fileID: 315116954}
   - component: {fileID: 315116953}
+  - component: {fileID: 315116955}
   m_Layer: 0
   m_Name: Pajaro 8
   m_TagString: Untagged
@@ -13681,6 +13724,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &315116955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315116946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &317180118
 GameObject:
   m_ObjectHideFlags: 0
@@ -14867,6 +14930,7 @@ GameObject:
   - component: {fileID: 336999309}
   - component: {fileID: 336999311}
   - component: {fileID: 336999310}
+  - component: {fileID: 336999312}
   m_Layer: 0
   m_Name: Pajaro 6
   m_TagString: Untagged
@@ -15087,6 +15151,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &336999312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336999303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &339850961
 GameObject:
   m_ObjectHideFlags: 0
@@ -19180,6 +19264,7 @@ GameObject:
   - component: {fileID: 495036890}
   - component: {fileID: 495036889}
   - component: {fileID: 495036891}
+  - component: {fileID: 495036892}
   m_Layer: 0
   m_Name: Comelibros 3
   m_TagString: Untagged
@@ -19407,6 +19492,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InclinacionComelibros
   angulo: -4.88
+--- !u!114 &495036892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495036882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &496640486
 GameObject:
   m_ObjectHideFlags: 0
@@ -19422,6 +19527,7 @@ GameObject:
   - component: {fileID: 496640492}
   - component: {fileID: 496640494}
   - component: {fileID: 496640493}
+  - component: {fileID: 496640495}
   m_Layer: 0
   m_Name: Pajaro 3
   m_TagString: Untagged
@@ -19642,6 +19748,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &496640495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496640486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &496865708
 GameObject:
   m_ObjectHideFlags: 0
@@ -19840,6 +19966,7 @@ GameObject:
   - component: {fileID: 513564660}
   - component: {fileID: 513564659}
   - component: {fileID: 513564661}
+  - component: {fileID: 513564662}
   m_Layer: 0
   m_Name: Comelibros 2
   m_TagString: Untagged
@@ -20067,6 +20194,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InclinacionComelibros
   angulo: -4.88
+--- !u!114 &513564662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513564652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &523268685
 GameObject:
   m_ObjectHideFlags: 0
@@ -22167,6 +22314,7 @@ GameObject:
   - component: {fileID: 570089698}
   - component: {fileID: 570089700}
   - component: {fileID: 570089699}
+  - component: {fileID: 570089701}
   m_Layer: 0
   m_Name: Pajaro 11
   m_TagString: Untagged
@@ -22387,6 +22535,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &570089701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570089692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &571836783
 GameObject:
   m_ObjectHideFlags: 0
@@ -26852,6 +27020,7 @@ GameObject:
   - component: {fileID: 754562885}
   - component: {fileID: 754562887}
   - component: {fileID: 754562886}
+  - component: {fileID: 754562888}
   m_Layer: 0
   m_Name: Pajaro 1
   m_TagString: Untagged
@@ -27072,6 +27241,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &754562888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754562879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &756366770
 GameObject:
   m_ObjectHideFlags: 0
@@ -29777,6 +29966,7 @@ GameObject:
   - component: {fileID: 832901129}
   - component: {fileID: 832901131}
   - component: {fileID: 832901130}
+  - component: {fileID: 832901132}
   m_Layer: 0
   m_Name: Pajaro 12
   m_TagString: Untagged
@@ -29997,6 +30187,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &832901132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832901123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &833034446
 GameObject:
   m_ObjectHideFlags: 0
@@ -33328,6 +33538,7 @@ GameObject:
   - component: {fileID: 951428063}
   - component: {fileID: 951428065}
   - component: {fileID: 951428064}
+  - component: {fileID: 951428066}
   m_Layer: 0
   m_Name: Pajaro 2
   m_TagString: Untagged
@@ -33548,6 +33759,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &951428066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951428057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &953712757
 GameObject:
   m_ObjectHideFlags: 0
@@ -34994,6 +35225,7 @@ GameObject:
   - component: {fileID: 1011155889}
   - component: {fileID: 1011155891}
   - component: {fileID: 1011155890}
+  - component: {fileID: 1011155892}
   m_Layer: 0
   m_Name: Pajaro 5
   m_TagString: Untagged
@@ -35214,6 +35446,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &1011155892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011155883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &1016600895
 GameObject:
   m_ObjectHideFlags: 0
@@ -49250,6 +49502,7 @@ GameObject:
   - component: {fileID: 1522489954}
   - component: {fileID: 1522489953}
   - component: {fileID: 1522489955}
+  - component: {fileID: 1522489956}
   m_Layer: 0
   m_Name: Comelibros 4
   m_TagString: Untagged
@@ -49477,6 +49730,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InclinacionComelibros
   angulo: -4.88
+--- !u!114 &1522489956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522489946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &1525407809
 GameObject:
   m_ObjectHideFlags: 0
@@ -51413,6 +51686,7 @@ GameObject:
   - component: {fileID: 1575331894}
   - component: {fileID: 1575331896}
   - component: {fileID: 1575331895}
+  - component: {fileID: 1575331897}
   m_Layer: 0
   m_Name: Pajaro 10
   m_TagString: Untagged
@@ -51633,6 +51907,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &1575331897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575331888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &1577407540
 GameObject:
   m_ObjectHideFlags: 0
@@ -55194,6 +55488,7 @@ GameObject:
   - component: {fileID: 1682088733}
   - component: {fileID: 1682088735}
   - component: {fileID: 1682088734}
+  - component: {fileID: 1682088736}
   m_Layer: 0
   m_Name: Pajaro 7
   m_TagString: Untagged
@@ -55414,6 +55709,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &1682088736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682088727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &1682110956
 GameObject:
   m_ObjectHideFlags: 0
@@ -59851,6 +60166,7 @@ GameObject:
   - component: {fileID: 1815182706}
   - component: {fileID: 1815182708}
   - component: {fileID: 1815182707}
+  - component: {fileID: 1815182709}
   m_Layer: 0
   m_Name: Pajaro 4
   m_TagString: Untagged
@@ -60071,6 +60387,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0014374554, y: -0.061543405}
   m_Size: {x: 1.8457143, y: 1.4742857}
   m_Direction: 1
+--- !u!114 &1815182709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815182700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &1815959677
 GameObject:
   m_ObjectHideFlags: 0
@@ -62587,6 +62923,7 @@ GameObject:
   - component: {fileID: 1898961563}
   - component: {fileID: 1898961562}
   - component: {fileID: 1898961564}
+  - component: {fileID: 1898961565}
   m_Layer: 0
   m_Name: Comelibros 5
   m_TagString: Untagged
@@ -62814,6 +63151,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InclinacionComelibros
   angulo: -4.88
+--- !u!114 &1898961565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898961555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e15271046ed4842b809b35448dc7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowAgroMob
+  glow: {fileID: 21300000, guid: 23a81b86044ed3842be7fce4d82212fa, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  cantidad: 6
+  tamano: {x: 0.6, y: 1.1}
+  lila: {r: 0.79, g: 0.66, b: 0.96, a: 0.52}
+  violeta: {r: 0.31, g: 0.16, b: 0.48, a: 0.63}
+  parpadeosPorSegundo: 0.8
+  segundosAparecer: 0.3
 --- !u!1 &1899560612
 GameObject:
   m_ObjectHideFlags: 0

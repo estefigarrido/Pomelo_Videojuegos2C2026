@@ -13,6 +13,8 @@ public class VidaEnemigo : MonoBehaviour
     [Tooltip("Activado (mobs): la animacion se apoya en la base del mob y se escala segun su ancho. " +
              "Desactivado (Umbrae): se dibuja en el lugar del mob, a su tamano y mirando para el mismo lado.")]
     [SerializeField] private bool ajustarMuerteAlTamano = true;
+    [Tooltip("Desactivado (tronco): al morir se queda en el lugar y su propio script hace la muerte.")]
+    [SerializeField] private bool desactivarAlMorir = true;
 
     [Header("Sabiduria")]
     [Tooltip("Liquido de sabiduria que junta la chica con cada golpe que le da a este enemigo: " +
@@ -57,7 +59,8 @@ public class VidaEnemigo : MonoBehaviour
         {
             CrearEfectoMuerte();
             AlMorir?.Invoke();
-            gameObject.SetActive(false);
+            if (desactivarAlMorir) gameObject.SetActive(false);
+            else parpadeo.Cortar();
             return;
         }
 

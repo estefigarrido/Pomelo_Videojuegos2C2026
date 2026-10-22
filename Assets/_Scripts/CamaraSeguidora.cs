@@ -19,6 +19,7 @@ public class CamaraSeguidora : MonoBehaviour
     private float tamanoFijo;
     private float mezcla; // 0 = sigue a la chica, 1 = encuadre fijo
     private float duracionActual;
+    private float inicioTemblor, finTemblor, intensidadTemblor;
 
     private void Awake()
     {
@@ -44,10 +45,31 @@ public class CamaraSeguidora : MonoBehaviour
         duracionActual = duracion > 0f ? duracion : duracionTransicion;
     }
 
+    // Tiembla 'duracion' segundos; el temblor se va apagando hasta terminar.
+    public void Temblar(float duracion, float intensidad)
+    {
+        inicioTemblor = Time.time;
+        finTemblor = Time.time + duracion;
+        intensidadTemblor = intensidad;
+    }
+
+    public bool Fijo => fijo;
+
     private void LateUpdate()
     {
         if (objetivo == null) return;
+        Posicionar();
 
+        if (Time.time < finTemblor)
+        {
+            float queda = 1f - (Time.time - inicioTemblor) / Mathf.Max(0.01f, finTemblor - inicioTemblor);
+            Vector2 sacudida = Random.insideUnitCircle * intensidadTemblor * queda;
+            transform.position += new Vector3(sacudida.x, sacudida.y, 0f);
+        }
+    }
+
+    private void Posicionar()
+    {
         mezcla = Mathf.MoveTowards(mezcla, fijo ? 1f : 0f, Time.deltaTime / Mathf.Max(0.01f, duracionActual));
         float k = Mathf.SmoothStep(0f, 1f, mezcla);
 

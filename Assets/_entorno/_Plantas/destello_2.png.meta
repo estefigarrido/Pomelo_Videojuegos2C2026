@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b5cbe285aef06f24ebacc666f201c032
+guid: bcb8ec0b0eaa2b241b1b5b7133305cd6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1580612594190120315
-    second: polen_estela_0
+      213: 829711426973057091
+    second: destello_2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: polen_estela_0
+      name: destello_2_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 0
-        width: 251
-        height: 64
+        x: 10
+        y: 15
+        width: 419
+        height: 384
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b75f53ca7c67fe510800000000000000
-      internalID: 1580612594190120315
+      spriteID: 340cfc6952ab38b00800000000000000
+      internalID: 829711426973057091
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      polen_estela_0: 1580612594190120315
+      destello_2_0: 829711426973057091
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

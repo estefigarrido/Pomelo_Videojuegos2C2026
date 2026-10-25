@@ -9,6 +9,12 @@ using UnityEngine;
 public class PolenPlantas : MonoBehaviour
 {
     [SerializeField] private Sprite[] dientesDeLeon;
+    [Tooltip("Los polenes sueltos (polen1..3): son el resto de lo que se levanta.")]
+    [SerializeField] private Sprite[] polenes;
+    [Tooltip("Dientes de leon enteros que se levantan por cada pasada por la plantita (minimo y maximo).")]
+    [SerializeField] private Vector2Int dientesPorPasada = new Vector2Int(2, 3);
+    [Tooltip("Alto de los polenes sueltos respecto del de los dientes de leon.")]
+    [SerializeField] private float tamanoPolen = 0.45f;
     [Tooltip("Los destellos amarillos desenfocados del Figma.")]
     [SerializeField] private Sprite[] destellos;
     [SerializeField] private Material materialSinLuz;
@@ -46,7 +52,7 @@ public class PolenPlantas : MonoBehaviour
     [SerializeField] private float retrasoDestello = 0.12f;
     [SerializeField] private int ordenDeDibujo = 102;
 
-    private class Planta { public SpriteRenderer sr; public float recorrido; public int soltados; }
+    private class Planta { public SpriteRenderer sr; public float recorrido; public int soltados; public bool adentro; public int dientesQuedan; }
     private class Polen
     {
         public Transform t, td; public SpriteRenderer sr, srd;
@@ -54,6 +60,7 @@ public class PolenPlantas : MonoBehaviour
     }
 
     private readonly List<Planta> plantas = new List<Planta>();
+    private Planta planta;   // la plantita que esta soltando polen ahora
     private readonly List<Polen> activos = new List<Polen>();
     private readonly Stack<Polen> libres = new Stack<Polen>();
     private Collider2D cuerpoChica;
@@ -89,7 +96,10 @@ public class PolenPlantas : MonoBehaviour
                 if (p.sr == null) continue;
                 Bounds b = p.sr.bounds;
                 // la chica tiene que estar pasando por la parte de abajo de la plantita
-                if (c.max.x < b.min.x || c.min.x > b.max.x || c.min.y > b.min.y + b.size.y * 0.6f || c.max.y < b.min.y) continue;
+                if (c.max.x < b.min.x || c.min.x > b.max.x || c.min.y > b.min.y + b.size.y * 0.6f || c.max.y < b.min.y) { p.adentro = false; continue; }
+                // cada pasada nueva por la plantita levanta 2 o 3 dientes de leon; el resto son polenes
+                if (!p.adentro) { p.adentro = true; p.dientesQuedan = Random.Range(dientesPorPasada.x, dientesPorPasada.y + 1); }
+                planta = p;
                 // el polen total se reparte a lo largo del recorrido: se vacia despues de caminar 'pasadasHastaVaciarse' veces su ancho
                 int total = Mathf.Max(1, Mathf.RoundToInt(b.size.x * porUnidadDeAncho * proporcion));
                 if (p.soltados >= total) continue;
@@ -127,7 +137,10 @@ public class PolenPlantas : MonoBehaviour
             p.giro = Random.Range(-40f, 40f);
             float alto = Random.Range(altura.x, altura.y);
             p.sr.enabled = !p.soloDestello;
-            p.sr.sprite = dientesDeLeon[Random.Range(0, dientesDeLeon.Length)];
+            bool diente = !p.soloDestello && (planta == null || planta.dientesQuedan > 0 || polenes == null || polenes.Length == 0);
+            if (diente && !p.soloDestello && planta != null) planta.dientesQuedan--;
+            if (diente) p.sr.sprite = dientesDeLeon[Random.Range(0, dientesDeLeon.Length)];
+            else { p.sr.sprite = polenes[Random.Range(0, polenes.Length)]; alto *= tamanoPolen; }
             p.tam = alto / Mathf.Max(0.01f, p.sr.sprite.bounds.size.y);
             if (p.srd != null && destellos != null && destellos.Length > 0)
             {

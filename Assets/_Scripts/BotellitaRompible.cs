@@ -107,6 +107,7 @@ public class BotellitaRompible : MonoBehaviour
             t.SetParent(transform.parent, true);
             t.localScale = escalaMundo;
             f.maskInteraction = SpriteMaskInteraction.None;
+            f.enabled = true;   // en las botellitas que ya traen el polen dibujado estan ocultos hasta romperse
             f.sortingOrder = 102;
             var p = new Polen { t = t, sr = f, centro = t.position, fase = Random.value * 10f, escala = Mathf.Abs(escalaMundo.x) };
             p.objetivo = p.centro + Random.insideUnitCircle * radio + Vector2.up * radio * 0.5f;

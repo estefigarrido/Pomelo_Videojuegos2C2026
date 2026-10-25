@@ -20,8 +20,8 @@ public class PolenPlantas : MonoBehaviour
     [Range(0f, 1f)] [SerializeField] private float proporcion = 0.6f;
     [Tooltip("Destellos sueltos por cada diente de leon.")]
     [SerializeField] private float destellosSueltos = 0.5f;
-    [Tooltip("Segundos hasta que la misma plantita vuelve a soltar polen.")]
-    [SerializeField] private float esperaPorPlanta = 1.2f;
+    [Tooltip("La plantita suelta todo su polen de a poco: se termina cuando la chica camino adentro de ella esta cantidad de veces su ancho.")]
+    [SerializeField] private float pasadasHastaVaciarse = 5f;
     [Tooltip("La chica tiene que ir al menos a esta velocidad (caminando) para levantar polen.")]
     [SerializeField] private float velocidadMinima = 0.6f;
     [SerializeField] private int maximo = 150;
@@ -46,7 +46,7 @@ public class PolenPlantas : MonoBehaviour
     [SerializeField] private float retrasoDestello = 0.12f;
     [SerializeField] private int ordenDeDibujo = 102;
 
-    private class Planta { public SpriteRenderer sr; public float listaDesde; }
+    private class Planta { public SpriteRenderer sr; public float recorrido; public int soltados; }
     private class Polen
     {
         public Transform t, td; public SpriteRenderer sr, srd;
@@ -83,24 +83,34 @@ public class PolenPlantas : MonoBehaviour
             && Mathf.Abs(rbChica.linearVelocity.x) >= velocidadMinima)
         {
             Bounds c = cuerpoChica.bounds;
+            float avance = Mathf.Abs(rbChica.linearVelocity.x) * Time.deltaTime;
             foreach (var p in plantas)
             {
-                if (p.sr == null || Time.time < p.listaDesde) continue;
+                if (p.sr == null) continue;
                 Bounds b = p.sr.bounds;
                 // la chica tiene que estar pasando por la parte de abajo de la plantita
                 if (c.max.x < b.min.x || c.min.x > b.max.x || c.min.y > b.min.y + b.size.y * 0.6f || c.max.y < b.min.y) continue;
-                p.listaDesde = Time.time + esperaPorPlanta;
-                Levantar(b, c.center.x, Mathf.Sign(rbChica.linearVelocity.x));
+                // el polen total se reparte a lo largo del recorrido: se vacia despues de caminar 'pasadasHastaVaciarse' veces su ancho
+                int total = Mathf.Max(1, Mathf.RoundToInt(b.size.x * porUnidadDeAncho * proporcion));
+                if (p.soltados >= total) continue;
+                p.recorrido += avance;
+                int deberia = Mathf.Min(total, Mathf.FloorToInt(total * p.recorrido / Mathf.Max(0.01f, b.size.x * pasadasHastaVaciarse)) + 1);
+                if (deberia > p.soltados)
+                {
+                    Levantar(b, c.center.x, Mathf.Sign(rbChica.linearVelocity.x), deberia - p.soltados);
+                    p.soltados = deberia;
+                }
             }
         }
         Mover();
     }
 
-    // cantidad proporcional al ancho de la plantita; salen cerca de donde pasa la chica
-    private void Levantar(Bounds b, float xChica, float sentido)
+    // salen cerca de donde pasa la chica
+    private void Levantar(Bounds b, float xChica, float sentido, int cantidad)
     {
-        int cantidad = Mathf.Max(1, Mathf.RoundToInt(b.size.x * porUnidadDeAncho * proporcion));
-        int sueltos = Mathf.RoundToInt(cantidad * destellosSueltos);
+        // de a pocos: la parte que no llega a uno entero sale con esa probabilidad
+        float extra = cantidad * destellosSueltos;
+        int sueltos = Mathf.FloorToInt(extra) + (Random.value < extra - Mathf.Floor(extra) ? 1 : 0);
         for (int i = 0; i < cantidad + sueltos && activos.Count < maximo; i++)
         {
             var p = libres.Count > 0 ? libres.Pop() : Nuevo();

@@ -76,6 +76,10 @@ public class ProyectilSabiduria : MonoBehaviour
             var col = choque.collider;
             if (col == ignorar || col.GetComponentInParent<SaludPersonaje>() != null) continue;
 
+            // las botellitas se rompen y la bola sigue de largo
+            var botellita = col.GetComponent<BotellitaRompible>();
+            if (botellita != null) { botellita.Romper(); continue; }
+
             var enemigo = col.GetComponentInParent<VidaEnemigo>();
             if (enemigo != null)
             {

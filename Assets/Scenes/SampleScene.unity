@@ -1478,6 +1478,8 @@ GameObject:
   - component: {fileID: 42711598}
   - component: {fileID: 42711599}
   - component: {fileID: 42711600}
+  - component: {fileID: 42711602}
+  - component: {fileID: 42711601}
   m_Layer: 0
   m_Name: botellita2
   m_TagString: Untagged
@@ -1619,6 +1621,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &42711601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42711597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &42711602
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42711597}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.93, y: 1.9}
+    newSize: {x: 0.93, y: 1.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.651, y: 1.615}
+  m_EdgeRadius: 0
 --- !u!1 &44393274
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,6 +1794,8 @@ GameObject:
   - component: {fileID: 49709742}
   - component: {fileID: 49709743}
   - component: {fileID: 49709744}
+  - component: {fileID: 49709746}
+  - component: {fileID: 49709745}
   m_Layer: 0
   m_Name: botellita2
   m_TagString: Untagged
@@ -1862,6 +1937,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &49709745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49709741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &49709746
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49709741}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.93, y: 1.9}
+    newSize: {x: 0.93, y: 1.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.651, y: 1.615}
+  m_EdgeRadius: 0
 --- !u!1 &52360977
 GameObject:
   m_ObjectHideFlags: 0
@@ -3956,7 +4102,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 500
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5585842606714152443, guid: 50f2dbfa071426244b319d9dce55bfac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3978,7 +4124,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 172.64, y: -21.636717, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_LocalScale: {x: 0.111999996, y: 0.111999996, z: 0.111999996}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 428443242}
@@ -4595,6 +4741,8 @@ GameObject:
   - component: {fileID: 125573915}
   - component: {fileID: 125573916}
   - component: {fileID: 125573917}
+  - component: {fileID: 125573919}
+  - component: {fileID: 125573918}
   m_Layer: 0
   m_Name: botellita2_colgante
   m_TagString: Untagged
@@ -4736,6 +4884,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &125573918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125573914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: 7658199299c115a4ea9f75b1e0d755e9, type: 3}
+  soga: {fileID: 21300000, guid: 72f4fcc5878f41644953c22611f79000, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &125573919
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125573914}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -1.681875}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.735, y: 4.875}
+    newSize: {x: 0.735, y: 4.875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.5145, y: 1.2845626}
+  m_EdgeRadius: 0
 --- !u!1 &127769403
 GameObject:
   m_ObjectHideFlags: 0
@@ -9334,7 +9553,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 500
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5585842606714152443, guid: 50f2dbfa071426244b319d9dce55bfac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -9356,7 +9575,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4.0049996, y: 10.98215, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_LocalScale: {x: 0.111999996, y: 0.111999996, z: 0.111999996}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 428443242}
@@ -10971,6 +11190,8 @@ GameObject:
   - component: {fileID: 195413008}
   - component: {fileID: 195413009}
   - component: {fileID: 195413010}
+  - component: {fileID: 195413012}
+  - component: {fileID: 195413011}
   m_Layer: 0
   m_Name: botellita3_colgante
   m_TagString: Untagged
@@ -11112,6 +11333,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &195413011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195413007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: 50aea24b324b24e4285da89c2f0c72d2, type: 3}
+  soga: {fileID: 21300000, guid: 5493920b970986843b72200ce5377d06, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &195413012
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195413007}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.818925}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.025, y: 2.685}
+    newSize: {x: 1.025, y: 2.685}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.7175, y: 0.8900775}
+  m_EdgeRadius: 0
 --- !u!1 &200569319
 GameObject:
   m_ObjectHideFlags: 0
@@ -15967,6 +16259,8 @@ GameObject:
   - component: {fileID: 294648741}
   - component: {fileID: 294648742}
   - component: {fileID: 294648743}
+  - component: {fileID: 294648745}
+  - component: {fileID: 294648744}
   m_Layer: 0
   m_Name: botellita3_colgante
   m_TagString: Untagged
@@ -16108,6 +16402,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &294648744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294648740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: 50aea24b324b24e4285da89c2f0c72d2, type: 3}
+  soga: {fileID: 21300000, guid: 5493920b970986843b72200ce5377d06, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &294648745
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294648740}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.818925}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.025, y: 2.685}
+    newSize: {x: 1.025, y: 2.685}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.7175, y: 0.8900775}
+  m_EdgeRadius: 0
 --- !u!1 &296871020
 GameObject:
   m_ObjectHideFlags: 0
@@ -19552,6 +19917,8 @@ GameObject:
   - component: {fileID: 360910670}
   - component: {fileID: 360910671}
   - component: {fileID: 360910672}
+  - component: {fileID: 360910674}
+  - component: {fileID: 360910673}
   m_Layer: 0
   m_Name: botellita1_colgante
   m_TagString: Untagged
@@ -19693,6 +20060,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &360910673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360910669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: ecdac33f6f194bd4fa33a3b4fa093b7d, type: 3}
+  soga: {fileID: 21300000, guid: d667c6b770ea50048bf0466edeb8c49b, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &360910674
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360910669}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -1.6400999}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.025, y: 4.97}
+    newSize: {x: 1.025, y: 4.97}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.7175, y: 1.43633}
+  m_EdgeRadius: 0
 --- !u!1 &362039967
 GameObject:
   m_ObjectHideFlags: 0
@@ -20306,7 +20744,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -13.42, y: -28.76, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_LocalScale: {x: 0.111999996, y: 0.111999996, z: 0.111999996}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 428443242}
@@ -20413,7 +20851,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 500
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5585842606714152443, guid: 50f2dbfa071426244b319d9dce55bfac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -26181,6 +26619,8 @@ GameObject:
   - component: {fileID: 530082320}
   - component: {fileID: 530082321}
   - component: {fileID: 530082322}
+  - component: {fileID: 530082324}
+  - component: {fileID: 530082323}
   m_Layer: 0
   m_Name: botellita1
   m_TagString: Untagged
@@ -26322,6 +26762,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &530082323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530082319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &530082324
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530082319}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.445, y: 2.395}
+    newSize: {x: 1.445, y: 2.395}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.0115, y: 2.0357502}
+  m_EdgeRadius: 0
 --- !u!1 &534375682
 GameObject:
   m_ObjectHideFlags: 0
@@ -31718,6 +32229,8 @@ GameObject:
   - component: {fileID: 668661273}
   - component: {fileID: 668661274}
   - component: {fileID: 668661275}
+  - component: {fileID: 668661277}
+  - component: {fileID: 668661276}
   m_Layer: 0
   m_Name: botellita1
   m_TagString: Untagged
@@ -31859,6 +32372,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &668661276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668661272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &668661277
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668661272}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.445, y: 2.395}
+    newSize: {x: 1.445, y: 2.395}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.0115, y: 2.0357502}
+  m_EdgeRadius: 0
 --- !u!1 &670764221
 GameObject:
   m_ObjectHideFlags: 0
@@ -32754,6 +33338,8 @@ GameObject:
   - component: {fileID: 717410827}
   - component: {fileID: 717410828}
   - component: {fileID: 717410829}
+  - component: {fileID: 717410831}
+  - component: {fileID: 717410830}
   m_Layer: 0
   m_Name: botellita1
   m_TagString: Untagged
@@ -32895,6 +33481,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &717410830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717410826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &717410831
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717410826}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.445, y: 2.395}
+    newSize: {x: 1.445, y: 2.395}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.0115, y: 2.0357502}
+  m_EdgeRadius: 0
 --- !u!1 &717866124
 GameObject:
   m_ObjectHideFlags: 0
@@ -33160,6 +33817,8 @@ GameObject:
   - component: {fileID: 729740077}
   - component: {fileID: 729740078}
   - component: {fileID: 729740079}
+  - component: {fileID: 729740081}
+  - component: {fileID: 729740080}
   m_Layer: 0
   m_Name: botellita3_colgante_larga
   m_TagString: Untagged
@@ -33301,6 +33960,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &729740080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729740076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: 053a5d35a3fafec4ab9225ce287eb758, type: 3}
+  soga: {fileID: 21300000, guid: 1badb929941752946957e67d84a345f2, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &729740081
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729740076}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -1.3734}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.025, y: 3.815}
+    newSize: {x: 1.025, y: 3.815}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.7175, y: 0.9079701}
+  m_EdgeRadius: 0
 --- !u!1 &733351291
 GameObject:
   m_ObjectHideFlags: 0
@@ -33731,7 +34461,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 500
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5585842606714152443, guid: 50f2dbfa071426244b319d9dce55bfac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -33753,7 +34483,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -21.48, y: 22.99, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_LocalScale: {x: 0.111999996, y: 0.111999996, z: 0.111999996}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 428443242}
@@ -34344,6 +35074,8 @@ GameObject:
   - component: {fileID: 755318365}
   - component: {fileID: 755318366}
   - component: {fileID: 755318367}
+  - component: {fileID: 755318369}
+  - component: {fileID: 755318368}
   m_Layer: 0
   m_Name: botellita2_colgante
   m_TagString: Untagged
@@ -34485,6 +35217,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &755318368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755318364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: 7658199299c115a4ea9f75b1e0d755e9, type: 3}
+  soga: {fileID: 21300000, guid: 72f4fcc5878f41644953c22611f79000, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &755318369
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755318364}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -1.681875}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.735, y: 4.875}
+    newSize: {x: 0.735, y: 4.875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.5145, y: 1.2845626}
+  m_EdgeRadius: 0
 --- !u!1 &756204391
 GameObject:
   m_ObjectHideFlags: 0
@@ -35805,6 +36608,8 @@ GameObject:
   - component: {fileID: 789769474}
   - component: {fileID: 789769475}
   - component: {fileID: 789769476}
+  - component: {fileID: 789769478}
+  - component: {fileID: 789769477}
   m_Layer: 0
   m_Name: botellita3
   m_TagString: Untagged
@@ -35946,6 +36751,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &789769477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789769473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &789769478
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789769473}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.065, y: 2.13}
+    newSize: {x: 2.065, y: 2.13}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.4455, y: 1.8105001}
+  m_EdgeRadius: 0
 --- !u!1 &791488279
 GameObject:
   m_ObjectHideFlags: 0
@@ -40095,6 +40971,8 @@ GameObject:
   - component: {fileID: 879544143}
   - component: {fileID: 879544144}
   - component: {fileID: 879544145}
+  - component: {fileID: 879544147}
+  - component: {fileID: 879544146}
   m_Layer: 0
   m_Name: botellita1_colgante
   m_TagString: Untagged
@@ -40236,6 +41114,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &879544146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879544142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: ecdac33f6f194bd4fa33a3b4fa093b7d, type: 3}
+  soga: {fileID: 21300000, guid: d667c6b770ea50048bf0466edeb8c49b, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &879544147
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879544142}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -1.6400999}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.025, y: 4.97}
+    newSize: {x: 1.025, y: 4.97}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.7175, y: 1.43633}
+  m_EdgeRadius: 0
 --- !u!1 &880249278
 GameObject:
   m_ObjectHideFlags: 0
@@ -44453,6 +45402,8 @@ GameObject:
   - component: {fileID: 999480190}
   - component: {fileID: 999480191}
   - component: {fileID: 999480192}
+  - component: {fileID: 999480194}
+  - component: {fileID: 999480193}
   m_Layer: 0
   m_Name: botellita2_colgante
   m_TagString: Untagged
@@ -44594,6 +45545,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &999480193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999480189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: 7658199299c115a4ea9f75b1e0d755e9, type: 3}
+  soga: {fileID: 21300000, guid: 72f4fcc5878f41644953c22611f79000, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &999480194
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999480189}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -1.681875}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.735, y: 4.875}
+    newSize: {x: 0.735, y: 4.875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.5145, y: 1.2845626}
+  m_EdgeRadius: 0
 --- !u!1 &1002066045
 GameObject:
   m_ObjectHideFlags: 0
@@ -51695,7 +52717,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 500
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5585842606714152443, guid: 50f2dbfa071426244b319d9dce55bfac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -51717,7 +52739,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 33.055, y: 12.3352585, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_LocalScale: {x: 0.111999996, y: 0.111999996, z: 0.111999996}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 428443242}
@@ -52135,6 +53157,8 @@ GameObject:
   - component: {fileID: 1221696459}
   - component: {fileID: 1221696460}
   - component: {fileID: 1221696461}
+  - component: {fileID: 1221696463}
+  - component: {fileID: 1221696462}
   m_Layer: 0
   m_Name: botellita2
   m_TagString: Untagged
@@ -52276,6 +53300,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &1221696462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221696458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &1221696463
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221696458}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.93, y: 1.9}
+    newSize: {x: 0.93, y: 1.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.651, y: 1.615}
+  m_EdgeRadius: 0
 --- !u!1 &1225384237
 GameObject:
   m_ObjectHideFlags: 0
@@ -53349,7 +54444,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 500
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5585842606714152443, guid: 50f2dbfa071426244b319d9dce55bfac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -53371,7 +54466,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 67.71, y: 21.9, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_LocalScale: {x: 0.111999996, y: 0.111999996, z: 0.111999996}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 428443242}
@@ -54007,6 +55102,8 @@ GameObject:
   - component: {fileID: 1246379822}
   - component: {fileID: 1246379823}
   - component: {fileID: 1246379824}
+  - component: {fileID: 1246379826}
+  - component: {fileID: 1246379825}
   m_Layer: 0
   m_Name: botellita1_colgante
   m_TagString: Untagged
@@ -54148,6 +55245,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &1246379825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246379821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: ecdac33f6f194bd4fa33a3b4fa093b7d, type: 3}
+  soga: {fileID: 21300000, guid: d667c6b770ea50048bf0466edeb8c49b, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &1246379826
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246379821}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -1.6400999}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.025, y: 4.97}
+    newSize: {x: 1.025, y: 4.97}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.7175, y: 1.43633}
+  m_EdgeRadius: 0
 --- !u!1 &1246478493
 GameObject:
   m_ObjectHideFlags: 0
@@ -55253,6 +56421,8 @@ GameObject:
   - component: {fileID: 1285733341}
   - component: {fileID: 1285733342}
   - component: {fileID: 1285733343}
+  - component: {fileID: 1285733345}
+  - component: {fileID: 1285733344}
   m_Layer: 0
   m_Name: botellita3
   m_TagString: Untagged
@@ -55394,6 +56564,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &1285733344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285733340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &1285733345
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285733340}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.065, y: 2.13}
+    newSize: {x: 2.065, y: 2.13}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.4455, y: 1.8105001}
+  m_EdgeRadius: 0
 --- !u!1 &1289799376
 GameObject:
   m_ObjectHideFlags: 0
@@ -56242,6 +57483,8 @@ GameObject:
   - component: {fileID: 1301738539}
   - component: {fileID: 1301738540}
   - component: {fileID: 1301738541}
+  - component: {fileID: 1301738543}
+  - component: {fileID: 1301738542}
   m_Layer: 0
   m_Name: botellita3
   m_TagString: Untagged
@@ -56383,6 +57626,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &1301738542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301738538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &1301738543
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301738538}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.065, y: 2.13}
+    newSize: {x: 2.065, y: 2.13}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.4455, y: 1.8105001}
+  m_EdgeRadius: 0
 --- !u!1 &1302914944
 GameObject:
   m_ObjectHideFlags: 0
@@ -57030,6 +58344,8 @@ GameObject:
   - component: {fileID: 1327203794}
   - component: {fileID: 1327203795}
   - component: {fileID: 1327203796}
+  - component: {fileID: 1327203798}
+  - component: {fileID: 1327203797}
   m_Layer: 0
   m_Name: botellita2_colgante
   m_TagString: Untagged
@@ -57171,6 +58487,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &1327203797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327203793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: 7658199299c115a4ea9f75b1e0d755e9, type: 3}
+  soga: {fileID: 21300000, guid: 72f4fcc5878f41644953c22611f79000, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &1327203798
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327203793}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -1.681875}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.735, y: 4.875}
+    newSize: {x: 0.735, y: 4.875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.5145, y: 1.2845626}
+  m_EdgeRadius: 0
 --- !u!1 &1330965803
 GameObject:
   m_ObjectHideFlags: 0
@@ -57684,6 +59071,8 @@ GameObject:
   - component: {fileID: 1343179654}
   - component: {fileID: 1343179655}
   - component: {fileID: 1343179656}
+  - component: {fileID: 1343179658}
+  - component: {fileID: 1343179657}
   m_Layer: 0
   m_Name: botellita2
   m_TagString: Untagged
@@ -57825,6 +59214,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &1343179657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343179653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &1343179658
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343179653}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.93, y: 1.9}
+    newSize: {x: 0.93, y: 1.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.651, y: 1.615}
+  m_EdgeRadius: 0
 --- !u!1 &1346502593
 GameObject:
   m_ObjectHideFlags: 0
@@ -61455,6 +62915,8 @@ GameObject:
   - component: {fileID: 1471223013}
   - component: {fileID: 1471223014}
   - component: {fileID: 1471223015}
+  - component: {fileID: 1471223017}
+  - component: {fileID: 1471223016}
   m_Layer: 0
   m_Name: botellita3_colgante
   m_TagString: Untagged
@@ -61596,6 +63058,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &1471223016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471223012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: 50aea24b324b24e4285da89c2f0c72d2, type: 3}
+  soga: {fileID: 21300000, guid: 5493920b970986843b72200ce5377d06, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &1471223017
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471223012}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.818925}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.025, y: 2.685}
+    newSize: {x: 1.025, y: 2.685}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.7175, y: 0.8900775}
+  m_EdgeRadius: 0
 --- !u!1 &1473062789
 GameObject:
   m_ObjectHideFlags: 0
@@ -64732,6 +66265,8 @@ GameObject:
   - component: {fileID: 1540597109}
   - component: {fileID: 1540597110}
   - component: {fileID: 1540597111}
+  - component: {fileID: 1540597113}
+  - component: {fileID: 1540597112}
   m_Layer: 0
   m_Name: botellita2
   m_TagString: Untagged
@@ -64873,6 +66408,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &1540597112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540597108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &1540597113
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540597108}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.93, y: 1.9}
+    newSize: {x: 0.93, y: 1.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.651, y: 1.615}
+  m_EdgeRadius: 0
 --- !u!1 &1540626160
 GameObject:
   m_ObjectHideFlags: 0
@@ -67366,6 +68972,8 @@ GameObject:
   - component: {fileID: 1588643141}
   - component: {fileID: 1588643142}
   - component: {fileID: 1588643143}
+  - component: {fileID: 1588643145}
+  - component: {fileID: 1588643144}
   m_Layer: 0
   m_Name: botellita3
   m_TagString: Untagged
@@ -67507,6 +69115,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &1588643144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588643140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &1588643145
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588643140}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.065, y: 2.13}
+    newSize: {x: 2.065, y: 2.13}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.4455, y: 1.8105001}
+  m_EdgeRadius: 0
 --- !u!1 &1588653169
 GameObject:
   m_ObjectHideFlags: 0
@@ -79724,7 +81403,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 500
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5585842606714152443, guid: 50f2dbfa071426244b319d9dce55bfac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -79746,7 +81425,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 24.53, y: 22.99, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_LocalScale: {x: 0.111999996, y: 0.111999996, z: 0.111999996}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 428443242}
@@ -81885,6 +83564,8 @@ GameObject:
   - component: {fileID: 1921038580}
   - component: {fileID: 1921038581}
   - component: {fileID: 1921038582}
+  - component: {fileID: 1921038584}
+  - component: {fileID: 1921038583}
   m_Layer: 0
   m_Name: botellita1
   m_TagString: Untagged
@@ -82026,6 +83707,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &1921038583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921038579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 0}
+  soga: {fileID: 0}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &1921038584
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921038579}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.445, y: 2.395}
+    newSize: {x: 1.445, y: 2.395}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.0115, y: 2.0357502}
+  m_EdgeRadius: 0
 --- !u!1 &1923797905
 GameObject:
   m_ObjectHideFlags: 0
@@ -82916,7 +84668,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 500
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5585842606714152443, guid: 50f2dbfa071426244b319d9dce55bfac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -82938,7 +84690,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 28.185001, y: -28.76, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_LocalScale: {x: 0.111999996, y: 0.111999996, z: 0.111999996}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 428443242}
@@ -86356,6 +88108,8 @@ GameObject:
   - component: {fileID: 2067761494}
   - component: {fileID: 2067761495}
   - component: {fileID: 2067761496}
+  - component: {fileID: 2067761498}
+  - component: {fileID: 2067761497}
   m_Layer: 0
   m_Name: botellita1_colgante
   m_TagString: Untagged
@@ -86497,6 +88251,77 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &2067761497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067761493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
+  agrietada: {fileID: 0}
+  cuerpo: {fileID: 21300000, guid: ecdac33f6f194bd4fa33a3b4fa093b7d, type: 3}
+  soga: {fileID: 21300000, guid: d667c6b770ea50048bf0466edeb8c49b, type: 3}
+  segundosAgrietada: 0.15
+  gravedad: 22
+  radioPolen: 20
+  esperaAbsorcion: 1
+  distanciaAbsorcion: 1.4
+  destellos:
+  - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
+  - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
+  - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
+  materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!61 &2067761498
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067761493}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -1.6400999}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.025, y: 4.97}
+    newSize: {x: 1.025, y: 4.97}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.7175, y: 1.43633}
+  m_EdgeRadius: 0
 --- !u!1 &2082404187
 GameObject:
   m_ObjectHideFlags: 0

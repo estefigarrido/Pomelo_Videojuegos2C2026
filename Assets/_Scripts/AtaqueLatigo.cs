@@ -71,6 +71,9 @@ public class AtaqueLatigo : MonoBehaviour
                 var enemigo = col.GetComponentInParent<VidaEnemigo>();
                 // cada latigazo le pega una sola vez a cada enemigo
                 if (enemigo != null && enemigo.Vivo && golpeados.Add(enemigo)) enemigo.RecibirDanio(danio);
+                // las botellitas se rompen con un solo golpe
+                var botellita = col.GetComponent<BotellitaRompible>();
+                if (botellita != null) botellita.Romper();
             }
         }
     }

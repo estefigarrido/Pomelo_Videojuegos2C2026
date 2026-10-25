@@ -16,6 +16,13 @@ public class VidaEnemigo : MonoBehaviour
     [Tooltip("Desactivado (tronco): al morir se queda en el lugar y su propio script hace la muerte.")]
     [SerializeField] private bool desactivarAlMorir = true;
 
+    [Header("Muerte hacia la sabiduria (mobs)")]
+    [Tooltip("Frames de la muerte en blanco con el brillo del liquido (muerte_mob_sab00..05). Se corta en el ultimo.")]
+    [SerializeField] private Sprite[] framesMuerteSabiduria;
+    [Tooltip("Los pedacitos del ultimo frame: vuelan al circulo de sabiduria del HUD.")]
+    [SerializeField] private Sprite[] piezasMuerte;
+    [SerializeField] private Material materialMuerte;
+
     [Header("Sabiduria")]
     [Tooltip("Liquido de sabiduria que junta la chica con cada golpe que le da a este enemigo: " +
              "lo mismo que el enemigo le saca a ella por golpe (comelibros y pajaros 20, Umbrae 40).")]
@@ -53,11 +60,15 @@ public class VidaEnemigo : MonoBehaviour
 
         vida = Mathf.Max(0f, vida - cantidad);
         Debug.Log("[Enemigo] " + name + " -" + cantidad + " -> " + vida + "/" + vidaMaxima);
-        Golpeado?.Invoke(sabiduriaPorGolpe);
+
+        // el golpe que lo mata suma la sabiduria cuando los pedacitos llegan al circulo del HUD
+        bool vuelaAlHud = !Vivo && framesMuerteSabiduria != null && framesMuerteSabiduria.Length > 0
+                          && piezasMuerte != null && piezasMuerte.Length > 0 && HUDVidaSabiduria.Instancia != null;
+        if (!vuelaAlHud) Golpeado?.Invoke(sabiduriaPorGolpe);
 
         if (!Vivo)
         {
-            CrearEfectoMuerte();
+            CrearEfectoMuerte(vuelaAlHud);
             AlMorir?.Invoke();
             if (desactivarAlMorir) gameObject.SetActive(false);
             else parpadeo.Cortar();
@@ -72,7 +83,10 @@ public class VidaEnemigo : MonoBehaviour
 
     // La animacion se apoya en la base del mob y se escala segun su ancho (el pajaro es mas chico
     // que el comelibros). Es un objeto aparte porque el mob se desactiva enseguida.
-    private void CrearEfectoMuerte()
+    // Suma la sabiduria de un golpe que llega mas tarde (los pedacitos de la muerte que vuelan al HUD).
+    public static void SumarSabiduriaAlLlegar(float cantidad) => Golpeado?.Invoke(cantidad);
+
+    private void CrearEfectoMuerte(bool vuelaAlHud)
     {
         if (framesMuerte == null || framesMuerte.Length == 0) return;
 
@@ -99,6 +113,12 @@ public class VidaEnemigo : MonoBehaviour
             sr.sharedMaterial = dibujo.sharedMaterial;
             sr.sortingLayerID = dibujo.sortingLayerID;
             sr.sortingOrder = dibujo.sortingOrder + 1;
+        }
+        if (vuelaAlHud)
+        {
+            if (materialMuerte != null) sr.sharedMaterial = materialMuerte;
+            go.AddComponent<EfectoMuerte>().Iniciar(framesMuerteSabiduria, fpsMuerte, piezasMuerte, sabiduriaPorGolpe);
+            return;
         }
         go.AddComponent<EfectoMuerte>().Iniciar(framesMuerte, fpsMuerte);
     }

@@ -45,6 +45,19 @@ public class HUDVidaSabiduria : MonoBehaviour
     private int vidasPrendidas = -1;
     private float[] inicioLatido;
 
+    public static HUDVidaSabiduria Instancia { get; private set; }
+
+    private void Awake() => Instancia = this;
+
+    // Centro del circulo de sabiduria en pantalla (ahi vuelan los pedacitos de los mobs que mueren).
+    public Vector2 PuntoDelCirculoEnPantalla()
+    {
+        var circulo = liquido.parent as RectTransform;
+        var canvas = GetComponentInParent<Canvas>();
+        Camera cam = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+        return RectTransformUtility.WorldToScreenPoint(cam, circulo.TransformPoint(circulo.rect.center));
+    }
+
     private void Start()
     {
         salud = FindFirstObjectByType<SaludPersonaje>();

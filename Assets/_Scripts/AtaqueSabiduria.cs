@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-// Segundo golpe: la chica hace el gesto de "chica_golpe2" y lanza una bola de sabiduria.
+// Segundo golpe (lo tira SelectorAtaque con click izquierdo): la chica hace el gesto de "chica_golpe2" y lanza una bola de sabiduria.
 // Igual que el latigo, es independiente del movimiento y del Animator: mientras dura,
 // dibuja sus propios frames en LateUpdate (despues del Animator).
 // Durante el gesto salen petalos y hojas (flores_destello) en la zona que recorre el brazo,
@@ -17,7 +16,6 @@ public class AtaqueSabiduria : MonoBehaviour
     }
 
     [Header("Control")]
-    [SerializeField] private Key tecla = Key.E;
     [Tooltip("Segundos desde que se tira una bola hasta poder tirar la siguiente. Si la animacion todavia no " +
              "termino, se corta y empieza de nuevo (pero nunca antes de que salga la bola). Antes eran 0.69 s " +
              "(animacion 0.59 s + 0.1 s de espera); ahora 0.5 s menos.")]
@@ -100,9 +98,6 @@ public class AtaqueSabiduria : MonoBehaviour
 
     private void Update()
     {
-        var teclado = Keyboard.current;
-        if (teclado != null && teclado[tecla].wasPressedThisFrame) Atacar();
-
         if (!atacando) return;
 
         int frame = FrameActual();

@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-// Golpe de latigo (tecla Q por defecto). Es independiente del movimiento y del Animator:
+// Golpe de latigo (lo tira SelectorAtaque con click izquierdo). Es independiente del movimiento y del Animator:
 // mientras dura, dibuja sus propios frames por encima de lo que puso el Animator
 // (LateUpdate corre despues), y al terminar el Animator vuelve a mandar solo.
 [RequireComponent(typeof(SpriteRenderer))]
@@ -17,9 +16,6 @@ public class AtaqueLatigo : MonoBehaviour
         public Vector2 centro;
         public Vector2 tamano;
     }
-
-    [Header("Control")]
-    [SerializeField] private Key tecla = Key.Q;
 
     [Header("Animacion (latigo-plantas)")]
     [SerializeField] private Sprite[] frames;
@@ -50,9 +46,6 @@ public class AtaqueLatigo : MonoBehaviour
 
     private void Update()
     {
-        var teclado = Keyboard.current;
-        if (teclado != null && teclado[tecla].wasPressedThisFrame) Atacar();
-
         if (!atacando) return;
 
         int frame = FrameActual();

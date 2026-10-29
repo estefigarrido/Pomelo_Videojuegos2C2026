@@ -12,6 +12,9 @@ public class InicioNivel : MonoBehaviour
 {
     [Tooltip("Apagalo para probar el nivel desde otro lado sin la intro.")]
     [SerializeField] private bool activa = true;
+    [Tooltip("Solo en el editor: si al darle Play la chica esta a mas de esta distancia del portal, se saltea la intro " +
+             "y arranca (y reaparece al morir) donde la dejaste. En el juego compilado no hace nada.")]
+    [SerializeField] private float distanciaParaProbarDesdeOtroLado = 3f;
 
     [Header("Portal y puerta")]
     [SerializeField] private SpriteRenderer portal;
@@ -54,6 +57,17 @@ public class InicioNivel : MonoBehaviour
     {
         var salud = FindFirstObjectByType<SaludPersonaje>();
         if (!activa || salud == null || puerta == null) return;
+#if UNITY_EDITOR
+        // para probar: si la arrastraste lejos del portal en la Scene, arranca ahi y ese lugar hace de checkpoint
+        if (Vector2.Distance(salud.transform.position, posicionChica) > distanciaParaProbarDesdeOtroLado)
+        {
+            puerta.enabled = false;
+            salud.DefinirPuntoDeReaparicion(salud.transform.position);
+            Debug.LogWarning("[Inicio] la chica no esta en el portal: se saltea la intro y arranca en " +
+                             salud.transform.position + " (solo en el editor)");
+            return;
+        }
+#endif
         chica = salud.transform;
         dibujoChica = salud.GetComponent<SpriteRenderer>();
         StartCoroutine(Secuencia());
@@ -122,6 +136,18 @@ public class InicioNivel : MonoBehaviour
         if (latigo != null) latigo.enabled = true;
         if (sabiduria != null) sabiduria.enabled = true;
     }
+
+#if UNITY_EDITOR
+    // clic derecho en el componente > "Llevar la chica al portal": la deja donde empieza la intro
+    [ContextMenu("Llevar la chica al portal")]
+    private void LlevarChicaAlPortal()
+    {
+        var salud = FindFirstObjectByType<SaludPersonaje>();
+        if (salud == null) return;
+        UnityEditor.Undo.RecordObject(salud.transform, "Llevar la chica al portal");
+        salud.transform.position = new Vector3(posicionChica.x, posicionChica.y, 0f);
+    }
+#endif
 
     private void MostrarChica(Sprite s)
     {

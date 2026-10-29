@@ -28856,7 +28856,7 @@ Transform:
   m_GameObject: {fileID: 582101481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.80569, y: -29.06, z: 0}
+  m_LocalPosition: {x: -25.84, y: -28.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86043,6 +86043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InicioNivel
   activa: 1
+  distanciaParaProbarDesdeOtroLado: 3
   portal: {fileID: 1569956110}
   puerta: {fileID: 658767593}
   posicionChica: {x: -25.80569, y: -29.063004}

@@ -9,7 +9,8 @@ using UnityEngine;
 //    rapido, cada uno apenas desfasado. La distribucion de las areas se elige al azar cada vez.
 //  - Si ella se queda quieta en un lugar seguro, cierra los ojos y guarda los pinchos.
 //  - Al morir (VidaEnemigo llega a 0) suelta la pieza de la estatua, se le cae la cabeza con los ojos
-//    cerrados y los pinchos se guardan para siempre.
+//    cerrados y los pinchos se guardan para siempre. La pieza cae al piso y despues vuela a su lugar
+//    en la barra de poderes del HUD (cada tronco tiene una pieza distinta: brazo, pecho o peineta).
 [RequireComponent(typeof(VidaEnemigo))]
 public class TroncoMeditador : MonoBehaviour
 {
@@ -60,6 +61,11 @@ public class TroncoMeditador : MonoBehaviour
     [Tooltip("Distancia minima a un area de pinchos para que el lugar cuente como seguro.")]
     [SerializeField] private float margenSeguro = 0.3f;
     [SerializeField] private int ordenPinchos = 0;
+    [Tooltip("Cuanto se estiran los pinchos para arriba (1 = tamano del dibujo). El mas bajo tiene que quedar " +
+             "bien por encima del supersalto de la chica (4 unidades), asi no los puede saltar ni subirse a la punta.")]
+    [SerializeField] private float estiramientoPinchos = 1.35f;
+    [Tooltip("Cuanto se hunde la base de cada pincho en el piso, para que nunca parezca que flota.")]
+    [SerializeField] private float hundirPinchos = 0.1f;
 
     [Header("Anticipacion: glow violeta y burbujas en cada area")]
     [SerializeField] private Sprite glowArea;
@@ -91,8 +97,12 @@ public class TroncoMeditador : MonoBehaviour
 
     [Header("Muerte")]
     [SerializeField] private SpriteRenderer piezaEstatua;
-    [Tooltip("Cuanto cae la pieza hasta el piso (unidades del dibujo).")]
-    [SerializeField] private float caidaPieza = 1.65f;
+    [Tooltip("Lugar de la pieza en la barra de poderes del HUD (0 brazo, 1 pecho, 2 peineta).")]
+    [SerializeField] private int lugarEnHUD;
+    [Tooltip("Cuanto gira la pieza al caer (grados).")]
+    [SerializeField] private float giroPieza = -6f;
+    [SerializeField] private float segundosEnElPiso = 0.5f;
+    [SerializeField] private float segundosVueloHUD = 0.9f;
     [Tooltip("Donde queda la cabeza en el piso (local) y cuanto gira.")]
     [SerializeField] private Vector2 cabezaEnElPiso = new Vector2(1.6f, -1.4f);
     [SerializeField] private float giroCabezaCaida = -24f;
@@ -270,15 +280,22 @@ public class TroncoMeditador : MonoBehaviour
             if (prefab == null) continue;
             var g = Instantiate(prefab, transform.parent);
             g.name = "pinchos tronco";
-            // el grupo queda centrado en el area y apoyado en el piso
             var srs = g.GetComponentsInChildren<SpriteRenderer>();
             if (srs.Length == 0) { Destroy(g); continue; }
-            Bounds b = srs[0].bounds;
-            foreach (var sr in srs) { b.Encapsulate(sr.bounds); sr.sortingOrder = ordenPinchos; }
-            g.transform.position += new Vector3(a.x - b.center.x, inicioAgro.y - 0.04f - b.min.y, 0f);
+            // mas altos que el dibujo, para que la chica no los pueda saltar
+            foreach (var sr in srs)
+            {
+                sr.sortingOrder = ordenPinchos;
+                var e = sr.transform.localScale;
+                sr.transform.localScale = new Vector3(e.x, e.y * estiramientoPinchos, e.z);
+            }
+            // el grupo queda centrado en el area, y cada pincho apoyado (un poco hundido) en el piso de abajo suyo
+            Bounds b = Encapsular(srs);
+            g.transform.position += new Vector3(a.x - b.center.x, inicioAgro.y - b.min.y, 0f);
+            foreach (var sr in srs)
+                sr.transform.position += Vector3.up * (PisoDebajo(sr.bounds.center.x, g.transform) - hundirPinchos - sr.bounds.min.y);
             grupos.Add(g);
-            b.center += new Vector3(a.x - b.center.x, inicioAgro.y - 0.04f - b.min.y, 0f);
-            CrearBrillos(g.transform, b, srs.Length + 1);
+            CrearBrillos(g.transform, Encapsular(srs), srs.Length + 1);
             foreach (var sr in srs)
             {
                 var t = sr.transform;
@@ -294,6 +311,27 @@ public class TroncoMeditador : MonoBehaviour
             }
         }
         MoverPinchos(0f, true);
+    }
+
+    private static Bounds Encapsular(SpriteRenderer[] srs)
+    {
+        Bounds b = srs[0].bounds;
+        foreach (var sr in srs) b.Encapsulate(sr.bounds);
+        return b;
+    }
+
+    // altura del piso solido debajo de x (cerca del piso del agro); si no encuentra, el piso del agro
+    private float PisoDebajo(float x, Transform grupo)
+    {
+        var golpes = Physics2D.RaycastAll(new Vector2(x, inicioAgro.y + 1f), Vector2.down, 3f);
+        foreach (var h in golpes)
+        {
+            var c = h.collider;
+            if (c.isTrigger || c.transform.IsChildOf(grupo) || c.transform.IsChildOf(transform)) continue;
+            if (c.GetComponentInParent<Pinchos>() != null || c.GetComponentInParent<SaludPersonaje>() != null) continue;
+            return h.point.y;
+        }
+        return inicioAgro.y;
     }
 
     // crece (o se achica) desde el piso: la base queda quieta y se estira hacia arriba
@@ -392,21 +430,76 @@ public class TroncoMeditador : MonoBehaviour
         if (piezaEstatua == null) yield break;
         var t = piezaEstatua.transform;
         Vector3 desde = t.localPosition;
-        const float dur = 0.45f;
+        Quaternion giroDesde = t.localRotation;
+        Quaternion giroHasta = giroDesde * Quaternion.Euler(0f, 0f, giroPieza);
+
+        // cae hasta apoyarse en el piso (la base del dibujo del tronco), ya girada
+        var dibujo = GetComponent<SpriteRenderer>();
+        t.localRotation = giroHasta;
+        float caida = dibujo != null ? (piezaEstatua.bounds.min.y - dibujo.bounds.min.y) / Mathf.Max(0.0001f, transform.lossyScale.y) : 1.65f;
+        t.localRotation = giroDesde;
+        float dur = 0.45f * Mathf.Sqrt(Mathf.Max(0.1f, caida) / 1.65f);
+
         for (float k = 0f; k < dur; k += Time.deltaTime)
         {
             float u = k / dur;
-            t.localPosition = desde + new Vector3(0.25f * u, -caidaPieza * u * u, 0f);
-            t.localRotation = Quaternion.Euler(0f, 0f, -6f * u);
+            t.localPosition = desde + new Vector3(0.25f * u, -caida * u * u, 0f);
+            t.localRotation = Quaternion.Slerp(giroDesde, giroHasta, u);
             yield return null;
         }
-        Vector3 fin = desde + new Vector3(0.25f, -caidaPieza, 0f);
+        Vector3 fin = desde + new Vector3(0.25f, -caida, 0f);
+        t.localRotation = giroHasta;
         for (float k = 0f; k < 0.2f; k += Time.deltaTime)
         {
             t.localPosition = fin + Vector3.up * Mathf.Sin(k / 0.2f * Mathf.PI) * 0.06f;
             yield return null;
         }
         t.localPosition = fin;
+
+        yield return new WaitForSeconds(segundosEnElPiso);
+        yield return VolarAlHUD(giroDesde);
+    }
+
+    // la pieza vuela haciendo una curva hasta su lugar en la barra de poderes, achicandose hasta el tamano
+    // del icono; al llegar se apaga y aparece el icono del HUD
+    private IEnumerator VolarAlHUD(Quaternion giroFinalLocal)
+    {
+        var hud = HUDBarraPoderes.Instancia;
+        Camera cam = camara != null ? camara.GetComponent<Camera>() : Camera.main;
+        if (hud == null || cam == null) yield break;
+
+        var t = piezaEstatua.transform;
+        Quaternion giroFinal = transform.rotation * giroFinalLocal;   // como la tenia abrazada
+        t.SetParent(null, true);
+        piezaEstatua.sortingOrder = 300;   // por encima de todo mientras vuela
+        Vector3 desde = t.position;
+        Quaternion giroDesde = t.rotation;
+        Vector3 escalaDesde = t.localScale;
+        Vector2 tam = piezaEstatua.sprite.bounds.size;
+        float lado = Mathf.Max(tam.x * escalaDesde.x, tam.y * escalaDesde.y);
+        Vector3 control = desde + new Vector3(Random.Range(-0.8f, 0.8f), 3f, 0f);
+        Color color = piezaEstatua.color;
+
+        for (float k = 0f; k < segundosVueloHUD; k += Time.deltaTime)
+        {
+            float u = k / segundosVueloHUD;
+            float s = u * u * (3f - 2f * u);
+            // el lugar del HUD esta en pantalla: se pasa al mundo cada frame (la camara se mueve)
+            Vector2 pantalla = hud.PuntoEnPantalla(lugarEnHUD);
+            Vector3 destino = cam.ScreenToWorldPoint(new Vector3(pantalla.x, pantalla.y, Mathf.Abs(cam.transform.position.z - desde.z)));
+            destino.z = desde.z;
+            Vector2 tamIcono = hud.TamanoEnPantalla(lugarEnHUD) * (2f * cam.orthographicSize / Screen.height);
+            float escalaIcono = Mathf.Max(tamIcono.x, tamIcono.y) / Mathf.Max(0.0001f, lado);
+
+            Vector3 a = Vector3.Lerp(desde, control, s), b = Vector3.Lerp(control, destino, s);
+            t.position = Vector3.Lerp(a, b, s);
+            t.rotation = Quaternion.Slerp(giroDesde, giroFinal, s);
+            t.localScale = escalaDesde * Mathf.Lerp(1f, escalaIcono, s);
+            piezaEstatua.color = new Color(color.r, color.g, color.b, color.a * (u < 0.8f ? 1f : 1f - (u - 0.8f) / 0.2f));
+            yield return null;
+        }
+        hud.Coleccionar(lugarEnHUD);
+        t.gameObject.SetActive(false);
     }
 
     // ---------- efectos ----------

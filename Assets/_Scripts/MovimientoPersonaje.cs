@@ -131,6 +131,7 @@ public class MovimientoPersonaje : MonoBehaviour
     public bool DashActivo => dashActivo;
     public bool EnPiso => enPiso;
     public float SegundosRestantesSprint => Mathf.Max(0f, finSprint - Time.time);
+    public float DuracionSprint => duracionSprint;
     public float SegundosRestantesCooldown => Mathf.Max(0f, finCooldown - Time.time);
 
     // los pixeles pasados a unidades de Unity

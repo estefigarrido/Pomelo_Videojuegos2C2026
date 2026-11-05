@@ -1638,19 +1638,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 2ce9e02957bba8f4ea17f49be9180beb, type: 3}
+  - {fileID: 21300000, guid: 8aeb056c73e82ae4f888ec4e83264d6d, type: 3}
+  - {fileID: 21300000, guid: 0d730b5dc2ab9804681894dd04c642c5, type: 3}
+  - {fileID: 21300000, guid: fd8ea1370b95a2846aca5e5d6580d5c0, type: 3}
+  - {fileID: 21300000, guid: d0e8a2f36db5aee4b8dc7d4f36a1df56, type: 3}
+  - {fileID: 21300000, guid: 606a64b1ced052e47beb5f8d4094f27c, type: 3}
+  - {fileID: 21300000, guid: e1fa8bd04922d884f96a14341eabb1d5, type: 3}
+  - {fileID: 21300000, guid: 507de3e06ec22d94fb8e77bc75b0db70, type: 3}
+  - {fileID: 21300000, guid: 9530ea221db3a01418b0ba7fb42543ce, type: 3}
+  - {fileID: 21300000, guid: 87778ed331bab764db4e4b15ae4f860d, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.009015257
+    width: 1
+    height: 0.99029124
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.06666667
+    y: 0.04676259
+    width: 0.9
+    height: 0.89568347
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &42711602
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1954,19 +1980,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 2ce9e02957bba8f4ea17f49be9180beb, type: 3}
+  - {fileID: 21300000, guid: 8aeb056c73e82ae4f888ec4e83264d6d, type: 3}
+  - {fileID: 21300000, guid: 0d730b5dc2ab9804681894dd04c642c5, type: 3}
+  - {fileID: 21300000, guid: fd8ea1370b95a2846aca5e5d6580d5c0, type: 3}
+  - {fileID: 21300000, guid: d0e8a2f36db5aee4b8dc7d4f36a1df56, type: 3}
+  - {fileID: 21300000, guid: 606a64b1ced052e47beb5f8d4094f27c, type: 3}
+  - {fileID: 21300000, guid: e1fa8bd04922d884f96a14341eabb1d5, type: 3}
+  - {fileID: 21300000, guid: 507de3e06ec22d94fb8e77bc75b0db70, type: 3}
+  - {fileID: 21300000, guid: 9530ea221db3a01418b0ba7fb42543ce, type: 3}
+  - {fileID: 21300000, guid: 87778ed331bab764db4e4b15ae4f860d, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.009015257
+    width: 1
+    height: 0.99029124
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.06666667
+    y: 0.04676259
+    width: 0.9
+    height: 0.89568347
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &49709746
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4875,19 +4927,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: e2df78fb1a4ddd74f8d1671dce12bfe3, type: 3}
   soga: {fileID: 21300000, guid: 72f4fcc5878f41644953c22611f79000, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 2ce9e02957bba8f4ea17f49be9180beb, type: 3}
+  - {fileID: 21300000, guid: 8aeb056c73e82ae4f888ec4e83264d6d, type: 3}
+  - {fileID: 21300000, guid: 0d730b5dc2ab9804681894dd04c642c5, type: 3}
+  - {fileID: 21300000, guid: fd8ea1370b95a2846aca5e5d6580d5c0, type: 3}
+  - {fileID: 21300000, guid: d0e8a2f36db5aee4b8dc7d4f36a1df56, type: 3}
+  - {fileID: 21300000, guid: 606a64b1ced052e47beb5f8d4094f27c, type: 3}
+  - {fileID: 21300000, guid: e1fa8bd04922d884f96a14341eabb1d5, type: 3}
+  - {fileID: 21300000, guid: 507de3e06ec22d94fb8e77bc75b0db70, type: 3}
+  - {fileID: 21300000, guid: 9530ea221db3a01418b0ba7fb42543ce, type: 3}
+  - {fileID: 21300000, guid: 87778ed331bab764db4e4b15ae4f860d, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.002051282
+    width: 0.99319726
+    height: 0.30769232
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.06666667
+    y: 0.04676259
+    width: 0.9
+    height: 0.89568347
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &125573919
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11422,19 +11500,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: 977cf0d43d2ec154391e8fddd24ff839, type: 3}
   soga: {fileID: 21300000, guid: 5493920b970986843b72200ce5377d06, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 6ae6f698f0f51554db2c9921d8632550, type: 3}
+  - {fileID: 21300000, guid: 1790bedf66694e64f8a3de109a93abc1, type: 3}
+  - {fileID: 21300000, guid: 3dacc7f3039dfef4eba05cad8719d217, type: 3}
+  - {fileID: 21300000, guid: ccfd785f6d1057a49b06bf22bd497210, type: 3}
+  - {fileID: 21300000, guid: bd12f60503bd00148b741f72eb2cf431, type: 3}
+  - {fileID: 21300000, guid: c42e9c1ba7b84384999c9f2518d663c3, type: 3}
+  - {fileID: 21300000, guid: 3626858fb34998944832424ed2fa2389, type: 3}
+  - {fileID: 21300000, guid: fd91fee737e341140a1a27fdc28bdd6e, type: 3}
+  - {fileID: 21300000, guid: 30b3bf7537a11b8438a10dfb4fc1185b, type: 3}
+  - {fileID: 21300000, guid: 8d3d758346c8c424b8fc1232a7ac9eb0, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 0.38919926
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.11111111
+    y: 0.09009009
+    width: 0.76811594
+    height: 0.7657658
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &195413012
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16516,19 +16620,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: 977cf0d43d2ec154391e8fddd24ff839, type: 3}
   soga: {fileID: 21300000, guid: 5493920b970986843b72200ce5377d06, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 6ae6f698f0f51554db2c9921d8632550, type: 3}
+  - {fileID: 21300000, guid: 1790bedf66694e64f8a3de109a93abc1, type: 3}
+  - {fileID: 21300000, guid: 3dacc7f3039dfef4eba05cad8719d217, type: 3}
+  - {fileID: 21300000, guid: ccfd785f6d1057a49b06bf22bd497210, type: 3}
+  - {fileID: 21300000, guid: bd12f60503bd00148b741f72eb2cf431, type: 3}
+  - {fileID: 21300000, guid: c42e9c1ba7b84384999c9f2518d663c3, type: 3}
+  - {fileID: 21300000, guid: 3626858fb34998944832424ed2fa2389, type: 3}
+  - {fileID: 21300000, guid: fd91fee737e341140a1a27fdc28bdd6e, type: 3}
+  - {fileID: 21300000, guid: 30b3bf7537a11b8438a10dfb4fc1185b, type: 3}
+  - {fileID: 21300000, guid: 8d3d758346c8c424b8fc1232a7ac9eb0, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 0.38919926
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.11111111
+    y: 0.09009009
+    width: 0.76811594
+    height: 0.7657658
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &294648745
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19922,19 +20052,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: bce74fe9dbd5a504f83e08289f598eeb, type: 3}
   soga: {fileID: 21300000, guid: d667c6b770ea50048bf0466edeb8c49b, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 7a1680befe4479544b951d03641502cc, type: 3}
+  - {fileID: 21300000, guid: 3364075db5919a94d92d4778d6830227, type: 3}
+  - {fileID: 21300000, guid: f86b92ae66e75d846b3d9bb23ee54488, type: 3}
+  - {fileID: 21300000, guid: 559431d72b8a83b4a82b455b37dd342e, type: 3}
+  - {fileID: 21300000, guid: 43f26c25e8a35294cadd3963298b7998, type: 3}
+  - {fileID: 21300000, guid: 73920a06d97315e4cb43f58c21da0ad4, type: 3}
+  - {fileID: 21300000, guid: 167da932854116a4eb852045da77626c, type: 3}
+  - {fileID: 21300000, guid: 35f134c6dae7dca4d99e28c3ee9f5e4f, type: 3}
+  - {fileID: 21300000, guid: afa75b9b66be3e14b9f5d6f1ac3697b2, type: 3}
+  - {fileID: 21300000, guid: 1c373bf3ee0c5be4abe9c02cbb3fd8aa, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.0010060362
+    width: 0.99512196
+    height: 0.3390342
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.12021858
+    y: 0.01618123
+    width: 0.7759563
+    height: 0.89644015
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &360910674
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26600,19 +26756,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 7a1680befe4479544b951d03641502cc, type: 3}
+  - {fileID: 21300000, guid: 3364075db5919a94d92d4778d6830227, type: 3}
+  - {fileID: 21300000, guid: f86b92ae66e75d846b3d9bb23ee54488, type: 3}
+  - {fileID: 21300000, guid: 559431d72b8a83b4a82b455b37dd342e, type: 3}
+  - {fileID: 21300000, guid: 43f26c25e8a35294cadd3963298b7998, type: 3}
+  - {fileID: 21300000, guid: 73920a06d97315e4cb43f58c21da0ad4, type: 3}
+  - {fileID: 21300000, guid: 167da932854116a4eb852045da77626c, type: 3}
+  - {fileID: 21300000, guid: 35f134c6dae7dca4d99e28c3ee9f5e4f, type: 3}
+  - {fileID: 21300000, guid: afa75b9b66be3e14b9f5d6f1ac3697b2, type: 3}
+  - {fileID: 21300000, guid: 1c373bf3ee0c5be4abe9c02cbb3fd8aa, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.00061050063
+    width: 1
+    height: 0.99938947
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.12021858
+    y: 0.01618123
+    width: 0.7759563
+    height: 0.89644015
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &530082324
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -32225,19 +32407,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 7a1680befe4479544b951d03641502cc, type: 3}
+  - {fileID: 21300000, guid: 3364075db5919a94d92d4778d6830227, type: 3}
+  - {fileID: 21300000, guid: f86b92ae66e75d846b3d9bb23ee54488, type: 3}
+  - {fileID: 21300000, guid: 559431d72b8a83b4a82b455b37dd342e, type: 3}
+  - {fileID: 21300000, guid: 43f26c25e8a35294cadd3963298b7998, type: 3}
+  - {fileID: 21300000, guid: 73920a06d97315e4cb43f58c21da0ad4, type: 3}
+  - {fileID: 21300000, guid: 167da932854116a4eb852045da77626c, type: 3}
+  - {fileID: 21300000, guid: 35f134c6dae7dca4d99e28c3ee9f5e4f, type: 3}
+  - {fileID: 21300000, guid: afa75b9b66be3e14b9f5d6f1ac3697b2, type: 3}
+  - {fileID: 21300000, guid: 1c373bf3ee0c5be4abe9c02cbb3fd8aa, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.00061050063
+    width: 1
+    height: 0.99938947
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.12021858
+    y: 0.01618123
+    width: 0.7759563
+    height: 0.89644015
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &668661277
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -33334,19 +33542,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 7a1680befe4479544b951d03641502cc, type: 3}
+  - {fileID: 21300000, guid: 3364075db5919a94d92d4778d6830227, type: 3}
+  - {fileID: 21300000, guid: f86b92ae66e75d846b3d9bb23ee54488, type: 3}
+  - {fileID: 21300000, guid: 559431d72b8a83b4a82b455b37dd342e, type: 3}
+  - {fileID: 21300000, guid: 43f26c25e8a35294cadd3963298b7998, type: 3}
+  - {fileID: 21300000, guid: 73920a06d97315e4cb43f58c21da0ad4, type: 3}
+  - {fileID: 21300000, guid: 167da932854116a4eb852045da77626c, type: 3}
+  - {fileID: 21300000, guid: 35f134c6dae7dca4d99e28c3ee9f5e4f, type: 3}
+  - {fileID: 21300000, guid: afa75b9b66be3e14b9f5d6f1ac3697b2, type: 3}
+  - {fileID: 21300000, guid: 1c373bf3ee0c5be4abe9c02cbb3fd8aa, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.00061050063
+    width: 1
+    height: 0.99938947
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.12021858
+    y: 0.01618123
+    width: 0.7759563
+    height: 0.89644015
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &717410831
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -33813,19 +34047,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: cf9d387d7afc9d44fb365a76449fef08, type: 3}
   soga: {fileID: 21300000, guid: 1badb929941752946957e67d84a345f2, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 6ae6f698f0f51554db2c9921d8632550, type: 3}
+  - {fileID: 21300000, guid: 1790bedf66694e64f8a3de109a93abc1, type: 3}
+  - {fileID: 21300000, guid: 3dacc7f3039dfef4eba05cad8719d217, type: 3}
+  - {fileID: 21300000, guid: ccfd785f6d1057a49b06bf22bd497210, type: 3}
+  - {fileID: 21300000, guid: bd12f60503bd00148b741f72eb2cf431, type: 3}
+  - {fileID: 21300000, guid: c42e9c1ba7b84384999c9f2518d663c3, type: 3}
+  - {fileID: 21300000, guid: 3626858fb34998944832424ed2fa2389, type: 3}
+  - {fileID: 21300000, guid: fd91fee737e341140a1a27fdc28bdd6e, type: 3}
+  - {fileID: 21300000, guid: 30b3bf7537a11b8438a10dfb4fc1185b, type: 3}
+  - {fileID: 21300000, guid: 8d3d758346c8c424b8fc1232a7ac9eb0, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 0.28047183
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.11111111
+    y: 0.09009009
+    width: 0.76811594
+    height: 0.7657658
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &729740081
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -35070,19 +35330,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: e2df78fb1a4ddd74f8d1671dce12bfe3, type: 3}
   soga: {fileID: 21300000, guid: 72f4fcc5878f41644953c22611f79000, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 2ce9e02957bba8f4ea17f49be9180beb, type: 3}
+  - {fileID: 21300000, guid: 8aeb056c73e82ae4f888ec4e83264d6d, type: 3}
+  - {fileID: 21300000, guid: 0d730b5dc2ab9804681894dd04c642c5, type: 3}
+  - {fileID: 21300000, guid: fd8ea1370b95a2846aca5e5d6580d5c0, type: 3}
+  - {fileID: 21300000, guid: d0e8a2f36db5aee4b8dc7d4f36a1df56, type: 3}
+  - {fileID: 21300000, guid: 606a64b1ced052e47beb5f8d4094f27c, type: 3}
+  - {fileID: 21300000, guid: e1fa8bd04922d884f96a14341eabb1d5, type: 3}
+  - {fileID: 21300000, guid: 507de3e06ec22d94fb8e77bc75b0db70, type: 3}
+  - {fileID: 21300000, guid: 9530ea221db3a01418b0ba7fb42543ce, type: 3}
+  - {fileID: 21300000, guid: 87778ed331bab764db4e4b15ae4f860d, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.002051282
+    width: 0.99319726
+    height: 0.30769232
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.06666667
+    y: 0.04676259
+    width: 0.9
+    height: 0.89568347
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &755318369
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -36604,19 +36890,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 6ae6f698f0f51554db2c9921d8632550, type: 3}
+  - {fileID: 21300000, guid: 1790bedf66694e64f8a3de109a93abc1, type: 3}
+  - {fileID: 21300000, guid: 3dacc7f3039dfef4eba05cad8719d217, type: 3}
+  - {fileID: 21300000, guid: ccfd785f6d1057a49b06bf22bd497210, type: 3}
+  - {fileID: 21300000, guid: bd12f60503bd00148b741f72eb2cf431, type: 3}
+  - {fileID: 21300000, guid: c42e9c1ba7b84384999c9f2518d663c3, type: 3}
+  - {fileID: 21300000, guid: 3626858fb34998944832424ed2fa2389, type: 3}
+  - {fileID: 21300000, guid: fd91fee737e341140a1a27fdc28bdd6e, type: 3}
+  - {fileID: 21300000, guid: 30b3bf7537a11b8438a10dfb4fc1185b, type: 3}
+  - {fileID: 21300000, guid: 8d3d758346c8c424b8fc1232a7ac9eb0, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.11111111
+    y: 0.09009009
+    width: 0.76811594
+    height: 0.7657658
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &789769478
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -41039,19 +41351,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: bce74fe9dbd5a504f83e08289f598eeb, type: 3}
   soga: {fileID: 21300000, guid: d667c6b770ea50048bf0466edeb8c49b, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 7a1680befe4479544b951d03641502cc, type: 3}
+  - {fileID: 21300000, guid: 3364075db5919a94d92d4778d6830227, type: 3}
+  - {fileID: 21300000, guid: f86b92ae66e75d846b3d9bb23ee54488, type: 3}
+  - {fileID: 21300000, guid: 559431d72b8a83b4a82b455b37dd342e, type: 3}
+  - {fileID: 21300000, guid: 43f26c25e8a35294cadd3963298b7998, type: 3}
+  - {fileID: 21300000, guid: 73920a06d97315e4cb43f58c21da0ad4, type: 3}
+  - {fileID: 21300000, guid: 167da932854116a4eb852045da77626c, type: 3}
+  - {fileID: 21300000, guid: 35f134c6dae7dca4d99e28c3ee9f5e4f, type: 3}
+  - {fileID: 21300000, guid: afa75b9b66be3e14b9f5d6f1ac3697b2, type: 3}
+  - {fileID: 21300000, guid: 1c373bf3ee0c5be4abe9c02cbb3fd8aa, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.0010060362
+    width: 0.99512196
+    height: 0.3390342
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.12021858
+    y: 0.01618123
+    width: 0.7759563
+    height: 0.89644015
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &879544147
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -45470,19 +45808,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: e2df78fb1a4ddd74f8d1671dce12bfe3, type: 3}
   soga: {fileID: 21300000, guid: 72f4fcc5878f41644953c22611f79000, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 2ce9e02957bba8f4ea17f49be9180beb, type: 3}
+  - {fileID: 21300000, guid: 8aeb056c73e82ae4f888ec4e83264d6d, type: 3}
+  - {fileID: 21300000, guid: 0d730b5dc2ab9804681894dd04c642c5, type: 3}
+  - {fileID: 21300000, guid: fd8ea1370b95a2846aca5e5d6580d5c0, type: 3}
+  - {fileID: 21300000, guid: d0e8a2f36db5aee4b8dc7d4f36a1df56, type: 3}
+  - {fileID: 21300000, guid: 606a64b1ced052e47beb5f8d4094f27c, type: 3}
+  - {fileID: 21300000, guid: e1fa8bd04922d884f96a14341eabb1d5, type: 3}
+  - {fileID: 21300000, guid: 507de3e06ec22d94fb8e77bc75b0db70, type: 3}
+  - {fileID: 21300000, guid: 9530ea221db3a01418b0ba7fb42543ce, type: 3}
+  - {fileID: 21300000, guid: 87778ed331bab764db4e4b15ae4f860d, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.002051282
+    width: 0.99319726
+    height: 0.30769232
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.06666667
+    y: 0.04676259
+    width: 0.9
+    height: 0.89568347
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &999480194
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -53451,19 +53815,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 2ce9e02957bba8f4ea17f49be9180beb, type: 3}
+  - {fileID: 21300000, guid: 8aeb056c73e82ae4f888ec4e83264d6d, type: 3}
+  - {fileID: 21300000, guid: 0d730b5dc2ab9804681894dd04c642c5, type: 3}
+  - {fileID: 21300000, guid: fd8ea1370b95a2846aca5e5d6580d5c0, type: 3}
+  - {fileID: 21300000, guid: d0e8a2f36db5aee4b8dc7d4f36a1df56, type: 3}
+  - {fileID: 21300000, guid: 606a64b1ced052e47beb5f8d4094f27c, type: 3}
+  - {fileID: 21300000, guid: e1fa8bd04922d884f96a14341eabb1d5, type: 3}
+  - {fileID: 21300000, guid: 507de3e06ec22d94fb8e77bc75b0db70, type: 3}
+  - {fileID: 21300000, guid: 9530ea221db3a01418b0ba7fb42543ce, type: 3}
+  - {fileID: 21300000, guid: 87778ed331bab764db4e4b15ae4f860d, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.009015257
+    width: 1
+    height: 0.99029124
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.06666667
+    y: 0.04676259
+    width: 0.9
+    height: 0.89568347
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &1221696463
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -55427,19 +55817,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: bce74fe9dbd5a504f83e08289f598eeb, type: 3}
   soga: {fileID: 21300000, guid: d667c6b770ea50048bf0466edeb8c49b, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 7a1680befe4479544b951d03641502cc, type: 3}
+  - {fileID: 21300000, guid: 3364075db5919a94d92d4778d6830227, type: 3}
+  - {fileID: 21300000, guid: f86b92ae66e75d846b3d9bb23ee54488, type: 3}
+  - {fileID: 21300000, guid: 559431d72b8a83b4a82b455b37dd342e, type: 3}
+  - {fileID: 21300000, guid: 43f26c25e8a35294cadd3963298b7998, type: 3}
+  - {fileID: 21300000, guid: 73920a06d97315e4cb43f58c21da0ad4, type: 3}
+  - {fileID: 21300000, guid: 167da932854116a4eb852045da77626c, type: 3}
+  - {fileID: 21300000, guid: 35f134c6dae7dca4d99e28c3ee9f5e4f, type: 3}
+  - {fileID: 21300000, guid: afa75b9b66be3e14b9f5d6f1ac3697b2, type: 3}
+  - {fileID: 21300000, guid: 1c373bf3ee0c5be4abe9c02cbb3fd8aa, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.0010060362
+    width: 0.99512196
+    height: 0.3390342
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.12021858
+    y: 0.01618123
+    width: 0.7759563
+    height: 0.89644015
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &1246379826
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -56782,19 +57198,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 6ae6f698f0f51554db2c9921d8632550, type: 3}
+  - {fileID: 21300000, guid: 1790bedf66694e64f8a3de109a93abc1, type: 3}
+  - {fileID: 21300000, guid: 3dacc7f3039dfef4eba05cad8719d217, type: 3}
+  - {fileID: 21300000, guid: ccfd785f6d1057a49b06bf22bd497210, type: 3}
+  - {fileID: 21300000, guid: bd12f60503bd00148b741f72eb2cf431, type: 3}
+  - {fileID: 21300000, guid: c42e9c1ba7b84384999c9f2518d663c3, type: 3}
+  - {fileID: 21300000, guid: 3626858fb34998944832424ed2fa2389, type: 3}
+  - {fileID: 21300000, guid: fd91fee737e341140a1a27fdc28bdd6e, type: 3}
+  - {fileID: 21300000, guid: 30b3bf7537a11b8438a10dfb4fc1185b, type: 3}
+  - {fileID: 21300000, guid: 8d3d758346c8c424b8fc1232a7ac9eb0, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.11111111
+    y: 0.09009009
+    width: 0.76811594
+    height: 0.7657658
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &1285733345
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -57832,19 +58274,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 6ae6f698f0f51554db2c9921d8632550, type: 3}
+  - {fileID: 21300000, guid: 1790bedf66694e64f8a3de109a93abc1, type: 3}
+  - {fileID: 21300000, guid: 3dacc7f3039dfef4eba05cad8719d217, type: 3}
+  - {fileID: 21300000, guid: ccfd785f6d1057a49b06bf22bd497210, type: 3}
+  - {fileID: 21300000, guid: bd12f60503bd00148b741f72eb2cf431, type: 3}
+  - {fileID: 21300000, guid: c42e9c1ba7b84384999c9f2518d663c3, type: 3}
+  - {fileID: 21300000, guid: 3626858fb34998944832424ed2fa2389, type: 3}
+  - {fileID: 21300000, guid: fd91fee737e341140a1a27fdc28bdd6e, type: 3}
+  - {fileID: 21300000, guid: 30b3bf7537a11b8438a10dfb4fc1185b, type: 3}
+  - {fileID: 21300000, guid: 8d3d758346c8c424b8fc1232a7ac9eb0, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.11111111
+    y: 0.09009009
+    width: 0.76811594
+    height: 0.7657658
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &1301738543
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -58693,19 +59161,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: e2df78fb1a4ddd74f8d1671dce12bfe3, type: 3}
   soga: {fileID: 21300000, guid: 72f4fcc5878f41644953c22611f79000, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 2ce9e02957bba8f4ea17f49be9180beb, type: 3}
+  - {fileID: 21300000, guid: 8aeb056c73e82ae4f888ec4e83264d6d, type: 3}
+  - {fileID: 21300000, guid: 0d730b5dc2ab9804681894dd04c642c5, type: 3}
+  - {fileID: 21300000, guid: fd8ea1370b95a2846aca5e5d6580d5c0, type: 3}
+  - {fileID: 21300000, guid: d0e8a2f36db5aee4b8dc7d4f36a1df56, type: 3}
+  - {fileID: 21300000, guid: 606a64b1ced052e47beb5f8d4094f27c, type: 3}
+  - {fileID: 21300000, guid: e1fa8bd04922d884f96a14341eabb1d5, type: 3}
+  - {fileID: 21300000, guid: 507de3e06ec22d94fb8e77bc75b0db70, type: 3}
+  - {fileID: 21300000, guid: 9530ea221db3a01418b0ba7fb42543ce, type: 3}
+  - {fileID: 21300000, guid: 87778ed331bab764db4e4b15ae4f860d, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.002051282
+    width: 0.99319726
+    height: 0.30769232
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.06666667
+    y: 0.04676259
+    width: 0.9
+    height: 0.89568347
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &1327203798
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -59420,19 +59914,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 2ce9e02957bba8f4ea17f49be9180beb, type: 3}
+  - {fileID: 21300000, guid: 8aeb056c73e82ae4f888ec4e83264d6d, type: 3}
+  - {fileID: 21300000, guid: 0d730b5dc2ab9804681894dd04c642c5, type: 3}
+  - {fileID: 21300000, guid: fd8ea1370b95a2846aca5e5d6580d5c0, type: 3}
+  - {fileID: 21300000, guid: d0e8a2f36db5aee4b8dc7d4f36a1df56, type: 3}
+  - {fileID: 21300000, guid: 606a64b1ced052e47beb5f8d4094f27c, type: 3}
+  - {fileID: 21300000, guid: e1fa8bd04922d884f96a14341eabb1d5, type: 3}
+  - {fileID: 21300000, guid: 507de3e06ec22d94fb8e77bc75b0db70, type: 3}
+  - {fileID: 21300000, guid: 9530ea221db3a01418b0ba7fb42543ce, type: 3}
+  - {fileID: 21300000, guid: 87778ed331bab764db4e4b15ae4f860d, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.009015257
+    width: 1
+    height: 0.99029124
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.06666667
+    y: 0.04676259
+    width: 0.9
+    height: 0.89568347
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &1343179658
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -63264,19 +63784,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: 977cf0d43d2ec154391e8fddd24ff839, type: 3}
   soga: {fileID: 21300000, guid: 5493920b970986843b72200ce5377d06, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 6ae6f698f0f51554db2c9921d8632550, type: 3}
+  - {fileID: 21300000, guid: 1790bedf66694e64f8a3de109a93abc1, type: 3}
+  - {fileID: 21300000, guid: 3dacc7f3039dfef4eba05cad8719d217, type: 3}
+  - {fileID: 21300000, guid: ccfd785f6d1057a49b06bf22bd497210, type: 3}
+  - {fileID: 21300000, guid: bd12f60503bd00148b741f72eb2cf431, type: 3}
+  - {fileID: 21300000, guid: c42e9c1ba7b84384999c9f2518d663c3, type: 3}
+  - {fileID: 21300000, guid: 3626858fb34998944832424ed2fa2389, type: 3}
+  - {fileID: 21300000, guid: fd91fee737e341140a1a27fdc28bdd6e, type: 3}
+  - {fileID: 21300000, guid: 30b3bf7537a11b8438a10dfb4fc1185b, type: 3}
+  - {fileID: 21300000, guid: 8d3d758346c8c424b8fc1232a7ac9eb0, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 0.38919926
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.11111111
+    y: 0.09009009
+    width: 0.76811594
+    height: 0.7657658
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &1471223017
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -66608,19 +67154,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 2ce9e02957bba8f4ea17f49be9180beb, type: 3}
+  - {fileID: 21300000, guid: 8aeb056c73e82ae4f888ec4e83264d6d, type: 3}
+  - {fileID: 21300000, guid: 0d730b5dc2ab9804681894dd04c642c5, type: 3}
+  - {fileID: 21300000, guid: fd8ea1370b95a2846aca5e5d6580d5c0, type: 3}
+  - {fileID: 21300000, guid: d0e8a2f36db5aee4b8dc7d4f36a1df56, type: 3}
+  - {fileID: 21300000, guid: 606a64b1ced052e47beb5f8d4094f27c, type: 3}
+  - {fileID: 21300000, guid: e1fa8bd04922d884f96a14341eabb1d5, type: 3}
+  - {fileID: 21300000, guid: 507de3e06ec22d94fb8e77bc75b0db70, type: 3}
+  - {fileID: 21300000, guid: 9530ea221db3a01418b0ba7fb42543ce, type: 3}
+  - {fileID: 21300000, guid: 87778ed331bab764db4e4b15ae4f860d, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.009015257
+    width: 1
+    height: 0.99029124
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.06666667
+    y: 0.04676259
+    width: 0.9
+    height: 0.89568347
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &1540597113
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -69670,19 +70242,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 6ae6f698f0f51554db2c9921d8632550, type: 3}
+  - {fileID: 21300000, guid: 1790bedf66694e64f8a3de109a93abc1, type: 3}
+  - {fileID: 21300000, guid: 3dacc7f3039dfef4eba05cad8719d217, type: 3}
+  - {fileID: 21300000, guid: ccfd785f6d1057a49b06bf22bd497210, type: 3}
+  - {fileID: 21300000, guid: bd12f60503bd00148b741f72eb2cf431, type: 3}
+  - {fileID: 21300000, guid: c42e9c1ba7b84384999c9f2518d663c3, type: 3}
+  - {fileID: 21300000, guid: 3626858fb34998944832424ed2fa2389, type: 3}
+  - {fileID: 21300000, guid: fd91fee737e341140a1a27fdc28bdd6e, type: 3}
+  - {fileID: 21300000, guid: 30b3bf7537a11b8438a10dfb4fc1185b, type: 3}
+  - {fileID: 21300000, guid: 8d3d758346c8c424b8fc1232a7ac9eb0, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.11111111
+    y: 0.09009009
+    width: 0.76811594
+    height: 0.7657658
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &1588643145
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -86038,19 +86636,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 0}
   soga: {fileID: 0}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 7a1680befe4479544b951d03641502cc, type: 3}
+  - {fileID: 21300000, guid: 3364075db5919a94d92d4778d6830227, type: 3}
+  - {fileID: 21300000, guid: f86b92ae66e75d846b3d9bb23ee54488, type: 3}
+  - {fileID: 21300000, guid: 559431d72b8a83b4a82b455b37dd342e, type: 3}
+  - {fileID: 21300000, guid: 43f26c25e8a35294cadd3963298b7998, type: 3}
+  - {fileID: 21300000, guid: 73920a06d97315e4cb43f58c21da0ad4, type: 3}
+  - {fileID: 21300000, guid: 167da932854116a4eb852045da77626c, type: 3}
+  - {fileID: 21300000, guid: 35f134c6dae7dca4d99e28c3ee9f5e4f, type: 3}
+  - {fileID: 21300000, guid: afa75b9b66be3e14b9f5d6f1ac3697b2, type: 3}
+  - {fileID: 21300000, guid: 1c373bf3ee0c5be4abe9c02cbb3fd8aa, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.00061050063
+    width: 1
+    height: 0.99938947
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.12021858
+    y: 0.01618123
+    width: 0.7759563
+    height: 0.89644015
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &1921038584
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -90588,19 +91212,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14af88ea346a8e942911957b728a5a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotellitaRompible
-  agrietada: {fileID: 0}
   cuerpo: {fileID: 21300000, guid: bce74fe9dbd5a504f83e08289f598eeb, type: 3}
   soga: {fileID: 21300000, guid: d667c6b770ea50048bf0466edeb8c49b, type: 3}
-  segundosAgrietada: 0.15
   gravedad: 22
-  radioPolen: 20
-  esperaAbsorcion: 1
-  distanciaAbsorcion: 1.4
+  cuadrosRota:
+  - {fileID: 21300000, guid: 7a1680befe4479544b951d03641502cc, type: 3}
+  - {fileID: 21300000, guid: 3364075db5919a94d92d4778d6830227, type: 3}
+  - {fileID: 21300000, guid: f86b92ae66e75d846b3d9bb23ee54488, type: 3}
+  - {fileID: 21300000, guid: 559431d72b8a83b4a82b455b37dd342e, type: 3}
+  - {fileID: 21300000, guid: 43f26c25e8a35294cadd3963298b7998, type: 3}
+  - {fileID: 21300000, guid: 73920a06d97315e4cb43f58c21da0ad4, type: 3}
+  - {fileID: 21300000, guid: 167da932854116a4eb852045da77626c, type: 3}
+  - {fileID: 21300000, guid: 35f134c6dae7dca4d99e28c3ee9f5e4f, type: 3}
+  - {fileID: 21300000, guid: afa75b9b66be3e14b9f5d6f1ac3697b2, type: 3}
+  - {fileID: 21300000, guid: 1c373bf3ee0c5be4abe9c02cbb3fd8aa, type: 3}
+  cuadrosPorSegundo: 20
+  dibujoBotellita:
+    serializedVersion: 2
+    x: 0
+    y: 0.0010060362
+    width: 0.99512196
+    height: 0.3390342
+  dibujoRota:
+    serializedVersion: 2
+    x: 0.12021858
+    y: 0.01618123
+    width: 0.7759563
+    height: 0.89644015
+  subida: {x: 0.9, y: 1.8}
+  duracion: {x: 1.4, y: 2.4}
+  desfaseMaximo: 0.2
+  vaiven: 0.35
   destellos:
   - {fileID: 21300000, guid: a166414bd8d6706469cf681b829e9412, type: 3}
   - {fileID: 21300000, guid: bcb8ec0b0eaa2b241b1b5b7133305cd6, type: 3}
   - {fileID: 21300000, guid: cddc0ff1938f4b54596acea7b0e8eb67, type: 3}
   materialSinLuz: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  tamanoDestello: 1.4
+  alfaDestello: 0.55
+  retrasoDestello: 0.12
 --- !u!61 &2067761498
 BoxCollider2D:
   m_ObjectHideFlags: 0

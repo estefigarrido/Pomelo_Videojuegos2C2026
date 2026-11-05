@@ -6,6 +6,8 @@ using UnityEngine.UI;
 // (brazo, pecho y peineta): empiezan vacios y cada pieza aparece con un latido cuando llega volando.
 // El circulo principal muestra el golpe elegido (latigo o sabiduria, se cambia con V): al cambiar,
 // los iconos se cruzan rapido y el circulo se ilumina un poco.
+// Los puntitos verdes de arriba del circulo de la hoja (selector_poder_A / B) marcan cual de los dos
+// golpes esta elegido: al cambiar, un dibujo se funde con el otro y el nuevo destella un instante.
 public class HUDBarraPoderes : MonoBehaviour
 {
     [Tooltip("La pieza de la estatua de cada lugar (brazo, pecho y peineta).")]
@@ -24,6 +26,19 @@ public class HUDBarraPoderes : MonoBehaviour
     [SerializeField] private float segundosCambio = 0.12f;
     [SerializeField] private float segundosBrillo = 0.35f;
 
+    [Header("Selector de poder (los puntitos verdes)")]
+    [Tooltip("Lo pone el menu Pomelo -> Poner el selector de poder.")]
+    [SerializeField] private Image selectorPoder;
+    [Tooltip("selector_poder_A y selector_poder_B, en el orden de SelectorAtaque.Ataque (latigo, sabiduria).")]
+    [SerializeField] private Sprite[] spritesSelector;
+    [Tooltip("Color del destello al cambiar (se mezcla con el verde del puntito).")]
+    [SerializeField] private Color colorBrilloSelector = new Color(1f, 1f, 0.8f, 0.9f);
+    [SerializeField] private float segundosBrilloSelector = 0.4f;
+    [Tooltip("Segundos que tarda un dibujo en fundirse con el otro.")]
+    [SerializeField] private float segundosFundidoSelector = 0.25f;
+
+    private Image selectorAnterior;
+    private Image brilloSelector;
     private float[] inicioLatido;
     private int golpe;
     private float inicioCambio = -99f;
@@ -56,12 +71,42 @@ public class HUDBarraPoderes : MonoBehaviour
             iconosGolpe[i].alpha = i == golpe ? 1f : 0f;
         }
         if (brilloCirculo != null) brilloCirculo.color = Color.clear;
+        if (selectorPoder != null)
+        {
+            selectorAnterior = CopiaDelSelector("Selector anterior");
+            brilloSelector = CopiaDelSelector("Brillo selector");
+        }
+        MostrarSelector();
     }
 
     private void CambiarGolpe(SelectorAtaque.Ataque elegido)
     {
+        if (selectorAnterior != null && selectorPoder != null) selectorAnterior.sprite = selectorPoder.sprite;
         golpe = (int)elegido;
         inicioCambio = Time.time;
+        MostrarSelector();
+    }
+
+    private void MostrarSelector()
+    {
+        if (selectorPoder == null || spritesSelector == null || golpe >= spritesSelector.Length) return;
+        selectorPoder.sprite = spritesSelector[golpe];
+        if (brilloSelector != null) brilloSelector.sprite = selectorPoder.sprite;
+    }
+
+    // copia del puntito encima de el: una muestra el dibujo que se va y la otra el destello del nuevo
+    private Image CopiaDelSelector(string nombre)
+    {
+        var go = new GameObject(nombre, typeof(RectTransform), typeof(Image));
+        var rt = (RectTransform)go.transform;
+        rt.SetParent(selectorPoder.rectTransform, false);
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = rt.offsetMax = Vector2.zero;
+        var imagen = go.GetComponent<Image>();
+        imagen.raycastTarget = false;
+        imagen.color = Color.clear;
+        return imagen;
     }
 
     // Centro del lugar en pantalla (ahi vuela la pieza que suelta el tronco).
@@ -104,6 +149,27 @@ public class HUDBarraPoderes : MonoBehaviour
             piezas[i].rectTransform.localScale = new Vector3(escala, escala, 1f);
         }
         ActualizarGolpe();
+        ActualizarSelector();
+    }
+
+    private void ActualizarSelector()
+    {
+        if (selectorPoder == null) return;
+        float transcurrido = Time.time - inicioCambio;
+
+        // el dibujo nuevo aparece mientras el anterior se apaga
+        float f = Mathf.Clamp01(transcurrido / Mathf.Max(0.01f, segundosFundidoSelector));
+        f = f * f * (3f - 2f * f);
+        selectorPoder.color = new Color(1f, 1f, 1f, f);
+        if (selectorAnterior != null) selectorAnterior.color = new Color(1f, 1f, 1f, 1f - f);
+
+        // el destello del nuevo se prende rapido y se apaga despacio, sin cambiar de tamano
+        if (brilloSelector == null) return;
+        float t = transcurrido / Mathf.Max(0.01f, segundosBrilloSelector);
+        float k = t < 1f ? Mathf.Sin(Mathf.Sqrt(t) * Mathf.PI) : 0f;
+        var c = colorBrilloSelector;
+        c.a *= k;
+        brilloSelector.color = c;
     }
 
     private void ActualizarGolpe()

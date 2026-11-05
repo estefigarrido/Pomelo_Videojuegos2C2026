@@ -47,6 +47,12 @@ public class MovimientoPersonaje : MonoBehaviour
     [SerializeField] private float distanciaDashPx = 600f;
     [Tooltip("Segundos que tarda en recorrer esa distancia.")]
     [SerializeField] private float duracionDash = 0.6f;
+    [Tooltip("Segundos que tarda en llegar a toda velocidad al empezar el dash. 0 = arranca de golpe. " +
+             "La distancia y la duracion no cambian: va un poco mas rapido en el medio para compensar.")]
+    [SerializeField] private float aceleracionDash = 0.1f;
+    [Tooltip("Segundos que tarda en frenar al final del dash. 0 = frena de golpe. " +
+             "La distancia y la duracion no cambian: va un poco mas rapido en el medio para compensar.")]
+    [SerializeField] private float desaceleracionDash = 0.15f;
     [Tooltip("Segundos de espera desde que termina un dash hasta que se puede hacer otro.")]
     [SerializeField] private float esperaDash = 2f;
 
@@ -130,8 +136,35 @@ public class MovimientoPersonaje : MonoBehaviour
     // los pixeles pasados a unidades de Unity
     private float AlturaSalto => alturaSaltoPx / Mathf.Max(1f, pixelesPorUnidad);
     private float AlturaSuperSalto => alturaSuperSaltoPx / Mathf.Max(1f, pixelesPorUnidad);
-    // 600 px en 0.3 s = 20 unidades por segundo (2000 px/s)
-    private float VelocidadDash => (distanciaDashPx / Mathf.Max(1f, pixelesPorUnidad)) / Mathf.Max(0.01f, duracionDash);
+
+    // Velocidad del dash a los 't' segundos de empezar: sube suave, va pareja y baja suave al final.
+    // Sin rampas, 600 px en 0.6 s son 10 unidades por segundo parejas. Con rampas, en ellas recorre la
+    // mitad que a toda velocidad, asi que la velocidad tope se agranda lo justo para cubrir la misma distancia.
+    private float VelocidadDashEn(float t)
+    {
+        float duracion = Mathf.Max(0.01f, duracionDash);
+        float subida = Mathf.Max(0f, aceleracionDash);
+        float bajada = Mathf.Max(0f, desaceleracionDash);
+        // si las rampas suman mas que el dash, se achican las dos en proporcion
+        if (subida + bajada > duracion)
+        {
+            float k = duracion / (subida + bajada);
+            subida *= k;
+            bajada *= k;
+        }
+
+        float tope = (distanciaDashPx / Mathf.Max(1f, pixelesPorUnidad)) / (duracion - (subida + bajada) * 0.5f);
+        if (subida > 0f && t < subida) return tope * Suave(t / subida);
+        if (bajada > 0f && t > duracion - bajada) return tope * Suave((duracion - t) / bajada);
+        return tope;
+    }
+
+    // de 0 a 1 arrancando y llegando despacio (smoothstep); en promedio vale 0.5
+    private static float Suave(float x)
+    {
+        x = Mathf.Clamp01(x);
+        return x * x * (3f - 2f * x);
+    }
 
     private void Awake()
     {
@@ -258,7 +291,7 @@ public class MovimientoPersonaje : MonoBehaviour
         // va recto: sin gravedad, y corta cualquier subida o caida que tuviera
         gravedadNormal = rb.gravityScale;
         rb.gravityScale = 0f;
-        rb.linearVelocity = new Vector2(lado * VelocidadDash, 0f);
+        rb.linearVelocity = new Vector2(lado * VelocidadDashEn(0f), 0f);
 
         if (animator != null && animatorTieneDash) animator.SetBool("dash", true);
         if (mostrarDebug) Debug.Log("[Dash] hacia " + (lado > 0f ? "la derecha" : "la izquierda"));
@@ -517,10 +550,12 @@ public class MovimientoPersonaje : MonoBehaviour
             EmpezarDash();
         }
 
-        // El dash se cuenta en pasos de fisica para que recorra exactamente la distancia
+        // El dash se cuenta en pasos de fisica para que recorra exactamente la distancia.
+        // La velocidad se toma en el medio del paso, asi las rampas suman lo justo.
         if (dashActivo)
         {
-            rb.linearVelocity = new Vector2(direccionDash * VelocidadDash, 0f);
+            float transcurrido = duracionDash - dashRestante + Time.fixedDeltaTime * 0.5f;
+            rb.linearVelocity = new Vector2(direccionDash * VelocidadDashEn(transcurrido), 0f);
             dashRestante -= Time.fixedDeltaTime;
             if (dashRestante <= 0.0001f) TerminarDash();
             return;

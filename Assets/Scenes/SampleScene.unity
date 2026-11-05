@@ -29077,19 +29077,21 @@ MonoBehaviour:
   teclaIzquierda2: 15
   teclaDerecha2: 18
   teclaDash: 20
-  velocidad: 5
-  multiplicadorSprint: 1.8182
+  velocidad: 6
+  multiplicadorSprint: 1.8
   duracionSprint: 8
   cooldownSprint: 3
-  alturaSaltoPx: 120
+  alturaSaltoPx: 200
   alturaSuperSaltoPx: 400
   ventanaSuperSalto: 0.5
   pixelesPorUnidad: 100
   duracionDespegue: 0.05
   duracionAterrizaje: 0.05
-  distanciaDashPx: 600
-  duracionDash: 0.6
-  esperaDash: 2
+  distanciaDashPx: 1400
+  duracionDash: 1
+  aceleracionDash: 0.5
+  desaceleracionDash: 2
+  esperaDash: 0.4
   destelloDash: {fileID: 21300000, guid: 051f43a4ad79b7e4a94f678b8bddd83b, type: 3}
   frameFinalDash: {fileID: 21300000, guid: 25a5767b19007ea488efee9e593abe60, type: 3}
   colorDestello: {r: 1, g: 1, b: 1, a: 1}
@@ -81642,8 +81644,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 50e8894c9a7172e408c67444958dab04, type: 3}
   - {fileID: 21300000, guid: a26e72f71621c9241938173bda192df8, type: 3}
   colorBrilloSelector: {r: 1, g: 1, b: 0.8, a: 0.9}
-  tamanoBrilloSelector: 1.6
   segundosBrilloSelector: 0.4
+  segundosFundidoSelector: 0.25
 --- !u!1 &1873500010
 GameObject:
   m_ObjectHideFlags: 0

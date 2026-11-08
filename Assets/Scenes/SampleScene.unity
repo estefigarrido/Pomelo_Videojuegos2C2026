@@ -3785,7 +3785,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 98
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: bc3edba79ad66b74bb940c3f7eedbbc4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d8788ae69d61fb4fb305e5f170f48cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6465,7 +6465,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -28
+  m_SortingOrder: -42
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 07299ae23e46e94408a3051717fd5179, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -13872,8 +13872,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -1.2306516}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 20.25, y: 4.11}
+    pivot: {x: 0.5002451, y: 0.5}
+    oldSize: {x: 20.4, y: 4.11}
     newSize: {x: 20.25, y: 4.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -13930,7 +13930,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 99
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 514736536359124278, guid: 1df88984934bbda46bbe46bcc3efb8f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d28e72a6caf73cf45bc029c83c368ec1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -27346,7 +27346,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -32
+  m_SortingOrder: -43
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 07299ae23e46e94408a3051717fd5179, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -31763,7 +31763,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 99
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 514736536359124278, guid: 1df88984934bbda46bbe46bcc3efb8f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d28e72a6caf73cf45bc029c83c368ec1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -31842,8 +31842,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -1.2306516}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 20.25, y: 4.11}
+    pivot: {x: 0.5002451, y: 0.5}
+    oldSize: {x: 20.4, y: 4.11}
     newSize: {x: 20.25, y: 4.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -38691,7 +38691,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: b4f1674e7066ed845be5dad37d346f9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -42174,7 +42174,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 98
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: bc3edba79ad66b74bb940c3f7eedbbc4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d8788ae69d61fb4fb305e5f170f48cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -43153,7 +43153,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: b4f1674e7066ed845be5dad37d346f9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -48293,7 +48293,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 99
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 514736536359124278, guid: 1df88984934bbda46bbe46bcc3efb8f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d28e72a6caf73cf45bc029c83c368ec1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -48372,8 +48372,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -1.1644001}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 20.25, y: 4.11}
+    pivot: {x: 0.5002451, y: 0.5}
+    oldSize: {x: 20.4, y: 4.11}
     newSize: {x: 20.25, y: 4.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -50660,7 +50660,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 98
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: bc3edba79ad66b74bb940c3f7eedbbc4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d8788ae69d61fb4fb305e5f170f48cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -52557,7 +52557,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 98
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: bc3edba79ad66b74bb940c3f7eedbbc4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d8788ae69d61fb4fb305e5f170f48cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -55277,8 +55277,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -1.2306516}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 20.25, y: 4.11}
+    pivot: {x: 0.5002451, y: 0.5}
+    oldSize: {x: 20.4, y: 4.11}
     newSize: {x: 20.25, y: 4.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -55335,7 +55335,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 99
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 514736536359124278, guid: 1df88984934bbda46bbe46bcc3efb8f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d28e72a6caf73cf45bc029c83c368ec1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -58236,6 +58236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1095270982}
   - component: {fileID: 1095270983}
+  - component: {fileID: 1095270984}
   m_Layer: 0
   m_Name: rombo ojo
   m_TagString: Untagged
@@ -58284,7 +58285,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: b4f1674e7066ed845be5dad37d346f9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -58317,6 +58318,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1095270984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095270981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646dfe9efb4d4f542b4f9afc9cb6cc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OjoSigueChica
+  maximoX: 0.9
+  maximoY: 0.4
+  distanciaCompleta: 14
+  suavidad: 0.18
 --- !u!1 &1098546502
 GameObject:
   m_ObjectHideFlags: 0
@@ -61254,7 +61271,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 98
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: bc3edba79ad66b74bb940c3f7eedbbc4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d8788ae69d61fb4fb305e5f170f48cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -61705,7 +61722,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 98
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 6fd91acd7bc3d9d42adaa573ad17c2eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd7ca6e52fdb49e4d8b0f40f861f2056, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -64107,7 +64124,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: b4f1674e7066ed845be5dad37d346f9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76259,7 +76276,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 99
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8836819536898190742, guid: 0a8a01ce49ac72f46b35886396cc8baa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36ab658ecb683d04a837078076691f7a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -76338,8 +76355,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -1.1367426}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 34.43, y: 4.11}
+    pivot: {x: 0.50014424, y: 0.5}
+    oldSize: {x: 34.66, y: 4.11}
     newSize: {x: 34.43, y: 4.1124907}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -80901,14 +80918,22 @@ MonoBehaviour:
   - {fileID: 1475485529}
   fondoBlur: {fileID: 670085962}
   blurApagado: {fileID: 21300000, guid: ba6309634782e194e87f1342bdd85ddc, type: 3}
-  blurPrendido: {fileID: 21300000, guid: da7e66d4c05008d4cafb05dfd460f5c2, type: 3}
   tonoFondo: 0.94
-  llamasFondoRecortadas:
-  - {fileID: 21300000, guid: 2c1daafd7d0ae734c94f62c76130558a, type: 3}
-  - {fileID: 21300000, guid: 3037bb35a687e2b4d85a8e4a373a2fae, type: 3}
-  alfaHaloSobreFondo: 0.3
+  materialRecorte: {fileID: 2100000, guid: 5bbf1218b244f514d94904aee267ede9, type: 2}
   ordenHalosFondo: -95
-  ordenLlamasFondo: -94
+  ordenLlamasFondo: -88
+  chispasPorSegundo: 7
+  vidaChispas: {x: 0.9, y: 1.8}
+  velocidadChispas: {x: 0.8, y: 1.8}
+  tamanoChispas: {x: 0.06, y: 0.16}
+  colorChispas: {r: 0.83, g: 0.68, b: 1, a: 1}
+  templo:
+  - {fileID: 670085962}
+  - {fileID: 782519996}
+  - {fileID: 1230578301}
+  - {fileID: 1095270983}
+  saturacionAntes: 0.3
+  segundosSaturar: 1.5
   romboOjo: {fileID: 1095270982}
   segundosOjo: 0.5
   pausaFinal: 0.3
@@ -95331,8 +95356,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -1.2306516}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 20.25, y: 4.11}
+    pivot: {x: 0.5002451, y: 0.5}
+    oldSize: {x: 20.4, y: 4.11}
     newSize: {x: 20.25, y: 4.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -95389,7 +95414,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 99
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 514736536359124278, guid: 1df88984934bbda46bbe46bcc3efb8f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d28e72a6caf73cf45bc029c83c368ec1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101482,14 +101507,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2bec7a94ae897aa46b4ebf7d4df7b53e, type: 3}
   - {fileID: 21300000, guid: cce93d4515ebc4a4cbc3d41f65f56e37, type: 3}
   - {fileID: 21300000, guid: c9bb0d382f6cc0447908967cb1bfaf01, type: 3}
-  duracionGiro: 0.18
-  esperaInicial: 3
-  duracionSubidaPuerta: 1.5
-  esperaDespuesDeAbrir: 0.8
+  duracionGiro: 0.12857144
+  esperaInicial: 2.142857
+  duracionSubidaPuerta: 1.0714285
+  esperaDespuesDeAbrir: 0.5714286
   tamanoEncuadreIntro: 8.7
   centroEncuadreIntro: {x: -25.86, y: -26.19}
-  duracionDeszoom: 1.5
-  duracionZoom: 1
+  duracionDeszoom: 1.0714285
+  duracionZoom: 0.71428573
 --- !u!4 &1936111576
 Transform:
   m_ObjectHideFlags: 0

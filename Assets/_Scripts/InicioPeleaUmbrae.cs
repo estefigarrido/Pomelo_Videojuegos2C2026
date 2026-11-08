@@ -80,18 +80,29 @@ public class InicioPeleaUmbrae : MonoBehaviour
     [SerializeField] private SpriteRenderer[] llamasFondo;
     [Tooltip("Circulos violetas de las torres del templo.")]
     [SerializeField] private SpriteRenderer[] halosFondo;
-    [Tooltip("El fondo desenfocado del templo: sin los fuegos antes de la pelea, con los fuegos despues.")]
+    [Tooltip("El fondo desenfocado del templo: se pone la version sin fuegos (los fuegos son las copias de encima).")]
     [SerializeField] private SpriteRenderer fondoBlur;
     [SerializeField] private Sprite blurApagado;
-    [SerializeField] private Sprite blurPrendido;
     [Tooltip("Tono de las copias (el blur oscurece un poco lo que tapa).")]
     [Range(0.5f, 1f)] [SerializeField] private float tonoFondo = 0.94f;
-    [Tooltip("Llamas de las torres recortadas donde las tapa el cuenco (izquierda, derecha): se mueven encima del fondo.")]
-    [SerializeField] private Sprite[] llamasFondoRecortadas;
-    [Tooltip("Opacidad de los circulos copiados cuando el fondo ya tiene los circulos (solo agregan el titileo).")]
-    [Range(0f, 1f)] [SerializeField] private float alfaHaloSobreFondo = 0.3f;
+    [Tooltip("Material 'Pomelo/Sprite Recorte Mundo' con la mascara de las columnas y la pared: los fuegos del fondo " +
+             "se esconden detras de la torre aunque se muevan o cambien de tamano.")]
+    [SerializeField] private Material materialRecorte;
     [SerializeField] private int ordenHalosFondo = -95;
-    [SerializeField] private int ordenLlamasFondo = -94;
+    [SerializeField] private int ordenLlamasFondo = -88;   // encima de la banda y los glows de los pinchos, debajo de los pinchos
+
+    [Header("Chispas de los fuegos")]
+    [SerializeField] private float chispasPorSegundo = 7f;
+    [SerializeField] private Vector2 vidaChispas = new Vector2(0.9f, 1.8f);
+    [SerializeField] private Vector2 velocidadChispas = new Vector2(0.8f, 1.8f);
+    [SerializeField] private Vector2 tamanoChispas = new Vector2(0.06f, 0.16f);
+    [SerializeField] private Color colorChispas = new Color(0.83f, 0.68f, 1f, 1f);
+
+    [Header("Saturacion del templo")]
+    [Tooltip("Partes del templo con el material 'Pomelo/Sprite Saturacion': desaturadas antes de la pelea.")]
+    [SerializeField] private SpriteRenderer[] templo;
+    [Range(0f, 1f)] [SerializeField] private float saturacionAntes = 0.3f;
+    [SerializeField] private float segundosSaturar = 1.5f;
 
     [Header("Ojo")]
     [Tooltip("El rombo del ojo de Umbrae (aparece con un upscale al final).")]
@@ -113,8 +124,6 @@ public class InicioPeleaUmbrae : MonoBehaviour
     private Estado estado = Estado.Guardada;
     private float tiempo;
     private float finArmado;
-    private float finHalosFondo;
-    private bool blurPrendidoPuesto;
     private float velocidadGuardar;
 
     // Umbrae empieza a atacar recien cuando esto es verdadero.
@@ -145,11 +154,8 @@ public class InicioPeleaUmbrae : MonoBehaviour
         // copias de los fuegos de las torres del fondo, por encima del fondo desenfocado
         if (Application.isPlaying)
         {
-            if (llamasFondo != null)
-                for (int i = 0; i < llamasFondo.Length; i++)
-                    CopiarFuegoFondo(llamasFondo[i], Tipo.Fuego, ordenLlamasFondo,
-                        llamasFondoRecortadas != null && i < llamasFondoRecortadas.Length ? llamasFondoRecortadas[i] : null);
-            if (halosFondo != null) foreach (var o in halosFondo) CopiarFuegoFondo(o, Tipo.Halo, ordenHalosFondo, null);
+            if (llamasFondo != null) foreach (var o in llamasFondo) CopiarFuegoFondo(o, Tipo.Fuego, ordenLlamasFondo);
+            if (halosFondo != null) foreach (var o in halosFondo) CopiarFuegoFondo(o, Tipo.Halo, ordenHalosFondo);
             if (romboOjo != null) Agregar(romboOjo, Tipo.Rombo, romboOjo.GetComponent<SpriteRenderer>());
         }
 
@@ -158,6 +164,8 @@ public class InicioPeleaUmbrae : MonoBehaviour
         {
             foreach (var p in piezas) Aplicar(p, 0f);
             if (fondoBlur != null && blurApagado != null) fondoBlur.sprite = blurApagado;
+            Saturar(saturacionAntes);
+            CrearSpriteChispa();
         }
     }
 
@@ -192,7 +200,7 @@ public class InicioPeleaUmbrae : MonoBehaviour
         piezas.Add(p);
     }
 
-    private void CopiarFuegoFondo(SpriteRenderer original, Tipo tipo, int orden, Sprite otroSprite)
+    private void CopiarFuegoFondo(SpriteRenderer original, Tipo tipo, int orden)
     {
         if (original == null) return;
         var go = new GameObject(original.name + " (pelea)");
@@ -201,9 +209,11 @@ public class InicioPeleaUmbrae : MonoBehaviour
         go.transform.rotation = original.transform.rotation;
         go.transform.localScale = original.transform.localScale;
         var sr = go.AddComponent<SpriteRenderer>();
-        sr.sprite = otroSprite != null ? otroSprite : original.sprite;
-        sr.sharedMaterial = original.sharedMaterial;
-        sr.maskInteraction = original.maskInteraction;
+        sr.sprite = original.sprite;
+        // el material recorta donde tapan la columna y la pared (fijo en el mundo), asi el fuego queda detras de la
+        // torre aunque se mueva; va sin la mascara de la zona (con ella no se ve)
+        sr.sharedMaterial = materialRecorte != null ? materialRecorte : original.sharedMaterial;
+        sr.maskInteraction = materialRecorte != null ? SpriteMaskInteraction.None : original.maskInteraction;
         sr.sortingLayerID = original.sortingLayerID;
         sr.sortingOrder = orden;
         var c = original.color;
@@ -240,7 +250,6 @@ public class InicioPeleaUmbrae : MonoBehaviour
         // parte 4: el rombo del ojo
         float inicioOjo = finParte3 + pausaEntrePartes;
 
-        finHalosFondo = 0f;
         foreach (var p in piezas)
         {
             bool delFondo = p.delFondo;
@@ -254,7 +263,6 @@ public class InicioPeleaUmbrae : MonoBehaviour
                     p.inicio = inicioFuego; p.duracion = segundosFuego; break;
                 case Tipo.Halo:
                     p.inicio = inicioFuego + retrasoHalo; p.duracion = segundosHalo;
-                    if (delFondo) finHalosFondo = Mathf.Max(finHalosFondo, p.inicio + p.duracion);
                     break;
                 case Tipo.Techo:
                 case Tipo.PinchoPiso:
@@ -296,7 +304,6 @@ public class InicioPeleaUmbrae : MonoBehaviour
                     if (tiempo < p.inicio) { Aplicar(p, 0f); continue; }
                     Aplicar(p, Mathf.Max(u, 0.0001f));
                 }
-                if (!blurPrendidoPuesto && finHalosFondo > 0f && tiempo >= finHalosFondo) PrenderFondo(true);
                 // tiembla fuerte mientras algo se anima y suave en las pausas (se renueva cada cuadro, asi no se apaga)
                 if (camara != null) camara.Temblar(0.12f, AlgoSeAnima() ? temblorAnimacion : temblorPausa);
                 if (tiempo >= finArmado) estado = Estado.Lista;   // termina el temblor y empieza la pelea
@@ -319,6 +326,113 @@ public class InicioPeleaUmbrae : MonoBehaviour
                 if (!queda) estado = Estado.Guardada;
                 break;
         }
+
+        // el templo se satura cuando empieza la pelea y se desatura cuando termina
+        float objetivo = estado == Estado.Armando || estado == Estado.Lista ? 1f : saturacionAntes;
+        float nueva = Mathf.MoveTowards(saturacionActual, objetivo, Time.deltaTime * (1f - saturacionAntes) / Mathf.Max(0.05f, segundosSaturar));
+        if (!Mathf.Approximately(nueva, saturacionActual)) Saturar(nueva);
+
+        ActualizarChispas();
+    }
+
+    // ---------- saturacion del templo ----------
+
+    private float saturacionActual = -1f;
+    private MaterialPropertyBlock bloque;
+
+    private void Saturar(float s)
+    {
+        saturacionActual = s;
+        if (templo == null) return;
+        if (bloque == null) bloque = new MaterialPropertyBlock();
+        foreach (var sr in templo)
+        {
+            if (sr == null) continue;
+            sr.GetPropertyBlock(bloque);
+            bloque.SetFloat("_Saturacion", s);
+            sr.SetPropertyBlock(bloque);
+        }
+    }
+
+    // ---------- chispas que salen de los fuegos ----------
+
+    private class Chispa { public Transform t; public SpriteRenderer sr; public float vida, dur, vel, x0, fase, tam, deriva; }
+    private readonly List<Chispa> chispas = new List<Chispa>();
+    private readonly Stack<Chispa> chispasLibres = new Stack<Chispa>();
+    private Sprite spriteChispa;
+    private readonly Dictionary<Pieza, float> acumuladoChispas = new Dictionary<Pieza, float>();
+
+    // rombito blanco suave (las chispas son facetadas, como el resto del arte)
+    private void CrearSpriteChispa()
+    {
+        const int tam = 32;
+        var tex = new Texture2D(tam, tam, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp };
+        var px = new Color32[tam * tam];
+        for (int y = 0; y < tam; y++)
+            for (int x = 0; x < tam; x++)
+            {
+                float dx = Mathf.Abs((x + 0.5f) / tam * 2f - 1f), dy = Mathf.Abs((y + 0.5f) / tam * 2f - 1f);
+                float d = dx * 1.6f + dy;                                   // rombo alargado para arriba
+                float a = Mathf.Clamp01((1f - d) * 3f);
+                px[y * tam + x] = new Color32(255, 255, 255, (byte)(a * 255));
+            }
+        tex.SetPixels32(px); tex.Apply();
+        spriteChispa = Sprite.Create(tex, new Rect(0, 0, tam, tam), new Vector2(0.5f, 0.5f), tam);
+    }
+
+    private void ActualizarChispas()
+    {
+        if (spriteChispa == null) return;
+        foreach (var p in piezas)
+        {
+            if (p.tipo != Tipo.Fuego || p.progreso < 0.6f || p.dibujos.Length == 0 || !p.dibujos[0].enabled) continue;
+            float acc; acumuladoChispas.TryGetValue(p, out acc);
+            acc += chispasPorSegundo * Time.deltaTime;
+            while (acc >= 1f) { acc -= 1f; SoltarChispa(p); }
+            acumuladoChispas[p] = acc;
+        }
+        for (int i = chispas.Count - 1; i >= 0; i--)
+        {
+            var c = chispas[i];
+            c.vida += Time.deltaTime;
+            float u = c.vida / c.dur;
+            if (u >= 1f) { c.t.gameObject.SetActive(false); chispas.RemoveAt(i); chispasLibres.Push(c); continue; }
+            var pos = c.t.position;
+            pos.y += c.vel * Time.deltaTime * (1f - u * 0.5f);
+            pos.x = c.x0 + Mathf.Sin(c.vida * 3f + c.fase) * 0.18f + c.deriva * c.vida;
+            c.t.position = pos;
+            c.t.localScale = Vector3.one * c.tam * (1f - u * 0.7f);
+            c.t.rotation = Quaternion.Euler(0f, 0f, Mathf.Sin(c.vida * 4f + c.fase) * 20f);
+            var col = colorChispas; col.a *= Mathf.Clamp01(Mathf.Min(u * 8f, (1f - u) * 2.5f)) * (0.7f + 0.3f * Mathf.Sin(c.vida * 20f + c.fase));
+            c.sr.color = col;
+        }
+    }
+
+    private void SoltarChispa(Pieza fuego)
+    {
+        var c = chispasLibres.Count > 0 ? chispasLibres.Pop() : NuevaChispa();
+        var b = fuego.dibujos[0].bounds;
+        c.x0 = b.center.x + Random.Range(-0.3f, 0.3f) * b.size.x;
+        c.t.position = new Vector3(c.x0, Mathf.Lerp(b.min.y, b.max.y, Random.Range(0.45f, 0.8f)), fuego.t.position.z - 0.01f);
+        c.vel = Random.Range(velocidadChispas.x, velocidadChispas.y);
+        c.dur = Random.Range(vidaChispas.x, vidaChispas.y);
+        c.tam = Random.Range(tamanoChispas.x, tamanoChispas.y) / spriteChispa.bounds.size.x;
+        c.fase = Random.value * 10f;
+        c.deriva = Random.Range(-0.25f, 0.25f);
+        c.vida = 0f;
+        c.sr.sortingLayerID = fuego.dibujos[0].sortingLayerID;
+        c.sr.sortingOrder = fuego.dibujos[0].sortingOrder + 1;
+        c.t.gameObject.SetActive(true);
+        chispas.Add(c);
+    }
+
+    private Chispa NuevaChispa()
+    {
+        var go = new GameObject("chispa fuego");
+        go.transform.SetParent(transform, true);
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = spriteChispa;
+        return new Chispa { t = go.transform, sr = sr };
     }
 
     private void Empezar()
@@ -326,7 +440,6 @@ public class InicioPeleaUmbrae : MonoBehaviour
         CalcularHorario();
         estado = Estado.Armando;
         tiempo = 0f;
-        blurPrendidoPuesto = false;
         CorrerChicaDeLasColumnas();
     }
 
@@ -334,20 +447,6 @@ public class InicioPeleaUmbrae : MonoBehaviour
     {
         estado = Estado.Guardando;
         velocidadGuardar = 1f / Mathf.Max(0.05f, segundosGuardar);
-        // las copias de los fuegos del fondo vuelven a verse para achicarse; el fondo vuelve a estar apagado
-        PrenderFondo(false);
-    }
-
-    private void PrenderFondo(bool prendido)
-    {
-        blurPrendidoPuesto = prendido;
-        if (fondoBlur != null)
-        {
-            var s = prendido ? blurPrendido : blurApagado;
-            if (s != null) fondoBlur.sprite = s;
-        }
-        // con el fondo prendido (que ya tiene los circulos) las llamas copiadas siguen moviendose encima, y los
-        // circulos copiados quedan suaves, solo para que titilen
     }
 
     // u: 0 = guardada (fuera de la arena), 1 = en su lugar
@@ -380,7 +479,7 @@ public class InicioPeleaUmbrae : MonoBehaviour
                 float t = Time.time + p.fase;
                 float latido = 1f + flickerEscalaHalo * (2f * Mathf.PerlinNoise(t * 2.2f, p.fase) - 1f) + flickerEscalaHalo * 0.35f * Mathf.Sin(t * 13f);
                 p.t.localScale = p.escala * SalidaSuave(u) * latido;
-                Titilar(p, flickerAlfaHalo, 4.5f, p.delFondo && blurPrendidoPuesto ? alfaHaloSobreFondo : 1f);
+                Titilar(p, flickerAlfaHalo, 4.5f);
                 break;
         }
     }
@@ -389,16 +488,16 @@ public class InicioPeleaUmbrae : MonoBehaviour
     private void MoverLlama(Pieza p, float tamano)
     {
         float t = Time.time + p.fase;
-        float sx = 1f + wiggleEscala * Mathf.Sin(t * 7.3f);
-        float sy = 1f + wiggleEscala * 1.5f * Mathf.Sin(t * 9.1f + 1.3f);
-        float ang = wiggleGrados * (Mathf.Sin(t * 5.2f) * 0.7f + Mathf.Sin(t * 11.7f + 0.6f) * 0.3f);
+        float sx = 1f + wiggleEscala * Mathf.Sin(t * 2.1f);
+        float sy = 1f + wiggleEscala * 1.5f * Mathf.Sin(t * 2.7f + 1.3f);
+        float ang = wiggleGrados * (Mathf.Sin(t * 1.5f) * 0.7f + Mathf.Sin(t * 3.4f + 0.6f) * 0.3f);
         var giro = Quaternion.Euler(0f, 0f, ang);
         var estirar = new Vector3(sx, sy, 1f);
         p.t.localScale = Vector3.Scale(p.escala * tamano, estirar);
         p.t.rotation = p.giro * giro;
         Vector3 aLaBase = new Vector3(0f, p.baseLlama * tamano, 0f);
         p.t.position = p.pos + aLaBase - giro * Vector3.Scale(aLaBase, estirar);
-        Titilar(p, flickerAlfaFuego, 6f);
+        Titilar(p, flickerAlfaFuego, 2.5f);
     }
 
     // baja y sube un poco la opacidad al azar, como una luz que titila

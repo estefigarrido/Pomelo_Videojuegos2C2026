@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: da7e66d4c05008d4cafb05dfd460f5c2
+guid: d28e72a6caf73cf45bc029c83c368ec1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6539293810999952466
-    second: Fondo_templo_blur_halos_0
+      213: 6631952306839586161
+    second: pinchos1_inner_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,9 +49,9 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 50
+  alignment: 9
+  spritePivot: {x: 0.5002451, y: 0.5}
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fondo_templo_blur_halos_0
+      name: pinchos1_inner_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 8
         y: 0
-        width: 2552
-        height: 2014
+        width: 2025
+        height: 411
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 254009e031d30ca50800000000000000
-      internalID: 6539293810999952466
+      spriteID: 17581884c7d690c50800000000000000
+      internalID: 6631952306839586161
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Fondo_templo_blur_halos_0: 6539293810999952466
+      pinchos1_inner_0: 6631952306839586161
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

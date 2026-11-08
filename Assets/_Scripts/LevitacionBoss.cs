@@ -29,6 +29,14 @@ public class LevitacionBoss : MonoBehaviour
     // 1 = sombra normal, 0 = sin sombra (por ejemplo mientras desaparece en el teleport)
     public float VisibilidadSombra { get; set; } = 1f;
 
+    // Cuanto mas sube por encima de su altura normal (por ejemplo, el ataque de rayos de Umbrae).
+    public float Elevacion { get; set; }
+
+    // 1 = sube y baja normal (idle), 0 = queda quieto en el aire.
+    public float FactorOnda { get; set; } = 1f;
+
+    public float Altura => altura;
+
     private void Awake()
     {
         posicionBase = transform.position;
@@ -42,13 +50,13 @@ public class LevitacionBoss : MonoBehaviour
     private void Update()
     {
         float onda = Mathf.Sin(Time.time * Mathf.PI * 2f / Mathf.Max(0.1f, periodo));
-        float y = altura + onda * amplitud;
+        float y = altura + onda * amplitud * FactorOnda + Elevacion;
         transform.position = posicionBase + new Vector3(0f, y, 0f);
 
         if (sombra == null) return;
-        // la sombra queda pegada al piso y reacciona a la altura
+        // la sombra queda pegada al piso y reacciona a la altura (al elevarse se achica y se aclara mas)
         sombra.position = posicionBase;
-        float k = Mathf.InverseLerp(altura + amplitud, altura - amplitud, y); // 1 = mas cerca del piso
+        float k = Mathf.InverseLerp(altura + amplitud, altura - amplitud, y - Elevacion) * Mathf.Lerp(1f, 0.55f, Mathf.Clamp01(Elevacion / 2f)); // 1 = mas cerca del piso
         sombra.localScale = new Vector3(anchoSombra * Mathf.Lerp(0.85f, 1f, k), anchoSombra * 0.18f * Mathf.Lerp(0.85f, 1f, k), 1f);
         dibujoSombra.color = new Color(0f, 0f, 0f, opacidadSombra * Mathf.Lerp(0.7f, 1f, k) * Mathf.Clamp01(VisibilidadSombra));
     }

@@ -63,7 +63,8 @@ public class MuerteUmbrae : MonoBehaviour
             lado = dibujo != null && dibujo.flipX ? -1f : 1f,
             material = dibujo != null ? dibujo.sharedMaterial : null,
             capa = dibujo != null ? dibujo.sortingLayerID : 0,
-            orden = dibujo != null ? dibujo.sortingOrder : 0
+            orden = dibujo != null ? dibujo.sortingOrder : 0,
+            escala = Mathf.Abs(transform.lossyScale.x)
         });
     }
 }

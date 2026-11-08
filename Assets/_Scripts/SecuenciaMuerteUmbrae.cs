@@ -27,6 +27,8 @@ public class SecuenciaMuerteUmbrae : MonoBehaviour
         public Material material;
         public int capa;
         public int orden;
+        // tamano de Umbrae (la escala de su objeto): la muerte y la gema se dibujan al mismo tamano
+        public float escala;
     }
 
     private Datos d;
@@ -35,6 +37,8 @@ public class SecuenciaMuerteUmbrae : MonoBehaviour
     public void Iniciar(Datos datos)
     {
         d = datos;
+        if (d.escala <= 0f) d.escala = 1f;
+        transform.localScale = Vector3.one * d.escala;
         StartCoroutine(Reproducir());
     }
 
@@ -79,7 +83,7 @@ public class SecuenciaMuerteUmbrae : MonoBehaviour
 
             // cae derecho: arranca con la gema donde estaba lo verde del frame 0007 y baja
             // (acelerando) hasta su lugar en el dibujo de la caida
-            Vector2 desfase = d.gemaEnMuerte - (d.gemaEnCaida != null && d.gemaEnCaida.Length > 0 ? d.gemaEnCaida[0] : Vector2.zero);
+            Vector2 desfase = (d.gemaEnMuerte - (d.gemaEnCaida != null && d.gemaEnCaida.Length > 0 ? d.gemaEnCaida[0] : Vector2.zero)) * d.escala;
             for (float t = 0f; t < d.duracionCaida; t += Time.deltaTime)
             {
                 float k = t / Mathf.Max(0.01f, d.duracionCaida);
@@ -103,7 +107,8 @@ public class SecuenciaMuerteUmbrae : MonoBehaviour
         if (d.gema != null)
         {
             var go = new GameObject("Gema verde");
-            go.transform.position = d.punta + new Vector3(d.lado * d.gemaFinal.x, d.gemaFinal.y, 0f);
+            go.transform.position = d.punta + new Vector3(d.lado * d.gemaFinal.x, d.gemaFinal.y, 0f) * d.escala;
+            go.transform.localScale = Vector3.one * d.escala;
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = d.gema;
             if (d.material != null) sr.sharedMaterial = d.material;

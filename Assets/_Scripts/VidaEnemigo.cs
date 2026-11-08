@@ -32,7 +32,15 @@ public class VidaEnemigo : MonoBehaviour
     private SpriteRenderer dibujo;
 
     public float Vida => vida;
+    public float VidaMaxima => vidaMaxima;
     public bool Vivo => vida > 0f;
+
+    // Recupera vida sin pasarse de la maxima (por ejemplo, Umbrae mientras se eleva en el ataque de rayos).
+    public void Curar(float cantidad)
+    {
+        if (!Vivo || cantidad <= 0f) return;
+        vida = Mathf.Min(vidaMaxima, vida + cantidad);
+    }
 
     // Avisa justo antes de desactivarse al morir (por ejemplo, para la muerte especial de Umbrae).
     public event System.Action AlMorir;

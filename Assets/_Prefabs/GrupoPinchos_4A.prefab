@@ -103,7 +103,7 @@ PolygonCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 155239d1c66b4d86a9c097a0a209773f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 6330177684244771818}
   - component: {fileID: 6414687408185488337}
   - component: {fileID: 2903069895770534298}
+  - component: {fileID: 4301945971475201094}
   m_Layer: 0
   m_Name: pincho_B
   m_TagString: Untagged
@@ -316,7 +317,7 @@ PolygonCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 155239d1c66b4d86a9c097a0a209773f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -384,6 +385,7 @@ GameObject:
   - component: {fileID: 1704957661583088658}
   - component: {fileID: 8981218361629332546}
   - component: {fileID: 8509350451994522342}
+  - component: {fileID: 4301945971475201095}
   m_Layer: 0
   m_Name: pincho_C
   m_TagString: Untagged
@@ -475,7 +477,7 @@ PolygonCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 155239d1c66b4d86a9c097a0a209773f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -540,6 +542,7 @@ GameObject:
   - component: {fileID: 2321369466146927489}
   - component: {fileID: 3381053352504898490}
   - component: {fileID: 6892654338991976945}
+  - component: {fileID: 4301945971475201096}
   m_Layer: 0
   m_Name: pincho_B (1)
   m_TagString: Untagged
@@ -631,7 +634,7 @@ PolygonCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 155239d1c66b4d86a9c097a0a209773f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -688,3 +691,51 @@ PolygonCollider2D:
       - {x: 0.26, y: 0.35}
       - {x: 0.13, y: 2.47}
   m_UseDelaunayMesh: 1
+--- !u!114 &4301945971475201094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763451111790594125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pinchos
+  danio: 40
+  intervalo: 2
+  alturaRebotePx: 20
+  pixelesPorUnidad: 100
+--- !u!114 &4301945971475201095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766727107099939160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pinchos
+  danio: 40
+  intervalo: 2
+  alturaRebotePx: 20
+  pixelesPorUnidad: 100
+--- !u!114 &4301945971475201096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8041018097226237990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pinchos
+  danio: 40
+  intervalo: 2
+  alturaRebotePx: 20
+  pixelesPorUnidad: 100

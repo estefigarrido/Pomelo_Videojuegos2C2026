@@ -35,8 +35,6 @@ public class SaludPersonaje : MonoBehaviour
 
     // Avisa cuando muere, antes de reaparecer (la pelea con Umbrae lo usa).
     public event System.Action AlMorir;
-    // Avisa despues de que reaparece, sea por morir o por caer al agua venenosa (las hojas de loto lo usan).
-    public static event System.Action Reaparecio;
     private Vector3? reaparicionUnaVez;
 
     // Solo para la proxima muerte: reaparece aca en vez del ultimo checkpoint.
@@ -109,7 +107,6 @@ public class SaludPersonaje : MonoBehaviour
             rb.position = lugar;
             rb.linearVelocity = Vector2.zero;
         }
-        Reaparecio?.Invoke();
     }
 
     public void DefinirPuntoDeReaparicion(Transform punto)
@@ -139,6 +136,5 @@ public class SaludPersonaje : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
         vida = vidaMaxima;
-        Reaparecio?.Invoke();
     }
 }

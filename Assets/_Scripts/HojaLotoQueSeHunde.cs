@@ -2,13 +2,10 @@ using System.Collections;
 using UnityEngine;
 
 // Hoja de loto del agua venenosa. Cuando la chica se para arriba:
-//  1) se hunde de a poco (3 s) con ella encima, y avisa que se va a caer: se tine de violeta
-//     y tiembla cada vez mas fuerte;
-//  2) se inclina (la punta izquierda arriba, como en el Figma) y deja de sostenerla, bajando de golpe;
+//  1) se hunde de a poco (3 s) con ella encima;
+//  2) se inclina (la punta izquierda arriba, como en el Figma) y deja de sostenerla;
 //  3) se cae al fondo del lago meciendose de costado, como si bajara por el agua.
 // Despues de un rato en el fondo se desvanece y vuelve a aparecer en su lugar.
-// Si la chica muere o cae al agua, las hojas usadas vuelven a crecer enseguida, asi nunca hay
-// una hoja que parece sana pero ya no sostiene.
 // Las medidas salen del Figma (px / 100): se hunde 48 px y termina 421 px mas abajo, inclinada -4.42 grados.
 [RequireComponent(typeof(Collider2D))]
 public class HojaLotoQueSeHunde : MonoBehaviour
@@ -19,21 +16,10 @@ public class HojaLotoQueSeHunde : MonoBehaviour
     [Tooltip("Cuanto baja mientras se hunde (unidades).")]
     [SerializeField] private float bajaAlHundirse = 0.48f;
 
-    [Header("Aviso de que se va a caer")]
-    [Tooltip("Color al que se va tinendo mientras se hunde (al final queda de este color).")]
-    [SerializeField] private Color colorAviso = new Color(0.82f, 0.55f, 0.92f, 1f);
-    [Tooltip("Grados que tiembla justo antes de caerse (empieza quieta y va aumentando).")]
-    [SerializeField] private float temblorMaximo = 2.2f;
-    [Tooltip("Temblores por segundo.")]
-    [SerializeField] private float frecuenciaTemblor = 7f;
-
-    [Header("Inclinarse y soltarla")]
+    [Header("Inclinarse")]
     [Tooltip("Grados que se inclina antes de caerse (negativo = la punta izquierda queda arriba).")]
     [SerializeField] private float inclinacion = -4.42f;
-    [Tooltip("Segundos que tarda en soltarla: corto, para que se note que se fue de golpe.")]
-    [SerializeField] private float segundosInclinandose = 0.25f;
-    [Tooltip("Cuanto baja de golpe al soltarla (unidades).")]
-    [SerializeField] private float bajaAlSoltar = 0.45f;
+    [SerializeField] private float segundosInclinandose = 0.5f;
 
     [Header("Caer al fondo del agua")]
     [Tooltip("Cuanto baja desde que se inclina hasta el fondo del lago (unidades).")]
@@ -63,8 +49,6 @@ public class HojaLotoQueSeHunde : MonoBehaviour
     private SpriteRenderer dibujo;
     private Vector2 posicionInicial;
     private float rotacionInicial;
-    private Vector3 escalaInicial;
-    private Color colorInicial = Color.white;
     private int ordenInicial;
     private float zInicial;
     private bool cayendo;
@@ -80,17 +64,9 @@ public class HojaLotoQueSeHunde : MonoBehaviour
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         posicionInicial = transform.position;
         rotacionInicial = transform.eulerAngles.z;
-        escalaInicial = transform.localScale;
         zInicial = transform.position.z;
-        if (dibujo != null)
-        {
-            ordenInicial = dibujo.sortingOrder;
-            colorInicial = dibujo.color;
-        }
+        if (dibujo != null) ordenInicial = dibujo.sortingOrder;
     }
-
-    private void OnEnable() => SaludPersonaje.Reaparecio += AlReaparecerLaChica;
-    private void OnDisable() => SaludPersonaje.Reaparecio -= AlReaparecerLaChica;
 
     private void OnCollisionEnter2D(Collision2D choque) => Revisar(choque.collider);
     private void OnCollisionStay2D(Collision2D choque) => Revisar(choque.collider);
@@ -103,73 +79,60 @@ public class HojaLotoQueSeHunde : MonoBehaviour
         StartCoroutine(Secuencia());
     }
 
-    // la chica murio o cayo al agua: si esta hoja ya se estaba usando, crece una nueva enseguida
-    private void AlReaparecerLaChica()
-    {
-        if (!cayendo || !isActiveAndEnabled) return;
-        StopAllCoroutines();
-        StartCoroutine(Rebrotar());
-    }
-
     private IEnumerator Secuencia()
     {
         cayendo = true;
         var espera = new WaitForFixedUpdate();
 
-        // 1) se hunde de a poco con ella encima; se tine y tiembla cada vez mas, para avisar que se va a caer
+        // 1) se hunde de a poco con ella encima
         for (float t = 0f; t < segundosHundiendose; t += Time.fixedDeltaTime)
         {
-            float u = t / segundosHundiendose;
-            float k = Mathf.SmoothStep(0f, 1f, u);
-            float aviso = u * u;   // casi nada al principio, fuerte al final
-            float temblor = Mathf.Sin(t * frecuenciaTemblor * Mathf.PI * 2f) * temblorMaximo * aviso;
+            float k = Mathf.SmoothStep(0f, 1f, t / segundosHundiendose);
             rb.MovePosition(posicionInicial + Vector2.down * bajaAlHundirse * k);
-            rb.MoveRotation(rotacionInicial + temblor);
-            if (dibujo != null) dibujo.color = Color.Lerp(colorInicial, colorAviso, aviso);
             yield return espera;
         }
         Vector2 hundida = posicionInicial + Vector2.down * bajaAlHundirse;
 
-        // 2) se inclina y la suelta bajando de golpe; desde aca ya esta bajo el agua
+        // 2) se inclina y deja de sostenerla; desde aca ya esta bajo el agua
         col.enabled = false;
         if (dibujo != null) dibujo.sortingOrder = ordenBajoElAgua;
         SetZ(zInicial - 0.01f);   // por delante de las espinas, que estan en el mismo orden
         for (float t = 0f; t < segundosInclinandose; t += Time.fixedDeltaTime)
         {
-            float u = t / segundosInclinandose;
-            rb.MoveRotation(rotacionInicial + inclinacion * Mathf.SmoothStep(0f, 1f, u));
-            rb.MovePosition(hundida + Vector2.down * bajaAlSoltar * u * u);   // arranca y acelera
+            float k = Mathf.SmoothStep(0f, 1f, t / segundosInclinandose);
+            rb.MoveRotation(rotacionInicial + inclinacion * k);
+            rb.MovePosition(hundida + Vector2.down * 0.08f * k);
             yield return espera;
         }
-        Vector2 inicioCaida = hundida + Vector2.down * bajaAlSoltar;
-        float resto = Mathf.Max(0f, caida - bajaAlSoltar);
+        Vector2 inicioCaida = hundida + Vector2.down * 0.08f;
 
-        // 3) cae al fondo como en el agua: sigue rapido, va frenando al llegar, y se mece de costado
+        // 3) cae al fondo como en el agua: arranca despacio, va frenando al llegar, y se mece de costado
         for (float t = 0f; t < segundosCayendo; t += Time.fixedDeltaTime)
         {
             float u = t / segundosCayendo;
-            float bajada = resto * (1f - Mathf.Pow(1f - u, 2f));    // frena al llegar al fondo
-            float amortiguado = 1f - u;                              // el vaiven se apaga al llegar
+            float bajada = (caida - 0.08f) * (1f - Mathf.Pow(1f - u, 2f));    // frena al llegar al fondo
+            float amortiguado = 1f - u;                                         // el vaiven se apaga al llegar
             float onda = Mathf.Sin(u * segundosCayendo * frecuenciaVaiven * Mathf.PI * 2f);
             rb.MovePosition(inicioCaida + new Vector2(onda * vaivenCostado * amortiguado, -bajada));
             rb.MoveRotation(rotacionInicial + inclinacion + onda * vaivenGiro * amortiguado);
             yield return espera;
         }
-        rb.MovePosition(inicioCaida + Vector2.down * resto);
+        rb.MovePosition(inicioCaida + Vector2.down * (caida - 0.08f));
         rb.MoveRotation(rotacionInicial + inclinacion);
 
         // 4) se disuelve en el fondo: se tine de violeta, se desarma (se aplasta y se estira) y se desvanece
-        Color colorAlLlegar = dibujo != null ? dibujo.color : Color.white;
+        Vector3 escala = transform.localScale;
+        Color colorOriginal = dibujo != null ? dibujo.color : Color.white;
         Vector3 fondo = transform.position;
         for (float t = 0f; t < segundosDisolviendose; t += Time.deltaTime)
         {
             float u = t / segundosDisolviendose;
-            transform.localScale = new Vector3(escalaInicial.x * (1f + 0.25f * u), escalaInicial.y * (1f - 0.7f * u), escalaInicial.z);
+            transform.localScale = new Vector3(escala.x * (1f + 0.25f * u), escala.y * (1f - 0.7f * u), escala.z);
             Poner(fondo + Vector3.up * 0.15f * u);
             if (dibujo != null)
             {
-                var c = Color.Lerp(colorAlLlegar, colorDisuelta, Mathf.Min(1f, u * 2f));
-                c.a = colorInicial.a * (1f - u * u);
+                var c = Color.Lerp(colorOriginal, colorDisuelta, Mathf.Min(1f, u * 2f));
+                c.a = colorOriginal.a * (1f - u * u);
                 dibujo.color = c;
             }
             yield return null;
@@ -178,30 +141,21 @@ public class HojaLotoQueSeHunde : MonoBehaviour
 
         if (segundosParaRebrotar <= 0f) yield break;
 
-        // 5) despues de un rato crece una hoja nueva en su lugar
+        // 5) despues de un rato crece una hoja nueva desde el tallo (abajo al medio de la hoja), en su lugar
         yield return new WaitForSeconds(segundosParaRebrotar);
-        yield return Rebrotar();
-    }
-
-    // crece una hoja nueva desde el tallo (abajo al medio de la hoja), en su lugar
-    private IEnumerator Rebrotar()
-    {
-        cayendo = true;
-        col.enabled = false;
         rb.position = posicionInicial;
         rb.rotation = rotacionInicial;
         transform.rotation = Quaternion.Euler(0f, 0f, rotacionInicial);
         if (dibujo != null)
         {
-            dibujo.color = colorInicial;
+            dibujo.color = colorOriginal;
             dibujo.sortingOrder = ordenInicial;
             dibujo.enabled = true;
         }
         // la hoja nace de la punta del tallo: abajo, del lado de la muesca (a la izquierda si no esta espejada),
         // y se abre como una flor: arranca inclinada y angosta, se despliega a lo ancho y se endereza
-        Vector3 escala = escalaInicial;
         transform.localScale = escala;
-        Vector2 medio = dibujo != null && dibujo.sprite != null ? (Vector2)dibujo.sprite.bounds.extents : new Vector2(2f, 0.4f);
+        Vector2 medio = dibujo != null ? (Vector2)dibujo.sprite.bounds.extents : new Vector2(2f, 0.4f);
         bool espejada = dibujo != null && dibujo.flipX;
         var deTallo = new Vector2((espejada ? 1f : -1f) * 0.45f * medio.x, -medio.y);   // en el espacio de la hoja, sin escala
         var centro = new Vector3(posicionInicial.x, posicionInicial.y, zInicial);

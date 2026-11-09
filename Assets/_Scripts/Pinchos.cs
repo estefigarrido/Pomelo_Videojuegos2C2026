@@ -52,10 +52,17 @@ public class Pinchos : MonoBehaviour
         if (victima != null && Time.time >= proximoGolpe) Golpear();
     }
 
+    // la espera entre golpes es la misma para todos los pinchos: tocar varios a la vez saca un solo golpe
+    private static float proximoGolpeGlobal;
+
+    public void ConfigurarDanio(float nuevo) => danio = nuevo;
+
     private void Golpear()
     {
+        if (Time.time < proximoGolpeGlobal) return;
         victima.RecibirDanio(danio);
         proximoGolpe = Time.time + intervalo;
+        proximoGolpeGlobal = Time.time + intervalo;
     }
 
     // Solo si cae desde arriba (de costado no rebota). Le da la velocidad justa para subir

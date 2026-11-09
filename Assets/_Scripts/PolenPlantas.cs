@@ -47,6 +47,12 @@ public class PolenPlantas : MonoBehaviour
     [SerializeField] private float anchoUnaPasada = 1.5f;
     [Tooltip("Plantas de este ancho o mas necesitan el maximo de pasadas.")]
     [SerializeField] private float anchoMaximasPasadas = 6f;
+    [Tooltip("Cuanto hay que caminar adentro (unidades) para que cuente una pasada, como mucho.")]
+    [SerializeField] private float largoPasada = 2.5f;
+    [Tooltip("Helechos y ramamusgos: a esta distancia (1 u = 100 px) sueltan todo el polen de una.")]
+    [SerializeField] private float radioDeUna = 1f;
+    [Tooltip("Plantas con el borde de abajo mas alto que esto sobre el piso no dan polen (la chica no llega saltando).")]
+    [SerializeField] private float alturaMaximaPlanta = 4.6f;
     [Tooltip("La chica tiene que moverse al menos a esta velocidad para levantar polen.")]
     [SerializeField] private float velocidadMinima = 0.6f;
     [Tooltip("Destellos sueltos por cada polen.")]
@@ -85,6 +91,7 @@ public class PolenPlantas : MonoBehaviour
     {
         public SpriteRenderer sr; public SpriteRenderer[] partes; public BotellitaRompible botellita;
         public float porcentaje; public int total, soltados; public float recorrido; public bool tocada;
+        public bool deUna;   // helechos y ramamusgos: al acercarse sueltan todo y se ponen verdes enseguida
         public Vector2 centroBlob; public float radioFinal, semilla, colorMostrado; public bool completa;
         public MaterialPropertyBlock mpb; public SpriteRenderer[] glows; public float[] alfaGlows;
         public Bounds Limites
@@ -135,7 +142,10 @@ public class PolenPlantas : MonoBehaviour
         {
             var sr = h.GetComponent<SpriteRenderer>();
             if (sr == null || h.name == "polen" || h.name == "destello polen") continue;
+            // las que estan tan arriba que la chica no llega ni saltando no participan (quedan con su color)
             var f = new Fuente { sr = sr, partes = h.GetComponentsInChildren<SpriteRenderer>(true), mpb = new MaterialPropertyBlock(), semilla = Random.Range(0f, 6.28f) };
+            if (Inalcanzable(f.Limites)) continue;
+            f.deUna = h.name.StartsWith("Helecho_") || h.name.StartsWith("Ramamusgo_");
             if (materialPlantas != null)
             {
                 f.mpb.SetFloat(IdGris, 1f);
@@ -197,6 +207,18 @@ public class PolenPlantas : MonoBehaviour
         }
     }
 
+    // el borde de abajo de la planta queda mas alto que lo que alcanza la chica saltando desde el piso de abajo
+    private bool Inalcanzable(Bounds b)
+    {
+        foreach (var h in Physics2D.RaycastAll(new Vector2(b.center.x, b.min.y + 0.05f), Vector2.down, 40f))
+        {
+            if (h.collider.isTrigger || h.collider.GetComponentInParent<SaludPersonaje>() != null
+                || h.collider.GetComponentInParent<VidaEnemigo>() != null || h.collider.GetComponentInParent<BotellitaRompible>() != null) continue;
+            return b.min.y - h.point.y > alturaMaximaPlanta;
+        }
+        return false;
+    }
+
     private static float Tamano(Fuente f) { var b = f.Limites; return Mathf.Max(0.05f, b.size.x * b.size.y); }
 
     private void Update()
@@ -211,6 +233,15 @@ public class PolenPlantas : MonoBehaviour
                 if (f.soltados >= f.total || f.sr == null) continue;
                 if (f.botellita != null && !f.sr.enabled) continue;
                 Bounds b = f.Limites;
+                if (f.deUna)
+                {
+                    // a 100 px (1 u) o menos: suelta todo de una y se pone verde por completo
+                    Bounds cerca = b; cerca.Expand(radioDeUna * 2f);
+                    if (!cerca.Intersects(c)) continue;
+                    if (!f.tocada) Tocar(f, c.center);
+                    Levantar(f, Mathf.Clamp(c.center.x, b.min.x, b.max.x), Mathf.Sign(rbChica.linearVelocity.x), f.total - f.soltados);
+                    continue;
+                }
                 if (!b.Intersects(c)) continue;
                 if (!f.tocada) Tocar(f, c.center);
                 if (vel < velocidadMinima) continue;
@@ -218,7 +249,8 @@ public class PolenPlantas : MonoBehaviour
                 // pasadas para vaciarla: 1 en las chicas, hasta 'pasadasHastaVaciarse' (3) en las mas anchas
                 float ancho = Mathf.Max(0.5f, b.size.x);
                 float pasadas = Mathf.Lerp(1f, pasadasHastaVaciarse, Mathf.InverseLerp(anchoUnaPasada, anchoMaximasPasadas, ancho));
-                float largo = ancho * pasadas * 0.9f;   // 0.9: una pasada entera de punta a punta alcanza
+                // cada pasada cuenta como mucho 'largoPasada' unidades: las plantas anchas no tardan tanto
+                float largo = Mathf.Min(ancho * 0.9f, largoPasada) * pasadas;
                 int deberia = Mathf.Min(f.total, Mathf.FloorToInt(f.total * f.recorrido / largo) + 1);
                 if (deberia > f.soltados) Levantar(f, c.center.x, Mathf.Sign(rbChica.linearVelocity.x), deberia - f.soltados);
             }

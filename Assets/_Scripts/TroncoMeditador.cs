@@ -62,6 +62,8 @@ public class TroncoMeditador : MonoBehaviour
              "Tiene que ser menor que medio ancho de la chica, asi pegada a un pincho cuenta como segura.")]
     [SerializeField] private float margenSeguro = 0.3f;
     [SerializeField] private int ordenPinchos = 0;
+    [Tooltip("Vida que saca cada golpe de los pinchos del tronco: 20 = una de las 5 vidas.")]
+    [SerializeField] private float danioPinchos = 20f;
     [Tooltip("Cuanto se estiran los pinchos para arriba (1 = tamano del dibujo). El mas bajo tiene que quedar " +
              "bien por encima del supersalto de la chica (4 unidades), asi no los puede saltar ni subirse a la punta.")]
     [SerializeField] private float estiramientoPinchos = 1.35f;
@@ -286,6 +288,8 @@ public class TroncoMeditador : MonoBehaviour
             if (prefab == null) continue;
             var g = Instantiate(prefab, transform.parent);
             g.name = "pinchos tronco";
+            // los pinchos del tronco sacan una sola vida (20 de 100), no matan de una
+            foreach (var pi in g.GetComponentsInChildren<Pinchos>()) pi.ConfigurarDanio(danioPinchos);
             var srs = g.GetComponentsInChildren<SpriteRenderer>();
             if (srs.Length == 0) { Destroy(g); continue; }
             // mas altos que el dibujo, para que la chica no los pueda saltar

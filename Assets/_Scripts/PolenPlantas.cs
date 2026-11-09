@@ -41,6 +41,10 @@ public class PolenPlantas : MonoBehaviour
     [SerializeField] private float porcentajePorSector = 10f;
     [Tooltip("Cuanto polen sueltan las plantas respecto de lo justo para sus sectores (3.5 = 250 % mas).")]
     [SerializeField] private float multiplicadorPolen = 3.5f;
+    [System.Serializable]
+    public struct AjustePiso { public string nombre; public float yMin, yMax; [Tooltip("1 = igual, 0.8 = 20 % menos")] public float factor; }
+    [Tooltip("Mas o menos polen en un piso (las plantas cuyo centro esta entre yMin e yMax).")]
+    [SerializeField] private AjustePiso[] ajustesPorPiso = { new AjustePiso { nombre = "nivel 2", yMin = -21.8f, yMax = 3.1f, factor = 0.8f } };
     [Tooltip("A esta distancia de la chica (5 u = 500 px) el polen se va enseguida a la barra.")]
     [SerializeField] private float radioAbsorcion = 5f;
     [Tooltip("Cuanto vale cada polen que se levanta (aprox.; se ajusta para que la planta de justo lo suyo).")]
@@ -206,6 +210,8 @@ public class PolenPlantas : MonoBehaviour
             foreach (var f in par.Value)
             {
                 f.porcentaje = area > 0f ? total * Tamano(f) / area : 0f;
+                float yc = f.Limites.center.y;
+                if (ajustesPorPiso != null) foreach (var aj in ajustesPorPiso) if (yc >= aj.yMin && yc <= aj.yMax) f.porcentaje *= aj.factor;
                 f.total = Mathf.Max(1, Mathf.RoundToInt(f.porcentaje / Mathf.Max(0.05f, valorPolen)));
             }
         }

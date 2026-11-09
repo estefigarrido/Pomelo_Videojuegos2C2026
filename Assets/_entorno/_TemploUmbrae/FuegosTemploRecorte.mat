@@ -34,6 +34,6 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _RectRecorte: {r: 25, g: 52, b: 54, a: 22}
+    - _RectRecorte: {r: 35.56, g: 46.62, b: 32.4, a: 13.200001}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

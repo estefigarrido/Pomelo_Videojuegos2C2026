@@ -102,6 +102,10 @@ public class InicioPeleaUmbrae : MonoBehaviour
     [Tooltip("Partes del templo con el material 'Pomelo/Sprite Saturacion': desaturadas antes de la pelea.")]
     [SerializeField] private SpriteRenderer[] templo;
     [Range(0f, 1f)] [SerializeField] private float saturacionAntes = 0.3f;
+    [Tooltip("Saturacion del templo durante la pelea (0.6 = 40 % menos que los colores originales).")]
+    [Range(0f, 1f)] [SerializeField] private float saturacionPelea = 0.6f;
+    [Tooltip("Exposicion del templo antes de la pelea (mas oscuro); durante la pelea es 1.")]
+    [Range(0f, 1f)] [SerializeField] private float exposicionAntes = 0.55f;
     [SerializeField] private float segundosSaturar = 1.5f;
 
     [Header("Ojo")]
@@ -328,8 +332,8 @@ public class InicioPeleaUmbrae : MonoBehaviour
         }
 
         // el templo se satura cuando empieza la pelea y se desatura cuando termina
-        float objetivo = estado == Estado.Armando || estado == Estado.Lista ? 1f : saturacionAntes;
-        float nueva = Mathf.MoveTowards(saturacionActual, objetivo, Time.deltaTime * (1f - saturacionAntes) / Mathf.Max(0.05f, segundosSaturar));
+        float objetivo = estado == Estado.Armando || estado == Estado.Lista ? saturacionPelea : saturacionAntes;
+        float nueva = Mathf.MoveTowards(saturacionActual, objetivo, Time.deltaTime * Mathf.Max(0.05f, saturacionPelea - saturacionAntes) / Mathf.Max(0.05f, segundosSaturar));
         if (!Mathf.Approximately(nueva, saturacionActual)) Saturar(nueva);
 
         ActualizarChispas();
@@ -350,7 +354,21 @@ public class InicioPeleaUmbrae : MonoBehaviour
             if (sr == null) continue;
             sr.GetPropertyBlock(bloque);
             bloque.SetFloat("_Saturacion", s);
+            // se ilumina junto con la saturacion: oscuro antes de la pelea, normal durante
+            bloque.SetFloat("_Exposicion", Mathf.Lerp(exposicionAntes, 1f, Mathf.InverseLerp(saturacionAntes, saturacionPelea, s)));
             sr.SetPropertyBlock(bloque);
+        }
+        // las luces (los resplandores de los fuegos) se desaturan igual que el templo
+        foreach (var p in piezas)
+        {
+            if (p.tipo != Tipo.Halo || p.dibujos == null) continue;
+            foreach (var sr in p.dibujos)
+            {
+                if (sr == null) continue;
+                sr.GetPropertyBlock(bloque);
+                bloque.SetFloat("_Saturacion", s);
+                sr.SetPropertyBlock(bloque);
+            }
         }
     }
 

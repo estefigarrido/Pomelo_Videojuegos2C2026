@@ -73,6 +73,16 @@ public class AtaqueLatigo : MonoBehaviour
                 if (d < dist) { dist = d; masCerca = botellita; }
             }
             if (masCerca != null && !rompioBotellita) { masCerca.Romper(); rompioBotellita = true; }
+
+            // las bolas de ignorancia (no tienen collider): las que toca el latigo se repelen y se rompen
+            var zona = new Bounds(centro, tamano);
+            for (int i = ProyectilIgnorancia.Activas.Count - 1; i >= 0; i--)
+            {
+                var b = ProyectilIgnorancia.Activas[i];
+                if (b == null) continue;
+                var alcance = zona; alcance.Expand(b.Radio * 2f);
+                if (alcance.Contains(new Vector3(b.transform.position.x, b.transform.position.y, alcance.center.z))) b.Repeler(transform.position);
+            }
         }
     }
 

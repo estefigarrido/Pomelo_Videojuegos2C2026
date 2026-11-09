@@ -188,6 +188,9 @@ public class UmbraeBoss : MonoBehaviour
     private readonly List<GameObject> temporales = new List<GameObject>();
 
     public bool Ocupado => ocupado;
+    // mientras sube a tirar los rayos no se le puede pegar (la barra de vida brilla)
+    public bool Protegido => protegido;
+    private bool protegido;
 
     private float Escala => Mathf.Abs(transform.lossyScale.x);
     private bool Fase2 => vida != null && vida.Vida <= vida.VidaMaxima * vidaFase2;
@@ -216,6 +219,7 @@ public class UmbraeBoss : MonoBehaviour
     // Deja a Umbrae como al principio de la pelea (lugar, mirada, ciclo) y borra sus bolas y rayos.
     public void Reiniciar()
     {
+        protegido = false;
         StopAllCoroutines();
         ciclo = null;
         ocupado = false;
@@ -513,6 +517,7 @@ public class UmbraeBoss : MonoBehaviour
 
         ocupado = true;
         if (hitbox != null) hitbox.enabled = false;   // mientras se eleva no se le puede pegar
+        protegido = true;
         MirarALaChica();
 
         // anticipacion en el piso, donde van a caer
@@ -590,6 +595,7 @@ public class UmbraeBoss : MonoBehaviour
         alfaGlow = 0f;
         spriteActual = quieto;
         if (hitbox != null) hitbox.enabled = true;
+        protegido = false;
         ocupado = false;
     }
 

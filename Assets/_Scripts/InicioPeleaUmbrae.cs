@@ -106,6 +106,8 @@ public class InicioPeleaUmbrae : MonoBehaviour
     [Range(0f, 1f)] [SerializeField] private float saturacionPelea = 0.6f;
     [Tooltip("Exposicion del templo antes de la pelea (mas oscuro); durante la pelea es 1.")]
     [Range(0f, 1f)] [SerializeField] private float exposicionAntes = 0.55f;
+    [Tooltip("Exposicion del templo durante la pelea (0.687 = el oscurecido del mapa triste del Figma).")]
+    [Range(0f, 1.5f)] [SerializeField] private float exposicionPelea = 1f;
     [SerializeField] private float segundosSaturar = 1.5f;
 
     [Header("Ojo")]
@@ -355,22 +357,31 @@ public class InicioPeleaUmbrae : MonoBehaviour
             sr.GetPropertyBlock(bloque);
             bloque.SetFloat("_Saturacion", s);
             // se ilumina junto con la saturacion: oscuro antes de la pelea, normal durante
-            bloque.SetFloat("_Exposicion", Mathf.Lerp(exposicionAntes, 1f, Mathf.InverseLerp(saturacionAntes, saturacionPelea, s)));
+            bloque.SetFloat("_Exposicion", Exposicion(s));
             sr.SetPropertyBlock(bloque);
         }
-        // las luces (los resplandores de los fuegos) se desaturan igual que el templo
+        // las luces (los resplandores de los fuegos) y las llamas de las columnas retorcidas del fondo
+        // (las copias con el material de recorte) se desaturan igual que las columnas
         foreach (var p in piezas)
         {
-            if (p.tipo != Tipo.Halo || p.dibujos == null) continue;
+            if (p.dibujos == null) continue;
+            bool llamaFondo = p.tipo == Tipo.Fuego && p.dibujos.Length > 0 && p.dibujos[0] != null && materialRecorte != null && p.dibujos[0].sharedMaterial == materialRecorte;
+            if (p.tipo != Tipo.Halo && !llamaFondo) continue;
             foreach (var sr in p.dibujos)
             {
                 if (sr == null) continue;
                 sr.GetPropertyBlock(bloque);
                 bloque.SetFloat("_Saturacion", s);
+                bloque.SetFloat("_Exposicion", Exposicion(s));
                 sr.SetPropertyBlock(bloque);
             }
         }
     }
+
+    // la exposicion acompana a la saturacion: de la de antes de la pelea a la de la pelea
+    private float Exposicion(float s) => Mathf.Approximately(saturacionAntes, saturacionPelea)
+        ? (estado == Estado.Armando || estado == Estado.Lista ? exposicionPelea : exposicionAntes)
+        : Mathf.Lerp(exposicionAntes, exposicionPelea, Mathf.InverseLerp(saturacionAntes, saturacionPelea, s));
 
     // ---------- chispas que salen de los fuegos ----------
 

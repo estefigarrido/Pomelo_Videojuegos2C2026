@@ -31,14 +31,14 @@ Material:
     m_Floats:
     - _Alfa: 1
     - _EscalaFigma: 1.5
-    - _Margen: 180
+    - _Margen: 260
     - _PPU: 100
-    - _SombraABlur: 187.5
+    - _SombraABlur: 280
     - _SombraAOffsetY: -1.5
-    - _SombraBBlur: 37.5
+    - _SombraBBlur: 80
     - _SombraBOffsetY: 6
     m_Colors:
-    - _SombraA: {r: 0.859, g: 0.757, b: 1, a: 0.3}
-    - _SombraB: {r: 0.31399998, g: 0.11799998, b: 0.573, a: 1}
+    - _SombraA: {r: 0.859, g: 0.757, b: 1, a: 0.2}
+    - _SombraB: {r: 0.314, g: 0.118, b: 0.573, a: 0.6}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

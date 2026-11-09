@@ -14565,7 +14565,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8321102221490951993, guid: b13a2bc2db6539e4cad2abe41f46c312, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -29288,7 +29288,9 @@ MonoBehaviour:
   bordeBlob: 0.35
   destellosAlCompletar: 14
   porcentajePorSector: 10
-  valorPolen: 0.2
+  multiplicadorPolen: 3.5
+  radioAbsorcion: 5
+  valorPolen: 0.5
   pasadasHastaVaciarse: 5
   anchoUnaPasada: 1.5
   anchoMaximasPasadas: 6
@@ -39784,7 +39786,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8321102221490951993, guid: b13a2bc2db6539e4cad2abe41f46c312, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -40603,7 +40605,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8321102221490951993, guid: b13a2bc2db6539e4cad2abe41f46c312, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -131398,19 +131400,19 @@ MonoBehaviour:
   sectores:
   - serializedVersion: 2
     x: 120.10856
-    y: 33.22169
+    y: 27.968407
     width: 25.82293
-    height: 41.83865
+    height: 47.091934
   - serializedVersion: 2
     x: 145.93149
-    y: 33.22169
+    y: 27.968407
     width: 25.822922
-    height: 41.83865
+    height: 47.091934
   - serializedVersion: 2
     x: 171.75441
-    y: 30.40743
+    y: 27.968407
     width: 25.822937
-    height: 44.65291
+    height: 47.091934
   - serializedVersion: 2
     x: 197.57735
     y: 30.40743
@@ -131423,43 +131425,43 @@ MonoBehaviour:
     height: 22.889307
   - serializedVersion: 2
     x: 16.816837
-    y: 7.1428895
+    y: 3.1091175
     width: 25.82293
-    height: 20.825518
+    height: 24.85929
   - serializedVersion: 2
     x: 42.639767
-    y: 7.1428895
+    y: 3.1091175
     width: 25.822933
-    height: 20.825518
+    height: 24.85929
   - serializedVersion: 2
     x: 68.4627
-    y: 7.1428895
+    y: 3.1091175
     width: 25.82293
-    height: 20.825518
+    height: 24.85929
   - serializedVersion: 2
     x: 94.28563
-    y: 7.1428895
+    y: 3.1091175
     width: 25.82293
-    height: 20.825518
+    height: 24.85929
   - serializedVersion: 2
     x: 120.10856
-    y: 7.1428895
+    y: 3.1091175
     width: 25.82293
-    height: 20.825518
+    height: 24.85929
   - serializedVersion: 2
     x: 145.93149
-    y: 7.1428895
+    y: 3.1091194
     width: 25.822922
-    height: 20.825518
+    height: 24.859287
   - serializedVersion: 2
     x: 171.75441
-    y: 7.1428895
+    y: 3.1091194
     width: 25.822937
-    height: 20.825518
+    height: 24.859287
   - serializedVersion: 2
     x: 197.57735
     y: 7.1428895
-    width: 25.822922
+    width: 27.336365
     height: 23.264542
   - serializedVersion: 2
     x: 224.91371
@@ -131468,44 +131470,39 @@ MonoBehaviour:
     height: 23.264542
   - serializedVersion: 2
     x: -34.82902
-    y: -17.716398
-    width: 25.82293
-    height: 22.795498
-  - serializedVersion: 2
-    x: -9.006092
-    y: -17.716398
-    width: 25.82293
-    height: 20.825516
+    y: -21.75017
+    width: 51.64586
+    height: 26.82927
   - serializedVersion: 2
     x: 16.816837
-    y: -17.716398
+    y: -21.75017
     width: 25.82293
-    height: 20.825516
+    height: 24.859287
   - serializedVersion: 2
     x: 42.639767
-    y: -17.716398
+    y: -21.75017
     width: 25.822933
-    height: 20.825516
+    height: 24.859287
   - serializedVersion: 2
     x: 68.4627
-    y: -17.716398
+    y: -21.75017
     width: 25.82293
-    height: 20.825516
+    height: 24.859287
   - serializedVersion: 2
     x: 94.28563
-    y: -17.716398
+    y: -21.75017
     width: 25.82293
-    height: 20.825516
+    height: 24.859287
   - serializedVersion: 2
     x: 120.10856
-    y: -17.716398
+    y: -21.75017
     width: 25.82293
-    height: 20.825516
+    height: 24.859287
   - serializedVersion: 2
     x: 145.93149
-    y: -19.967804
+    y: -21.75017
     width: 29.890274
-    height: 23.076923
+    height: 24.85929
   - serializedVersion: 2
     x: -9.006092
     y: -42.575684
@@ -131539,7 +131536,7 @@ MonoBehaviour:
   - serializedVersion: 2
     x: 145.93149
     y: -42.575684
-    width: 25.822922
+    width: 28.566025
     height: 20.825514
   - serializedVersion: 2
     x: 174.49751
@@ -131548,9 +131545,9 @@ MonoBehaviour:
     height: 20.825514
   - serializedVersion: 2
     x: -34.82902
-    y: 7.1428895
+    y: 5.0790997
     width: 25.82293
-    height: 20.825518
+    height: 22.889307
   - serializedVersion: 2
     x: -34.82902
     y: -42.575684

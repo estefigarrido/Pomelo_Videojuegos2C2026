@@ -138,9 +138,9 @@ public class InicioNivel : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    // clic derecho en el componente > "Llevar la chica al portal": la deja donde empieza la intro
+    // clic derecho en el componente > "Llevar la chica al portal" (o menu Pomelo): la deja donde empieza la intro
     [ContextMenu("Llevar la chica al portal")]
-    private void LlevarChicaAlPortal()
+    public void LlevarChicaAlPortal()
     {
         var salud = FindFirstObjectByType<SaludPersonaje>();
         if (salud == null) return;

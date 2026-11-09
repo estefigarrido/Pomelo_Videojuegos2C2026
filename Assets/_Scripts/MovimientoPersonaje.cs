@@ -100,6 +100,9 @@ public class MovimientoPersonaje : MonoBehaviour
 
     private bool enPiso;
     private bool pisoDetectado;
+    private float ladoPincho;       // -1 / 1: hay un pincho pegado de ese lado (0: ninguno)
+    private float ladoPinchoVisto;
+    private float pinchoHasta;      // se recuerda un ratito: sin empujar, el contacto puede cortarse un paso
 
     private float alturaDespegue;
     private float momentoDespegue = -99f;
@@ -521,15 +524,19 @@ public class MovimientoPersonaje : MonoBehaviour
     private void RevisarSiEsPiso(Collision2D choque)
     {
         float limite = Mathf.Cos(anguloMaximoPiso * Mathf.Deg2Rad);
+        bool esPincho = choque.collider.GetComponent<Pinchos>() != null;
 
         for (int i = 0; i < choque.contactCount; i++)
         {
+            Vector2 normal = choque.GetContact(i).normal;
             // si la superficie empuja hacia arriba, esta parada encima
-            if (choque.GetContact(i).normal.y >= limite)
+            if (normal.y >= limite)
             {
                 pisoDetectado = true;
                 return;
             }
+            // el costado de un pincho: la normal apunta hacia la chica, asi que el pincho esta del otro lado
+            if (esPincho && Mathf.Abs(normal.x) > 0.5f) ladoPinchoVisto = -Mathf.Sign(normal.x);
         }
     }
 
@@ -538,6 +545,13 @@ public class MovimientoPersonaje : MonoBehaviour
         bool estabaEnElAire = !enPiso;
         enPiso = pisoDetectado && Time.time >= ignorarPisoHasta;
         pisoDetectado = false;
+        if (ladoPinchoVisto != 0f)
+        {
+            ladoPincho = ladoPinchoVisto;
+            pinchoHasta = Time.time + 0.12f;
+        }
+        else if (Time.time > pinchoHasta) ladoPincho = 0f;
+        ladoPinchoVisto = 0f;
 
         if (enPiso)
         {
@@ -563,6 +577,10 @@ public class MovimientoPersonaje : MonoBehaviour
         }
 
         float velocidadActual = sprintActivo ? velocidad * multiplicadorSprint : velocidad;
-        rb.linearVelocity = new Vector2(direccion * velocidadActual, rb.linearVelocity.y);
+        float avance = direccion;
+        // en el aire no empuja contra un pincho: si empujara, la fisica la haria trepar por el costado inclinado,
+        // y con la friccion de los pinchos quedaria pegada. Sin empujar, cae normal a lo largo del pincho.
+        if (!enPiso && ladoPincho != 0f && Mathf.Sign(avance) == ladoPincho) avance = 0f;
+        rb.linearVelocity = new Vector2(avance * velocidadActual, rb.linearVelocity.y);
     }
 }

@@ -58,7 +58,8 @@ public class TroncoMeditador : MonoBehaviour
     [SerializeField] private float segundosBajada = 0.35f;
     [Tooltip("Segundos quieta en un lugar seguro para que guarde los pinchos.")]
     [SerializeField] private float segundosQuieta = 0.8f;
-    [Tooltip("Distancia minima a un area de pinchos para que el lugar cuente como seguro.")]
+    [Tooltip("Distancia minima al borde de la base de un pincho para que el lugar cuente como seguro. " +
+             "Tiene que ser menor que medio ancho de la chica, asi pegada a un pincho cuenta como segura.")]
     [SerializeField] private float margenSeguro = 0.3f;
     [SerializeField] private int ordenPinchos = 0;
     [Tooltip("Cuanto se estiran los pinchos para arriba (1 = tamano del dibujo). El mas bajo tiene que quedar " +
@@ -116,7 +117,6 @@ public class TroncoMeditador : MonoBehaviour
     private Collider2D cuerpo;
     private CamaraSeguidora camara;
     private Transform chica;
-    private Rigidbody2D rbChica;
     private MovimientoPersonaje movimiento;
     private SaludPersonaje salud;
     private float proximoDanio;
@@ -133,6 +133,8 @@ public class TroncoMeditador : MonoBehaviour
     private readonly List<Pincho> pinchos = new List<Pincho>();
     private readonly List<SpriteRenderer> glows = new List<SpriteRenderer>();
     private readonly List<Vector2> areasActivas = new List<Vector2>();
+    private readonly List<Vector2> rangosPinchos = new List<Vector2>();   // x minima y maxima de la base de cada pincho que salio
+    private float xQuieta;   // donde quedo quieta (se mueve si se aleja de ahi)
     private readonly List<SpriteRenderer> manchasAgro = new List<SpriteRenderer>();
     private readonly List<Burbuja> burbujas = new List<Burbuja>();
     private readonly Stack<Burbuja> burbujasLibres = new Stack<Burbuja>();
@@ -158,7 +160,6 @@ public class TroncoMeditador : MonoBehaviour
         if (salud != null)
         {
             chica = salud.transform;
-            rbChica = salud.GetComponent<Rigidbody2D>();
             movimiento = salud.GetComponent<MovimientoPersonaje>();
         }
         if (cabeza != null && ojos.Length > 0) cabeza.sprite = ojos[0];
@@ -193,7 +194,10 @@ public class TroncoMeditador : MonoBehaviour
         if (!enAgro) pendiente = false;
         else if (!estabaEnAgro || !enPiso) pendiente = true;
         estabaEnAgro = enAgro;
-        bool quieta = enPiso && rbChica != null && Mathf.Abs(rbChica.linearVelocity.x) < 0.15f;
+        // quieta = en el piso y sin alejarse del lugar donde se freno. Se mide la distancia y no la velocidad:
+        // empujando contra un pincho la fisica la sacude un poquito cada paso, pero no avanza
+        bool quieta = enPiso && Mathf.Abs(p.x - xQuieta) <= 0.1f;
+        if (!quieta) xQuieta = p.x;
         if (!quieta) quietaDesde = -1f;
         else if (quietaDesde < 0f) quietaDesde = Time.time;
 
@@ -222,10 +226,12 @@ public class TroncoMeditador : MonoBehaviour
         proximoDanio = Time.time + 1f;
     }
 
+    // se mide contra la base de cada pincho que salio (no contra el ancho del area, que es mas ancho que el dibujo):
+    // asi, pegada a un pincho, cuenta como segura y los pinchos bajan
     private bool SobreUnArea(float x)
     {
-        foreach (var a in areasActivas)
-            if (Mathf.Abs(x - a.x) < a.y / 2f + margenSeguro) return true;
+        foreach (var r in rangosPinchos)
+            if (x > r.x - margenSeguro && x < r.y + margenSeguro) return true;
         return false;
     }
 
@@ -295,6 +301,14 @@ public class TroncoMeditador : MonoBehaviour
             foreach (var sr in srs)
                 sr.transform.position += Vector3.up * (PisoDebajo(sr.bounds.center.x, g.transform) - hundirPinchos - sr.bounds.min.y);
             grupos.Add(g);
+            // lo que ocupa cada pincho en el piso (su base): los inclinados tienen la punta corrida hacia afuera,
+            // y pegada a la base la chica no esta encima aunque la punta pase por arriba de ella
+            foreach (var sr in srs)
+            {
+                float x = sr.transform.position.x;   // el pivote de los pinchos es el centro de la base
+                float medio = sr.sprite.bounds.extents.x * Mathf.Abs(sr.transform.lossyScale.x);
+                rangosPinchos.Add(new Vector2(x - medio, x + medio));
+            }
             CrearBrillos(g.transform, Encapsular(srs), srs.Length + 1);
             foreach (var sr in srs)
             {
@@ -369,6 +383,7 @@ public class TroncoMeditador : MonoBehaviour
         pinchos.Clear();
         brillosPinchos.Clear();
         areasActivas.Clear();
+        rangosPinchos.Clear();
         if (volverAMeditar) estado = Estado.Meditando;
     }
 

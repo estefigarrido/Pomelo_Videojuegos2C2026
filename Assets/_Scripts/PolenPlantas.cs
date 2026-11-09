@@ -225,8 +225,8 @@ public class PolenPlantas : MonoBehaviour
         f.centroBlob = new Vector2(Mathf.Clamp(dondeChica.x, b.min.x, b.max.x), Mathf.Clamp(dondeChica.y, b.min.y, b.max.y));
         float dx = Mathf.Max(f.centroBlob.x - b.min.x, b.max.x - f.centroBlob.x);
         float dy = Mathf.Max(f.centroBlob.y - b.min.y, b.max.y - f.centroBlob.y);
-        // el blob ondula hasta -40 % del radio: el radio final tiene que tapar la esquina mas lejana igual
-        f.radioFinal = Mathf.Sqrt(dx * dx + dy * dy) * 1.75f;
+        // distancia a la esquina mas lejana de la planta
+        f.radioFinal = Mathf.Sqrt(dx * dx + dy * dy);
     }
 
     // la botellita se rompio: suelta de golpe lo que le quedaba
@@ -259,8 +259,9 @@ public class PolenPlantas : MonoBehaviour
             }
             if (f.mpb == null) continue;
             // el blob crece con lo que ya se solto; recien al 100 % tapa toda la planta
-            float e = Mathf.Pow(f.colorMostrado, 0.8f);
-            float radio = lleno ? f.radioFinal * 1.5f : f.radioFinal * e * 0.85f;
+            // al 40 % de polen se ve mas o menos un tercio de la planta con color; al 100 % toda
+            float e = f.colorMostrado;
+            float radio = lleno ? f.radioFinal * 1.8f : f.radioFinal * (0.08f + 0.8f * e * e);
             f.mpb.SetVector(IdBlob, new Vector4(f.centroBlob.x, f.centroBlob.y, radio, Mathf.Max(0.05f, f.radioFinal * bordeBlob)));
             f.mpb.SetFloat(IdGris, lleno ? 0f : 1f);
             foreach (var p in f.partes) if (p != null) p.SetPropertyBlock(f.mpb);

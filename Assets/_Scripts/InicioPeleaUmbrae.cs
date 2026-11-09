@@ -139,8 +139,15 @@ public class InicioPeleaUmbrae : MonoBehaviour
     {
         if (zona == null) zona = FindFirstObjectByType<ZonaCamaraFija>();
 
-        // las piezas de la decoracion: cada hijo directo, segun su nombre y su altura
+        // las piezas de la decoracion: cada hijo directo, segun su nombre y su altura.
+        // Los hijos sin dibujo son grupos (por ejemplo "pinchos_base_umbrae1"): se miran sus piezas de adentro.
+        var piezasDecoracion = new List<Transform>();
         foreach (Transform hijo in transform)
+        {
+            if (hijo.GetComponent<SpriteRenderer>() != null) piezasDecoracion.Add(hijo);
+            else foreach (Transform nieto in hijo) piezasDecoracion.Add(nieto);
+        }
+        foreach (Transform hijo in piezasDecoracion)
         {
             var sr = hijo.GetComponent<SpriteRenderer>();
             if (sr == null) continue;

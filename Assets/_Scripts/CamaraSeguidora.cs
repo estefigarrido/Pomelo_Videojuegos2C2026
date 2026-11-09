@@ -4,7 +4,6 @@ using UnityEngine;
 public class CamaraSeguidora : MonoBehaviour
 {
     [SerializeField] private Transform objetivo;
-    [SerializeField] private float margenIzquierdoPx = 500f;
     [SerializeField] private bool seguirVertical = true;
     [SerializeField] private float offsetVertical = 1f;
 
@@ -73,12 +72,8 @@ public class CamaraSeguidora : MonoBehaviour
         mezcla = Mathf.MoveTowards(mezcla, fijo ? 1f : 0f, Time.deltaTime / Mathf.Max(0.01f, duracionActual));
         float k = Mathf.SmoothStep(0f, 1f, mezcla);
 
-        // donde estaria siguiendo a la chica, con el zoom normal
-        float unidadesPorPixel = (tamanoNormal * 2f) / Screen.height;
-        float margenUnidades = margenIzquierdoPx * unidadesPorPixel;
-        float mitadAncho = tamanoNormal * cam.aspect;
-
-        float x = objetivo.position.x + mitadAncho - margenUnidades;
+        // donde estaria siguiendo a la chica, con el zoom normal: siempre con ella en el centro
+        float x = objetivo.position.x;
         float y = seguirVertical ? objetivo.position.y + offsetVertical : transform.position.y;
 
         if (k <= 0f)

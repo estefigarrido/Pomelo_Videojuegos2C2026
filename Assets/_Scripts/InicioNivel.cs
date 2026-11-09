@@ -48,15 +48,31 @@ public class InicioNivel : MonoBehaviour
     [Tooltip("Segundos que tarda en volver al zoom normal, justo antes de poder caminar.")]
     [SerializeField] private float duracionZoom = 1f;
 
+    // Avisa cuando la chica termino de salir por la puerta (ya girada de perfil), o enseguida si no hay intro.
+    // Lo usan los carteles de tutorial para aparecer en ese momento.
+    public static event System.Action SalidaTerminada;
+    public static bool YaSalio { get; private set; }
+
     private Transform chica;
     private SpriteRenderer dibujoChica;
+
+    private void Awake()
+    {
+        YaSalio = false;
+    }
+
+    private static void AvisarSalida()
+    {
+        YaSalio = true;
+        SalidaTerminada?.Invoke();
+    }
     private SpriteMask mascaraChica;
     private float bordeCerrada = float.NaN;
 
     private void Start()
     {
         var salud = FindFirstObjectByType<SaludPersonaje>();
-        if (!activa || salud == null || puerta == null) return;
+        if (!activa || salud == null || puerta == null) { AvisarSalida(); return; }
 #if UNITY_EDITOR
         // para probar: si la arrastraste lejos del portal en la Scene, arranca ahi y ese lugar hace de checkpoint
         if (Vector2.Distance(salud.transform.position, posicionChica) > distanciaParaProbarDesdeOtroLado)
@@ -65,6 +81,7 @@ public class InicioNivel : MonoBehaviour
             salud.DefinirPuntoDeReaparicion(salud.transform.position);
             Debug.LogWarning("[Inicio] la chica no esta en el portal: se saltea la intro y arranca en " +
                              salud.transform.position + " (solo en el editor)");
+            AvisarSalida();
             return;
         }
 #endif
@@ -121,6 +138,7 @@ public class InicioNivel : MonoBehaviour
 
         // se gira de perfil
         yield return GiroSuave.Reproducir(dibujoChica, framesSalida, duracionGiro);
+        AvisarSalida();
 
         // zoom: la camara vuelve a seguirla de cerca y recien despues puede caminar
         if (camara != null)

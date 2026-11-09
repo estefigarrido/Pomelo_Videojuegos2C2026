@@ -57,6 +57,10 @@ public class BotellitaRompible : MonoBehaviour
         if (rota) return;
         rota = true;
         var col = GetComponent<Collider2D>(); if (col != null) col.enabled = false;
+        // suelta de golpe el polen que le quedaba (carga la barra del templo)
+        if (PolenPlantas.Instancia != null) PolenPlantas.Instancia.SoltarTodo(this);
+        // los glows del Figma (hijos "glow N") se apagan con la botellita
+        foreach (Transform h in transform) if (h.name.StartsWith("glow")) h.gameObject.SetActive(false);
         StartCoroutine(Secuencia());
     }
 
@@ -64,9 +68,12 @@ public class BotellitaRompible : MonoBehaviour
     {
         // 1) las colgantes: la soga se queda y el cuerpo cae entero, con los dientes de leon adentro
         SpriteRenderer seRompe = dibujo;
+        var sogaFisica = GetComponent<SogaBotellita>();
         if (soga != null && cuerpo != null)
         {
-            dibujo.sprite = soga;
+            // con soga de verdad (SogaBotellita) la soga queda suelta y el dibujo se apaga; si no, queda la soga dibujada
+            if (sogaFisica != null) { sogaFisica.Soltar(); dibujo.enabled = false; }
+            else dibujo.sprite = soga;
             seRompe = Suelto("botellita cayendo", cuerpo);
             var grupo = transform.Find("dientes de leon");
             if (grupo != null) grupo.SetParent(seRompe.transform, true);

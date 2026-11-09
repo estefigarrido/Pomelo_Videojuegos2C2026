@@ -41,8 +41,12 @@ public class PolenPlantas : MonoBehaviour
     [SerializeField] private float porcentajePorSector = 10f;
     [Tooltip("Cuanto vale cada polen que se levanta (aprox.; se ajusta para que la planta de justo lo suyo).")]
     [SerializeField] private float valorPolen = 0.5f;
-    [Tooltip("La planta se vacia cuando la chica recorrio adentro esta cantidad de veces su ancho.")]
+    [Tooltip("Maximo de pasadas por una planta para juntarle todo el polen (las mas anchas).")]
     [SerializeField] private float pasadasHastaVaciarse = 3f;
+    [Tooltip("Plantas de este ancho o menos se vacian en 1 pasada.")]
+    [SerializeField] private float anchoUnaPasada = 1.5f;
+    [Tooltip("Plantas de este ancho o mas necesitan el maximo de pasadas.")]
+    [SerializeField] private float anchoMaximasPasadas = 6f;
     [Tooltip("La chica tiene que moverse al menos a esta velocidad para levantar polen.")]
     [SerializeField] private float velocidadMinima = 0.6f;
     [Tooltip("Destellos sueltos por cada polen.")]
@@ -60,6 +64,8 @@ public class PolenPlantas : MonoBehaviour
     [Tooltip("Altura a la que flota arriba de lo mas alto de la planta (5 px = 0.05).")]
     [SerializeField] private float sobreLaPlanta = 0.05f;
     [SerializeField] private float alturaNube = 0.35f;
+    [Tooltip("El polen nunca sube mas que esto sobre los pies de la chica (alto 2,34 + parte del salto), asi queda a su alcance.")]
+    [SerializeField] private float alcanceSobrePies = 3.4f;
     [Tooltip("Cuanto flota antes de irse solo a la barra (segundos).")]
     [SerializeField] private Vector2 tiempoFlotando = new Vector2(0.6f, 1.3f);
     [SerializeField] private float segundosVuelo = 0.8f;
@@ -209,7 +215,10 @@ public class PolenPlantas : MonoBehaviour
                 if (!f.tocada) Tocar(f, c.center);
                 if (vel < velocidadMinima) continue;
                 f.recorrido += vel * Time.deltaTime;
-                float largo = Mathf.Max(0.5f, Mathf.Max(b.size.x, b.size.y * 0.5f)) * pasadasHastaVaciarse;
+                // pasadas para vaciarla: 1 en las chicas, hasta 'pasadasHastaVaciarse' (3) en las mas anchas
+                float ancho = Mathf.Max(0.5f, b.size.x);
+                float pasadas = Mathf.Lerp(1f, pasadasHastaVaciarse, Mathf.InverseLerp(anchoUnaPasada, anchoMaximasPasadas, ancho));
+                float largo = ancho * pasadas * 0.9f;   // 0.9: una pasada entera de punta a punta alcanza
                 int deberia = Mathf.Min(f.total, Mathf.FloorToInt(f.total * f.recorrido / largo) + 1);
                 if (deberia > f.soltados) Levantar(f, c.center.x, Mathf.Sign(rbChica.linearVelocity.x), deberia - f.soltados);
             }
@@ -311,7 +320,9 @@ public class PolenPlantas : MonoBehaviour
             p.soloDestello = !esPolen;
             p.valor = esPolen ? valor : 0f;
             float x = Mathf.Clamp(xChica + Random.Range(-1.2f, 1.2f), b.min.x, b.max.x);
-            p.pos = new Vector2(x, Random.Range(b.min.y + b.size.y * 0.3f, b.max.y));
+            // nace y flota al alcance de la chica (las plantas que cuelgan llegan hasta el techo)
+            float techo = AlcanceChica(b);
+            p.pos = new Vector2(x, Mathf.Min(Random.Range(b.min.y + b.size.y * 0.3f, b.max.y), techo - 0.6f));
             p.posDestello = p.pos;
             float lento = p.soloDestello ? 0.6f : 1f;
             p.vel = new Vector2(sentido * empujeChica * Random.Range(0.3f, 1f) + Random.Range(-0.3f, 0.3f), Random.Range(subida.x, subida.y) * lento);
@@ -320,7 +331,7 @@ public class PolenPlantas : MonoBehaviour
             p.espera = Random.Range(0f, desfaseMaximo);
             p.fase = Random.value * 10f;
             p.giro = Random.Range(-40f, 40f);
-            p.yFlotar = b.max.y + sobreLaPlanta + Random.value * Random.value * alturaNube;
+            p.yFlotar = Mathf.Min(b.max.y + sobreLaPlanta, techo - alturaNube) + Random.value * Random.value * alturaNube;
             p.flotarHasta = Random.Range(tiempoFlotando.x, tiempoFlotando.y);
             p.vidaMax = p.soloDestello ? Random.Range(1.6f, 3f) : float.MaxValue;
             float alto = Random.Range(altura.x, altura.y);
@@ -338,6 +349,13 @@ public class PolenPlantas : MonoBehaviour
             if (p.td != null) p.td.gameObject.SetActive(false);
             activos.Add(p);
         }
+    }
+
+    // lo mas alto que alcanza la chica (pies + 'alcanceSobrePies'); sin chica, la planta entera
+    private float AlcanceChica(Bounds b)
+    {
+        if (cuerpoChica == null) return b.max.y + 1f;
+        return cuerpoChica.bounds.min.y + alcanceSobrePies;
     }
 
     private void Volar(Polen p)
@@ -407,7 +425,9 @@ public class PolenPlantas : MonoBehaviour
                     float by = p.yFlotar + Mathf.Sin(p.vida * 1.3f + p.fase * 1.7f) * 0.04f;
                     p.pos = Vector2.Lerp(p.pos, new Vector2(bx, by), 1f - Mathf.Exp(-3f * dt));
                     // siempre se va a la barra despues de flotar un momento
-                    if (!p.soloDestello && p.vida >= p.flotarHasta) Volar(p);
+                    // (o antes, si la chica lo toca)
+                    bool toca = cuerpoChica != null && cuerpoChica.bounds.Contains(new Vector3(p.pos.x, p.pos.y, cuerpoChica.bounds.center.z));
+                    if (!p.soloDestello && (p.vida >= p.flotarHasta || toca)) Volar(p);
                 }
                 if (p.soloDestello)
                 {

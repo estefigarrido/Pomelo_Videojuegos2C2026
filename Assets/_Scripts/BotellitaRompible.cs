@@ -50,6 +50,8 @@ public class BotellitaRompible : MonoBehaviour
         public Vector2 pos, vel, posDestello; public float vida, dur, espera, escala, escalaD, fase, giro;
     }
 
+    public bool Rota => rota;
+
     private void Awake() => dibujo = GetComponent<SpriteRenderer>();
 
     public void Romper()

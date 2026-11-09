@@ -35,6 +35,7 @@ public class AtaqueLatigo : MonoBehaviour
     private float inicio;
     private float ultimoUso = -99f;
     private readonly HashSet<VidaEnemigo> golpeados = new HashSet<VidaEnemigo>();
+    private bool rompioBotellita;   // cada latigazo rompe una sola botellita
 
     public bool Atacando => atacando;
 
@@ -59,15 +60,19 @@ public class AtaqueLatigo : MonoBehaviour
         {
             if (z.frame != frame) continue;
             ZonaEnMundo(z, out Vector2 centro, out Vector2 tamano);
+            BotellitaRompible masCerca = null; float dist = float.MaxValue;
             foreach (var col in Physics2D.OverlapBoxAll(centro, tamano, 0f))
             {
                 var enemigo = col.GetComponentInParent<VidaEnemigo>();
                 // cada latigazo le pega una sola vez a cada enemigo
                 if (enemigo != null && enemigo.Vivo && golpeados.Add(enemigo)) enemigo.RecibirDanio(danio);
-                // las botellitas se rompen con un solo golpe
+                // botellitas: solo la mas cercana a la chica (hay que pegarle a cada una)
                 var botellita = col.GetComponent<BotellitaRompible>();
-                if (botellita != null) botellita.Romper();
+                if (botellita == null || botellita.Rota) continue;
+                float d = ((Vector2)col.bounds.center - (Vector2)transform.position).sqrMagnitude;
+                if (d < dist) { dist = d; masCerca = botellita; }
             }
+            if (masCerca != null && !rompioBotellita) { masCerca.Romper(); rompioBotellita = true; }
         }
     }
 
@@ -80,6 +85,7 @@ public class AtaqueLatigo : MonoBehaviour
         inicio = Time.time;
         ultimoUso = Time.time;
         golpeados.Clear();
+        rompioBotellita = false;
         return true;
     }
 

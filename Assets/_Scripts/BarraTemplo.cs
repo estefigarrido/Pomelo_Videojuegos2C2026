@@ -15,10 +15,10 @@ public class BarraTemplo : MonoBehaviour
     [SerializeField] private Image brilloBoton;
 
     [Header("Carga")]
-    [Range(0f, 300f)] [SerializeField] private float carga = 0f;
+    [Range(0f, 100f)] [SerializeField] private float carga = 0f;
     [SerializeField] private float costoRestaurar = 10f;
-    [Tooltip("Lo maximo que se guarda (3 barras). El relleno muestra hasta 100 %.")]
-    [SerializeField] private float cargaMaxima = 300f;
+    [Tooltip("Lo maximo que se guarda. Con la barra llena el polen no se absorbe: queda flotando hasta que se libere lugar.")]
+    [SerializeField] private float cargaMaxima = 100f;
     [Tooltip("Velocidad con la que el relleno alcanza a la carga (porcentaje por segundo).")]
     [SerializeField] private float velocidadRelleno = 60f;
 
@@ -41,11 +41,16 @@ public class BarraTemplo : MonoBehaviour
         if (boton != null) { escalaBoton = boton.localScale; posBoton = boton.anchoredPosition; }
     }
 
-    public void Sumar(float porcentaje)
+    // lugar que le queda a la barra (el polen solo vuela si entra)
+    public float Libre => Mathf.Max(0f, cargaMaxima - carga);
+
+    // suma hasta llenar la barra y devuelve cuanto entro
+    public float Sumar(float porcentaje)
     {
-        // guarda hasta 3 barras (300 %) para no perder polen; la barra muestra hasta 100 %
-        carga = Mathf.Min(cargaMaxima, carga + porcentaje);
-        ultimoSumado = Time.time;
+        float entra = Mathf.Min(porcentaje, Libre);
+        carga += entra;
+        if (entra > 0f) ultimoSumado = Time.time;
+        return entra;
     }
 
     // punto de la pantalla adonde vuela el polen (la punta del relleno)

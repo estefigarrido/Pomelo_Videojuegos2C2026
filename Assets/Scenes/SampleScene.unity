@@ -17728,6 +17728,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 672006171
       objectReference: {fileID: 0}
+    - target: {fileID: 1454657760017791583, guid: f8de8162189514a45b313b31024329e4, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ac6c2bfe78abedb47975d333029f36b1, type: 2}
     - target: {fileID: 3511483134679994301, guid: f8de8162189514a45b313b31024329e4, type: 3}
       propertyPath: InitialModule.startRotationX.minMaxState
       value: 3
@@ -29852,10 +29856,14 @@ MonoBehaviour:
   porcentajePorSector: 10
   multiplicadorPolen: 3.5
   ajustesPorPiso:
-  - nombre: nivel 2
+  - nombre: nivel 2 (antes 0,8; -60 %)
     yMin: -21.8
     yMax: 3.1
-    factor: 0.8
+    factor: 0.32
+  - nombre: nivel 3 (-60 %)
+    yMin: 3.1
+    yMax: 27.97
+    factor: 0.4
   radioAbsorcion: 5
   valorPolen: 0.5
   pasadasHastaVaciarse: 5
@@ -126067,7 +126075,7 @@ MonoBehaviour:
   brilloBoton: {fileID: 80978935}
   carga: 0
   costoRestaurar: 10
-  cargaMaxima: 300
+  cargaMaxima: 100
   velocidadRelleno: 60
   colorRelleno: {r: 1, g: 0.776, b: 0.169, a: 1}
   colorDestello: {r: 1, g: 0.97, b: 0.75, a: 1}

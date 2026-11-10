@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-// Rearma las transiciones de CORRER, SALTO y DASH.
+// Rearma las transiciones de CAMINAR, CORRER, SALTO y DASH.
 // El estado "Golpe 1" y su animacion NO se tocan.
 // Menu:  Pomelo -> Arreglar Animator del personaje
 public static class ArreglarAnimator
@@ -35,7 +35,9 @@ public static class ArreglarAnimator
         AnimatorState sprint = Buscar(maquina, "Sprint");
         AnimatorState salto = Buscar(maquina, "Salto");
         AnimatorState dash = Buscar(maquina, "Dash");
+        AnimatorState caminando = Buscar(maquina, "Caminando");
         bool hayDash = dash != null && TieneParametro(controller, "dash");
+        bool hayCaminar = caminando != null && TieneParametro(controller, "caminando");
 
         if (idle == null || sprint == null || salto == null)
         {
@@ -56,6 +58,7 @@ public static class ArreglarAnimator
         LimpiarTransiciones(sprint);
         LimpiarTransiciones(salto);
         if (dash != null) LimpiarTransiciones(dash);
+        if (caminando != null) LimpiarTransiciones(caminando);
 
         foreach (var t in maquina.anyStateTransitions) Object.DestroyImmediate(t, true);
         maquina.anyStateTransitions = new AnimatorStateTransition[0];
@@ -88,6 +91,32 @@ public static class ArreglarAnimator
         aIdle.duration = 0f;
         aIdle.AddCondition(AnimatorConditionMode.IfNot, 0f, "sprint");
 
+        // ---- CAMINAR: Idle <-> Caminando <-> Sprint, al toque (como estaba antes) ----
+        if (hayCaminar)
+        {
+            var aCaminar = idle.AddTransition(caminando);
+            aCaminar.hasExitTime = false;
+            aCaminar.duration = 0f;
+            aCaminar.AddCondition(AnimatorConditionMode.If, 0f, "caminando");
+
+            var caminarAIdle = caminando.AddTransition(idle);
+            caminarAIdle.hasExitTime = false;
+            caminarAIdle.duration = 0f;
+            caminarAIdle.AddCondition(AnimatorConditionMode.IfNot, 0f, "caminando");
+            caminarAIdle.AddCondition(AnimatorConditionMode.IfNot, 0f, "sprint");
+
+            var caminarASprint = caminando.AddTransition(sprint);
+            caminarASprint.hasExitTime = false;
+            caminarASprint.duration = 0f;
+            caminarASprint.AddCondition(AnimatorConditionMode.If, 0f, "sprint");
+
+            var sprintACaminar = sprint.AddTransition(caminando);
+            sprintACaminar.hasExitTime = false;
+            sprintACaminar.duration = 0f;
+            sprintACaminar.AddCondition(AnimatorConditionMode.If, 0f, "caminando");
+            sprintACaminar.AddCondition(AnimatorConditionMode.IfNot, 0f, "sprint");
+        }
+
         // ---- SALTO: mientras "saltando" este prendido, menos en medio de un dash.
         // Si un dash interrumpe el salto en el aire, al terminar vuelve al frame que corresponde.
         var aSalto = maquina.AddAnyStateTransition(salto);
@@ -109,6 +138,7 @@ public static class ArreglarAnimator
         Debug.Log("Animator arreglado:\n" +
                   (hayDash ? "  Any State -> Dash  por el bool 'dash', vuelve al terminar\n" : "  (todavia no hay estado Dash)\n") +
                   "  Idle <-> Sprint  por el bool 'sprint'\n" +
+                  (hayCaminar ? "  Idle <-> Caminando <-> Sprint  por el bool 'caminando'\n" : "  (no hay estado Caminando o falta el bool 'caminando')\n") +
                   "  Any State <-> Salto  por el bool 'saltando'; el frame lo marca 'tiempoSalto'\n" +
                   "  Golpe 1 sin tocar (sin transiciones que lleven a el)");
     }

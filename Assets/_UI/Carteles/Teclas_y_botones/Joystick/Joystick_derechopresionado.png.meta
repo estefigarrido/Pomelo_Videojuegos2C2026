@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c810e7e4801888d4888372ff767aa036
+guid: 8a2ef34ec0adee941a66631600634e3b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2372718645764358460
-    second: Boton_Equis 1_0
+      213: 7257333143365507544
+    second: Joystick_derechopresionado_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Boton_Equis 1_0
+      name: Joystick_derechopresionado_0
       rect:
         serializedVersion: 2
         x: 3
         y: 3
         width: 32
-        height: 32
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c310bb089079de020800000000000000
-      internalID: 2372718645764358460
+      spriteID: 8d958fafa0a37b460800000000000000
+      internalID: 7257333143365507544
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Boton_Equis 1_0: 2372718645764358460
+      Joystick_derechopresionado_0: 7257333143365507544
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

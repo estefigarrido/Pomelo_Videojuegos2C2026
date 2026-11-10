@@ -7,6 +7,7 @@ using UnityEngine;
 // - Cuando la chica pasa por una planta o botellita (caminando, saltando o cayendo) suelta polen de a
 //   poco. El polen es grande (+20 %), tiene glow amarillo y lo acompanan destellos amarillos del Figma.
 //   Sube, flota un momento 5 px arriba de la planta y siempre vuela solo a la barra del templo (BarraTemplo).
+//   Si la barra esta llena (100 %) no vuela: sigue flotando hasta que se libere lugar (al restaurar).
 // - La planta recupera el color a medida que suelta su polen: un blob de borde suave e irregular (la
 //   traduccion del blurblob del Figma) crece desde donde la toco la chica. Recien cuando ya no le queda
 //   polen tiene todo su color, y ahi larga una rafaga de destellos: asi se nota que ya se junto todo.
@@ -134,7 +135,7 @@ public class PolenPlantas : MonoBehaviour
     private static readonly int IdBlob = Shader.PropertyToID("_Blob");
     private static readonly int IdSemilla = Shader.PropertyToID("_BlobSemilla");
 
-    private void Awake() => Instancia = this;
+    private void Awake() { Instancia = this; enVuelo = 0f; }
 
     private void Start()
     {
@@ -401,8 +402,20 @@ public class PolenPlantas : MonoBehaviour
         return cuerpoChica.bounds.min.y + alcanceSobrePies;
     }
 
+    // polen que ya va volando a la barra y todavia no llego (cuenta como lugar ocupado)
+    private static float enVuelo;
+
+    // con la barra llena el polen no se absorbe: sigue flotando hasta que se libere lugar
+    private static bool HayLugar(float valor)
+    {
+        var barra = BarraTemplo.Instancia;
+        return barra == null || enVuelo + valor <= barra.Libre + 0.0001f;
+    }
+
     private void Volar(Polen p)
     {
+        if (p.estado == Estado.Volando || !HayLugar(p.valor)) return;   // ya va volando: no contarlo dos veces
+        enVuelo += p.valor;
         p.estado = Estado.Volando;
         p.inicioVuelo = Time.time;
         p.desdeVuelo = p.pos;
@@ -418,7 +431,12 @@ public class PolenPlantas : MonoBehaviour
 
     private void Mover()
     {
-        if (pendiente > 0f && BarraTemplo.Instancia != null) { BarraTemplo.Instancia.Sumar(pendiente); pendiente = 0f; }
+        // el polen que no se ve (por el maximo de particulas) entra cuando hay lugar, sin pasarse del 100 %
+        if (pendiente > 0f && BarraTemplo.Instancia != null)
+        {
+            float entra = Mathf.Min(pendiente, Mathf.Max(0f, BarraTemplo.Instancia.Libre - enVuelo));
+            if (entra > 0f) { BarraTemplo.Instancia.Sumar(entra); pendiente -= entra; }
+        }
         float dt = Time.deltaTime;
         float z = transform.position.z - 0.05f;
         Vector2 destino = Vector2.zero; bool hayDestino = false;
@@ -447,6 +465,7 @@ public class PolenPlantas : MonoBehaviour
                 s = Mathf.Lerp(1f, 0.55f, e);
                 if (u >= 1f)
                 {
+                    enVuelo = Mathf.Max(0f, enVuelo - p.valor);
                     if (BarraTemplo.Instancia != null) BarraTemplo.Instancia.Sumar(p.valor);
                     Apagar(p, i); continue;
                 }

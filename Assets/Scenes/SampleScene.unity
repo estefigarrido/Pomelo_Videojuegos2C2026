@@ -42818,7 +42818,7 @@ Transform:
   m_GameObject: {fileID: 582101481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.84, y: -28.93, z: 0}
+  m_LocalPosition: {x: 106.8, y: 39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55417,6 +55417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 782519995}
   - component: {fileID: 782519996}
+  - component: {fileID: 782519997}
   m_Layer: 0
   m_Name: contenedor ojo
   m_TagString: Untagged
@@ -55498,6 +55499,24 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &782519997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782519994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c190977ab99644ae8488c1d06bd891dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IluminarEnPelea
+  inicioPelea: {fileID: 1558292923}
+  zona: {fileID: 833665365}
+  iluminado: {fileID: 21300000, guid: ab8482437b504c52a83f9c9d8d97f774, type: 3}
+  segundosEncender: 0.8
+  segundosApagar: 0.8
+  adelante: 0.002
 --- !u!1 &785891361
 GameObject:
   m_ObjectHideFlags: 0
@@ -83935,6 +83954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1230578300}
   - component: {fileID: 1230578301}
+  - component: {fileID: 1230578302}
   m_Layer: 0
   m_Name: ojo umbrae
   m_TagString: Untagged
@@ -83951,7 +83971,7 @@ Transform:
   m_GameObject: {fileID: 1230578299}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 51.15, y: 62.81, z: 0}
+  m_LocalPosition: {x: 51.15, y: 62.81, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -84017,6 +84037,24 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1230578302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230578299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c190977ab99644ae8488c1d06bd891dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IluminarEnPelea
+  inicioPelea: {fileID: 1558292923}
+  zona: {fileID: 833665365}
+  iluminado: {fileID: 21300000, guid: 25fab13604b34f0aacdbc09e3d6ecded, type: 3}
+  segundosEncender: 0.8
+  segundosApagar: 0.8
+  adelante: 0.002
 --- !u!1 &1230872211
 GameObject:
   m_ObjectHideFlags: 0

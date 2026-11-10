@@ -15,6 +15,7 @@ using UnityEngine.UI;
 //  - se puede encadenar con otros carteles: cuando este empieza a borrarse, desvanece los de
 //    "desvanecerAlEmpezarABorrarme"; cuando le falta un cuarto por borrar ("mostrarCuandoFalte"),
 //    muestra los de "mostrarAlTerminarDeBorrarme".
+//  - si tiene una hoja de loto en "desvanecerAlPisarHoja", se desvanece cuando la chica la pisa.
 // Los arma el menu  Pomelo -> Carteles -> Armar carteles  (Assets/Editor/ArmarCarteles.cs).
 [RequireComponent(typeof(Canvas), typeof(CanvasGroup))]
 public class CartelTutorial : MonoBehaviour
@@ -25,6 +26,9 @@ public class CartelTutorial : MonoBehaviour
     [SerializeField] private bool esperarSalidaDelPortal = true;
 
     [Header("Borrado al pasar la chica")]
+    [Tooltip("Si esta apagado, no se borra cuando la chica le pasa por delante (por ejemplo el de Recargar vida, " +
+             "que se va recien cuando ella pisa la hoja de loto).")]
+    [SerializeField] private bool borrarAlPasar = true;
     [Tooltip("Mascara que tapa lo que la chica ya paso.")]
     [SerializeField] private RectMask2D mascara;
     [Tooltip("Ancho (en px del cartel) del borde difuminado del borrado.")]
@@ -45,6 +49,8 @@ public class CartelTutorial : MonoBehaviour
     [SerializeField] private float mostrarCuandoFalte = 0.25f;
     [Tooltip("Segundos que tarda en desvanecerse cuando otro cartel se lo pide.")]
     [SerializeField] private float duracionDesvanecido = 0.8f;
+    [Tooltip("Si hay una hoja de loto aca, el cartel se desvanece cuando la chica la pisa.")]
+    [SerializeField] private HojaLotoQueSeHunde desvanecerAlPisarHoja;
 
     private Canvas canvas;
     private CanvasGroup grupo;
@@ -79,8 +85,17 @@ public class CartelTutorial : MonoBehaviour
         }
     }
 
-    private void OnEnable() { InicioNivel.SalidaTerminada += AlSalir; }
-    private void OnDisable() { InicioNivel.SalidaTerminada -= AlSalir; }
+    private void OnEnable()
+    {
+        InicioNivel.SalidaTerminada += AlSalir;
+        if (desvanecerAlPisarHoja != null) desvanecerAlPisarHoja.Pisada += Desvanecer;
+    }
+
+    private void OnDisable()
+    {
+        InicioNivel.SalidaTerminada -= AlSalir;
+        if (desvanecerAlPisarHoja != null) desvanecerAlPisarHoja.Pisada -= Desvanecer;
+    }
     private void AlSalir() { salio = true; }
 
     private IEnumerator Start()
@@ -135,7 +150,7 @@ public class CartelTutorial : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (mascara == null || dibujoChica == null || yendose) return;
+        if (!borrarAlPasar || mascara == null || dibujoChica == null || yendose) return;
 
         // donde esta la chica, medido desde el borde izquierdo de la mascara (en px del cartel)
         var rt = mascara.rectTransform;

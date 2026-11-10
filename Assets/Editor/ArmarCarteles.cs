@@ -67,10 +67,63 @@ public static class ArmarCarteles
             // Se usa el prefab Cartel_atacar tal cual esta en la carpeta (no se rearma): solo se pone en la
             // escena, a la derecha del de salto y a la misma altura que los demas (y = -28.33).
             new Cartel("Cartel_atacar", new Vector2(243f, 40f), enEscena: true,
-                       lugar: new Vector3(-17.04f, -28.33f, -0.05f), soloUbicar: true),
-            // Si algun dia hay que rearmarlo desde cero, estas son sus piezas (sacar soloUbicar):
+                       lugar: new Vector3(-17.04f, -28.33f, -0.05f), soloUbicar: true)
+                .AlTerminarDeBorrarseMuestra("Cartel_correr"),   // cuando le falta un cuarto, aparece el de Correr
+            //          CORRER   [shift]   o   [stick R presionado]
+            // a la derecha del de Atacar, a la misma altura que los demas (y = -28.33)
+            new Cartel("Cartel_correr", new Vector2(228f, 40f), enEscena: true,
+                       lugar: new Vector3(-13.08f, -28.33f, -0.05f))
+                .AlTerminarDeBorrarseMuestra("Cartel_cambioataque")   // cuando le falta un cuarto, aparece el de Cambiar de ataque
+                .Titulo("Correr", new Vector2(0f, -20f))
+                .Icono(Teclado + "Tecla_shift.png", new Vector2(155f, -20f))
+                .O(new Vector2(183f, -21f))
+                .Icono(Joystick + "Joystick_derechopresionado.png", new Vector2(209.5f, -20f)),
+
+            //          CAMBIAR DE ATAQUE   [V]   o   [R1]  [R2]
+            // mas adelante en el nivel (pasando las flores amarillas), a la misma altura que los demas (y = -28.33)
+            new Cartel("Cartel_cambioataque", new Vector2(420f, 40f), enEscena: true,
+                       lugar: new Vector3(19.2f, -28.33f, -0.05f))
+                .AlTerminarDeBorrarseMuestra("Cartel_reparartemplo")   // cuando le falta un cuarto, aparece el de Reparar templo
+                .Titulo("Cambiar de ataque", new Vector2(0f, -20f))
+                .Icono(Teclado + "Tecla_V.png", new Vector2(311f, -20f))
+                .O(new Vector2(338f, -21f))
+                .Icono(Joystick + "Boton_R1.png", new Vector2(364f, -20f))
+                .Icono(Joystick + "Boton_R2.png", new Vector2(404f, -20f)),
+
+            //          REPARAR TEMPLO   [mouse clic derecho]   o   [stick L presionado]
+            // pasando los arbustos con las botellitas rotas, a la misma altura que los demas (y = -28.33)
+            new Cartel("Cartel_reparartemplo", new Vector2(345f, 40f), enEscena: true,
+                       lugar: new Vector3(52.44f, -28.33f, -0.05f))
+                .AlTerminarDeBorrarseMuestra("Cartel_impulsarte")   // cuando le falta un cuarto, aparece el de Impulsarte
+                .Titulo("Reparar templo", new Vector2(0f, -20f))
+                .Icono(Teclado + "Click_derecho.png", new Vector2(275f, -20f))
+                .O(new Vector2(301f, -21f))
+                .Icono(Joystick + "Joystick_izquierdopresionado.png", new Vector2(327.5f, -20f)),
+
+            //          IMPULSARTE   [F]   o   [triangulo]
+            // pasando la estatua alta, a la misma altura que los demas (y = -28.33)
+            new Cartel("Cartel_impulsarte", new Vector2(278f, 40f), enEscena: true,
+                       lugar: new Vector3(61.29f, -28.33f, -0.05f))
+                .Titulo("Impulsarte", new Vector2(0f, -20f))
+                .Icono(Teclado + "Tecla_F.png", new Vector2(209f, -20f))
+                .O(new Vector2(234.5f, -21f))
+                .Icono(Joystick + "Boton_Triangulo.png", new Vector2(260f, -20f))
+                .AlTerminarDeBorrarseMuestra("Cartel_recargarvida"),   // cuando le falta un cuarto, aparece el de Recargar vida
+
+            //          RECARGAR VIDA   [R]   o   [cuadrado]
+            // antes del lago violeta, a la misma altura que los demas (y = -28.33).
+            // NO se borra al pasar la chica: se desvanece recien cuando ella pisa la primera hoja de loto del lago.
+            new Cartel("Cartel_recargarvida", new Vector2(323f, 40f), enEscena: true,
+                       lugar: new Vector3(78.57f, -28.33f, -0.05f))
+                .DesvanecerAlPisarLaPrimeraHoja()
+                .Titulo("Recargar Vida", new Vector2(0f, -20f))
+                .Icono(Teclado + "Tecla_R.png", new Vector2(253.6f, -20f))
+                .O(new Vector2(279.7f, -21f))
+                .Icono(Joystick + "Boton_Cuadrado.png", new Vector2(305.8f, -20f)),
+
+            // Cartel_atacar: si algun dia hay que rearmarlo desde cero, estas son sus piezas (sacar soloUbicar):
             //     .Titulo("Atacar", new Vector2(0f, -20f))
-            //     .Icono(Teclado + "Click_derecho.png", new Vector2(161f, -20f)) // tiene marcado el boton izquierdo
+            //     .Icono(Teclado + "Click_izquierdo.png", new Vector2(161f, -20f))
             //     .O(new Vector2(194f, -21f))
             //     .Icono(Joystick + "Boton_Circulo.png", new Vector2(227f, -20f)),
         };
@@ -193,8 +246,27 @@ public static class ArmarCarteles
             so.FindProperty("esperarAOtroCartel").boolValue = mostradosPorOtro.Contains(c.nombre);
             Referencias(so.FindProperty("desvanecerAlEmpezarABorrarme"), c.desvanece);
             Referencias(so.FindProperty("mostrarAlTerminarDeBorrarme"), c.muestra);
+            so.FindProperty("desvanecerAlPisarHoja").objectReferenceValue =
+                c.desvaneceAlPisarHoja ? PrimeraHojaALaDerecha(go.transform.position) : null;
+            // el que se va al pisar la hoja NO se borra al pasar la chica por delante
+            so.FindProperty("borrarAlPasar").boolValue = !c.desvaneceAlPisarHoja;
             so.ApplyModifiedProperties();
         }
+    }
+
+    // la hoja de loto mas cercana a la derecha del cartel, mas o menos a su altura
+    private static HojaLotoQueSeHunde PrimeraHojaALaDerecha(Vector3 cartel)
+    {
+        HojaLotoQueSeHunde mejor = null;
+        foreach (var h in Object.FindObjectsByType<HojaLotoQueSeHunde>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            Vector3 p = h.transform.position;
+            if (p.x <= cartel.x || Mathf.Abs(p.y - cartel.y) > 10f) continue;
+            if (mejor == null || p.x < mejor.transform.position.x) mejor = h;
+        }
+        if (mejor == null) Debug.LogWarning("No encontre ninguna hoja de loto a la derecha del cartel en " + cartel);
+        else Debug.Log("El cartel se va a desvanecer al pisar '" + mejor.name + "' (x " + mejor.transform.position.x.ToString("0.##") + ")");
+        return mejor;
     }
 
     private static void Referencias(SerializedProperty lista, List<string> nombres)
@@ -241,6 +313,8 @@ public static class ArmarCarteles
             this.soloUbicar = soloUbicar;
         }
 
+        public bool desvaneceAlPisarHoja;  // se va cuando la chica pisa la primera hoja de loto a su derecha
+        public Cartel DesvanecerAlPisarLaPrimeraHoja() { desvaneceAlPisarHoja = true; return this; }
         public Cartel AlEmpezarABorrarseDesvanece(params string[] carteles) { desvanece.AddRange(carteles); return this; }
         public Cartel AlTerminarDeBorrarseMuestra(params string[] carteles) { muestra.AddRange(carteles); return this; }
 

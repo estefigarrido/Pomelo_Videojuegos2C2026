@@ -33,12 +33,13 @@ public static class ArmarCarteles
             // Frame 57:          [compu]          [joystick]
             //                    -------          ----------
             //          CAMINAR   [<]  [>]    o     [stick R]
+            //                    [A]  [D]   (las flechas y A / D se van turnando cada 2.5 s, Frame 60)
             new Cartel("Cartel_caminar", new Vector2(300f, 68f), enEscena: true)
                 .Titulo("Caminar", new Vector2(0f, -52.5f))
                 .Icono(Teclado + "Computadora.png", new Vector2(199f, -10f))
                 .Linea(new Vector2(198.5f, -28f), 71f)
-                .Icono(TeclaIzquierda, new Vector2(178f, -52.5f))
-                .Icono(TeclaDerecha, new Vector2(220f, -52.5f))
+                .Alternar(Teclado + "Tecla_flechaizquierda.png", Teclado + "Tecla_A.png", new Vector2(178f, -52.5f))
+                .Alternar(Teclado + "Tecla_flechaderecha.png", Teclado + "Tecla_D.png", new Vector2(220f, -52.5f))
                 .O(new Vector2(250f, -54f))
                 .Icono(Joystick + "Joystick.png", new Vector2(278f, -11f))
                 .Linea(new Vector2(278.5f, -28f), 39f)
@@ -58,8 +59,6 @@ public static class ArmarCarteles
     private const string CarpetaCarteles = "Assets/_UI/Carteles/";
     private const string Teclado = CarpetaCarteles + "Teclas_y_botones/Teclado/";
     private const string Joystick = CarpetaCarteles + "Teclas_y_botones/Joystick/";
-    private const string TeclaIzquierda = Teclado + "Tecla_flecha_izquierda.png";
-    private const string TeclaDerecha = Teclado + "Tecla_flecha_derecha.png";
 
     private const string RutaTtf = "Assets/_Fuentes/Alegreya/Alegreya-Regular.ttf";
     private const string RutaFontAsset = "Assets/_Fuentes/Alegreya/Alegreya SDF.asset";
@@ -100,8 +99,6 @@ public static class ArmarCarteles
         var fuente = FontAssetAlegreya();
         if (fuente == null) return;
 
-        CrearTeclaFlecha(TeclaIzquierda, true);
-        CrearTeclaFlecha(TeclaDerecha, false);
 
         var chica = Object.FindFirstObjectByType<SaludPersonaje>();
         var dibujoChica = chica != null ? chica.GetComponent<SpriteRenderer>() : null;
@@ -148,12 +145,12 @@ public static class ArmarCarteles
 
     // ---------- descripcion de un cartel ----------
 
-    private enum Tipo { Texto, Icono, Linea }
+    private enum Tipo { Texto, Icono, Linea, Alterno }
 
     private class Pieza
     {
         public Tipo tipo;
-        public string nombre, texto, ruta;
+        public string nombre, texto, ruta, ruta2;
         public float tamano;
         public FontStyles estilo;
         public Vector2 posicion, pivot, caja;
@@ -196,6 +193,14 @@ public static class ArmarCarteles
             return this;
         }
 
+        // dos iconos en el mismo lugar que se van turnando (AlternarTeclas): primero "ruta", despues "ruta2"
+        public Cartel Alternar(string ruta, string ruta2, Vector2 posicion)
+        {
+            piezas.Add(new Pieza { tipo = Tipo.Alterno, ruta = ruta, ruta2 = ruta2,
+                                   posicion = posicion, pivot = new Vector2(0.5f, 0.5f) });
+            return this;
+        }
+
         // linea gris de 1 px: posicion = centro
         public Cartel Linea(Vector2 posicion, float largo)
         {
@@ -232,6 +237,8 @@ public static class ArmarCarteles
         var mascara = rtMascara.gameObject.AddComponent<RectMask2D>();
         var contenido = Hijo("Contenido", rtMascara, c.tamano);
 
+        var primeros = new List<Image>();
+        var segundos = new List<Image>();
         foreach (var p in c.piezas)
         {
             switch (p.tipo)
@@ -239,11 +246,35 @@ public static class ArmarCarteles
                 case Tipo.Texto: Texto(contenido, p, fuente); break;
                 case Tipo.Linea: Linea(contenido, p); break;
                 case Tipo.Icono:
+                {
                     var sprite = CargarSprite(p.ruta);
                     if (sprite == null) { Object.DestroyImmediate(raiz); return null; }
-                    Icono(contenido, p, sprite);
+                    Icono(contenido, p, sprite, Path.GetFileNameWithoutExtension(p.ruta));
                     break;
+                }
+                case Tipo.Alterno:
+                {
+                    var s1 = CargarSprite(p.ruta);
+                    var s2 = CargarSprite(p.ruta2);
+                    if (s1 == null || s2 == null) { Object.DestroyImmediate(raiz); return null; }
+                    primeros.Add(Icono(contenido, p, s1, Path.GetFileNameWithoutExtension(p.ruta)));
+                    var img2 = Icono(contenido, p, s2, Path.GetFileNameWithoutExtension(p.ruta2));
+                    img2.color = new Color(1f, 1f, 1f, 0f);   // arranca escondido
+                    segundos.Add(img2);
+                    break;
+                }
             }
+        }
+        if (primeros.Count > 0)
+        {
+            var alternar = new SerializedObject(contenido.gameObject.AddComponent<AlternarTeclas>());
+            var pr = alternar.FindProperty("primero");
+            var se = alternar.FindProperty("segundo");
+            pr.arraySize = primeros.Count;
+            se.arraySize = segundos.Count;
+            for (int i = 0; i < primeros.Count; i++) pr.GetArrayElementAtIndex(i).objectReferenceValue = primeros[i];
+            for (int i = 0; i < segundos.Count; i++) se.GetArrayElementAtIndex(i).objectReferenceValue = segundos[i];
+            alternar.ApplyModifiedPropertiesWithoutUndo();
         }
 
         // franja oscura difuminada detras de todo el cartel
@@ -309,13 +340,14 @@ public static class ArmarCarteles
         t.raycastTarget = false;
     }
 
-    private static void Icono(RectTransform contenido, Pieza p, Sprite sprite)
+    private static Image Icono(RectTransform contenido, Pieza p, Sprite sprite, string nombre)
     {
-        var go = new GameObject(p.nombre, typeof(RectTransform), typeof(Image));
+        var go = new GameObject(nombre, typeof(RectTransform), typeof(Image));
         EnContenido(go, contenido, p, sprite.rect.size);
         var img = go.GetComponent<Image>();
         img.sprite = sprite;
         img.raycastTarget = false;
+        return img;
     }
 
     private static void Linea(RectTransform contenido, Pieza p)
@@ -383,51 +415,7 @@ public static class ArmarCarteles
         return fa;
     }
 
-    // ---------- teclas de flecha ----------
-
-    // Tecla blanca de 28 x 28 px con las esquinas redondeadas y la flecha calada (como el Figma).
-    // Solo se dibuja si no existe: si despues ponen un PNG propio con el mismo nombre, se usa ese.
-    private static void CrearTeclaFlecha(string ruta, bool izquierda)
-    {
-        if (File.Exists(ruta)) return;
-        const int N = 28, SS = 4;
-        const float radio = 5f, grosor = 1f;   // grosor = mitad del trazo de la flecha
-        // flecha "<" (punta a la izquierda); la ">" es la misma espejada
-        Vector2 a = new Vector2(15.8f, 10.2f), b = new Vector2(12.2f, 14f), c = new Vector2(15.8f, 17.8f);
-        if (!izquierda) { a.x = N - a.x; b.x = N - b.x; c.x = N - c.x; }
-
-        var px = new Color32[N * N];
-        for (int y = 0; y < N; y++)
-            for (int x = 0; x < N; x++)
-            {
-                int dentro = 0;
-                for (int j = 0; j < SS; j++)
-                    for (int i = 0; i < SS; i++)
-                    {
-                        var q = new Vector2(x + (i + 0.5f) / SS, y + (j + 0.5f) / SS);
-                        float dx = Mathf.Max(Mathf.Abs(q.x - N / 2f) - (N / 2f - radio), 0f);
-                        float dy = Mathf.Max(Mathf.Abs(q.y - N / 2f) - (N / 2f - radio), 0f);
-                        bool tecla = dx * dx + dy * dy <= radio * radio;
-                        bool flecha = DistanciaASegmento(q, a, b) <= grosor || DistanciaASegmento(q, b, c) <= grosor;
-                        if (tecla && !flecha) dentro++;
-                    }
-                px[y * N + x] = new Color32(255, 255, 255, (byte)Mathf.RoundToInt(255f * dentro / (SS * SS)));
-            }
-
-        var tex = new Texture2D(N, N, TextureFormat.RGBA32, false);
-        tex.SetPixels32(px);
-        tex.Apply();
-        File.WriteAllBytes(ruta, tex.EncodeToPNG());
-        Object.DestroyImmediate(tex);
-        ImportarComoSprite(ruta);
-    }
-
-    private static float DistanciaASegmento(Vector2 p, Vector2 a, Vector2 b)
-    {
-        Vector2 ab = b - a;
-        float t = Mathf.Clamp01(Vector2.Dot(p - a, ab) / ab.sqrMagnitude);
-        return Vector2.Distance(p, a + t * ab);
-    }
+    // ---------- importacion ----------
 
     private static void ImportarComoSprite(string ruta)
     {

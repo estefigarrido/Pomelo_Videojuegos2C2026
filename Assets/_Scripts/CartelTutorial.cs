@@ -6,20 +6,16 @@ using UnityEngine.UI;
 // al lado del portal de entrada. Es un Canvas en World Space (prefab en Assets/_UI/Carteles):
 //  - se dibuja justo detras de la chica (orden de ella - 1), asi queda adelante del fondo,
 //    el portal y las columnas, pero la chica pasa por delante.
-//  - aparece suavemente apenas la chica termina de salir por la puerta (InicioNivel), se queda
-//    "duracion" segundos y despues se desvanece. No vuelve a aparecer.
-//  - a medida que la chica le pasa por delante, se va borrando de izquierda a derecha (lo que ella
-//    ya paso no vuelve). Usa la RectMask2D "Mascara": le va subiendo el padding izquierdo.
-// Lo arma el menu  Pomelo -> Poner el cartel de Atacar.
+//  - aparece suavemente apenas la chica termina de salir por la puerta (InicioNivel) y se queda ahi.
+//  - no se va solo con el tiempo: a medida que la chica le pasa por delante, se va borrando de
+//    izquierda a derecha (lo que ella ya paso no vuelve). Cuando lo paso entero, desaparece.
+//    Usa la RectMask2D "Mascara": le va subiendo el padding izquierdo.
+// Los arma el menu  Pomelo -> Carteles -> Armar carteles  (Assets/Editor/ArmarCarteles.cs).
 [RequireComponent(typeof(Canvas), typeof(CanvasGroup))]
 public class CartelTutorial : MonoBehaviour
 {
-    [Tooltip("Segundos que el cartel se ve entero antes de empezar a desvanecerse.")]
-    [SerializeField] private float duracion = 3f;
     [Tooltip("Segundos que tarda en aparecer (suave).")]
     [SerializeField] private float duracionAparicion = 1.2f;
-    [Tooltip("Segundos que tarda en desvanecerse.")]
-    [SerializeField] private float duracionDesvanecido = 1f;
     [Tooltip("Si esta prendido, espera a que la chica termine de salir por la puerta del portal.")]
     [SerializeField] private bool esperarSalidaDelPortal = true;
 
@@ -64,10 +60,8 @@ public class CartelTutorial : MonoBehaviour
         if (esperarSalidaDelPortal && FindFirstObjectByType<InicioNivel>() != null)
             while (!salio && !InicioNivel.YaSalio) yield return null;
 
+        // aparece suave y se queda: solo se va cuando la chica le pasa por delante (LateUpdate)
         yield return Fundido(0f, 1f, duracionAparicion);
-        yield return new WaitForSeconds(duracion);
-        yield return Fundido(1f, 0f, duracionDesvanecido);
-        gameObject.SetActive(false);
     }
 
     private void LateUpdate()

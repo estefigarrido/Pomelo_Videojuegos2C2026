@@ -61,6 +61,8 @@ public class TroncoMeditador : MonoBehaviour
     [Tooltip("Distancia minima al borde de la base de un pincho para que el lugar cuente como seguro. " +
              "Tiene que ser menor que medio ancho de la chica, asi pegada a un pincho cuenta como segura.")]
     [SerializeField] private float margenSeguro = 0.3f;
+    [Tooltip("Capa (sorting layer) de los pinchos que saca del piso.")]
+    [SerializeField] private string capaPinchos = Capas.Personajes;
     [SerializeField] private int ordenPinchos = 0;
     [Tooltip("Vida que saca cada golpe de los pinchos del tronco: 20 = una de las 5 vidas.")]
     [SerializeField] private float danioPinchos = 20f;
@@ -295,7 +297,7 @@ public class TroncoMeditador : MonoBehaviour
             // mas altos que el dibujo, para que la chica no los pueda saltar
             foreach (var sr in srs)
             {
-                sr.sortingOrder = ordenPinchos;
+                sr.sortingLayerName = capaPinchos; sr.sortingOrder = ordenPinchos;
                 var e = sr.transform.localScale;
                 sr.transform.localScale = new Vector3(e.x, e.y * estiramientoPinchos, e.z);
             }
@@ -490,7 +492,8 @@ public class TroncoMeditador : MonoBehaviour
         var t = piezaEstatua.transform;
         Quaternion giroFinal = transform.rotation * giroFinalLocal;   // como la tenia abrazada
         t.SetParent(null, true);
-        piezaEstatua.sortingOrder = 300;   // por encima de todo mientras vuela
+        piezaEstatua.sortingLayerName = Capas.Efectos;   // por encima de todo mientras vuela
+        piezaEstatua.sortingOrder = 5;
         Vector3 desde = t.position;
         Quaternion giroDesde = t.rotation;
         Vector3 escalaDesde = t.localScale;
@@ -544,7 +547,7 @@ public class TroncoMeditador : MonoBehaviour
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = glowArea;
             if (materialSinLuz != null) sr.sharedMaterial = materialSinLuz;
-            sr.sortingOrder = ordenPinchos - 2;
+            sr.sortingLayerName = capaPinchos; sr.sortingOrder = ordenPinchos - 2;
             sr.color = new Color(colorGlowArea.r, colorGlowArea.g, colorGlowArea.b, 0f);
             glows.Add(sr);
         }
@@ -578,7 +581,7 @@ public class TroncoMeditador : MonoBehaviour
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = glowAgro;
             if (materialSinLuz != null) sr.sharedMaterial = materialSinLuz;
-            sr.sortingOrder = ordenPinchos + 1;
+            sr.sortingLayerName = capaPinchos; sr.sortingOrder = ordenPinchos + 1;
             sr.color = Color.clear;
             brillosPinchos.Add(new Brillo { sr = sr, fase = Random.value * 10f, velocidad = parpadeosPorSegundo * Random.Range(0.7f, 1.3f) });
         }
@@ -610,6 +613,7 @@ public class TroncoMeditador : MonoBehaviour
             sr.sprite = glowAgro;
             if (materialSinLuz != null) sr.sharedMaterial = materialSinLuz;
             var dibujo = GetComponent<SpriteRenderer>();
+            if (dibujo != null) sr.sortingLayerID = dibujo.sortingLayerID;
             sr.sortingOrder = (dibujo != null ? dibujo.sortingOrder : 0) + 2;
             sr.color = Color.clear;
             manchasAgro.Add(sr);
@@ -678,7 +682,7 @@ public class TroncoMeditador : MonoBehaviour
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = burbuja;
         if (materialSinLuz != null) sr.sharedMaterial = materialSinLuz;
-        sr.sortingOrder = ordenPinchos + 1;
+        sr.sortingLayerName = capaPinchos; sr.sortingOrder = ordenPinchos + 1;
         return new Burbuja { t = go.transform, sr = sr };
     }
 

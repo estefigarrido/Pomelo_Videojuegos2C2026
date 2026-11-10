@@ -24,7 +24,8 @@ public class RestauracionTemplo : MonoBehaviour
     [SerializeField] private Material materialSinLuz;
     [SerializeField] private Color colorEstela = new Color(1f, 0.93f, 0.62f, 0.8f);
     [SerializeField] private float destellosPorSegundo = 30f;
-    [SerializeField] private int ordenEstela = -600;
+    [Tooltip("Orden adentro de la capa FondoDetalles (arriba de las lianas del mapa).")]
+    [SerializeField] private int ordenEstela = 300;
 
     public static RestauracionTemplo Instancia { get; private set; }
     public bool QuedanSectores => restaurados < (sectores != null ? sectores.Length : 0);
@@ -218,7 +219,7 @@ public class RestauracionTemplo : MonoBehaviour
         go.transform.SetParent(transform, false);
         var sr = go.AddComponent<SpriteRenderer>();
         if (materialSinLuz != null) sr.sharedMaterial = materialSinLuz;
-        sr.sortingOrder = ordenEstela;
+        sr.sortingLayerName = Capas.FondoDetalles; sr.sortingOrder = ordenEstela;
         return new Destello { sr = sr };
     }
 

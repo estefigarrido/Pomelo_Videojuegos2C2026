@@ -89,7 +89,8 @@ public class PolenPlantas : MonoBehaviour
     [SerializeField] private float alfaDestello = 0.85f;
     [SerializeField] private Color colorGlow = new Color(1f, 0.9f, 0.5f, 1f);
     [SerializeField] private float retrasoDestello = 0.12f;
-    [SerializeField] private int ordenDeDibujo = 102;
+    [Tooltip("Orden adentro de la capa Efectos (el glow va uno atras).")]
+    [SerializeField] private int ordenDeDibujo = 2;
 
     public static PolenPlantas Instancia { get; private set; }
 
@@ -522,12 +523,12 @@ public class PolenPlantas : MonoBehaviour
         var go = new GameObject("polen");
         go.transform.SetParent(transform, true);
         var sr = go.AddComponent<SpriteRenderer>();
-        sr.sortingOrder = ordenDeDibujo;
+        sr.sortingLayerName = Capas.Efectos; sr.sortingOrder = ordenDeDibujo;
         var gd = new GameObject("destello polen");
         gd.transform.SetParent(transform, true);
         var srd = gd.AddComponent<SpriteRenderer>();
         if (materialSinLuz != null) srd.sharedMaterial = materialSinLuz;
-        srd.sortingOrder = ordenDeDibujo - 1;
+        srd.sortingLayerName = Capas.Efectos; srd.sortingOrder = ordenDeDibujo - 1;
         return new Polen { t = go.transform, sr = sr, td = gd.transform, srd = srd };
     }
 }

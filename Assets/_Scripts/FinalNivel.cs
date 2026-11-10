@@ -234,7 +234,7 @@ public class FinalNivel : MonoBehaviour
             yield return GiroSuave.Reproducir(dibujoChica, giro, duracionGiro);
         }
         // ya de espaldas, pasa detras de la puerta y del portal
-        if (dibujoChica != null && puerta != null) dibujoChica.sortingOrder = puerta.sortingOrder - 1;
+        if (dibujoChica != null && puerta != null) { dibujoChica.sortingLayerID = puerta.sortingLayerID; dibujoChica.sortingOrder = puerta.sortingOrder - 1; }
         yield return new WaitForSeconds(esperaAntesDeBajar);
 
         // la puerta baja (tapandola: ya entro al portal)

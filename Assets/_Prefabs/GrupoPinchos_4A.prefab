@@ -79,9 +79,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 319714883
+  m_SortingLayer: 6
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8321102221490951993, guid: 05719084e65b5544f94b994bbc42e802, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -293,9 +293,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 319714883
+  m_SortingLayer: 6
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7417498029127908629, guid: ef848c79051ef1f478d00c95ecf7addc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -374,6 +374,22 @@ PolygonCollider2D:
       - {x: 0.26, y: 0.35}
       - {x: 0.13, y: 2.47}
   m_UseDelaunayMesh: 1
+--- !u!114 &4301945971475201094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763451111790594125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pinchos
+  danio: 40
+  intervalo: 2
+  alturaRebotePx: 20
+  pixelesPorUnidad: 100
 --- !u!1 &3766727107099939160
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,9 +469,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 319714883
+  m_SortingLayer: 6
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 545875093725613961, guid: 9cc436606b4d1b946ae92029937c7264, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -531,6 +547,22 @@ PolygonCollider2D:
       - {x: 0.265, y: 0}
       - {x: 0.265, y: 0.29999998}
   m_UseDelaunayMesh: 1
+--- !u!114 &4301945971475201095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766727107099939160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pinchos
+  danio: 40
+  intervalo: 2
+  alturaRebotePx: 20
+  pixelesPorUnidad: 100
 --- !u!1 &8041018097226237990
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,9 +642,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 319714883
+  m_SortingLayer: 6
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7417498029127908629, guid: ef848c79051ef1f478d00c95ecf7addc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -691,38 +723,6 @@ PolygonCollider2D:
       - {x: 0.26, y: 0.35}
       - {x: 0.13, y: 2.47}
   m_UseDelaunayMesh: 1
---- !u!114 &4301945971475201094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763451111790594125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Pinchos
-  danio: 40
-  intervalo: 2
-  alturaRebotePx: 20
-  pixelesPorUnidad: 100
---- !u!114 &4301945971475201095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3766727107099939160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Pinchos
-  danio: 40
-  intervalo: 2
-  alturaRebotePx: 20
-  pixelesPorUnidad: 100
 --- !u!114 &4301945971475201096
 MonoBehaviour:
   m_ObjectHideFlags: 0

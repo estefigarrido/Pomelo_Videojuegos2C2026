@@ -81,6 +81,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7977033064336582022, guid: fbd3f730113d68140bdc7993eeb26dc3, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977033064336582022, guid: fbd3f730113d68140bdc7993eeb26dc3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977033064336582022, guid: fbd3f730113d68140bdc7993eeb26dc3, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 319714883
+      objectReference: {fileID: 0}
     - target: {fileID: 8534557457323996595, guid: fbd3f730113d68140bdc7993eeb26dc3, type: 3}
       propertyPath: m_Name
       value: pincho_A
@@ -142,6 +154,18 @@ PrefabInstance:
     - target: {fileID: 1271689687310036526, guid: 6476c4ef065bde742a53d1cc88823c99, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 6.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267896864977645077, guid: 6476c4ef065bde742a53d1cc88823c99, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267896864977645077, guid: 6476c4ef065bde742a53d1cc88823c99, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267896864977645077, guid: 6476c4ef065bde742a53d1cc88823c99, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 319714883
       objectReference: {fileID: 0}
     - target: {fileID: 6775020679963874697, guid: 6476c4ef065bde742a53d1cc88823c99, type: 3}
       propertyPath: m_Name

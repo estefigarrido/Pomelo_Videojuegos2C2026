@@ -80,16 +80,6 @@ public class InicioPeleaUmbrae : MonoBehaviour
     [SerializeField] private SpriteRenderer[] llamasFondo;
     [Tooltip("Circulos violetas de las torres del templo.")]
     [SerializeField] private SpriteRenderer[] halosFondo;
-    [Tooltip("El fondo desenfocado del templo: se pone la version sin fuegos (los fuegos son las copias de encima).")]
-    [SerializeField] private SpriteRenderer fondoBlur;
-    [SerializeField] private Sprite blurApagado;
-    [Tooltip("Tono de las copias (el blur oscurece un poco lo que tapa).")]
-    [Range(0.5f, 1f)] [SerializeField] private float tonoFondo = 0.94f;
-    [Tooltip("Material 'Pomelo/Sprite Recorte Mundo' con la mascara de las columnas y la pared: los fuegos del fondo " +
-             "se esconden detras de la torre aunque se muevan o cambien de tamano.")]
-    [SerializeField] private Material materialRecorte;
-    [SerializeField] private int ordenHalosFondo = -95;
-    [SerializeField] private int ordenLlamasFondo = -88;   // encima de la banda y los glows de los pinchos, debajo de los pinchos
 
     [Header("Chispas de los fuegos")]
     [SerializeField] private float chispasPorSegundo = 7f;
@@ -167,8 +157,8 @@ public class InicioPeleaUmbrae : MonoBehaviour
         // copias de los fuegos de las torres del fondo, por encima del fondo desenfocado
         if (Application.isPlaying)
         {
-            if (llamasFondo != null) foreach (var o in llamasFondo) CopiarFuegoFondo(o, Tipo.Fuego, ordenLlamasFondo);
-            if (halosFondo != null) foreach (var o in halosFondo) CopiarFuegoFondo(o, Tipo.Halo, ordenHalosFondo);
+            if (llamasFondo != null) foreach (var o in llamasFondo) CopiarFuegoFondo(o, Tipo.Fuego);
+            if (halosFondo != null) foreach (var o in halosFondo) CopiarFuegoFondo(o, Tipo.Halo);
             if (romboOjo != null) Agregar(romboOjo, Tipo.Rombo, romboOjo.GetComponent<SpriteRenderer>());
         }
 
@@ -176,7 +166,6 @@ public class InicioPeleaUmbrae : MonoBehaviour
         if (Application.isPlaying)
         {
             foreach (var p in piezas) Aplicar(p, 0f);
-            if (fondoBlur != null && blurApagado != null) fondoBlur.sprite = blurApagado;
             Saturar(saturacionAntes);
             CrearSpriteChispa();
         }
@@ -213,25 +202,12 @@ public class InicioPeleaUmbrae : MonoBehaviour
         piezas.Add(p);
     }
 
-    private void CopiarFuegoFondo(SpriteRenderer original, Tipo tipo, int orden)
+    // los fuegos de las columnas retorcidas del templo se animan tal cual estan en la escena: lo que queda
+    // delante o detras de la columna lo decide el orden de capas (sorting layer y order), sin recortes ni copias
+    private void CopiarFuegoFondo(SpriteRenderer original, Tipo tipo)
     {
         if (original == null) return;
-        var go = new GameObject(original.name + " (pelea)");
-        go.transform.SetParent(original.transform.parent, false);
-        go.transform.position = original.transform.position;
-        go.transform.rotation = original.transform.rotation;
-        go.transform.localScale = original.transform.localScale;
-        var sr = go.AddComponent<SpriteRenderer>();
-        sr.sprite = original.sprite;
-        // el material recorta donde tapan la columna y la pared (fijo en el mundo), asi el fuego queda detras de la
-        // torre aunque se mueva; va sin la mascara de la zona (con ella no se ve)
-        sr.sharedMaterial = materialRecorte != null ? materialRecorte : original.sharedMaterial;
-        sr.maskInteraction = materialRecorte != null ? SpriteMaskInteraction.None : original.maskInteraction;
-        sr.sortingLayerID = original.sortingLayerID;
-        sr.sortingOrder = orden;
-        var c = original.color;
-        sr.color = new Color(c.r * tonoFondo, c.g * tonoFondo, c.b * tonoFondo, c.a);
-        Agregar(go.transform, tipo, sr);
+        Agregar(original.transform, tipo, original);
         piezas[piezas.Count - 1].delFondo = true;
     }
 
@@ -372,7 +348,7 @@ public class InicioPeleaUmbrae : MonoBehaviour
         foreach (var p in piezas)
         {
             if (p.dibujos == null) continue;
-            bool llamaFondo = p.tipo == Tipo.Fuego && p.dibujos.Length > 0 && p.dibujos[0] != null && materialRecorte != null && p.dibujos[0].sharedMaterial == materialRecorte;
+            bool llamaFondo = p.tipo == Tipo.Fuego && p.delFondo;
             if (p.tipo != Tipo.Halo && !llamaFondo) continue;
             foreach (var sr in p.dibujos)
             {

@@ -107,7 +107,8 @@ public class MariposasGuia : MonoBehaviour
                 m.sr.sortingLayerID = dibujoChica.sortingLayerID;
                 m.sr.sharedMaterial = dibujoChica.sharedMaterial;
             }
-            m.sr.sortingOrder = ordenDibujo + i;
+            // relativo a la chica (en su misma capa)
+            m.sr.sortingOrder = (dibujoChica != null ? dibujoChica.sortingOrder : 0) + ordenDibujo + i;
             m.escala = Random.Range(tamano.x, tamano.y);
             m.t.localScale = Vector3.one * m.escala;
             m.frame = Random.Range(0f, frames.Length);

@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags: []
   layers:
   - Default
@@ -41,3 +41,32 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Fondo
+    uniqueID: 1039033955
+    locked: 0
+  - name: Edificios
+    uniqueID: 1512642948
+    locked: 0
+  - name: FondoDetalles
+    uniqueID: 712533048
+    locked: 0
+  - name: Decorado
+    uniqueID: 544408636
+    locked: 0
+  - name: Escenario
+    uniqueID: 951073779
+    locked: 0
+  - name: Personajes
+    uniqueID: 319714883
+    locked: 0
+  - name: Frente
+    uniqueID: 2023156985
+    locked: 0
+  - name: Efectos
+    uniqueID: 672006171
+    locked: 0
+  - name: Interfaz
+    uniqueID: 1403363985
+    locked: 0
+  m_RenderingLayers:
+  - Default

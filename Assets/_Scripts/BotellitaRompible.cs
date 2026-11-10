@@ -174,7 +174,7 @@ public class BotellitaRompible : MonoBehaviour
             t.localScale = escalaMundo;
             f.maskInteraction = SpriteMaskInteraction.None;
             f.enabled = true;   // en las botellitas que ya traen el polen dibujado estan ocultos hasta romperse
-            f.sortingOrder = 102;
+            f.sortingLayerName = Capas.Efectos; f.sortingOrder = 2;
 
             var p = new Polen
             {
@@ -192,7 +192,7 @@ public class BotellitaRompible : MonoBehaviour
                 var srd = gd.AddComponent<SpriteRenderer>();
                 srd.sprite = destellos[Random.Range(0, destellos.Length)];
                 if (materialSinLuz != null) srd.sharedMaterial = materialSinLuz;
-                srd.sortingOrder = 101;
+                srd.sortingLayerName = Capas.Efectos; srd.sortingOrder = 1;
                 srd.color = Color.clear;
                 p.td = gd.transform; p.srd = srd;
                 p.escalaD = f.bounds.size.y * tamanoDestello / Mathf.Max(0.01f, srd.sprite.bounds.size.y);

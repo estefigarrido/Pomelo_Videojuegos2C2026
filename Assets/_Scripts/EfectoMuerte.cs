@@ -70,8 +70,8 @@ public class EfectoMuerte : MonoBehaviour
             var s = go.AddComponent<SpriteRenderer>();
             s.sprite = p;
             s.sharedMaterial = sr.sharedMaterial;
-            s.sortingLayerID = sr.sortingLayerID;
-            s.sortingOrder = 300;   // por encima de todo mientras vuela
+            s.sortingLayerName = Capas.Efectos;   // por encima de todo mientras vuela
+            s.sortingOrder = 5;
             s.flipX = sr.flipX;
             // el centro del pedacito (el sprite es del tamano del frame entero)
             Vector3 centro = transform.TransformPoint(new Vector3(sr.flipX ? -p.bounds.center.x : p.bounds.center.x, p.bounds.center.y, 0f));

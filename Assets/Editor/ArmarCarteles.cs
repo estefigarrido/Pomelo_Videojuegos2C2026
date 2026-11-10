@@ -20,8 +20,8 @@ using UnityEngine.UI;
 // descripcion en Carteles() (medidas en px del Figma, desde la esquina de arriba a la izquierda).
 //
 // Menu:  Pomelo -> Carteles -> Armar carteles
-//   rearma todos los prefabs y deja en la escena el de Caminar al lado del portal de entrada
-//   (si ya habia un cartel ahi, toma su lugar). El de Atacar queda solo como prefab.
+//   rearma todos los prefabs. Los carteles que ya estan en la escena quedan donde los pusiste y con su
+//   tamano (se actualizan solos); los que faltan se ponen en su "lugar", del mismo tamano que los demas.
 public static class ArmarCarteles
 {
     // ---------- los carteles ----------
@@ -45,12 +45,34 @@ public static class ArmarCarteles
                 .Linea(new Vector2(278.5f, -28f), 39f)
                 .Icono(Joystick + "Joystick_derecho.png", new Vector2(279f, -51.5f)),
 
+            //          SALTAR        [espacio]  o  [X]
+            //          DOBLE SALTO              [espacio]  o  [X]  x2
+            // va donde estaba antes el de Caminar (al lado del portal de entrada).
+            // Cuando empieza a borrarse, se desvanece el de Caminar; cuando le falta un cuarto, aparece el de Atacar.
+            new Cartel("Cartel_saltoysupersalto", new Vector2(305f, 87f), enEscena: true,
+                       lugar: new Vector3(-22.41f, -28.33f, -0.05f))
+                .AlEmpezarABorrarseDesvanece("Cartel_caminar")
+                .AlTerminarDeBorrarseMuestra("Cartel_atacar")
+                .Titulo("Saltar", new Vector2(0f, -17f))
+                .Icono(Teclado + "Tecla_barraespaciadora.png", new Vector2(129f, -17f))
+                .O(new Vector2(157f, -18f))
+                .Icono(Joystick + "Boton_Equis.png", new Vector2(186f, -17f))
+                .Titulo("Doble Salto", new Vector2(0f, -70f))
+                .Icono(Teclado + "Tecla_barraespaciadora.png", new Vector2(201f, -70f))
+                .O(new Vector2(227f, -71f))
+                .Icono(Joystick + "Boton_Equis.png", new Vector2(253f, -70f))
+                .Texto("x2", 24f, new Vector2(290f, -71f)),
+
             //          ATACAR   [mouse]   o   [circulo]
-            new Cartel("Cartel Atacar", new Vector2(243f, 40f), enEscena: false)
-                .Titulo("Atacar", new Vector2(0f, -20f))
-                .Icono(Teclado + "Click_derecho.png", new Vector2(161f, -20f)) // el dibujo tiene marcado el boton izquierdo
-                .O(new Vector2(194f, -21f))
-                .Icono(Joystick + "Boton_Circulo.png", new Vector2(227f, -20f)),
+            // Se usa el prefab Cartel_atacar tal cual esta en la carpeta (no se rearma): solo se pone en la
+            // escena, a la derecha del de salto y a la misma altura que los demas (y = -28.33).
+            new Cartel("Cartel_atacar", new Vector2(243f, 40f), enEscena: true,
+                       lugar: new Vector3(-17.04f, -28.33f, -0.05f), soloUbicar: true),
+            // Si algun dia hay que rearmarlo desde cero, estas son sus piezas (sacar soloUbicar):
+            //     .Titulo("Atacar", new Vector2(0f, -20f))
+            //     .Icono(Teclado + "Click_derecho.png", new Vector2(161f, -20f)) // tiene marcado el boton izquierdo
+            //     .O(new Vector2(194f, -21f))
+            //     .Icono(Joystick + "Boton_Circulo.png", new Vector2(227f, -20f)),
         };
     }
 
@@ -103,37 +125,50 @@ public static class ArmarCarteles
         var chica = Object.FindFirstObjectByType<SaludPersonaje>();
         var dibujoChica = chica != null ? chica.GetComponent<SpriteRenderer>() : null;
 
-        // donde estaba el cartel de la escena (si lo habias movido, se respeta)
+        // los carteles que ya estan en la escena NO se tocan: se actualizan solos al rearmar el prefab y
+        // conservan donde los pusiste y su tamano. Los que no tienen que estar en la escena, se sacan.
         var carteles = Carteles();
-        Vector3? lugar = null;
-        var enLaEscena = new List<GameObject>();
+        var yaEnEscena = new Dictionary<Cartel, GameObject>();
+        Vector3? escalaDeReferencia = null;   // el tamano que tienen los carteles ya puestos
         foreach (var c in carteles)
         {
             var go = GameObject.Find(c.nombre);
             if (go == null) continue;
-            if (c.enEscena || lugar == null) lugar = go.transform.position;
-            enLaEscena.Add(go);
+            if (c.enEscena)
+            {
+                yaEnEscena[c] = go;
+                if (escalaDeReferencia == null) escalaDeReferencia = go.transform.localScale;
+            }
+            else Undo.DestroyObjectImmediate(go);
         }
-        foreach (var go in enLaEscena) Undo.DestroyObjectImmediate(go);
 
         // prefabs
         var prefabs = new Dictionary<Cartel, GameObject>();
         foreach (var c in carteles)
         {
-            var p = ArmarPrefab(c, fuente, dibujoChica);
-            if (p == null) return;
+            var p = c.soloUbicar
+                ? AssetDatabase.LoadAssetAtPath<GameObject>(CarpetaCarteles + c.nombre + ".prefab")
+                : ArmarPrefab(c, fuente, dibujoChica);
+            if (p == null)
+            {
+                if (c.soloUbicar) Debug.LogError("No encontre el prefab " + CarpetaCarteles + c.nombre + ".prefab");
+                return;
+            }
             prefabs[c] = p;
         }
 
-        // escena: solo los que van en la escena, en el lugar del cartel de antes
+        // escena: se ponen solo los que faltan, en su lugar y del mismo tamano que los que ya estan
         GameObject ultimo = null;
-        foreach (var c in carteles.Where(x => x.enEscena))
+        foreach (var c in carteles.Where(x => x.enEscena && !yaEnEscena.ContainsKey(x)))
         {
             var inst = (GameObject)PrefabUtility.InstantiatePrefab(prefabs[c]);
             Undo.RegisterCreatedObjectUndo(inst, "Armar carteles");
-            inst.transform.position = lugar ?? PosicionJuntoAlPortal(chica, dibujoChica);
+            inst.transform.position = c.lugar ?? PosicionJuntoAlPortal(chica, dibujoChica);
+            if (escalaDeReferencia != null) inst.transform.localScale = escalaDeReferencia.Value;
             ultimo = inst;
         }
+
+        Encadenar(carteles);
 
         var escena = EditorSceneManager.GetActiveScene();
         EditorSceneManager.MarkSceneDirty(escena);
@@ -141,6 +176,39 @@ public static class ArmarCarteles
         Debug.Log("Carteles armados en " + CarpetaCarteles + ": " + string.Join(", ", carteles.Select(x => x.nombre)) +
                   ". En la escena quedo: " + string.Join(", ", carteles.Where(x => x.enEscena).Select(x => x.nombre)) +
                   ". Guarda la escena con Ctrl+S.");
+    }
+
+    // Conecta los carteles de la escena entre si (desvanecer / mostrar). Los que muestra otro cartel
+    // quedan esperando (no aparecen solos al salir la chica del portal).
+    private static void Encadenar(List<Cartel> carteles)
+    {
+        var mostradosPorOtro = new HashSet<string>(carteles.SelectMany(c => c.muestra));
+        foreach (var c in carteles.Where(x => x.enEscena))
+        {
+            var go = GameObject.Find(c.nombre);
+            var tut = go != null ? go.GetComponent<CartelTutorial>() : null;
+            if (tut == null) continue;
+
+            var so = new SerializedObject(tut);
+            so.FindProperty("esperarAOtroCartel").boolValue = mostradosPorOtro.Contains(c.nombre);
+            Referencias(so.FindProperty("desvanecerAlEmpezarABorrarme"), c.desvanece);
+            Referencias(so.FindProperty("mostrarAlTerminarDeBorrarme"), c.muestra);
+            so.ApplyModifiedProperties();
+        }
+    }
+
+    private static void Referencias(SerializedProperty lista, List<string> nombres)
+    {
+        var encontrados = new List<CartelTutorial>();
+        foreach (var n in nombres)
+        {
+            var go = GameObject.Find(n);
+            var tut = go != null ? go.GetComponent<CartelTutorial>() : null;
+            if (tut != null) encontrados.Add(tut);
+            else Debug.LogWarning("No encontre el cartel '" + n + "' en la escena para encadenarlo.");
+        }
+        lista.arraySize = encontrados.Count;
+        for (int i = 0; i < encontrados.Count; i++) lista.GetArrayElementAtIndex(i).objectReferenceValue = encontrados[i];
     }
 
     // ---------- descripcion de un cartel ----------
@@ -161,11 +229,27 @@ public static class ArmarCarteles
         public readonly string nombre;
         public readonly Vector2 tamano;
         public readonly bool enEscena;
+        public readonly Vector3? lugar;   // donde se pone la primera vez (null = al lado del portal de entrada)
+        public readonly bool soloUbicar;  // usar el prefab que ya esta en la carpeta, sin rearmarlo
         public readonly List<Pieza> piezas = new List<Pieza>();
+        public readonly List<string> desvanece = new List<string>();   // carteles que se van cuando este empieza a borrarse
+        public readonly List<string> muestra = new List<string>();     // carteles que aparecen cuando este termina de borrarse
 
-        public Cartel(string nombre, Vector2 tamano, bool enEscena)
+        public Cartel(string nombre, Vector2 tamano, bool enEscena, Vector3? lugar = null, bool soloUbicar = false)
         {
-            this.nombre = nombre; this.tamano = tamano; this.enEscena = enEscena;
+            this.nombre = nombre; this.tamano = tamano; this.enEscena = enEscena; this.lugar = lugar;
+            this.soloUbicar = soloUbicar;
+        }
+
+        public Cartel AlEmpezarABorrarseDesvanece(params string[] carteles) { desvanece.AddRange(carteles); return this; }
+        public Cartel AlTerminarDeBorrarseMuestra(params string[] carteles) { muestra.AddRange(carteles); return this; }
+
+        // texto suelto (por ejemplo "x2"): posicion = centro
+        public Cartel Texto(string texto, float tamano, Vector2 posicion)
+        {
+            piezas.Add(new Pieza { tipo = Tipo.Texto, nombre = texto, texto = texto, tamano = tamano, estilo = FontStyles.Normal,
+                                   posicion = posicion, pivot = new Vector2(0.5f, 0.5f), caja = new Vector2(60f, 32f) });
+            return this;
         }
 
         // titulo: posicion = borde izquierdo, a media altura

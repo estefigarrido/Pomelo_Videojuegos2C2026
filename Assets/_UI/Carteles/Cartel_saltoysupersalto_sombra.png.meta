@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f7169b3f97b13f342a551651bf6e946a
+guid: 3afbdd3e7381b1b4cb1f21032b316070
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8551714867746966051
-    second: Cartel Atacar_sombra_0
+      213: 3978999695635361889
+    second: Cartel_saltoysupersalto_sombra_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cartel Atacar_sombra_0
+      name: Cartel_saltoysupersalto_sombra_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
-        width: 331
-        height: 72
+        width: 391
+        height: 119
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dd5f38ff2a4325980800000000000000
-      internalID: -8551714867746966051
+      spriteID: 160bbbb342f383730800000000000000
+      internalID: 3978999695635361889
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cartel Atacar_sombra_0: -8551714867746966051
+      Cartel_saltoysupersalto_sombra_0: 3978999695635361889
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

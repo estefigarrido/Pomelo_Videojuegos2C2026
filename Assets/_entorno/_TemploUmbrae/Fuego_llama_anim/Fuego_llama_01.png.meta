@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: ba6309634782e194e87f1342bdd85ddc
+guid: 85f1c557365262940ba4192db845e920
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6039332767903447011
-    second: Fondo_templo_blur_apagado_0
+      213: 8900496025544777618
+    second: Fuego_llama_01_0
+  - first:
+      213: -4348126601198064414
+    second: Fuego_llama_01_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +51,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 50
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.49954954, y: 0.32239765}
+  spritePixelsToUnits: 189.8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +75,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fondo_templo_blur_apagado_0
+      name: Fuego_llama_01_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2552
-        height: 2014
+        x: 241
+        y: 110
+        width: 610
+        height: 915
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3e7f247972500d350800000000000000
-      internalID: 6039332767903447011
+      spriteID: 29f5f577af9e48b70800000000000000
+      internalID: 8900496025544777618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fuego_llama_01_1
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 1016
+        width: 55
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eca921c4e958a3c0800000000000000
+      internalID: -4348126601198064414
       vertices: []
       indices: 
       edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Fondo_templo_blur_apagado_0: 6039332767903447011
+      Fuego_llama_01_0: 8900496025544777618
+      Fuego_llama_01_1: -4348126601198064414
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

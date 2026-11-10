@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3d3c686f79dba3d49983a510eaa24dd8
+guid: 48a03fa333f01ce449420c864ee02732
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8471293103342851596
-    second: Columna_templo_Umbrae_0
+      213: 7485171778210802809
+    second: columna_umbrae1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,8 +50,8 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 9
-  spritePivot: {x: 0.5006321, y: 0.5}
-  spritePixelsToUnits: 150
+  spritePivot: {x: 0.47517732, y: 0.50007737}
+  spritePixelsToUnits: 282.2656
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Columna_templo_Umbrae_0
+      name: columna_umbrae1_0
       rect:
         serializedVersion: 2
-        x: 126
-        y: 50
-        width: 540
-        height: 3437
+        x: 301
+        y: 0
+        width: 1007
+        height: 6463
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4f9680b2ecbef6a80800000000000000
-      internalID: -8471293103342851596
+      spriteID: 97ca80bf21ca0e760800000000000000
+      internalID: 7485171778210802809
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Columna_templo_Umbrae_0: -8471293103342851596
+      columna_umbrae1_0: 7485171778210802809
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

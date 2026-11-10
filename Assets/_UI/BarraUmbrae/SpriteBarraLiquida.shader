@@ -1,9 +1,9 @@
 // Relleno de la barra de vida de Umbrae (la "pista" exportada del Figma, en blanco, va como sprite).
 // Se llena y se vacia de izquierda a derecha (se vacia de derecha a izquierda), segun la vida:
-//  - hasta _Asentado: violeta lleno (#60119A, el del Figma)
+//  - hasta _Asentado: lleno (en el material: lavanda #9C90AC de "barra de vida umbrae")
 //  - de _Asentado a _Relleno: liquido oscuro y viscoso que avanza ondulando (al principio y al curarse)
 //  - de _Relleno a _Fantasma: el pedazo que se acaba de perder, lila claro con un destello blanco (_Destello)
-//  - el resto: vacio (lila grisaceo #9C91AC)
+//  - el resto: vacio (en el material: violeta oscuro #2A2238)
 // _Rango: donde empieza y termina la barra dentro del PNG (u), porque el PNG tiene margen para el glow.
 Shader "Pomelo/Sprite Barra Liquida"
 {

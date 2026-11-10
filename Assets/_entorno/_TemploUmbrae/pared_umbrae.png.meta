@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0b31204d33da67f4096a7a064e88cc04
+guid: 5e2d961f9b48af74ebfaa49498e53e8a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2292660555795152255
-    second: Fuego_llama_0
+      213: -2905139469821423790
+    second: pared_umbrae_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,8 +50,8 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 9
-  spritePivot: {x: 0.5330296, y: 0.50670797}
-  spritePixelsToUnits: 150
+  spritePivot: {x: 0.499674, y: 0.2502973}
+  spritePixelsToUnits: 66.40874
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fuego_llama_0
+      name: pared_umbrae_0
       rect:
         serializedVersion: 2
-        x: 159
-        y: 111
-        width: 618
-        height: 760
+        x: 0
+        y: 0
+        width: 6748
+        height: 7064
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f7d38b2e0aa21df10800000000000000
-      internalID: 2292660555795152255
+      spriteID: 25fc3565b0fdea7d0800000000000000
+      internalID: -2905139469821423790
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Fuego_llama_0: 2292660555795152255
+      pared_umbrae_0: -2905139469821423790
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

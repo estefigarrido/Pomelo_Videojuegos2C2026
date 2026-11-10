@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 81084fd29ac03fa44aefdc61bd061935
+guid: b78a54fe1ef6bfa41a77ff8a98496b90
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2930498071493387179
-    second: Ojo_Umbrae_rombo_0
+      213: -1892232311558966250
+    second: pupila_umbrae_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,8 +50,8 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 9
-  spritePivot: {x: 0.5004035, y: 0.4995935}
-  spritePixelsToUnits: 150
+  spritePivot: {x: 0.49626866, y: 0.50323623}
+  spritePixelsToUnits: 99.67532
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ojo_Umbrae_rombo_0
+      name: pupila_umbrae_0
       rect:
         serializedVersion: 2
-        x: 519
-        y: 382
-        width: 203
-        height: 465
+        x: 0
+        y: 0
+        width: 134
+        height: 309
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ba3a45638783ba820800000000000000
-      internalID: 2930498071493387179
+      spriteID: 614f205fcb07db5e0800000000000000
+      internalID: -1892232311558966250
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Ojo_Umbrae_rombo_0: 2930498071493387179
+      pupila_umbrae_0: -1892232311558966250
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -37,8 +37,8 @@ Material:
     m_Colors:
     - _ColorFantasma: {r: 0.86, g: 0.78, b: 0.94, a: 1}
     - _ColorLiquido: {r: 0.09999997, g: 0.02, b: 0.15999997, a: 1}
-    - _ColorLleno: {r: 0.37599996, g: 0.06699998, b: 0.59599996, a: 1}
-    - _ColorVacio: {r: 0.6119999, g: 0.56899995, b: 0.675, a: 1}
+    - _ColorLleno: {r: 0.6117647, g: 0.5647059, b: 0.6745098, a: 1}
+    - _ColorVacio: {r: 0.16470589, g: 0.13333334, b: 0.21960784, a: 1}
     - _Rango: {r: 0.0990099, g: 0.9009901, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

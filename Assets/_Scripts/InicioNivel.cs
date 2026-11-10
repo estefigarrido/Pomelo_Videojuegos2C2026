@@ -25,8 +25,12 @@ public class InicioNivel : MonoBehaviour
     [SerializeField] private Vector2 posicionChica = new Vector2(-32f, -29f);
     [Tooltip("chica_salidaportal: 000 de frente ... el ultimo de perfil.")]
     [SerializeField] private Sprite[] framesSalida;
-    [Tooltip("Cuanto tarda en girarse de perfil (los frames se funden entre si). Antes 0.35 s.")]
-    [SerializeField] private float duracionGiro = 0.18f;
+    [Tooltip("Cuanto tarda en girarse de perfil: pasa por los frames de la salida y termina en su pose de " +
+             "perfil normal, todo fundido y con una sola curva suave. Antes 0.13 s, que se veia trabado.")]
+    [SerializeField] private float duracionGiroSalida = 1f;
+    [Tooltip("Cuanto tarda el ultimo frame del giro (de tres cuartos) en fundirse con la pose de perfil " +
+             "cuando empieza el juego. 0 = cambio de golpe.")]
+    [SerializeField] private float duracionFundidoPerfil = 0.4f;
 
     [Header("Tiempos")]
     [Tooltip("Segundos hasta que la puerta empieza a subir. Antes 5 s.")]
@@ -54,6 +58,7 @@ public class InicioNivel : MonoBehaviour
     public static bool YaSalio { get; private set; }
 
     private Transform chica;
+    private Sprite spritePerfil;   // la pose de perfil normal (la que pone el Animator al quedarse quieta)
     private SpriteRenderer dibujoChica;
 
     private void Awake()
@@ -87,6 +92,7 @@ public class InicioNivel : MonoBehaviour
 #endif
         chica = salud.transform;
         dibujoChica = salud.GetComponent<SpriteRenderer>();
+        if (dibujoChica != null) spritePerfil = dibujoChica.sprite;
         StartCoroutine(Secuencia());
     }
 
@@ -137,7 +143,8 @@ public class InicioNivel : MonoBehaviour
         yield return new WaitForSeconds(esperaDespuesDeAbrir);
 
         // se gira de perfil
-        yield return GiroSuave.Reproducir(dibujoChica, framesSalida, duracionGiro);
+        // un solo movimiento: frente -> intermedio -> tres cuartos -> perfil normal, todo fundido
+        yield return GiroSuave.Reproducir(dibujoChica, FramesDelGiro(), duracionGiroSalida);
         AvisarSalida();
 
         // zoom: la camara vuelve a seguirla de cerca y recien despues puede caminar
@@ -147,7 +154,9 @@ public class InicioNivel : MonoBehaviour
             yield return new WaitForSeconds(duracionZoom);
         }
 
-        // empieza el juego
+        // empieza el juego. El Animator vuelve a mandar y pone la pose de perfil: el ultimo frame del giro
+        // (de tres cuartos) se funde con ella en vez de cambiar de golpe.
+        StartCoroutine(GiroSuave.FundirHaciaLoQueSigue(dibujoChica, duracionFundidoPerfil));
         if (rb != null) { rb.simulated = true; rb.linearVelocity = Vector2.zero; }
         if (animator != null) animator.enabled = true;
         if (mov != null) mov.enabled = true;
@@ -166,6 +175,15 @@ public class InicioNivel : MonoBehaviour
         salud.transform.position = new Vector3(posicionChica.x, posicionChica.y, 0f);
     }
 #endif
+
+    // los frames de la salida + la pose de perfil normal al final, asi el giro termina donde arranca el juego
+    private Sprite[] FramesDelGiro()
+    {
+        var lista = new System.Collections.Generic.List<Sprite>();
+        if (framesSalida != null) foreach (var s in framesSalida) if (s != null) lista.Add(s);
+        if (spritePerfil != null && (lista.Count == 0 || lista[lista.Count - 1] != spritePerfil)) lista.Add(spritePerfil);
+        return lista.ToArray();
+    }
 
     private void MostrarChica(Sprite s)
     {

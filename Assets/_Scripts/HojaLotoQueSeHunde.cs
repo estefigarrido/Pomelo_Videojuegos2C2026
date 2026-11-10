@@ -69,6 +69,9 @@ public class HojaLotoQueSeHunde : MonoBehaviour
     private float zInicial;
     private bool cayendo;
 
+    // Avisa cuando la chica se para encima (lo usa por ejemplo el cartel de Recargar vida para irse).
+    public event System.Action Pisada;
+
     private void Awake()
     {
         col = GetComponent<Collider2D>();
@@ -100,6 +103,7 @@ public class HojaLotoQueSeHunde : MonoBehaviour
     {
         if (cayendo || otro.GetComponentInParent<SaludPersonaje>() == null) return;
         if (otro.bounds.min.y < col.bounds.center.y) return;
+        Pisada?.Invoke();
         StartCoroutine(Secuencia());
     }
 

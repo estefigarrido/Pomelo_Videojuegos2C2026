@@ -30,7 +30,7 @@ Shader "Pomelo/Sprite Multiplicar"
             {
                 Varyings o;
                 o.positionCS = TransformObjectToHClip(v.positionOS.xyz);
-                o.color = v.color;
+                o.color = v.color * unity_SpriteColor;   // el color/opacidad del SpriteRenderer llega por unity_SpriteColor
                 o.uv = v.uv;
                 return o;
             }

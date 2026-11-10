@@ -125,6 +125,10 @@ public class InicioPeleaUmbrae : MonoBehaviour
     // Umbrae empieza a atacar recien cuando esto es verdadero.
     public bool Terminado => estado == Estado.Lista;
 
+    // La ventana-ojo se enciende cuando aparece el rombo (ultima parte del armado) y se apaga al guardar todo.
+    private float inicioOjo;
+    public bool OjoEncendido => estado == Estado.Lista || (estado == Estado.Armando && tiempo >= inicioOjo);
+
     private void Awake()
     {
         if (zona == null) zona = FindFirstObjectByType<ZonaCamaraFija>();
@@ -237,7 +241,7 @@ public class InicioPeleaUmbrae : MonoBehaviour
         float inicioPinchos = finParte2 + pausaEntrePartes;
         float finParte3 = inicioPinchos + Mathf.Max(desfasePinchos + segundosPinchos, retrasoHalo + segundosHalo);
         // parte 4: el rombo del ojo
-        float inicioOjo = finParte3 + pausaEntrePartes;
+        inicioOjo = finParte3 + pausaEntrePartes;
 
         foreach (var p in piezas)
         {

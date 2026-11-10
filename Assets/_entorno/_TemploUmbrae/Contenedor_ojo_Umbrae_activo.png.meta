@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f7169b3f97b13f342a551651bf6e946a
+guid: ab8482437b504c52a83f9c9d8d97f774
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8551714867746966051
-    second: Cartel Atacar_sombra_0
+      213: -4377316155932208922
+    second: Contenedor_ojo_Umbrae_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +48,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.5002121, y: 0.5}
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cartel Atacar_sombra_0
+      name: Contenedor_ojo_Umbrae_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 331
-        height: 72
+        x: 51
+        y: 32
+        width: 2257
+        height: 2257
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dd5f38ff2a4325980800000000000000
-      internalID: -8551714867746966051
+      spriteID: a17fc018fb4d4152a5f2180593136fe1
+      internalID: -4377316155932208922
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 46c116df7028414d8d8d866107c11b7b
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cartel Atacar_sombra_0: -8551714867746966051
+      Contenedor_ojo_Umbrae_0: -4377316155932208922
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

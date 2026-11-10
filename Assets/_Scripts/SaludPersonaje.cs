@@ -58,7 +58,7 @@ public class SaludPersonaje : MonoBehaviour
         parpadeo.Actualizar();
 
         var teclado = Keyboard.current;
-        if (teclado != null && teclado[teclaRegenerar].wasPressedThisFrame) Regenerar();
+        if ((teclado != null && teclado[teclaRegenerar].wasPressedThisFrame) || Mando.RecargarVida) Regenerar();
     }
 
     public void SumarSabiduria(float cantidad)

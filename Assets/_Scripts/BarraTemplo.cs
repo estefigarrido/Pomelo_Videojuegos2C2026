@@ -66,7 +66,7 @@ public class BarraTemplo : MonoBehaviour
     private void Update()
     {
         var mouse = Mouse.current;
-        if (mouse != null && mouse.rightButton.wasPressedThisFrame) Restaurar();
+        if ((mouse != null && mouse.rightButton.wasPressedThisFrame) || Mando.RepararTemplo) Restaurar();
 
         mostrado = Mathf.MoveTowards(mostrado, Mathf.Min(100f, carga), velocidadRelleno * Time.deltaTime);
         if (relleno != null)

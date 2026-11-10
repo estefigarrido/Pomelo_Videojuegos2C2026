@@ -95,6 +95,7 @@ public class MovimientoPersonaje : MonoBehaviour
     private float direccion;
 
     private bool sprintActivo;
+    private bool sprintConMando;   // apreto R3 en el joystick: corre hasta que frena
     private float finSprint;
     private float finCooldown;
 
@@ -191,35 +192,43 @@ public class MovimientoPersonaje : MonoBehaviour
     private void Update()
     {
         var teclado = Keyboard.current;
-        if (teclado == null) return;
 
         // el input se lee aca, en el frame exacto en que pasa
-        // cada lado tiene dos teclas (flecha y A/D); cualquiera de las dos sirve
-        KeyControl izquierda = teclado[teclaIzquierda], izquierda2 = teclado[teclaIzquierda2];
-        KeyControl derecha = teclado[teclaDerecha], derecha2 = teclado[teclaDerecha2];
+        // cada lado tiene dos teclas (flecha y A/D); cualquiera de las dos sirve. Tambien el joystick (Mando).
         direccion = 0f;
-        if (izquierda.isPressed || izquierda2.isPressed) direccion -= 1f;
-        if (derecha.isPressed || derecha2.isPressed) direccion += 1f;
+        if (teclado != null)
+        {
+            KeyControl izquierda = teclado[teclaIzquierda], izquierda2 = teclado[teclaIzquierda2];
+            KeyControl derecha = teclado[teclaDerecha], derecha2 = teclado[teclaDerecha2];
+            if (izquierda.isPressed || izquierda2.isPressed) direccion -= 1f;
+            if (derecha.isPressed || derecha2.isPressed) direccion += 1f;
+        }
+        if (direccion == 0f) direccion = Mando.Horizontal();
 
         // el sprint va solo mientras se mantiene Shift moviendose: al soltar Shift (o frenar) vuelve a caminar.
+        // Con el joystick: apretando el stick derecho (R3) corre hasta que frena.
         // Si se mantiene mas de duracionSprint, se corta y hay que esperar cooldownSprint.
-        bool conShift = teclado.shiftKey.isPressed && direccion != 0f;
+        if (Mando.Correr) sprintConMando = true;
+        if (direccion == 0f) sprintConMando = false;
+        bool conShift = ((teclado != null && teclado.shiftKey.isPressed) || sprintConMando) && direccion != 0f;
         if (conShift) ActivarSprint();
         else if (sprintActivo) TerminarSprint(false);
 
         ApagarSprintSiSeVencio();
 
         // DASH: se puede siempre, en el piso o en el aire, respetando la espera
-        if (teclado[teclaDash].wasPressedThisFrame && PuedeDashear()) pedidoDash = true;
+        bool dashApretado = (teclado != null && teclado[teclaDash].wasPressedThisFrame) || Mando.Impulsarte;
+        if (dashApretado && PuedeDashear()) pedidoDash = true;
 
+        bool saltoApretado = (teclado != null && teclado.spaceKey.wasPressedThisFrame) || Mando.Saltar;
         if (dashActivo)
         {
             // durante el dash no salta, pero se guarda el pedido por si fue justo al final
-            if (teclado.spaceKey.wasPressedThisFrame) ultimoPedidoDeSalto = Time.time;
+            if (saltoApretado) ultimoPedidoDeSalto = Time.time;
         }
         else
         {
-            LeerSalto(teclado);
+            LeerSalto(saltoApretado);
         }
 
         // Moviendose sin sprint va la animacion de caminar; con el sprint activo (Shift), la de correr.
@@ -346,9 +355,9 @@ public class MovimientoPersonaje : MonoBehaviour
 
     // ---------------- SALTO ----------------
 
-    private void LeerSalto(Keyboard teclado)
+    private void LeerSalto(bool apretado)
     {
-        if (teclado.spaceKey.wasPressedThisFrame)
+        if (apretado)
         {
             // Segundo toque estando en el aire: lo lleva hasta la altura del supersalto.
             bool acabaDeDespegar = Time.time - momentoDespegue <= ventanaSuperSalto;

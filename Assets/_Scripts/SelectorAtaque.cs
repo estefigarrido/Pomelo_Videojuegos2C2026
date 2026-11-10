@@ -29,14 +29,14 @@ public class SelectorAtaque : MonoBehaviour
     private void Update()
     {
         var teclado = Keyboard.current;
-        if (teclado != null && teclado[teclaCambiar].wasPressedThisFrame)
+        if ((teclado != null && teclado[teclaCambiar].wasPressedThisFrame) || Mando.CambiarAtaque)
         {
             Elegido = Elegido == Ataque.Latigo ? Ataque.Sabiduria : Ataque.Latigo;
             Cambio?.Invoke(Elegido);
         }
 
         var mouse = Mouse.current;
-        if (mouse != null && mouse.leftButton.wasPressedThisFrame)
+        if ((mouse != null && mouse.leftButton.wasPressedThisFrame) || Mando.Atacar)
         {
             if (Elegido == Ataque.Latigo) latigo.Atacar();
             else sabiduria.Atacar();

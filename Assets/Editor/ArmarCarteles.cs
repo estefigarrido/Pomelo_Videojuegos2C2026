@@ -142,6 +142,9 @@ public static class ArmarCarteles
     private const float TamanoTitulo = 32f;
     private const float TamanoO = 15f;
     private const float Escala = 78f / 75f;            // 3 px mas sobre los 75 px del primer cartel
+    // tamano de los carteles en la escena. La camara del juego (tamano 7.02) muestra ~77 px por unidad en
+    // Full HD, no 100: con 0.01 se veian al 77 % del Figma. Con 0.013 se ven del tamano del Figma.
+    private const float EscalaEnEscena = 0.013f;
     private const float MargenMascaraX = 90f;          // que la mascara no corte la franja + borde difuminado del borrado
     // franja de sombra (Frame 57): centrada en el cartel, sobresale 44 px a cada costado y 16 px arriba
     // y abajo; negra al 55% en lo mas oscuro
@@ -178,11 +181,11 @@ public static class ArmarCarteles
         var chica = Object.FindFirstObjectByType<SaludPersonaje>();
         var dibujoChica = chica != null ? chica.GetComponent<SpriteRenderer>() : null;
 
-        // los carteles que ya estan en la escena NO se tocan: se actualizan solos al rearmar el prefab y
-        // conservan donde los pusiste y su tamano. Los que no tienen que estar en la escena, se sacan.
+        // los carteles que ya estan en la escena NO se mueven: se actualizan solos al rearmar el prefab y
+        // conservan donde los pusiste. Todos quedan del mismo tamano (EscalaEnEscena).
+        // Los que no tienen que estar en la escena, se sacan.
         var carteles = Carteles();
         var yaEnEscena = new Dictionary<Cartel, GameObject>();
-        Vector3? escalaDeReferencia = null;   // el tamano que tienen los carteles ya puestos
         foreach (var c in carteles)
         {
             var go = GameObject.Find(c.nombre);
@@ -190,7 +193,8 @@ public static class ArmarCarteles
             if (c.enEscena)
             {
                 yaEnEscena[c] = go;
-                if (escalaDeReferencia == null) escalaDeReferencia = go.transform.localScale;
+                Undo.RecordObject(go.transform, "Armar carteles");
+                go.transform.localScale = Vector3.one * EscalaEnEscena;
             }
             else Undo.DestroyObjectImmediate(go);
         }
@@ -210,18 +214,19 @@ public static class ArmarCarteles
             prefabs[c] = p;
         }
 
-        // escena: se ponen solo los que faltan, en su lugar y del mismo tamano que los que ya estan
+        // escena: se ponen solo los que faltan, en su lugar y del mismo tamano que los demas
         GameObject ultimo = null;
         foreach (var c in carteles.Where(x => x.enEscena && !yaEnEscena.ContainsKey(x)))
         {
             var inst = (GameObject)PrefabUtility.InstantiatePrefab(prefabs[c]);
             Undo.RegisterCreatedObjectUndo(inst, "Armar carteles");
             inst.transform.position = c.lugar ?? PosicionJuntoAlPortal(chica, dibujoChica);
-            if (escalaDeReferencia != null) inst.transform.localScale = escalaDeReferencia.Value;
+            inst.transform.localScale = Vector3.one * EscalaEnEscena;
             ultimo = inst;
         }
 
         Encadenar(carteles);
+        AvisarSiSeEnciman(carteles);
 
         var escena = EditorSceneManager.GetActiveScene();
         EditorSceneManager.MarkSceneDirty(escena);
@@ -229,6 +234,31 @@ public static class ArmarCarteles
         Debug.Log("Carteles armados en " + CarpetaCarteles + ": " + string.Join(", ", carteles.Select(x => x.nombre)) +
                   ". En la escena quedo: " + string.Join(", ", carteles.Where(x => x.enEscena).Select(x => x.nombre)) +
                   ". Guarda la escena con Ctrl+S.");
+    }
+
+    // Avisa en la Console si el texto / iconos de dos carteles vecinos se pisan (la franja de sombra no cuenta).
+    private static void AvisarSiSeEnciman(List<Cartel> carteles)
+    {
+        var zonas = new List<(string nombre, Rect zona)>();
+        foreach (var c in carteles.Where(x => x.enEscena))
+        {
+            var go = GameObject.Find(c.nombre);
+            var contenido = go != null ? go.transform.Find("Mascara/Contenido") as RectTransform : null;
+            if (contenido == null) continue;
+            var esquinas = new Vector3[4];
+            contenido.GetWorldCorners(esquinas);
+            zonas.Add((c.nombre, Rect.MinMaxRect(esquinas[0].x, esquinas[0].y, esquinas[2].x, esquinas[2].y)));
+        }
+        bool todoBien = true;
+        for (int i = 0; i < zonas.Count; i++)
+            for (int j = i + 1; j < zonas.Count; j++)
+                if (zonas[i].zona.Overlaps(zonas[j].zona))
+                {
+                    todoBien = false;
+                    Debug.LogWarning("Los carteles '" + zonas[i].nombre + "' y '" + zonas[j].nombre +
+                                     "' se enciman: corre uno de los dos en X en la Scene.");
+                }
+        if (todoBien) Debug.Log("Ningun cartel se encima con otro.");
     }
 
     // Conecta los carteles de la escena entre si (desvanecer / mostrar). Los que muestra otro cartel

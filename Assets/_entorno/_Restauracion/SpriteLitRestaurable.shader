@@ -10,6 +10,9 @@
 //    _RectSectores (xMin, yMin, 1/ancho, 1/alto) del mundo. _ModoSector: 1 = se ve donde esta restaurado
 //    (el mapa arreglado), -1 = se ve donde todavia no (el mapa roto), 0 = no le afecta. En el borde que
 //    avanza se prende una estela de luz (_ColorEstela).
+//
+// 3) _Tinte / _TinteFuerza: tine el sprite conservando su luminosidad (el mapa roto va en violeta desaturado,
+//    para combinar con las particulas violetas; el arreglado no lo usa).
 Shader "Pomelo/Sprite Lit Restaurable"
 {
     Properties
@@ -21,6 +24,8 @@ Shader "Pomelo/Sprite Lit Restaurable"
         _ColorEstela("Color de la estela", Color) = (1, 0.93, 0.6, 1)
         _SatGris("Saturacion cuando esta palida", Range(0, 1)) = 0.3
         _AclararGris("Cuanto se aclara cuando esta palida", Range(0, 1)) = 0.12
+        _Tinte("Tinte (mapa roto: violeta desaturado)", Color) = (0.55, 0.5, 0.65, 1)
+        _TinteFuerza("Fuerza del tinte (0 = sin tinte)", Range(0, 1)) = 0
         [HideInInspector] _Gris("Gris", Range(0, 1)) = 0
         [HideInInspector] _Blob("Blob", Vector) = (0, 0, 0, 1)
         [HideInInspector] _BlobSemilla("Semilla", Float) = 0
@@ -85,6 +90,8 @@ Shader "Pomelo/Sprite Lit Restaurable"
                 float _Gris;
                 float4 _Blob;
                 float _BlobSemilla;
+                half4 _Tinte;
+                float _TinteFuerza;
             CBUFFER_END
 
             Varyings LitVertex(Attributes input)
@@ -107,6 +114,7 @@ Shader "Pomelo/Sprite Lit Restaurable"
             half4 LitFragment(Varyings input) : SV_Target
             {
                 half4 main = input.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
+                main.rgb = Tenir(main.rgb, _Tinte, _TinteFuerza);
                 main = Restaurar(main, input.mundo, _Gris, _Blob, _BlobSemilla, _ModoSector, _ColorEstela, _SatGris, _AclararGris);
                 const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, input.uv);
                 const half3 normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv));
@@ -158,6 +166,8 @@ Shader "Pomelo/Sprite Lit Restaurable"
                 float _Gris;
                 float4 _Blob;
                 float _BlobSemilla;
+                half4 _Tinte;
+                float _TinteFuerza;
             CBUFFER_END
 
             Varyings UnlitVertex(Attributes input)
@@ -176,6 +186,7 @@ Shader "Pomelo/Sprite Lit Restaurable"
             half4 UnlitFragment(Varyings input) : SV_Target
             {
                 half4 c = input.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
+                c.rgb = Tenir(c.rgb, _Tinte, _TinteFuerza);
                 return Restaurar(c, input.mundo, _Gris, _Blob, _BlobSemilla, _ModoSector, _ColorEstela, _SatGris, _AclararGris);
             }
             ENDHLSL

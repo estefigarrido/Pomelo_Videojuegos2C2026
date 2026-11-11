@@ -22,6 +22,15 @@ TEXTURE2D(_MascaraSectores); SAMPLER(sampler_MascaraSectores);
             return SAMPLE_TEXTURE2D(_MascaraSectores, sampler_MascaraSectores, uv).rg;
         }
 
+        // tinte (lo usa el mapa roto: violeta desaturado). Conserva la luminosidad: solo cambia el tono.
+        half3 Tenir(half3 c, half4 tinte, float fuerza)
+        {
+            if (fuerza <= 0.001) return c;
+            half lum = dot(c, half3(0.299, 0.587, 0.114));
+            half lumTinte = max(0.01, dot(tinte.rgb, half3(0.299, 0.587, 0.114)));
+            return lerp(c, lum * tinte.rgb / lumTinte, fuerza);
+        }
+
         // aplica el gris/blob y la mascara de sectores al color del sprite
         half4 Restaurar(half4 c, float2 mundo, float gris, float4 blob, float semilla, float modo, half4 colorEstela, float satGris, float aclarar)
         {

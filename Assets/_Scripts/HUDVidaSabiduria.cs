@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 // HUD de arriba a la izquierda (componente "contenedor_vida_sabiduria" del Figma).
 // Vidas: 5 iconos que valen 20% de la vida cada uno; los que faltan quedan apagados (al 20% de opacidad).
+// Cuando se pierde una, sale una explosion chiquita con particulas adentro del icono (ExplosionVida).
 // Sabiduria: el liquido del circulo. Es una ola blanca que sube y baja adentro de una mascara circular,
 // con un brillo dorado alrededor que sale de la forma del liquido (hay una imagen cada 10%: se mezclan las dos mas cercanas).
 public class HUDVidaSabiduria : MonoBehaviour
@@ -17,6 +18,8 @@ public class HUDVidaSabiduria : MonoBehaviour
     [Tooltip("Cuanto se agranda un icono cuando cambia (1.3 = 30% mas grande) y cuanto tarda en volver.")]
     [SerializeField] private float latido = 1.3f;
     [SerializeField] private float duracionLatido = 0.25f;
+    [Tooltip("Animacion de cuando se pierde una vida (prefab Explosion_vida en _UI/Barravida_y_sabiduria).")]
+    [SerializeField] private ExplosionVida explosionVida;
 
     [Header("Liquido de sabiduria")]
     [Tooltip("La ola, hija de la mascara circular.")]
@@ -85,7 +88,12 @@ public class HUDVidaSabiduria : MonoBehaviour
             {
                 bool prendida = i < prendidas;
                 // late el icono que cambio (no al arrancar)
-                if (vidasPrendidas >= 0 && prendida != (i < vidasPrendidas)) inicioLatido[i] = Time.time;
+                if (vidasPrendidas >= 0 && prendida != (i < vidasPrendidas))
+                {
+                    inicioLatido[i] = Time.time;
+                    // se perdio esta vida: explosion chiquita con particulas adentro del icono
+                    if (!prendida) Explotar(vidas[i].rectTransform);
+                }
                 vidas[i].sprite = prendida ? vidaPrendida : vidaApagada;
             }
             vidasPrendidas = prendidas;
@@ -97,6 +105,27 @@ public class HUDVidaSabiduria : MonoBehaviour
             float escala = t < 1f ? Mathf.Lerp(latido, 1f, t * t * (3f - 2f * t)) : 1f;
             vidas[i].rectTransform.localScale = new Vector3(escala, escala, 1f);
         }
+    }
+
+    // Para ver la animacion sin perder una vida: con el juego en Play, clic derecho en este componente.
+    [ContextMenu("Probar explosion de vida")]
+    private void ProbarExplosion()
+    {
+        if (vidas == null || vidas.Length == 0) return;
+        int i = Mathf.Clamp(vidasPrendidas - 1, 0, vidas.Length - 1);
+        Explotar(vidas[i].rectTransform);
+    }
+
+    private void Explotar(RectTransform icono)
+    {
+        if (explosionVida == null) return;
+        var e = Instantiate(explosionVida, icono);
+        var rt = (RectTransform)e.transform;
+        // ocupa justo el icono: la mascara de la explosion no deja que nada salga de ahi
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = rt.offsetMax = Vector2.zero;
+        rt.localScale = Vector3.one;
     }
 
     private void ActualizarLiquido()

@@ -9,13 +9,13 @@ using UnityEngine.UI;
 // Para eso:
 //  1. prende en el Renderer 2D la copia de la escena (Camera Sorting Layer Texture) hasta la capa "Efectos",
 //     a 1/4 de resolucion (ya sale suave y es liviana). El shader del vidrio lee esa copia.
-//  2. crea los materiales en Assets/_UI/Vidrio (si ya existen no los toca: se pueden ajustar ahi)
+//  2. crea los materiales en Assets/_UI/Barravida_y_sabiduria/Vidrio (si ya existen no los toca: se pueden ajustar ahi)
 //  3. se los pone a las Image fondo_circulo y fondo_barra
 // Menu:  Pomelo -> HUD -> Poner vidrio en la vida
 public static class PonerVidrioHUD
 {
     private const string RutaRenderer = "Assets/Settings/Renderer2D.asset";
-    private const string Carpeta = "Assets/_UI/Vidrio/";
+    private const string Carpeta = "Assets/_UI/Barravida_y_sabiduria/Vidrio/";
     private const string RutaShader = Carpeta + "UI_Vidrio.shader";
     private const string RutaMatCirculo = Carpeta + "HUD_vidrio_circulo.mat";
     private const string RutaMatBarra = Carpeta + "HUD_desenfoque_barra.mat";

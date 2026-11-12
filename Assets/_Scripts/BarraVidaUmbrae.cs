@@ -39,6 +39,17 @@ public class BarraVidaUmbrae : MonoBehaviour
     [Tooltip("Material con el shader Pomelo/Sprite Aditivo: copias de los ornamentos que suman luz violeta.")]
     [SerializeField] private Material materialAditivo;
 
+    [Header("Al morir Umbrae")]
+    [Tooltip("Segundos que se ve la barra vacia (con la gema llena de color) antes de empezar a desaparecer.")]
+    [SerializeField] private float esperaAlMorir = 1.2f;
+    [Tooltip("Segundos que tarda toda la barra en desvanecerse.")]
+    [SerializeField] private float segundosDesaparecer = 1f;
+
+    private float muerteDesde = -1f;
+    private SpriteRenderer[] todos;
+    private float[] alfasOriginales;
+    private bool desaparecida;
+
     private float relleno, asentado, fantasma;
     private float ultimoGolpe = -99f;
     private Vector3 posicion;
@@ -128,6 +139,31 @@ public class BarraVidaUmbrae : MonoBehaviour
         var cb = colorProtegido; cb.a = alfaBrillo;
         foreach (var b in brillos)
             if (b != null) { b.GetPropertyBlock(mpbBrillo); mpbBrillo.SetColor(IdColor, cb); b.SetPropertyBlock(mpbBrillo); }
+
+        Desaparecer();
+    }
+
+    // Umbrae murio: despues de un momento toda la barra (piezas, gema, sombras y brillos) se desvanece.
+    private void Desaparecer()
+    {
+        if (desaparecida || vida == null || vida.Vivo) return;
+        if (muerteDesde < 0f)
+        {
+            muerteDesde = Time.time;
+            todos = GetComponentsInChildren<SpriteRenderer>(true);
+            alfasOriginales = new float[todos.Length];
+            for (int i = 0; i < todos.Length; i++) alfasOriginales[i] = todos[i].color.a;
+        }
+        float k = Mathf.Clamp01((Time.time - muerteDesde - esperaAlMorir) / Mathf.Max(0.01f, segundosDesaparecer));
+        float a = 1f - Mathf.SmoothStep(0f, 1f, k);
+        for (int i = 0; i < todos.Length; i++)
+        {
+            var sr = todos[i];
+            if (sr == null) continue;
+            var c = sr.color; c.a = alfasOriginales[i] * a; sr.color = c;
+            if (k >= 1f) sr.enabled = false;
+        }
+        if (k >= 1f) desaparecida = true;
     }
 
     private void Aplicar(float destello)

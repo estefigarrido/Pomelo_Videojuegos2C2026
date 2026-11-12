@@ -13,9 +13,11 @@ Shader "Pomelo/Sprite Sombra Exterior"
         _Margen ("Margen (texeles)", Float) = 180
         _EscalaFigma ("Px del Figma por texel", Float) = 1.5
         _SombraA ("Sombra A", Color) = (0.859, 0.757, 1, 1)
+        _SombraAOpacidad ("Sombra A opacidad", Range(0, 1)) = 1
         _SombraABlur ("Sombra A blur", Float) = 187.5
         _SombraAOffsetY ("Sombra A offset y", Float) = -1.5
         _SombraB ("Sombra B", Color) = (0.314, 0.118, 0.573, 1)
+        _SombraBOpacidad ("Sombra B opacidad", Range(0, 1)) = 1
         _SombraBBlur ("Sombra B blur", Float) = 37.5
         _SombraBOffsetY ("Sombra B offset y", Float) = 6
         _Alfa ("Alfa (lo pone el script)", Float) = 1
@@ -35,7 +37,7 @@ Shader "Pomelo/Sprite Sombra Exterior"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex); float4 _MainTex_TexelSize;
             CBUFFER_START(UnityPerMaterial)
-                float _PPU, _Margen, _EscalaFigma, _SombraABlur, _SombraAOffsetY, _SombraBBlur, _SombraBOffsetY, _Alfa;
+                float _PPU, _Margen, _EscalaFigma, _SombraABlur, _SombraAOffsetY, _SombraBBlur, _SombraBOffsetY, _Alfa, _SombraAOpacidad, _SombraBOpacidad;
                 half4 _SombraA, _SombraB;
             CBUFFER_END
             struct Attributes { float4 positionOS : POSITION; float2 uv : TEXCOORD0; };
@@ -76,8 +78,8 @@ Shader "Pomelo/Sprite Sombra Exterior"
             half4 frag (Varyings i) : SV_Target
             {
                 // offset para abajo en el Figma = la sombra baja: se mira el alfa de arriba
-                float aA = AlfaBlur(i.uv, _SombraABlur, _SombraAOffsetY) * _SombraA.a;
-                float aB = AlfaBlur(i.uv, _SombraBBlur, _SombraBOffsetY) * _SombraB.a;
+                float aA = AlfaBlur(i.uv, _SombraABlur, _SombraAOffsetY) * _SombraA.a * _SombraAOpacidad;
+                float aB = AlfaBlur(i.uv, _SombraBBlur, _SombraBOffsetY) * _SombraB.a * _SombraBOpacidad;
                 // B encima de A (premultiplicado)
                 half3 c = _SombraB.rgb * aB + _SombraA.rgb * aA * (1 - aB);
                 half a = aB + aA * (1 - aB);

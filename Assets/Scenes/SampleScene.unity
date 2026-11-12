@@ -17084,7 +17084,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &195557919
 SpriteRenderer:
   serializedVersion: 2
@@ -17153,7 +17153,7 @@ Transform:
   m_GameObject: {fileID: 195557918}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0132, y: 1.7032, z: 0}
+  m_LocalPosition: {x: -0.0059, y: 1.752, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17175,7 +17175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &196678111
 Transform:
   m_ObjectHideFlags: 0
@@ -43493,7 +43493,7 @@ Transform:
   m_GameObject: {fileID: 582101481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.80569, y: -29.063004, z: 0}
+  m_LocalPosition: {x: 105.03, y: 42.82, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -80515,7 +80515,7 @@ Transform:
   m_GameObject: {fileID: 1157053810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7224001, z: 0}
+  m_LocalPosition: {x: 0, y: 1.7202, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -80804,6 +80804,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1166418279}
   - component: {fileID: 1166418278}
+  - component: {fileID: 1166418280}
   m_Layer: 0
   m_Name: Barra vida Umbrae
   m_TagString: Untagged
@@ -83404,7 +83405,7 @@ Transform:
   m_GameObject: {fileID: 1211055094}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.93, z: 0}
+  m_LocalPosition: {x: 0, y: -1.9164, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -143876,6 +143877,32 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 009d25f6535f2534c8f24c7bd40e0314, type: 3}
+--- !u!114 &1166418280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166418277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c75e5008ee489f8b153c719ed86862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SombraBarraUmbrae
+  material: {fileID: 2100000, guid: a9834973884f4649906717090cfba78c, type: 2}
+  piezas:
+  - {fileID: 988184600}
+  - {fileID: 1157053811}
+  - {fileID: 1211055095}
+  - {fileID: 195557919}
+  color: {r: 0.4485, g: 0.2506, b: 0.6337, a: 1}
+  opacidad: 0.35
+  desenfoque: 60
+  corrimientoY: 0
+  orden: 1
+  pixelesPorUnidad: 75
+  pxPorPxFigma: 1.7077
+  margen: 80
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

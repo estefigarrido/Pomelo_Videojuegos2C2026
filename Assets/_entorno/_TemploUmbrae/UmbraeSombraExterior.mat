@@ -35,10 +35,10 @@ Material:
     - _PPU: 100
     - _SombraABlur: 20
     - _SombraAOffsetY: 0
-    - _SombraAOpacidad: 0.08
+    - _SombraAOpacidad: 0.06
     - _SombraBBlur: 60
     - _SombraBOffsetY: 0
-    - _SombraBOpacidad: 0.4
+    - _SombraBOpacidad: 0.2
     m_Colors:
     - _SombraA: {r: 0.859, g: 0.757, b: 1, a: 0.2}
     - _SombraB: {r: 0.314, g: 0.118, b: 0.573, a: 0.6}

@@ -33,10 +33,12 @@ Material:
     - _EscalaFigma: 1.5
     - _Margen: 260
     - _PPU: 100
-    - _SombraABlur: 280
-    - _SombraAOffsetY: -1.5
-    - _SombraBBlur: 80
-    - _SombraBOffsetY: 6
+    - _SombraABlur: 20
+    - _SombraAOffsetY: 0
+    - _SombraAOpacidad: 0.08
+    - _SombraBBlur: 60
+    - _SombraBOffsetY: 0
+    - _SombraBOpacidad: 0.4
     m_Colors:
     - _SombraA: {r: 0.859, g: 0.757, b: 1, a: 0.2}
     - _SombraB: {r: 0.314, g: 0.118, b: 0.573, a: 0.6}

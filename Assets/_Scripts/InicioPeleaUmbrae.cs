@@ -8,8 +8,9 @@ using UnityEngine;
 //  2) se prenden los fuegos de las columnas (upscale rapido) y medio segundo despues crece el circulo violeta.
 //  3) los pinchos del techo bajan y los del piso salen; a la vez se prenden los fuegos de las torres del fondo.
 //  4) aparece el rombo del ojo con un upscale.
-//  Entre cada parte hay 'pausaEntrePartes' (2 s). La camara tiembla fuerte (0,8) mientras pasa algo y suave (0,3)
-//  en las pausas; deja de temblar cuando termina todo y Umbrae empieza a atacar (UmbraeBoss espera a 'Terminado').
+//  Entre cada parte hay 'pausaEntrePartes' (2 s). La camara no tiembla los primeros 2 s, despues tiembla fuerte
+//  (0,8) durante 2 s y sigue un 70 % mas leve (0,24); deja de temblar cuando termina todo y Umbrae empieza a
+//  atacar (UmbraeBoss espera a 'Terminado').
 // Cuando la pelea termina (se gana y se agarra la gema, o la chica pierde y vuelve al spawnpoint) se guarda
 // todo al reves, asi la proxima vez se vuelve a armar.
 public class InicioPeleaUmbrae : MonoBehaviour
@@ -45,10 +46,15 @@ public class InicioPeleaUmbrae : MonoBehaviour
     [Header("Ritmo y temblor")]
     [Tooltip("Segundos entre una parte de la animacion y la siguiente.")]
     [SerializeField] private float pausaEntrePartes = 2f;
-    [Tooltip("Temblor de la camara mientras pasa alguna animacion.")]
-    [SerializeField] private float temblorAnimacion = 0.8f;
-    [Tooltip("Temblor de la camara en las pausas entre animaciones.")]
-    [SerializeField] private float temblorPausa = 0.3f;
+    [Tooltip("Segundos desde que la chica entra a la arena hasta que empieza el temblor fuerte.")]
+    [SerializeField] private float esperaTemblor = 2f;
+    [Tooltip("Temblor fuerte de la camara.")]
+    [UnityEngine.Serialization.FormerlySerializedAs("temblorAnimacion")]
+    [SerializeField] private float temblorFuerte = 0.8f;
+    [Tooltip("Cuanto dura el temblor fuerte.")]
+    [SerializeField] private float segundosTemblorFuerte = 2f;
+    [Tooltip("Despues del temblor fuerte sigue uno mas leve hasta que empieza la pelea (0,7 = 70 % mas leve).")]
+    [Range(0f, 1f)] [SerializeField] private float reduccionTemblorLeve = 0.7f;
 
     [Header("Columnas y capiteles")]
     [SerializeField] private float segundosColumnas = 1.5f;
@@ -104,6 +110,15 @@ public class InicioPeleaUmbrae : MonoBehaviour
     [Tooltip("El rombo del ojo de Umbrae (aparece con un upscale al final).")]
     [SerializeField] private Transform romboOjo;
     [SerializeField] private float segundosOjo = 0.5f;
+    [Tooltip("Piezas del ojo (ojo, pupila, contenedor): casi grises al entrar y toman color a medida que se carga la barra de vida de Umbrae.")]
+    [SerializeField] private SpriteRenderer[] ojoColor;
+    [Tooltip("Saturacion del ojo al entrar a la arena (0 = gris).")]
+    [Range(0f, 1f)] [SerializeField] private float saturacionOjoGris = 0.08f;
+    [Tooltip("Material aditivo (Pomelo/Sprite Aditivo) para el destello de la pupila.")]
+    [SerializeField] private Material materialDestello;
+    [Tooltip("Cuando la barra queda llena la pupila tira un destello que dura esto; despues empieza a seguir a la chica.")]
+    [SerializeField] private float segundosDestello = 1f;
+    [SerializeField] private Color colorDestello = new Color(0.92f, 0.85f, 1f, 1f);
     [Tooltip("Pausa despues de que aparece el ojo, antes de que Umbrae ataque.")]
     [SerializeField] private float pausaFinal = 0.3f;
 
@@ -124,6 +139,16 @@ public class InicioPeleaUmbrae : MonoBehaviour
 
     // Umbrae empieza a atacar recien cuando esto es verdadero.
     public bool Terminado => estado == Estado.Lista;
+    // se esta armando la arena (la barra de vida de Umbrae se esta cargando): Umbrae no recibe dano
+    public bool Armando => estado == Estado.Armando;
+    // 0..1: cuanto se cargo la barra de vida de Umbrae (llena = empieza la pelea)
+    public float ProgresoCarga => estado == Estado.Guardada ? 0f
+        : estado == Estado.Armando ? Mathf.Clamp01(tiempo / Mathf.Max(0.01f, finArmado)) : 1f;
+    // la chica no se puede mover mientras se arma la pelea (lo leen MovimientoPersonaje y SelectorAtaque)
+    public static bool ChicaQuieta { get; private set; }
+    // la pupila esta tirando el destello del comienzo de la pelea (todavia no sigue a la chica)
+    public bool Destellando => estado == Estado.Lista && Time.time - inicioLista < segundosDestello;
+    private float inicioLista = -99f;
 
     // La ventana-ojo se enciende cuando aparece el rombo (ultima parte del armado) y se apaga al guardar todo.
     private float inicioOjo;
@@ -172,6 +197,7 @@ public class InicioPeleaUmbrae : MonoBehaviour
             foreach (var p in piezas) Aplicar(p, 0f);
             Saturar(saturacionAntes);
             CrearSpriteChispa();
+            CrearDestello();
         }
     }
 
@@ -269,12 +295,12 @@ public class InicioPeleaUmbrae : MonoBehaviour
         finArmado += pausaFinal;
     }
 
-    // si alguna pieza se esta animando en este momento
-    private bool AlgoSeAnima()
+    // cuanto tiembla la camara segun el tiempo desde que la chica entro a la arena
+    private float TemblorAhora()
     {
-        foreach (var p in piezas)
-            if (tiempo >= p.inicio && tiempo <= p.inicio + p.duracion) return true;
-        return false;
+        if (tiempo < esperaTemblor) return 0f;
+        if (tiempo < esperaTemblor + segundosTemblorFuerte) return temblorFuerte;
+        return temblorFuerte * (1f - reduccionTemblorLeve);
     }
 
     private void Update()
@@ -297,9 +323,11 @@ public class InicioPeleaUmbrae : MonoBehaviour
                     if (tiempo < p.inicio) { Aplicar(p, 0f); continue; }
                     Aplicar(p, Mathf.Max(u, 0.0001f));
                 }
-                // tiembla fuerte mientras algo se anima y suave en las pausas (se renueva cada cuadro, asi no se apaga)
-                if (camara != null) camara.Temblar(0.12f, AlgoSeAnima() ? temblorAnimacion : temblorPausa);
-                if (tiempo >= finArmado) estado = Estado.Lista;   // termina el temblor y empieza la pelea
+                // temblor: nada los primeros 'esperaTemblor' s, fuerte durante 'segundosTemblorFuerte' y despues
+                // un 70 % mas leve hasta que empieza la pelea (se renueva cada cuadro, asi no se apaga)
+                float intensidad = TemblorAhora();
+                if (camara != null && intensidad > 0f) camara.Temblar(0.12f, intensidad);
+                if (tiempo >= finArmado) { estado = Estado.Lista; inicioLista = Time.time; }   // termina el temblor y empieza la pelea
                 break;
 
             case Estado.Lista:
@@ -320,12 +348,102 @@ public class InicioPeleaUmbrae : MonoBehaviour
                 break;
         }
 
+        ChicaQuieta = estado == Estado.Armando;
+
         // el templo se satura cuando empieza la pelea y se desatura cuando termina
         float objetivo = estado == Estado.Armando || estado == Estado.Lista ? saturacionPelea : saturacionAntes;
         float nueva = Mathf.MoveTowards(saturacionActual, objetivo, Time.deltaTime * Mathf.Max(0.05f, saturacionPelea - saturacionAntes) / Mathf.Max(0.05f, segundosSaturar));
         if (!Mathf.Approximately(nueva, saturacionActual)) Saturar(nueva);
 
+        ColorOjo();
+        ActualizarDestello();
         ActualizarChispas();
+    }
+
+    // ---------- el ojo: gris al entrar, toma color con la barra de vida y destella cuando se llena ----------
+
+    private SpriteRenderer[] destellos;
+    private Vector3[] escalasDestello;
+    private MaterialPropertyBlock bloqueDestello;
+
+    private void ColorOjo()
+    {
+        if (ojoColor == null || ojoColor.Length == 0) return;
+        if (bloque == null) bloque = new MaterialPropertyBlock();
+        if (dibujosOjo == null)
+        {
+            // tambien sus hijos (la version iluminada de IluminarEnPelea); el destello no (es aditivo)
+            var lista = new List<SpriteRenderer>();
+            foreach (var raiz in ojoColor)
+                if (raiz != null)
+                    foreach (var sr in raiz.GetComponentsInChildren<SpriteRenderer>(true))
+                        if (sr.sharedMaterial != materialDestello && !lista.Contains(sr)) lista.Add(sr);
+            dibujosOjo = lista.ToArray();
+        }
+        // sube con la barra; cuando termina la pelea vuelve al gris despacio
+        float carga = estado == Estado.Guardando ? 0f : ProgresoCarga;
+        nivelOjo = carga >= nivelOjo ? carga : Mathf.MoveTowards(nivelOjo, carga, Time.deltaTime / Mathf.Max(0.05f, segundosSaturar));
+        float s = Mathf.Lerp(saturacionOjoGris, 1f, nivelOjo);
+        float e = Mathf.Lerp(exposicionAntes, exposicionPelea, nivelOjo);
+        foreach (var sr in dibujosOjo)
+        {
+            if (sr == null) continue;
+            sr.GetPropertyBlock(bloque);
+            bloque.SetFloat("_Saturacion", s);
+            bloque.SetFloat("_Exposicion", e);
+            sr.SetPropertyBlock(bloque);
+        }
+    }
+
+    private SpriteRenderer[] dibujosOjo;
+    private float nivelOjo;
+
+    // copias aditivas de la pupila: una del mismo tamano y un halo mas grande
+    private void CrearDestello()
+    {
+        if (romboOjo == null || materialDestello == null) return;
+        var propio = romboOjo.GetComponent<SpriteRenderer>();
+        if (propio == null) return;
+        float[] tamanos = { 1f, 2.2f };
+        destellos = new SpriteRenderer[tamanos.Length];
+        escalasDestello = new Vector3[tamanos.Length];
+        for (int i = 0; i < tamanos.Length; i++)
+        {
+            var go = new GameObject(i == 0 ? "destello pupila" : "destello pupila (halo)");
+            go.transform.SetParent(romboOjo, false);
+            go.transform.localPosition = new Vector3(0f, 0f, -0.001f);
+            escalasDestello[i] = Vector3.one * tamanos[i];
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = propio.sprite;
+            sr.sharedMaterial = materialDestello;
+            sr.sortingLayerID = propio.sortingLayerID;
+            sr.sortingOrder = propio.sortingOrder + 1;
+            sr.enabled = false;
+            destellos[i] = sr;
+        }
+    }
+
+    private void ActualizarDestello()
+    {
+        if (destellos == null) return;
+        float u = (Time.time - inicioLista) / Mathf.Max(0.01f, segundosDestello);
+        bool activo = estado == Estado.Lista && u >= 0f && u < 1f;
+        // sube de golpe (un decimo) y se apaga suave
+        float k = !activo ? 0f : u < 0.1f ? u / 0.1f : Mathf.Pow(1f - (u - 0.1f) / 0.9f, 2f);
+        for (int i = 0; i < destellos.Length; i++)
+        {
+            var sr = destellos[i];
+            if (sr == null) continue;
+            sr.enabled = k > 0.001f;
+            if (!sr.enabled) continue;
+            var c = colorDestello; c.a = k * (i == 0 ? 1f : 0.45f);
+            // el shader aditivo toma el color de _Color (no del color del SpriteRenderer)
+            if (bloqueDestello == null) bloqueDestello = new MaterialPropertyBlock();
+            sr.GetPropertyBlock(bloqueDestello);
+            bloqueDestello.SetColor("_Color", c);
+            sr.SetPropertyBlock(bloqueDestello);
+            sr.transform.localScale = escalasDestello[i] * (1f + 0.3f * k);
+        }
     }
 
     // ---------- saturacion del templo ----------
@@ -567,6 +685,8 @@ public class InicioPeleaUmbrae : MonoBehaviour
         foreach (var p in piezas) if (p.tipo == Tipo.Columna && !p.t.name.Contains("linea")) { suma += p.pos.x; n++; }
         return n > 0 ? suma / n : transform.position.x;
     }
+
+    private void OnDisable() => ChicaQuieta = false;
 
     private void OnValidate()
     {

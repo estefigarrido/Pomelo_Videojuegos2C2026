@@ -15,6 +15,8 @@ public class BarraVidaUmbrae : MonoBehaviour
     [SerializeField] private VidaEnemigo vida;
     [SerializeField] private UmbraeBoss umbrae;
     [SerializeField] private CamaraSeguidora camara;
+    [Tooltip("Armado de la arena: la barra se carga a su ritmo y cuando queda llena empieza la pelea.")]
+    [SerializeField] private InicioPeleaUmbrae inicioPelea;
 
     [Header("Piezas")]
     [SerializeField] private SpriteRenderer pista;
@@ -36,6 +38,17 @@ public class BarraVidaUmbrae : MonoBehaviour
     [SerializeField] private Color colorProtegido = new Color(0.78f, 0.6f, 1f, 1f);
     [Tooltip("Material con el shader Pomelo/Sprite Aditivo: copias de los ornamentos que suman luz violeta.")]
     [SerializeField] private Material materialAditivo;
+
+    [Header("Al morir Umbrae")]
+    [Tooltip("Segundos que se ve la barra vacia (con la gema llena de color) antes de empezar a desaparecer.")]
+    [SerializeField] private float esperaAlMorir = 1.2f;
+    [Tooltip("Segundos que tarda toda la barra en desvanecerse.")]
+    [SerializeField] private float segundosDesaparecer = 1f;
+
+    private float muerteDesde = -1f;
+    private SpriteRenderer[] todos;
+    private float[] alfasOriginales;
+    private bool desaparecida;
 
     private float relleno, asentado, fantasma;
     private float ultimoGolpe = -99f;
@@ -72,6 +85,7 @@ public class BarraVidaUmbrae : MonoBehaviour
             brillos[i] = sr;
         }
         if (camara == null) camara = FindFirstObjectByType<CamaraSeguidora>();
+        if (inicioPelea == null) inicioPelea = FindFirstObjectByType<InicioPeleaUmbrae>();
         Aplicar(0f);
     }
 
@@ -79,9 +93,11 @@ public class BarraVidaUmbrae : MonoBehaviour
     {
         float max = vida != null ? Mathf.Max(1f, vida.VidaMaxima) : 1f;
         float actual = vida != null ? Mathf.Clamp01(vida.Vida / max) : 0f;
-        // vacia hasta que la camara se aleja para la pelea
+        // vacia hasta que la camara se aleja para la pelea; despues se carga al ritmo del armado de la arena
+        // (InicioPeleaUmbrae): cuando queda llena empieza la pelea
         bool enPelea = camara != null && camara.Fijo;
-        float objetivo = enPelea ? actual : 0f;
+        float carga = inicioPelea != null ? inicioPelea.ProgresoCarga : 1f;
+        float objetivo = enPelea ? actual * carga : 0f;
         float dt = Time.deltaTime;
 
         if (objetivo < relleno - 0.0001f)
@@ -123,6 +139,31 @@ public class BarraVidaUmbrae : MonoBehaviour
         var cb = colorProtegido; cb.a = alfaBrillo;
         foreach (var b in brillos)
             if (b != null) { b.GetPropertyBlock(mpbBrillo); mpbBrillo.SetColor(IdColor, cb); b.SetPropertyBlock(mpbBrillo); }
+
+        Desaparecer();
+    }
+
+    // Umbrae murio: despues de un momento toda la barra (piezas, gema, sombras y brillos) se desvanece.
+    private void Desaparecer()
+    {
+        if (desaparecida || vida == null || vida.Vivo) return;
+        if (muerteDesde < 0f)
+        {
+            muerteDesde = Time.time;
+            todos = GetComponentsInChildren<SpriteRenderer>(true);
+            alfasOriginales = new float[todos.Length];
+            for (int i = 0; i < todos.Length; i++) alfasOriginales[i] = todos[i].color.a;
+        }
+        float k = Mathf.Clamp01((Time.time - muerteDesde - esperaAlMorir) / Mathf.Max(0.01f, segundosDesaparecer));
+        float a = 1f - Mathf.SmoothStep(0f, 1f, k);
+        for (int i = 0; i < todos.Length; i++)
+        {
+            var sr = todos[i];
+            if (sr == null) continue;
+            var c = sr.color; c.a = alfasOriginales[i] * a; sr.color = c;
+            if (k >= 1f) sr.enabled = false;
+        }
+        if (k >= 1f) desaparecida = true;
     }
 
     private void Aplicar(float destello)

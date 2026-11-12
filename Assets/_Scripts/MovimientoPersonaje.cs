@@ -194,6 +194,23 @@ public class MovimientoPersonaje : MonoBehaviour
         // con el menu de pausa abierto no se mueve (el juego esta frenado)
         if (MenuPausa.BloqueaControles) return;
 
+        // mientras se arma la pelea con Umbrae (hasta que se carga su barra de vida) se queda quieta:
+        // no camina, no salta, no dashea; si estaba en el aire termina de caer
+        if (InicioPeleaUmbrae.ChicaQuieta)
+        {
+            direccion = 0f;
+            pedidoDash = false;
+            sprintConMando = false;
+            if (sprintActivo) TerminarSprint(false);
+            if (animator != null)
+            {
+                animator.SetBool("sprint", false);
+                if (animatorTieneCaminando) animator.SetBool("caminando", false);
+            }
+            ActualizarAnimacionSalto();
+            return;
+        }
+
         var teclado = Keyboard.current;
 
         // el input se lee aca, en el frame exacto en que pasa

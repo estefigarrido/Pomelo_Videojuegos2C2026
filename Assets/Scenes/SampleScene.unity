@@ -24460,6 +24460,8 @@ MonoBehaviour:
   xMaximo: 26.49
   velocidad: 2.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &300479985
 Animator:
   serializedVersion: 7
@@ -37488,6 +37490,8 @@ MonoBehaviour:
   xMaximo: 109.090004
   velocidad: 2.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &495036885
 Animator:
   serializedVersion: 7
@@ -38591,6 +38595,8 @@ MonoBehaviour:
   xMaximo: 90.520004
   velocidad: 2.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 833665365}
+  xMinimoEnPelea: 84
 --- !u!95 &513564655
 Animator:
   serializedVersion: 7
@@ -52685,7 +52691,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 544408636
   m_SortingLayer: 4
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5422070557161730601, guid: f6bdc0f371242374480c7aec21da5a5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -76944,6 +76950,7 @@ MonoBehaviour:
   maximoY: 0.4
   distanciaCompleta: 14
   suavidad: 0.18
+  inicioPelea: {fileID: 1558292923}
 --- !u!1 &1098546502
 GameObject:
   m_ObjectHideFlags: 0
@@ -80649,7 +80656,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 544408636
   m_SortingLayer: 4
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7756915483172000155, guid: 56e1cbc1e51ecaf4a85db7f9f888e954, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -80875,6 +80882,7 @@ MonoBehaviour:
   vida: {fileID: 646305526}
   umbrae: {fileID: 646305525}
   camara: {fileID: 749191963}
+  inicioPelea: {fileID: 0}
   pista: {fileID: 988184600}
   gema: {fileID: 195557919}
   ornamentos:
@@ -101747,6 +101755,7 @@ Transform:
   - {fileID: 893604528}
   - {fileID: 771532269}
   - {fileID: 1812129376}
+  - {fileID: 1964536187}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1506718176
@@ -103192,6 +103201,8 @@ MonoBehaviour:
   xMaximo: 123.7
   velocidad: 1.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &1522489949
 Animator:
   serializedVersion: 7
@@ -106062,8 +106073,10 @@ MonoBehaviour:
   piso: 38.59
   alturaArriba: 68.5
   pausaEntrePartes: 2
-  temblorAnimacion: 0.8
-  temblorPausa: 0.3
+  esperaTemblor: 2
+  temblorFuerte: 0.8
+  segundosTemblorFuerte: 2
+  reduccionTemblorLeve: 0.7
   segundosColumnas: 1.5
   segundosFuego: 0.45
   retrasoHalo: 0.5
@@ -106100,6 +106113,14 @@ MonoBehaviour:
   segundosSaturar: 1.5
   romboOjo: {fileID: 1095270982}
   segundosOjo: 0.5
+  ojoColor:
+  - {fileID: 1230578301}
+  - {fileID: 1095270983}
+  - {fileID: 782519996}
+  saturacionOjoGris: 0.08
+  materialDestello: {fileID: 2100000, guid: 161c680b2f16bc843804fb85dd8bbd04, type: 2}
+  segundosDestello: 1
+  colorDestello: {r: 0.92, g: 0.85, b: 1, a: 1}
   pausaFinal: 0.3
   segundosGuardar: 0.8
   verEnElEditor: 1
@@ -129616,6 +129637,8 @@ MonoBehaviour:
   xMaximo: 155.92
   velocidad: 1.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &1898961558
 Animator:
   serializedVersion: 7
@@ -133106,6 +133129,37 @@ MonoBehaviour:
     y: 27.97
     width: 47.65
     height: 47.089996
+  sectoresGema:
+  - serializedVersion: 2
+    x: -160.81
+    y: 28
+    width: 39.809998
+    height: 47.1
+  - serializedVersion: 2
+    x: -121
+    y: 28
+    width: 21
+    height: 47.1
+  - serializedVersion: 2
+    x: -100
+    y: 28
+    width: 36
+    height: 47.1
+  - serializedVersion: 2
+    x: -64
+    y: 28
+    width: 30
+    height: 47.1
+  - serializedVersion: 2
+    x: -34
+    y: 28
+    width: 30
+    height: 47.1
+  - serializedVersion: 2
+    x: -4
+    y: 28
+    width: 28
+    height: 47.1
   pixelesPorUnidad: 4
   margen: 0.5
   segundosRestaurar: 2.4
@@ -133732,6 +133786,97 @@ SpriteRenderer:
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 30.6, y: 41.2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+--- !u!1 &1964536186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1964536187}
+  - component: {fileID: 1964536188}
+  m_Layer: 0
+  m_Name: Estatua botanica (arco)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1964536187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964536186}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -154.43048, y: 43.075184, z: 0}
+  m_LocalScale: {x: 0.9315827, y: 0.9315827, z: 0.9315827}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1506465831}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1964536188
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964536186}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 544408636
+  m_SortingLayer: 4
+  m_SortingOrder: 1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 6116276599452248931, guid: 0838664c90b9c274e89a19bcde244b7a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5.37, y: 14.58}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

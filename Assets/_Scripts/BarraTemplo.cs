@@ -83,6 +83,8 @@ public class BarraTemplo : MonoBehaviour
     private void Restaurar()
     {
         var templo = RestauracionTemplo.Instancia;
+        // con la gema en la mano, las partes del templo de la gema se arreglan sin gastar polen
+        if (templo != null && templo.RestaurarConGema()) { ultimoUso = Time.time; return; }
         if (carga + 0.001f < costoRestaurar || templo == null || !templo.Restaurar())
         {
             ultimoNo = Time.time;
@@ -96,9 +98,10 @@ public class BarraTemplo : MonoBehaviour
     {
         if (boton == null) return;
         var templo = RestauracionTemplo.Instancia;
-        bool alcanza = carga + 0.001f >= costoRestaurar && templo != null && templo.QuedanSectores;
-        // mas fuerte si la chica esta parada en una parte del templo que todavia no se arreglo
-        bool fuerte = alcanza && templo.ChicaEnSectorSinRestaurar;
+        bool conGema = templo != null && templo.PuedeRestaurarConGema;
+        bool alcanza = conGema || (carga + 0.001f >= costoRestaurar && templo != null && templo.QuedanSectores);
+        // mas fuerte si la chica esta parada en una parte del templo que todavia no se arreglo (o tiene la gema ahi)
+        bool fuerte = conGema || (alcanza && templo.ChicaEnSectorSinRestaurar);
         float t = Time.time;
         // titila como una llama: dos ondas y ruido, mas rapido y mas intenso cuando es "fuerte"
         float vel = fuerte ? 2.2f : 1f;

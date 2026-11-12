@@ -35,6 +35,9 @@ public class CartelTutorial : MonoBehaviour
     [SerializeField] private int bordeBorrado = 40;
     [Tooltip("Segundos que tarda en borrarse lo que queda del cartel, desde que la chica llega a la mitad.")]
     [SerializeField] private float duracionBorrado = 1f;
+    [Tooltip("Solo se borra si la chica pasa a esta distancia vertical (unidades) o menos del cartel: " +
+             "asi no lo borra pasando por debajo o por encima, en otro piso.")]
+    [SerializeField] private float distanciaVertical = 5f;
 
     [Header("Encadenar con otros carteles")]
     [Tooltip("No aparece al salir la chica del portal: espera a que otro cartel lo muestre.")]
@@ -161,6 +164,14 @@ public class CartelTutorial : MonoBehaviour
         // tiene que haber estado antes de la mitad (a la izquierda). Si el cartel quedo detras de ella
         // (a su izquierda), no se borra solo por estar ahi.
         if (!visible) return;
+
+        // si la chica esta en otro piso (muy arriba o muy abajo del cartel), no le esta pasando por delante
+        if (inicioBorrado < 0f)
+        {
+            float yCartel = rt.TransformPoint(rt.rect.center).y;
+            if (Mathf.Abs(dibujoChica.bounds.center.y - yCartel) > distanciaVertical) return;
+        }
+
         if (!estuvoALaIzquierda)
         {
             if (x >= ancho / 2f) return;

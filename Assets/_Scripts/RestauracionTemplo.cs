@@ -12,8 +12,8 @@ public class RestauracionTemplo : MonoBehaviour
 {
     [Tooltip("Los sectores en el mundo (los pone el menu de configuracion a partir del Figma).")]
     [SerializeField] private Rect[] sectores;
-    [Tooltip("Sectores que se arreglan con la gema de Umbrae (sin gastar polen ni apretar nada): se arreglan solos " +
-             "cuando la chica pasa por ellos con la gema en la mano. No cuentan para el reparto del polen.")]
+    [Tooltip("Sectores que se arreglan con la gema de Umbrae (sin gastar polen): la chica pasa con la gema en la mano " +
+             "y aprieta click derecho (o el boton de reparar del joystick). No cuentan para el reparto del polen.")]
     [SerializeField] private Rect[] sectoresGema;
     [SerializeField] private float pixelesPorUnidad = 4f;
     [Tooltip("Cuanto se esfuma el borde del sector hacia afuera (unidades), para que no se vea el corte recto.")]
@@ -159,9 +159,6 @@ public class RestauracionTemplo : MonoBehaviour
 
     private void Update()
     {
-        // con la gema en la mano, las partes del templo de la gema se arreglan solas a medida que pasa la chica
-        if (PuedeRestaurarConGema) RestaurarConGema();
-
         bool cambio = false;
         for (int i = animando.Count - 1; i >= 0; i--)
         {

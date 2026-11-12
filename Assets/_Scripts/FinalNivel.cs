@@ -49,7 +49,6 @@ public class FinalNivel : MonoBehaviour
     [SerializeField] private Material materialBrillo;
 
     [Header("Tiempos")]
-    [Tooltip("Ya no se usa: la puerta recupera el color junto con el portal (duracionColorPortal).")]
     [SerializeField] private float duracionColorPuerta = 1f;
     [Tooltip("Segundos de destellos de la gema antes de que el portal recupere su color.")]
     [SerializeField] private float esperaDestellos = 2f;
@@ -144,11 +143,6 @@ public class FinalNivel : MonoBehaviour
         float arriba = b.max.y, abajo = b.min.y - 6f;
         go.transform.position = new Vector3(b.center.x, (arriba + abajo) / 2f, 0f);
         go.transform.localScale = new Vector3(b.size.x + 2f, arriba - abajo, 1f);
-        // solo afecta a la puerta y a su copia gris (orden de la puerta y el siguiente), no al resto del mapa
-        m.isCustomRangeActive = true;
-        // (primero el front: si el back queda por delante del front, Unity lo corre)
-        m.frontSortingLayerID = puerta.sortingLayerID; m.frontSortingOrder = puerta.sortingOrder + 1;
-        m.backSortingLayerID = puerta.sortingLayerID; m.backSortingOrder = puerta.sortingOrder - 1;
     }
 
     private void Update()
@@ -211,22 +205,20 @@ public class FinalNivel : MonoBehaviour
         while (tiempoEncaje < 0f) yield return null;
         while (Time.time < tiempoEncaje + esperaDestellos) yield return null;
 
-        // el portal y la puerta recuperan el color juntos, con el mismo fundido, y se van las enredaderas
+        // vuelve el color del portal y se van las enredaderas
         portal.enabled = true;
-        puerta.enabled = true;
         for (float t = 0f; t < duracionColorPortal; t += Time.deltaTime)
         {
             float k = t / duracionColorPortal;
             SetAlfa(portalGrisSR, 1f - k);
-            SetAlfa(puertaGrisSR, 1f - k);
             foreach (var p in plantas) SetAlfa(p, 1f - k);
             yield return null;
         }
         if (portalGrisSR != null) Destroy(portalGrisSR.gameObject);
-        if (puertaGrisSR != null) Destroy(puertaGrisSR.gameObject);
-        puertaGrisSR = null;
         foreach (var p in plantas) Destroy(p.gameObject);
         plantas.Clear();
+        // por si la puerta todavia no termino de recuperar su color
+        while (puertaGrisSR != null) yield return null;
 
         // la puerta sube
         Vector3 cerrada = puerta.transform.position;
@@ -274,6 +266,16 @@ public class FinalNivel : MonoBehaviour
         if (rayos != null) Destroy(rayos.gameObject);
         tiempoEncaje = Time.time;
         CrearDestellos(hasta);
+
+        // la puerta recupera su color apenas aparece la gema en el engarce
+        puerta.enabled = true;
+        for (float t = 0f; t < duracionColorPuerta; t += Time.deltaTime)
+        {
+            SetAlfa(puertaGrisSR, 1f - t / duracionColorPuerta);
+            yield return null;
+        }
+        if (puertaGrisSR != null) Destroy(puertaGrisSR.gameObject);
+        puertaGrisSR = null;
     }
 
     private IEnumerator Frames(Sprite[] lista, float duracion)

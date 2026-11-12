@@ -57322,7 +57322,7 @@ MonoBehaviour:
   fps: 24
   ordenDibujo: 2
   cantidad: 7
-  tamano: {x: 0.22, y: 0.36}
+  tamano: {x: 0.264, y: 0.43200004}
   adelanteDeLaChica: 3.5
   volverSiQuedaAtras: 10
   velocidadMaxima: 9

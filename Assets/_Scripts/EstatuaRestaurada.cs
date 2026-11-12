@@ -3,7 +3,8 @@ using UnityEngine;
 
 // La estatua botanica empieza gris y con enredaderas. Cuando la chica llega con la gema al ultimo
 // escalon de la escalera, en 'duracion' segundos la estatua recupera su color dorado y las enredaderas
-// se desvanecen; al terminar aparecen destellos titilando sobre la estatua.
+// se desvanecen; al terminar aparecen destellos titilando sobre la estatua. Las 'piezas' (las columnas rotas
+// del altar) cambian a su version arreglada con el mismo fundido.
 // El dibujo dorado original queda abajo; encima se ponen la copia gris y las enredaderas.
 [RequireComponent(typeof(SpriteRenderer))]
 public class EstatuaRestaurada : MonoBehaviour
@@ -16,6 +17,19 @@ public class EstatuaRestaurada : MonoBehaviour
         [Tooltip("Tamano en el mundo respecto del sprite (negativo = espejado).")]
         public Vector2 escala;
     }
+
+    [System.Serializable]
+    public struct PiezaQueSeArregla
+    {
+        [Tooltip("La pieza rota que esta en la escena (por ejemplo una columna rota).")]
+        public SpriteRenderer rota;
+        [Tooltip("El dibujo arreglado: aparece encima con un fundido mientras la rota se desvanece.")]
+        public Sprite arreglada;
+    }
+
+    [Header("Piezas que se arreglan junto con la estatua")]
+    [Tooltip("Cambian con el mismo fundido que la estatua (apoyadas en el mismo piso que la rota).")]
+    [SerializeField] private PiezaQueSeArregla[] piezas;
 
     [Header("Estado inicial")]
     [SerializeField] private Sprite estatuaGris;
@@ -37,6 +51,7 @@ public class EstatuaRestaurada : MonoBehaviour
 
     private SpriteRenderer dibujo;
     private SpriteRenderer gris;
+    private SpriteRenderer[] arregladas;
     private readonly List<SpriteRenderer> plantas = new List<SpriteRenderer>();
     private Transform chica;
     private int estado; // 0 gris, 1 recuperando el color, 2 dorada con destellos
@@ -66,6 +81,44 @@ public class EstatuaRestaurada : MonoBehaviour
                 sr.transform.localScale = new Vector3(c.escala.x / transform.lossyScale.x, c.escala.y / transform.lossyScale.y, 1f);
                 plantas.Add(sr);
             }
+        CrearArregladas();
+    }
+
+    // version arreglada de cada pieza, invisible, encima de la rota: misma capa y orden, apoyada en el mismo
+    // piso (abajo y al centro de la rota), asi el cambio de dibujo no se corre
+    private void CrearArregladas()
+    {
+        if (piezas == null) return;
+        arregladas = new SpriteRenderer[piezas.Length];
+        for (int i = 0; i < piezas.Length; i++)
+        {
+            var rota = piezas[i].rota;
+            if (rota == null || rota.sprite == null || piezas[i].arreglada == null) continue;
+            var go = new GameObject(rota.name + " (arreglada)");
+            go.transform.SetParent(rota.transform, false);
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = piezas[i].arreglada;
+            sr.sharedMaterial = rota.sharedMaterial;
+            sr.sortingLayerID = rota.sortingLayerID;
+            sr.sortingOrder = rota.sortingOrder;
+            sr.flipX = rota.flipX;
+            Vector3 pieRota = new Vector3(rota.sprite.bounds.center.x, rota.sprite.bounds.min.y, 0f);
+            Vector3 pieArreglada = new Vector3(sr.sprite.bounds.center.x, sr.sprite.bounds.min.y, 0f);
+            go.transform.localPosition = pieRota - pieArreglada + new Vector3(0f, 0f, -0.001f);
+            SetAlfa(sr, 0f);
+            arregladas[i] = sr;
+        }
+    }
+
+    private void FundirPiezas(float k)
+    {
+        if (arregladas == null) return;
+        for (int i = 0; i < arregladas.Length; i++)
+        {
+            if (arregladas[i] == null) continue;
+            SetAlfa(piezas[i].rota, 1f - k);
+            SetAlfa(arregladas[i], k);
+        }
     }
 
     private SpriteRenderer CrearDibujo(string nombre, Sprite sprite, int orden, Material material)
@@ -96,6 +149,7 @@ public class EstatuaRestaurada : MonoBehaviour
             float k = Mathf.Clamp01((Time.time - inicio) / Mathf.Max(0.01f, duracion));
             SetAlfa(gris, 1f - k);
             foreach (var p in plantas) SetAlfa(p, 1f - k);
+            FundirPiezas(k);
             if (k >= 1f)
             {
                 if (gris != null) Destroy(gris.gameObject);

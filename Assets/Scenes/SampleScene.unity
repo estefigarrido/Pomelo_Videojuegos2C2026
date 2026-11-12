@@ -102821,6 +102821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b38d290e796af049acedd74e2884b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EstatuaRestaurada
+  piezas: []
   estatuaGris: {fileID: 21300000, guid: 2d7813f2d15a23547a9440aabe33bccb, type: 3}
   enredadera: {fileID: 7027358503581534251, guid: 89dac2b7b91981943bdcbdc0ca586308, type: 3}
   enredaderas:
@@ -133895,6 +133896,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b38d290e796af049acedd74e2884b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EstatuaRestaurada
+  piezas:
+  - rota: {fileID: 771532270}
+    arreglada: {fileID: -5650615816862603966, guid: 6cb3f34c9e7d2a84da991d01816ff15c, type: 3}
+  - rota: {fileID: 1812129377}
+    arreglada: {fileID: -5650615816862603966, guid: 6cb3f34c9e7d2a84da991d01816ff15c, type: 3}
   estatuaGris: {fileID: 6116276599452248931, guid: 0838664c90b9c274e89a19bcde244b7a, type: 3}
   enredadera: {fileID: 7027358503581534251, guid: 89dac2b7b91981943bdcbdc0ca586308, type: 3}
   enredaderas:

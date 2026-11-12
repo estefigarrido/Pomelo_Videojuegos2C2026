@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2d7813f2d15a23547a9440aabe33bccb
+guid: 0838664c90b9c274e89a19bcde244b7a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6529698122651249401
-    second: Estatua_Botanica 1_gris_0
+      213: 6116276599452248931
+    second: Estatua_botanica 2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,11 +46,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.48838335, y: 0.5005305}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Estatua_Botanica 1_gris_0
+      name: Estatua_botanica 2_0
       rect:
         serializedVersion: 2
-        x: 26
-        y: 13
-        width: 957
-        height: 1861
+        x: 16
+        y: 21
+        width: 537
+        height: 1458
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 70556dc372ad165a0800000000000000
-      internalID: -6529698122651249401
+      spriteID: 36ba26a692161e450800000000000000
+      internalID: 6116276599452248931
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Estatua_Botanica 1_gris_0: -6529698122651249401
+      Estatua_botanica 2_0: 6116276599452248931
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

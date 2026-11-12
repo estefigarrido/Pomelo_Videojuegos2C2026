@@ -2,6 +2,7 @@ using UnityEngine;
 
 // Va en el rombo del ojo de Umbrae: mira a la chica moviendose dentro del iris, de izquierda a derecha y de
 // arriba a abajo, sin salirse (se mueve dentro de una elipse) y con un poco de suavidad, como un ojo que sigue.
+// Al empezar la pelea mira al frente mientras se carga la barra de vida y durante el destello de la pupila.
 public class OjoSigueChica : MonoBehaviour
 {
     [Tooltip("Cuanto se puede correr el rombo para los costados (unidades).")]
@@ -13,6 +14,9 @@ public class OjoSigueChica : MonoBehaviour
     [Tooltip("Segundos que tarda en acomodarse la mirada.")]
     [SerializeField] private float suavidad = 0.18f;
 
+    [Tooltip("Mientras se carga la barra de vida de Umbrae y durante el destello de la pupila mira al frente; despues sigue a la chica.")]
+    [SerializeField] private InicioPeleaUmbrae inicioPelea;
+
     private Transform chica;
     private Vector3 inicio;
     private Vector2 velocidad;
@@ -21,6 +25,7 @@ public class OjoSigueChica : MonoBehaviour
     private void Start()
     {
         inicio = transform.localPosition;
+        if (inicioPelea == null) inicioPelea = FindFirstObjectByType<InicioPeleaUmbrae>();
         var salud = FindFirstObjectByType<SaludPersonaje>();
         if (salud != null) chica = salud.transform;
     }
@@ -34,6 +39,8 @@ public class OjoSigueChica : MonoBehaviour
         Vector2 dir = d.sqrMagnitude > 0.0001f ? d.normalized : Vector2.zero;
         float cuanto = Mathf.Clamp01(d.magnitude / distanciaCompleta);
         Vector2 objetivo = new Vector2(dir.x * maximoX, dir.y * maximoY) * cuanto;
+        // quieto en el centro hasta que termina el destello del comienzo de la pelea
+        if (inicioPelea != null && (inicioPelea.Armando || inicioPelea.Destellando)) objetivo = Vector2.zero;
         actual = Vector2.SmoothDamp(actual, objetivo, ref velocidad, suavidad);
         transform.localPosition = inicio + new Vector3(actual.x, actual.y, 0f);
     }

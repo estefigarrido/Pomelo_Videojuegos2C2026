@@ -17571,8 +17571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pinchos
-  danio: 40
-  intervalo: 2
+  danio: 25
+  intervalo: 1
   alturaRebotePx: 20
   pixelesPorUnidad: 100
 --- !u!61 &203543430
@@ -24448,6 +24448,8 @@ MonoBehaviour:
   xMaximo: 26.49
   velocidad: 2.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &300479985
 Animator:
   serializedVersion: 7
@@ -28516,6 +28518,10 @@ PrefabInstance:
       propertyPath: m_TextStyleHashCode
       value: -1183493901
       objectReference: {fileID: 0}
+    - target: {fileID: 2552264585203254635, guid: aa467acb35b5d35489595d90bbfb075d, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
     - target: {fileID: 2756566384137746298, guid: aa467acb35b5d35489595d90bbfb075d, type: 3}
       propertyPath: mostrarAlTerminarDeBorrarme.Array.size
       value: 1
@@ -29898,16 +29904,35 @@ MonoBehaviour:
   bordeBlob: 0.35
   destellosAlCompletar: 14
   porcentajePorSector: 10
-  multiplicadorPolen: 3.5
+  multiplicadorPolen: 2.1
+  segundosSinJuntar: 6
+  segundosDesvanecer: 1
+  ajustesPorZona:
+  - nombre: piso 1, colgantes y helechos (imagenes 1 y 2) -80 %
+    zona:
+      serializedVersion: 2
+      x: 144
+      y: -36
+      width: 27
+      height: 16
+    factor: 0.2
+  - nombre: piso 2, dientes de leon colgantes (imagen 3) -80 %
+    zona:
+      serializedVersion: 2
+      x: 104
+      y: -19
+      width: 22
+      height: 10
+    factor: 0.2
   ajustesPorPiso:
-  - nombre: nivel 2 (antes 0,8; -60 %)
+  - nombre: nivel 2 (-40 % mas)
     yMin: -21.8
     yMax: 3.1
-    factor: 0.32
-  - nombre: nivel 3 (-60 %)
+    factor: 0.3571429
+  - nombre: nivel 3 (con el polen del piso de arriba)
     yMin: 3.1
-    yMax: 27.97
-    factor: 0.4
+    yMax: 36.7
+    factor: 0.59523815
   radioAbsorcion: 5
   valorPolen: 0.5
   pasadasHastaVaciarse: 5
@@ -37447,6 +37472,8 @@ MonoBehaviour:
   xMaximo: 109.090004
   velocidad: 2.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &495036885
 Animator:
   serializedVersion: 7
@@ -38550,6 +38577,8 @@ MonoBehaviour:
   xMaximo: 90.520004
   velocidad: 2.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 833665365}
+  xMinimoEnPelea: 84
 --- !u!95 &513564655
 Animator:
   serializedVersion: 7
@@ -76865,6 +76894,7 @@ MonoBehaviour:
   maximoY: 0.4
   distanciaCompleta: 14
   suavidad: 0.18
+  inicioPelea: {fileID: 1558292923}
 --- !u!1 &1098546502
 GameObject:
   m_ObjectHideFlags: 0
@@ -80797,6 +80827,7 @@ MonoBehaviour:
   vida: {fileID: 646305526}
   umbrae: {fileID: 646305525}
   camara: {fileID: 749191963}
+  inicioPelea: {fileID: 0}
   pista: {fileID: 988184600}
   gema: {fileID: 195557919}
   ornamentos:
@@ -101206,8 +101237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pinchos
-  danio: 40
-  intervalo: 2
+  danio: 25
+  intervalo: 1
   alturaRebotePx: 20
   pixelesPorUnidad: 100
 --- !u!61 &1498469074
@@ -103100,6 +103131,8 @@ MonoBehaviour:
   xMaximo: 123.7
   velocidad: 1.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &1522489949
 Animator:
   serializedVersion: 7
@@ -105968,8 +106001,10 @@ MonoBehaviour:
   piso: 38.59
   alturaArriba: 68.5
   pausaEntrePartes: 2
-  temblorAnimacion: 0.8
-  temblorPausa: 0.3
+  esperaTemblor: 2
+  temblorFuerte: 0.8
+  segundosTemblorFuerte: 2
+  reduccionTemblorLeve: 0.7
   segundosColumnas: 1.5
   segundosFuego: 0.45
   retrasoHalo: 0.5
@@ -106006,6 +106041,14 @@ MonoBehaviour:
   segundosSaturar: 1.5
   romboOjo: {fileID: 1095270982}
   segundosOjo: 0.5
+  ojoColor:
+  - {fileID: 1230578301}
+  - {fileID: 1095270983}
+  - {fileID: 782519996}
+  saturacionOjoGris: 0.08
+  materialDestello: {fileID: 2100000, guid: 161c680b2f16bc843804fb85dd8bbd04, type: 2}
+  segundosDestello: 1
+  colorDestello: {r: 0.92, g: 0.85, b: 1, a: 1}
   pausaFinal: 0.3
   segundosGuardar: 0.8
   verEnElEditor: 1
@@ -124119,8 +124162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pinchos
-  danio: 40
-  intervalo: 2
+  danio: 25
+  intervalo: 1
   alturaRebotePx: 20
   pixelesPorUnidad: 100
 --- !u!61 &1849692379
@@ -129516,6 +129559,8 @@ MonoBehaviour:
   xMaximo: 155.92
   velocidad: 1.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &1898961558
 Animator:
   serializedVersion: 7
@@ -131984,8 +132029,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c9bb0d382f6cc0447908967cb1bfaf01, type: 3}
   duracionGiroSalida: 0.6
   duracionFundidoPerfil: 0.4
+  sonidoPuerta: {fileID: 8300000, guid: ee1e4ba20406b9c4b95f7eb2f19b5016, type: 3}
+  volumenPuerta: 0.6
   esperaInicial: 2.142857
-  duracionSubidaPuerta: 1.0714285
+  duracionSubidaPuerta: 1.75
   esperaDespuesDeAbrir: 0.5714286
   tamanoEncuadreIntro: 8.7
   centroEncuadreIntro: {x: -25.86, y: -26.19}

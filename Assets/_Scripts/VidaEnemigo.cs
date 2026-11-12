@@ -34,6 +34,8 @@ public class VidaEnemigo : MonoBehaviour
     public float Vida => vida;
     public float VidaMaxima => vidaMaxima;
     public bool Vivo => vida > 0f;
+    // mientras es verdadero los golpes no le hacen nada (Umbrae mientras se carga su barra de vida)
+    public bool Invulnerable { get; set; }
 
     // Recupera vida sin pasarse de la maxima (por ejemplo, Umbrae mientras se eleva en el ataque de rayos).
     public void Curar(float cantidad)
@@ -64,7 +66,7 @@ public class VidaEnemigo : MonoBehaviour
 
     public void RecibirDanio(float cantidad)
     {
-        if (!Vivo) return;
+        if (!Vivo || Invulnerable) return;
 
         vida = Mathf.Max(0f, vida - cantidad);
         Debug.Log("[Enemigo] " + name + " -" + cantidad + " -> " + vida + "/" + vidaMaxima);

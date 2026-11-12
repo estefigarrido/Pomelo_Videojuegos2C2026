@@ -94,8 +94,9 @@ public class AtaqueComelibros : MonoBehaviour
                 else
                 {
                     Vector3 p = transform.position;
-                    p.x = Mathf.MoveTowards(p.x, hitboxVictima.bounds.center.x, velocidadAtaque * Time.deltaTime);
-                    p.x = Mathf.Clamp(p.x, patrulla.XMinimo, patrulla.XMaximo);
+                    // va hacia la chica sin salirse de su recorrido (si quedo afuera, vuelve caminando)
+                    float hasta = Mathf.Clamp(hitboxVictima.bounds.center.x, patrulla.XMinimo, patrulla.XMaximo);
+                    p.x = Mathf.MoveTowards(p.x, hasta, velocidadAtaque * Time.deltaTime);
                     transform.position = p;
                 }
                 break;

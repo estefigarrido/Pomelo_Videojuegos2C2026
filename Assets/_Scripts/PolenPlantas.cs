@@ -6,7 +6,8 @@ using UnityEngine;
 // proporcion a su tamano. Las botellitas (carpeta "botellitas") tambien guardan polen.
 // - Cuando la chica pasa por una planta o botellita (caminando, saltando o cayendo) suelta polen de a
 //   poco. El polen es grande (+20 %), tiene glow amarillo y lo acompanan destellos amarillos del Figma.
-//   Sube, flota un momento 5 px arriba de la planta y siempre vuela solo a la barra del templo (BarraTemplo).
+//   Sube y flota 5 px arriba de la planta. Vuela a la barra del templo (BarraTemplo) cuando la chica lo junta
+//   (pasa cerca o lo toca); si nadie lo junta en 6 s se desvanece y se pierde.
 //   Si la barra esta llena (100 %) no vuela: sigue flotando hasta que se libere lugar (al restaurar).
 // - La planta recupera el color a medida que suelta su polen: un blob de borde suave e irregular (la
 //   traduccion del blurblob del Figma) crece desde donde la toco la chica. Recien cuando ya no le queda
@@ -41,7 +42,14 @@ public class PolenPlantas : MonoBehaviour
     [Tooltip("Polen que vale un sector del templo (la barra gasta esto por sector).")]
     [SerializeField] private float porcentajePorSector = 10f;
     [Tooltip("Cuanto polen sueltan las plantas respecto de lo justo para sus sectores (3.5 = 250 % mas).")]
-    [SerializeField] private float multiplicadorPolen = 3.5f;
+    [SerializeField] private float multiplicadorPolen = 2.1f;
+    [Tooltip("Segundos que el polen espera a que la chica lo junte; despues se desvanece y se pierde.")]
+    [SerializeField] private float segundosSinJuntar = 6f;
+    [SerializeField] private float segundosDesvanecer = 1f;
+    [System.Serializable]
+    public struct AjusteZona { public string nombre; [Tooltip("Rectangulo en el mundo (x, y, ancho, alto).")] public Rect zona; [Tooltip("0.2 = 80 % menos")] public float factor; }
+    [Tooltip("Ajustes para plantas de una zona puntual (se suman a los del piso).")]
+    [SerializeField] private AjusteZona[] ajustesPorZona;
     [System.Serializable]
     public struct AjustePiso { public string nombre; public float yMin, yMax; [Tooltip("1 = igual, 0.8 = 20 % menos")] public float factor; }
     [Tooltip("Mas o menos polen en un piso (las plantas cuyo centro esta entre yMin e yMax).")]
@@ -214,6 +222,7 @@ public class PolenPlantas : MonoBehaviour
                 f.porcentaje = area > 0f ? total * Tamano(f) / area : 0f;
                 float yc = f.Limites.center.y;
                 if (ajustesPorPiso != null) foreach (var aj in ajustesPorPiso) if (yc >= aj.yMin && yc <= aj.yMax) f.porcentaje *= aj.factor;
+                if (ajustesPorZona != null) foreach (var az in ajustesPorZona) if (az.zona.Contains(f.Limites.center)) f.porcentaje *= az.factor;
                 f.total = Mathf.Max(1, Mathf.RoundToInt(f.porcentaje / Mathf.Max(0.05f, valorPolen)));
             }
         }
@@ -490,16 +499,22 @@ public class PolenPlantas : MonoBehaviour
                     float bx = p.xFlotar + Mathf.Sin(p.vida * 0.9f + p.fase) * 0.12f;
                     float by = p.yFlotar + Mathf.Sin(p.vida * 1.3f + p.fase * 1.7f) * 0.04f;
                     p.pos = Vector2.Lerp(p.pos, new Vector2(bx, by), 1f - Mathf.Exp(-3f * dt));
-                    // siempre se va a la barra despues de flotar un momento
-                    // (o antes, si la chica lo toca)
+                    // solo se va a la barra si la chica lo junta (lo toca o pasa a menos de radioAbsorcion)
                     bool toca = cuerpoChica != null && cuerpoChica.bounds.Contains(new Vector3(p.pos.x, p.pos.y, cuerpoChica.bounds.center.z));
-                    if (!p.soloDestello && (p.vida >= p.flotarHasta || toca)) Volar(p);
+                    if (!p.soloDestello && toca) Volar(p);
                 }
                 if (p.soloDestello)
                 {
                     float fin = Mathf.Clamp01((p.vidaMax - p.vida) / 0.8f);
                     alfa = fin * (0.6f + 0.4f * Mathf.Sin(p.vida * 3.1f + p.fase));
                     if (p.vida >= p.vidaMax) { Apagar(p, i); continue; }
+                }
+                else if (p.estado != Estado.Volando && p.vida >= segundosSinJuntar)
+                {
+                    // nadie lo junto: se desvanece y se pierde
+                    float queda = 1f - (p.vida - segundosSinJuntar) / Mathf.Max(0.01f, segundosDesvanecer);
+                    if (queda <= 0f) { Apagar(p, i); continue; }
+                    alfa *= queda;
                 }
                 s = Mathf.Lerp(0.6f, 1f, aparecer);
             }

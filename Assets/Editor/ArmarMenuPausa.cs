@@ -15,7 +15,7 @@ using UnityEngine.UI;
 //     como aceptar (mouse / X, cambian cada 2.5 s). Texto + icono quedan centrados en el boton, con el
 //     mismo espacio entre los dos que en el Figma de CONTINUAR (lo calcula MenuPausa para cada boton).
 //   - a la derecha del panel, a la altura de SALIR DEL JUEGO: DESPLAZARSE [rueda] o [stick R] (iconos de 40 px)
-//   - sonido al cambiar de boton: Assets/_MUSICA/Pausa_cambio_boton.wav
+//   - sonido al cambiar de boton: Assets/_Sonidos/Pausa_cambio_boton.wav
 //   - jugando, abajo a la derecha: aviso "PAUSA [Esc] o [Options]" en una placa redondeada con borde oliva
 //     (distinta de los carteles), que aparece al salir la chica del portal y se va la primera vez que se
 //     pausa (o sola, a los 10 s)
@@ -34,7 +34,7 @@ public static class ArmarMenuPausa
     private const string RutaTtfBold = "Assets/_Fuentes/Alegreya/Alegreya-Bold.ttf";
     private const string RutaFuenteBold = "Assets/_Fuentes/Alegreya/Alegreya Bold SDF.asset";
     private const string RutaRenderer = "Assets/Settings/Renderer2D.asset";
-    private const string RutaSonidoCambio = "Assets/_MUSICA/Pausa_cambio_boton.wav";
+    private const string RutaSonidoCambio = "Assets/_Sonidos/Pausa_cambio_boton.wav";
 
     // centro de cada boton, medido desde arriba de la pantalla de 1920 x 1080 (Figma)
     private static readonly float[] AlturaBotones = { 316f, 463f, 610f, 756f };

@@ -32,6 +32,13 @@ public class InicioNivel : MonoBehaviour
              "cuando empieza el juego. 0 = cambio de golpe.")]
     [SerializeField] private float duracionFundidoPerfil = 0.4f;
 
+    [Header("Sonido")]
+    [Tooltip("Puerta de piedra que se levanta (Assets/_Sonidos/Puerta_piedra_subiendo.wav). El arrastre dura " +
+             "1.75 s, lo mismo que la subida de la puerta (lo ajusta Pomelo -> Sonidos -> Conectar sonidos).")]
+    [SerializeField] private AudioClip sonidoPuerta;
+    [Range(0f, 1f)]
+    [SerializeField] private float volumenPuerta = 0.6f;
+
     [Header("Tiempos")]
     [Tooltip("Segundos hasta que la puerta empieza a subir. Antes 5 s.")]
     [SerializeField] private float esperaInicial = 3f;
@@ -126,7 +133,8 @@ public class InicioNivel : MonoBehaviour
 
         yield return new WaitForSeconds(esperaInicial);
 
-        // la puerta sube y desaparece
+        // la puerta sube y desaparece (con el sonido de piedra, que arranca justo cuando empieza a subir)
+        Sonido.Reproducir(sonidoPuerta, volumenPuerta);
         Vector3 cerrada = puerta.transform.position;
         Vector3 abierta = cerrada + Vector3.up * puerta.bounds.size.y * 1.05f;
         for (float t = 0f; t < duracionSubidaPuerta; t += Time.deltaTime)

@@ -156,6 +156,16 @@ public class UmbraeBoss : MonoBehaviour
     [Tooltip("Vida que le saca a la chica (una vez por ataque).")]
     [SerializeField] private float danioRayo = 40f;
     [SerializeField] private int ordenRayos = 5;
+
+    [Header("Rayos: resplandor")]
+    [Tooltip("Material con el shader 'Pomelo/Sprite Sombra Exterior' (GlowRayosUmbrae.mat). Vacio = sin resplandor.")]
+    [SerializeField] private Material materialGlowRayo;
+    [SerializeField] private Color colorGlowRayo = new Color(0.62f, 0.36f, 1f, 1f);
+    [Range(0f, 1f)] [SerializeField] private float opacidadGlowRayo = 0.75f;
+    [Tooltip("Cuanto se esparce el resplandor (texeles del PNG del rayo).")]
+    [SerializeField] private float desenfoqueGlowRayo = 140f;
+    [Tooltip("Pixeles por unidad de los PNG del rayo.")]
+    [SerializeField] private float ppuRayo = 260f;
     [SerializeField] private VarianteRayos[] variantesRayos =
     {
         new VarianteRayos { nombre = "A (la del Figma)", posiciones = new[] { 0.13f, 0.37f, 0.66f, 0.91f } },
@@ -607,6 +617,10 @@ public class UmbraeBoss : MonoBehaviour
     {
         var rayos = new List<SpriteRenderer>();
         foreach (float x in xs) rayos.Add(CrearDibujo("rayo umbrae", new Vector3(x, Piso, 0f), framesRayo[0], ordenRayos));
+        // resplandor violeta detras de cada rayo (sigue su cuadro)
+        var glows = new List<SpriteRenderer>();
+        if (materialGlowRayo != null)
+            foreach (var r in rayos) glows.Add(CrearGlowRayo(r));
         var colChica = victima != null ? victima.GetComponent<Collider2D>() : null;
         bool lastimo = false, impacto = false;
         int ultimo = -1;
@@ -621,6 +635,7 @@ public class UmbraeBoss : MonoBehaviour
             {
                 ultimo = i;
                 foreach (var r in rayos) if (r != null) r.sprite = framesRayo[i];
+                foreach (var g in glows) if (g != null) g.sprite = framesRayo[i];
             }
             int frame = i + 1;
             if (!impacto && frame >= frameImpacto)
@@ -647,6 +662,40 @@ public class UmbraeBoss : MonoBehaviour
             yield return null;
         }
         foreach (var r in rayos) if (r != null) { temporales.Remove(r.gameObject); Destroy(r.gameObject); }
+    }
+
+    private static readonly int IdSombraA = Shader.PropertyToID("_SombraA");
+    private static readonly int IdSombraAOpacidad = Shader.PropertyToID("_SombraAOpacidad");
+    private static readonly int IdSombraABlur = Shader.PropertyToID("_SombraABlur");
+    private static readonly int IdSombraAOffsetY = Shader.PropertyToID("_SombraAOffsetY");
+    private static readonly int IdSombraBOpacidad = Shader.PropertyToID("_SombraBOpacidad");
+    private static readonly int IdPPU = Shader.PropertyToID("_PPU");
+    private static readonly int IdMargen = Shader.PropertyToID("_Margen");
+    private static readonly int IdEscalaFigma = Shader.PropertyToID("_EscalaFigma");
+    private static readonly int IdAlfa = Shader.PropertyToID("_Alfa");
+
+    // copia del rayo, detras de el, con el shader de sombra exterior en violeta: queda como un resplandor
+    private SpriteRenderer CrearGlowRayo(SpriteRenderer rayo)
+    {
+        var go = new GameObject("resplandor rayo");
+        go.transform.SetParent(rayo.transform, false);
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = rayo.sprite;
+        sr.sharedMaterial = materialGlowRayo;
+        sr.sortingLayerID = rayo.sortingLayerID;
+        sr.sortingOrder = rayo.sortingOrder - 1;
+        var mpb = new MaterialPropertyBlock();
+        mpb.SetColor(IdSombraA, new Color(colorGlowRayo.r, colorGlowRayo.g, colorGlowRayo.b, 1f));
+        mpb.SetFloat(IdSombraAOpacidad, opacidadGlowRayo * colorGlowRayo.a);
+        mpb.SetFloat(IdSombraABlur, desenfoqueGlowRayo);
+        mpb.SetFloat(IdSombraAOffsetY, 0f);
+        mpb.SetFloat(IdSombraBOpacidad, 0f);
+        mpb.SetFloat(IdPPU, ppuRayo);
+        mpb.SetFloat(IdMargen, desenfoqueGlowRayo * 1.2f);
+        mpb.SetFloat(IdEscalaFigma, 1f);
+        mpb.SetFloat(IdAlfa, 1f);
+        sr.SetPropertyBlock(mpb);
+        return sr;
     }
 
     // copia de Umbrae en violeta que se desvanece: la estela mientras abre los brazos

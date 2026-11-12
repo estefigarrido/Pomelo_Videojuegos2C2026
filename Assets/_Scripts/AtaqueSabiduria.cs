@@ -54,6 +54,8 @@ public class AtaqueSabiduria : MonoBehaviour
     [Tooltip("Unidades por segundo que gana de velocidad por cada segundo.")]
     [SerializeField] private float aceleracion = 90f;
     [SerializeField] private float alcance = 14f;
+    [Tooltip("Alcance durante la pelea con Umbrae (la arena es mas grande y la camara esta mas lejos).")]
+    [SerializeField] private float alcancePeleaUmbrae = 30f;
     [Tooltip("Vida que saca a un enemigo (la vida maxima de los mobs es 100).")]
     [SerializeField] private float danio = 25f;
     [Tooltip("Grados por segundo que gira cuando va a velocidad maxima.")]
@@ -234,15 +236,27 @@ public class AtaqueSabiduria : MonoBehaviour
         }
 
         Vector2 direccion = Apuntar(origen, sentido);
-        raiz.AddComponent<ProyectilSabiduria>().Iniciar(direccion, velocidadInicial, velocidadMaxima, aceleracion, alcance, danio,
+        raiz.AddComponent<ProyectilSabiduria>().Iniciar(direccion, velocidadInicial, velocidadMaxima, aceleracion, AlcanceActual, danio,
             giroMaximo, radio, colliderPropio, srBola.transform, srEstela, flores, distanciaEntreFlores);
+    }
+
+    // en la pelea con Umbrae la bola llega mas lejos
+    private ZonaCamaraFija zonaUmbrae;
+    private bool buscoZona;
+    private float AlcanceActual
+    {
+        get
+        {
+            if (!buscoZona) { zonaUmbrae = FindFirstObjectByType<ZonaCamaraFija>(); buscoZona = true; }
+            return zonaUmbrae != null && zonaUmbrae.PeleaEnCurso ? Mathf.Max(alcance, alcancePeleaUmbrae) : alcance;
+        }
     }
 
     // busca el enemigo vivo mas cercano que este adelante y dentro del angulo de punteria
     private Vector2 Apuntar(Vector3 origen, float sentido)
     {
         Vector2 mejor = new Vector2(sentido, 0f);
-        float mejorDistancia = alcance;
+        float mejorDistancia = AlcanceActual;
         foreach (var enemigo in FindObjectsByType<VidaEnemigo>(FindObjectsSortMode.None))
         {
             if (!enemigo.Vivo) continue;

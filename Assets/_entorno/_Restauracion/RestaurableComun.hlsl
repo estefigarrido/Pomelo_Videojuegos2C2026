@@ -14,12 +14,32 @@ TEXTURE2D(_MascaraSectores); SAMPLER(sampler_MascaraSectores);
             return 1.0 - smoothstep(r - blob.w, r + blob.w, length(d));
         }
 
+        // radio (unidades del mundo) en el que se difumina el borde entre lo arreglado y lo roto
+        #define RADIO_BLUR_SECTORES 2.0
+
+        float2 MuestraSector(float2 mundo)
+        {
+            float2 uv = (mundo - _RectSectores.xy) * _RectSectores.zw;
+            if (any(uv < 0.0) || any(uv > 1.0)) return float2(0.0, 0.0);
+            return SAMPLE_TEXTURE2D_LOD(_MascaraSectores, sampler_MascaraSectores, uv, 0).rg;
+        }
+
         float2 Sector(float2 mundo)
         {
             if (_RectSectores.z <= 0.0) return float2(0.0, 0.0);   // sin RestauracionTemplo en la escena: todo roto
-            float2 uv = (mundo - _RectSectores.xy) * _RectSectores.zw;
-            if (any(uv < 0.0) || any(uv > 1.0)) return float2(0.0, 0.0);
-            return SAMPLE_TEXTURE2D(_MascaraSectores, sampler_MascaraSectores, uv).rg;
+            // R (arreglado) promediado en dos anillos alrededor del punto: el borde queda como un degradé ancho.
+            // G (la estela que avanza) se usa sin difuminar.
+            float2 centro = MuestraSector(mundo);
+            float suma = centro.x * 2.0, peso = 2.0;
+            [unroll] for (int i = 0; i < 8; i++)
+            {
+                float a = i * 0.785398;
+                float2 d = float2(cos(a), sin(a));
+                suma += MuestraSector(mundo + d * RADIO_BLUR_SECTORES * 0.5).x * 1.5;
+                suma += MuestraSector(mundo + d * RADIO_BLUR_SECTORES).x;
+                peso += 2.5;
+            }
+            return float2(suma / peso, centro.y);
         }
 
         // tinte (lo usa el mapa roto: violeta desaturado). Conserva la luminosidad: solo cambia el tono.

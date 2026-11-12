@@ -17571,8 +17571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pinchos
-  danio: 40
-  intervalo: 2
+  danio: 25
+  intervalo: 1
   alturaRebotePx: 20
   pixelesPorUnidad: 100
 --- !u!61 &203543430
@@ -29898,16 +29898,35 @@ MonoBehaviour:
   bordeBlob: 0.35
   destellosAlCompletar: 14
   porcentajePorSector: 10
-  multiplicadorPolen: 3.5
+  multiplicadorPolen: 2.1
+  segundosSinJuntar: 6
+  segundosDesvanecer: 1
+  ajustesPorZona:
+  - nombre: piso 1, colgantes y helechos (imagenes 1 y 2) -80 %
+    zona:
+      serializedVersion: 2
+      x: 144
+      y: -36
+      width: 27
+      height: 16
+    factor: 0.2
+  - nombre: piso 2, dientes de leon colgantes (imagen 3) -80 %
+    zona:
+      serializedVersion: 2
+      x: 104
+      y: -19
+      width: 22
+      height: 10
+    factor: 0.2
   ajustesPorPiso:
-  - nombre: nivel 2 (antes 0,8; -60 %)
+  - nombre: nivel 2 (-40 % mas)
     yMin: -21.8
     yMax: 3.1
-    factor: 0.32
-  - nombre: nivel 3 (-60 %)
+    factor: 0.3571429
+  - nombre: nivel 3 (con el polen del piso de arriba)
     yMin: 3.1
-    yMax: 27.97
-    factor: 0.4
+    yMax: 36.7
+    factor: 0.59523815
   radioAbsorcion: 5
   valorPolen: 0.5
   pasadasHastaVaciarse: 5
@@ -101205,8 +101224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pinchos
-  danio: 40
-  intervalo: 2
+  danio: 25
+  intervalo: 1
   alturaRebotePx: 20
   pixelesPorUnidad: 100
 --- !u!61 &1498469074
@@ -124118,8 +124137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d82ecd06aef041a245e2af8f5aff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pinchos
-  danio: 40
-  intervalo: 2
+  danio: 25
+  intervalo: 1
   alturaRebotePx: 20
   pixelesPorUnidad: 100
 --- !u!61 &1849692379

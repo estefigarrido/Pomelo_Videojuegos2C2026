@@ -76888,6 +76888,7 @@ MonoBehaviour:
   maximoY: 0.4
   distanciaCompleta: 14
   suavidad: 0.18
+  inicioPelea: {fileID: 1558292923}
 --- !u!1 &1098546502
 GameObject:
   m_ObjectHideFlags: 0
@@ -80819,6 +80820,7 @@ MonoBehaviour:
   vida: {fileID: 646305526}
   umbrae: {fileID: 646305525}
   camara: {fileID: 749191963}
+  inicioPelea: {fileID: 0}
   pista: {fileID: 988184600}
   gema: {fileID: 195557919}
   ornamentos:
@@ -106030,6 +106032,14 @@ MonoBehaviour:
   segundosSaturar: 1.5
   romboOjo: {fileID: 1095270982}
   segundosOjo: 0.5
+  ojoColor:
+  - {fileID: 1230578301}
+  - {fileID: 1095270983}
+  - {fileID: 782519996}
+  saturacionOjoGris: 0.08
+  materialDestello: {fileID: 2100000, guid: 161c680b2f16bc843804fb85dd8bbd04, type: 2}
+  segundosDestello: 1
+  colorDestello: {r: 0.92, g: 0.85, b: 1, a: 1}
   pausaFinal: 0.3
   segundosGuardar: 0.8
   verEnElEditor: 1

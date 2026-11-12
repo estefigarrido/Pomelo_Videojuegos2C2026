@@ -42,6 +42,28 @@ public class MovimientoPersonaje : MonoBehaviour
     [Tooltip("Segundos que tarda el aterrizaje (frames 023-027) al tocar el piso.")]
     [SerializeField] private float duracionAterrizaje = 0.1f;
 
+    [Header("Sonidos del salto")]
+    [Tooltip("Al despegar (Salto_despegue_*): la punta de las zapatillas empuja contra la piedra. Suena en el " +
+             "mismo instante en que arranca la agachada del salto.")]
+    [SerializeField] private AudioClip[] sonidosDespegue;
+    [Tooltip("Al tocar el piso (Salto_caida_*): los dos pies contra la piedra. Suena en el instante del aterrizaje " +
+             "(tambien al caer de un borde).")]
+    [SerializeField] private AudioClip[] sonidosCaida;
+    [Tooltip("Al caer sobre una hoja de loto (Salto_caida_hoja_*): hoja blanda y humeda, con un chapoteo chiquito " +
+             "del agua de abajo. Reemplaza a la caida de piedra solo en las hojas.")]
+    [SerializeField] private AudioClip[] sonidosCaidaHoja;
+    [Tooltip("Al caer sobre una plataforma de piedra flotante (Salto_caida_plataforma_*): roca maciza que resuena " +
+             "un poquito y suelta unas piedritas. Las plataformas llevan el componente PisoPlataformaPiedra.")]
+    [SerializeField] private AudioClip[] sonidosCaidaPlataforma;
+    private Collider2D ultimoPiso;
+    // sobre que esta parada ahora (null si esta en el aire): lo usan los pasos para sonar a hoja o a piedra
+    public Collider2D PisoActual => enPiso ? ultimoPiso : null;
+    public bool SobreHoja => PisoActual != null && PisoActual.GetComponentInParent<HojaLotoQueSeHunde>() != null;
+    [Range(0f, 1f)] [SerializeField] private float volumenDespegue = 0.45f;
+    [Range(0f, 1f)] [SerializeField] private float volumenCaida = 0.6f;
+    [Tooltip("Desde que altura de caida (en unidades) la caida suena a todo volumen; de mas bajo, suena mas suave.")]
+    [SerializeField] private float caidaFuerte = 2.5f;
+
     [Header("Dash  (F)")]
     [Tooltip("Distancia del dash, en pixeles (100 px = 1 unidad).")]
     [SerializeField] private float distanciaDashPx = 600f;
@@ -454,10 +476,33 @@ public class MovimientoPersonaje : MonoBehaviour
         {
             progresoSubida = 0f;
             alturaInicioSubida = 0f;
+            SonarAlAzar(sonidosDespegue, volumenDespegue);
+        }
+        // toca el piso: cuanto mas alto cayo, mas fuerte suena (una caidita de un escalon suena suave)
+        if (nueva == FaseSalto.Aterrizaje && (anterior == FaseSalto.Caida || anterior == FaseSalto.Subida))
+        {
+            float caida = Mathf.Max(0f, alturaPunta - altura);
+            bool enHoja = ultimoPiso != null && ultimoPiso.GetComponentInParent<HojaLotoQueSeHunde>() != null
+                          && sonidosCaidaHoja != null && sonidosCaidaHoja.Length > 0;
+            bool enPlataforma = !enHoja && PisoPlataformaPiedra.Es(ultimoPiso)
+                                && sonidosCaidaPlataforma != null && sonidosCaidaPlataforma.Length > 0;
+            SonarAlAzar(enHoja ? sonidosCaidaHoja : enPlataforma ? sonidosCaidaPlataforma : sonidosCaida, volumenCaida * Mathf.Lerp(0.55f, 1f, Mathf.Clamp01(caida / Mathf.Max(0.01f, caidaFuerte))));
         }
         // durante la agachada ya subio un poco: la subida se cuenta desde ahi, asi se ve el 007
         if (nueva == FaseSalto.Subida && anterior == FaseSalto.Despegue) alturaInicioSubida = altura;
         if (nueva == FaseSalto.Caida) alturaPunta = altura;
+    }
+
+    private int ultimoSonidoSalto = -1;
+
+    // una de las variantes al azar (sin repetir la ultima), con el tono apenas distinto
+    private void SonarAlAzar(AudioClip[] clips, float volumen)
+    {
+        if (clips == null || clips.Length == 0) return;
+        int i = Random.Range(0, clips.Length);
+        if (clips.Length > 1 && i == ultimoSonidoSalto) i = (i + 1) % clips.Length;
+        ultimoSonidoSalto = i;
+        Sonido.Reproducir(clips[i], volumen, 1f + Random.Range(-0.03f, 0.03f));
     }
 
     // La animacion del salto no corre sola: el frame sale de la altura real.
@@ -562,6 +607,7 @@ public class MovimientoPersonaje : MonoBehaviour
             if (normal.y >= limite)
             {
                 pisoDetectado = true;
+                ultimoPiso = choque.collider;   // para saber sobre que cayo (piedra u hoja de loto)
                 return;
             }
             // el costado de un pincho: la normal apunta hacia la chica, asi que el pincho esta del otro lado

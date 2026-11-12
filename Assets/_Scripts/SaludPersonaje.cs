@@ -23,6 +23,11 @@ public class SaludPersonaje : MonoBehaviour
     [Header("Parpadeo al recibir un golpe")]
     [SerializeField] private ParpadeoDanio parpadeo = new ParpadeoDanio();
 
+    [Header("Vibracion del joystick al recibir un golpe")]
+    [Range(0f, 1f)] [SerializeField] private float vibracionGrave = 0.45f;
+    [Range(0f, 1f)] [SerializeField] private float vibracionAguda = 0.25f;
+    [SerializeField] private float duracionVibracion = 0.18f;
+
     private float vida;
     private float sabiduria;
     private Vector3 puntoGuardado;
@@ -80,12 +85,21 @@ public class SaludPersonaje : MonoBehaviour
         Debug.Log("[Vida] +" + regeneracion + " (gasta " + costoRegeneracion + " de sabiduria) -> " + vida + "/" + vidaMaxima);
     }
 
-    public void RecibirDanio(float cantidad)
+    // vibrar: los golpes de los mobs hacen vibrar el joystick; los pinchos pasan false
+    public void RecibirDanio(float cantidad, bool vibrar = true)
     {
         if (vida <= 0f) return;
 
         vida = Mathf.Max(0f, vida - cantidad);
         Debug.Log("[Vida] -" + cantidad + " -> " + vida + "/" + vidaMaxima);
+
+        // el joystick vibra un poco, como en los juegos: un golpe seco (motor grave) con algo de zumbido,
+        // mas fuerte si con ese golpe se muere
+        if (vibrar)
+        {
+            if (vida <= 0f) Mando.Vibrar(0.8f, 0.6f, 0.45f);
+            else Mando.Vibrar(vibracionGrave, vibracionAguda, duracionVibracion);
+        }
 
         // solo cambia el color: no frena el movimiento ni los ataques
         parpadeo.Empezar();

@@ -60,7 +60,7 @@ public class Pinchos : MonoBehaviour
     private void Golpear()
     {
         if (Time.time < proximoGolpeGlobal) return;
-        victima.RecibirDanio(danio);
+        victima.RecibirDanio(danio, false);   // los pinchos no son un mob: no vibra el joystick
         proximoGolpe = Time.time + intervalo;
         proximoGolpeGlobal = Time.time + intervalo;
     }

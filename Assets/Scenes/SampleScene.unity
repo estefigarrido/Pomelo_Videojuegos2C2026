@@ -1206,7 +1206,7 @@ MonoBehaviour:
   cabezaEnElPiso: {x: 1.6, y: -1.4}
   giroCabezaCaida: -24
   temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
-  temaDesdeSegundo: 40
+  temaDesdeSegundo: 42
   volumenTema: 1.2
 --- !u!114 &18765321
 MonoBehaviour:
@@ -17097,7 +17097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &195557919
 SpriteRenderer:
   serializedVersion: 2
@@ -18322,9 +18322,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FinalNivel
   portal: {fileID: 412795911}
-  portalGris: {fileID: 21300000, guid: 2461fa2cb28586142bf05afdf9d44916, type: 3}
+  portalGris: {fileID: 7826781516696011370, guid: 4fb77600f3ce40d9bba9e71ad273d54d, type: 3}
   puerta: {fileID: 841153302}
-  puertaGris: {fileID: 21300000, guid: e44ebedfbae1f4f4993ddc8f598a56d9, type: 3}
+  puertaGris: {fileID: -7447889886859674188, guid: 8ed9427a84cd4a30a0d4d8c648e0889c, type: 3}
   enredadera: {fileID: 7027358503581534251, guid: 89dac2b7b91981943bdcbdc0ca586308, type: 3}
   enredaderas:
   - posicion: {x: -113.99537, y: 56.517227}
@@ -24904,6 +24904,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1801042914}
+  - {fileID: 737616356}
   - {fileID: 181415829}
   - {fileID: 975445967}
   m_Father: {fileID: 55533161}
@@ -43673,6 +43674,13 @@ MonoBehaviour:
   pixelesPorUnidad: 100
   duracionDespegue: 0.05
   duracionAterrizaje: 0.05
+  sonidosDespegue: []
+  sonidosCaida: []
+  sonidosCaidaHoja: []
+  sonidosCaidaPlataforma: []
+  volumenDespegue: 0.45
+  volumenCaida: 0.6
+  caidaFuerte: 2.5
   distanciaDashPx: 1400
   duracionDash: 1
   aceleracionDash: 0.5
@@ -43729,6 +43737,9 @@ MonoBehaviour:
     color: {r: 1, g: 0.15, b: 0.15, a: 1}
     veces: 3
     duracion: 0.36
+  vibracionGrave: 0.45
+  vibracionAguda: 0.25
+  duracionVibracion: 0.18
 --- !u!114 &582101489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44224,6 +44235,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 83a68c2f3fa3f824a881c611d4fea0b8, type: 3}
   volumen: 0.5
   variacionTono: 0.04
+  volumenCorriendo: 0.65
+  tonoCorriendo: 1.06
+  pasosHoja: []
 --- !u!1 &583196019
 GameObject:
   m_ObjectHideFlags: 0
@@ -52862,6 +52876,97 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.52, y: 17.54}
   m_EdgeRadius: 0
+--- !u!1 &737616355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 737616356}
+  - component: {fileID: 737616357}
+  m_Layer: 0
+  m_Name: zona 1 (por delante de la puerta)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &737616356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737616355}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -150.62, y: 76.38, z: 0}
+  m_LocalScale: {x: 10181.25, y: 994.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 303830269}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!331 &737616357
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737616355}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: 1d2eb7ad22f264e4a9773f9625e54c45, type: 3}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: 1403363985
+  m_BackSortingLayerID: 951073779
+  m_FrontSortingLayer: 9
+  m_BackSortingLayer: 5
+  m_FrontSortingOrder: 32767
+  m_BackSortingOrder: 3
+  m_IsCustomRangeActive: 1
+  m_SpriteSortPoint: 0
+  m_MaskSource: 0
 --- !u!1 &738323118
 GameObject:
   m_ObjectHideFlags: 0
@@ -57322,7 +57427,7 @@ MonoBehaviour:
   fps: 24
   ordenDibujo: 2
   cantidad: 7
-  tamano: {x: 0.22, y: 0.36}
+  tamano: {x: 0.264, y: 0.43200004}
   adelanteDeLaChica: 3.5
   volverSiQuedaAtras: 10
   velocidadMaxima: 9
@@ -75825,7 +75930,7 @@ MonoBehaviour:
   cabezaEnElPiso: {x: 1.6, y: -1.4}
   giroCabezaCaida: -24
   temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
-  temaDesdeSegundo: 40
+  temaDesdeSegundo: 42
   volumenTema: 1.2
 --- !u!114 &1075770085
 MonoBehaviour:
@@ -102821,6 +102926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b38d290e796af049acedd74e2884b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EstatuaRestaurada
+  piezas: []
   estatuaGris: {fileID: 21300000, guid: 2d7813f2d15a23547a9440aabe33bccb, type: 3}
   enredadera: {fileID: 7027358503581534251, guid: 89dac2b7b91981943bdcbdc0ca586308, type: 3}
   enredaderas:
@@ -120910,7 +121016,7 @@ GameObject:
   - component: {fileID: 1801042914}
   - component: {fileID: 1801042915}
   m_Layer: 0
-  m_Name: zona 1
+  m_Name: zona 1 (por detras de la puerta)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120981,13 +121087,13 @@ SpriteMask:
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 1d2eb7ad22f264e4a9773f9625e54c45, type: 3}
   m_MaskAlphaCutoff: 0.2
-  m_FrontSortingLayerID: 0
+  m_FrontSortingLayerID: 951073779
   m_BackSortingLayerID: 0
-  m_FrontSortingLayer: 0
+  m_FrontSortingLayer: 5
   m_BackSortingLayer: 0
-  m_FrontSortingOrder: 0
-  m_BackSortingOrder: 0
-  m_IsCustomRangeActive: 0
+  m_FrontSortingOrder: 1
+  m_BackSortingOrder: -32768
+  m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
 --- !u!1 &1802126612
@@ -133895,6 +134001,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b38d290e796af049acedd74e2884b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EstatuaRestaurada
+  piezas:
+  - rota: {fileID: 771532270}
+    arreglada: {fileID: -5650615816862603966, guid: 6cb3f34c9e7d2a84da991d01816ff15c, type: 3}
+  - rota: {fileID: 1812129377}
+    arreglada: {fileID: -5650615816862603966, guid: 6cb3f34c9e7d2a84da991d01816ff15c, type: 3}
   estatuaGris: {fileID: 6116276599452248931, guid: 0838664c90b9c274e89a19bcde244b7a, type: 3}
   enredadera: {fileID: 7027358503581534251, guid: 89dac2b7b91981943bdcbdc0ca586308, type: 3}
   enredaderas:
@@ -138445,7 +138556,7 @@ MonoBehaviour:
   cabezaEnElPiso: {x: 1.6, y: -1.4}
   giroCabezaCaida: -24
   temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
-  temaDesdeSegundo: 40
+  temaDesdeSegundo: 42
   volumenTema: 1.2
 --- !u!114 &2048453792
 MonoBehaviour:

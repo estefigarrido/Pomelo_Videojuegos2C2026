@@ -1205,6 +1205,9 @@ MonoBehaviour:
   segundosVueloHUD: 0.9
   cabezaEnElPiso: {x: 1.6, y: -1.4}
   giroCabezaCaida: -24
+  temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
+  temaDesdeSegundo: 40
+  volumenTema: 1.2
 --- !u!114 &18765321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75803,6 +75806,9 @@ MonoBehaviour:
   segundosVueloHUD: 0.9
   cabezaEnElPiso: {x: 1.6, y: -1.4}
   giroCabezaCaida: -24
+  temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
+  temaDesdeSegundo: 40
+  volumenTema: 1.2
 --- !u!114 &1075770085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138420,6 +138426,9 @@ MonoBehaviour:
   segundosVueloHUD: 0.9
   cabezaEnElPiso: {x: 1.6, y: -1.4}
   giroCabezaCaida: -24
+  temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
+  temaDesdeSegundo: 40
+  volumenTema: 1.2
 --- !u!114 &2048453792
 MonoBehaviour:
   m_ObjectHideFlags: 0

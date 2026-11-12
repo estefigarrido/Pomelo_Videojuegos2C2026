@@ -319,7 +319,7 @@ public class MenuPausa : MonoBehaviour
         if (conSonido && sonidoCambio != null && fuente != null)
         {
             fuente.pitch = 1f;   // siempre el mismo tono
-            fuente.PlayOneShot(sonidoCambio, volumenCambio);
+            fuente.PlayOneShot(sonidoCambio, volumenCambio * Sonido.VolumenEfectos);
         }
     }
 

@@ -25,6 +25,14 @@ public class BotellitaRompible : MonoBehaviour
     [Tooltip("Parte del primer cuadro de la rotura que ocupa la botellita entera, de 0 a 1. La mide el menu.")]
     [SerializeField] private Rect dibujoRota = new Rect(0f, 0f, 1f, 1f);
 
+    [Header("Sonido")]
+    [Tooltip("Vidrio que se rompe, segun la forma de la botellita (Assets/_Sonidos/Botella_rompe_pera, _alta o " +
+             "_redonda). Suena justo cuando arranca la animacion de romperse (en las colgantes, al tocar el piso). " +
+             "Lo pone Pomelo -> Sonidos -> Conectar sonidos.")]
+    [SerializeField] private AudioClip sonidoRotura;
+    [Range(0f, 1f)]
+    [SerializeField] private float volumenRotura = 0.7f;
+
     [Header("Dientes de leon (como el polen de los arbustos)")]
     [Tooltip("Velocidad con la que salen para arriba (unidades por segundo).")]
     [SerializeField] private Vector2 subida = new Vector2(0.9f, 1.8f);
@@ -83,6 +91,8 @@ public class BotellitaRompible : MonoBehaviour
         }
 
         // 2) se rompe donde esta: la animacion reemplaza al dibujo y los dientes de leon salen
+        //    (el sonido arranca en el golpe del vidrio, junto con el primer cuadro de la rotura)
+        Sonido.Reproducir(sonidoRotura, volumenRotura);
         Rect vidrio = VidrioEnMundo(seRompe);
         var polen = SoltarDientes(seRompe.transform);
         SpriteRenderer rotura = CrearRotura(seRompe, vidrio);

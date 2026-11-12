@@ -64,11 +64,15 @@ public static class ArmarCarteles
                 .Texto("x2", 24f, new Vector2(290f, -71f)),
 
             //          ATACAR   [mouse]   o   [circulo]
-            // Se usa el prefab Cartel_atacar tal cual esta en la carpeta (no se rearma): solo se pone en la
-            // escena, a la derecha del de salto y a la misma altura que los demas (y = -28.33).
+            // a la derecha del de salto y a la misma altura que los demas (y = -28.33). Se rearma como los demas
+            // (antes se usaba el prefab tal cual) para que tenga el mismo espacio alrededor de la "o".
             new Cartel("Cartel_atacar", new Vector2(243f, 40f), enEscena: true,
-                       lugar: new Vector3(-17.04f, -28.33f, -0.05f), soloUbicar: true)
-                .AlTerminarDeBorrarseMuestra("Cartel_correr"),   // cuando le falta un cuarto, aparece el de Correr
+                       lugar: new Vector3(-17.04f, -28.33f, -0.05f))
+                .AlTerminarDeBorrarseMuestra("Cartel_correr")   // cuando le falta un cuarto, aparece el de Correr
+                .Titulo("Atacar", new Vector2(0f, -20f))
+                .Icono(Teclado + "Click_izquierdo.png", new Vector2(161f, -20f))
+                .O(new Vector2(194f, -21f))
+                .Icono(Joystick + "Boton_Circulo.png", new Vector2(227f, -20f)),
             //          CORRER   [shift]   o   [stick R presionado]
             // a la derecha del de Atacar, a la misma altura que los demas (y = -28.33)
             new Cartel("Cartel_correr", new Vector2(228f, 40f), enEscena: true,
@@ -120,12 +124,6 @@ public static class ArmarCarteles
                 .Icono(Teclado + "Tecla_R.png", new Vector2(253.6f, -20f))
                 .O(new Vector2(279.7f, -21f))
                 .Icono(Joystick + "Boton_Cuadrado.png", new Vector2(305.8f, -20f)),
-
-            // Cartel_atacar: si algun dia hay que rearmarlo desde cero, estas son sus piezas (sacar soloUbicar):
-            //     .Titulo("Atacar", new Vector2(0f, -20f))
-            //     .Icono(Teclado + "Click_izquierdo.png", new Vector2(161f, -20f))
-            //     .O(new Vector2(194f, -21f))
-            //     .Icono(Joystick + "Boton_Circulo.png", new Vector2(227f, -20f)),
         };
     }
 
@@ -400,8 +398,82 @@ public static class ArmarCarteles
 
     // ---------- armado ----------
 
+    // ---------- espacio estandar alrededor de la "o" ----------
+
+    // espacio entre lo que se ve de cada icono y la "o", igual a los dos lados y en todos los carteles (px)
+    private const float EspacioO = 10f;
+
+    // Para cada "o": la deja a EspacioO del icono de su izquierda y corre el icono de su derecha (y todo lo
+    // que viene despues en la misma fila) para que tambien quede a EspacioO. Se mide con lo que se VE de
+    // cada icono: los PNG tienen distinto aire transparente alrededor, y por eso antes los espacios no
+    // coincidian aunque las posiciones fueran parejas.
+    private static void EspaciarLasO(Cartel c, TMP_FontAsset fuente)
+    {
+        visibles.Clear();   // por si cambiaron los PNG desde la ultima vez
+        float anchoO = AnchoDeLaO(fuente);
+        var os = c.piezas.Where(p => p.tipo == Tipo.Texto && p.texto == "o").OrderBy(p => p.posicion.x).ToList();
+        foreach (var o in os)
+        {
+            var fila = c.piezas.Where(p => p != o && Mathf.Abs(p.posicion.y - o.posicion.y) < 8f).ToList();
+            var iconos = fila.Where(p => p.tipo == Tipo.Icono || p.tipo == Tipo.Alterno).ToList();
+            var izq = iconos.Where(p => p.posicion.x < o.posicion.x).OrderByDescending(p => p.posicion.x).FirstOrDefault();
+            var der = iconos.Where(p => p.posicion.x > o.posicion.x).OrderBy(p => p.posicion.x).FirstOrDefault();
+            if (izq == null || der == null) continue;
+
+            Vector2 vIzq = Visible(izq), vDer = Visible(der);   // (desde, hasta) en x, relativo al centro
+            float nuevaO = izq.posicion.x + vIzq.y + EspacioO + anchoO / 2f;
+            o.posicion.x = nuevaO;
+            float deseadoDer = nuevaO + anchoO / 2f + EspacioO;     // donde tiene que empezar lo visible del de la derecha
+            float delta = deseadoDer - (der.posicion.x + vDer.x);
+            float desde = der.posicion.x;
+            foreach (var p in fila) if (p.posicion.x >= desde) p.posicion.x += delta;
+        }
+    }
+
+    private static float AnchoDeLaO(TMP_FontAsset fuente)
+    {
+        fuente.TryAddCharacters("o");
+        if (fuente.characterLookupTable.TryGetValue('o', out var ch) && ch.glyph != null)
+            return ch.glyph.metrics.width * (TamanoO / fuente.faceInfo.pointSize) * fuente.faceInfo.scale;
+        return TamanoO * 0.5f;
+    }
+
+    // lo que se ve (pixeles no transparentes) de un icono, en x, relativo a su centro
+    private static readonly Dictionary<string, Vector2> visibles = new Dictionary<string, Vector2>();
+    private static Vector2 Visible(Pieza p)
+    {
+        var v = VisibleDe(p.ruta);
+        if (p.tipo == Tipo.Alterno && p.ruta2 != null)
+        {
+            var v2 = VisibleDe(p.ruta2);
+            v = new Vector2(Mathf.Min(v.x, v2.x), Mathf.Max(v.y, v2.y));
+        }
+        return v;
+    }
+
+    private static Vector2 VisibleDe(string ruta)
+    {
+        if (visibles.TryGetValue(ruta, out var guardado)) return guardado;
+        var sprite = CargarSprite(ruta);
+        if (sprite == null) return Vector2.zero;
+        var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+        tex.LoadImage(File.ReadAllBytes(ruta));
+        Rect r = sprite.rect;
+        int x0 = (int)r.x, y0 = (int)r.y, w = (int)r.width, h = (int)r.height;
+        int min = w, max = -1;
+        for (int y = 0; y < h; y++)
+            for (int x = 0; x < w; x++)
+                if (tex.GetPixel(x0 + x, y0 + y).a > 0.2f) { if (x < min) min = x; if (x > max) max = x; }
+        Object.DestroyImmediate(tex);
+        var v = max < 0 ? new Vector2(-w / 2f, w / 2f) : new Vector2(min - w / 2f, max + 1 - w / 2f);
+        visibles[ruta] = v;
+        return v;
+    }
+
     private static GameObject ArmarPrefab(Cartel c, TMP_FontAsset fuente, SpriteRenderer dibujoChica)
     {
+        EspaciarLasO(c, fuente);
+
         // raiz: Canvas en el mundo, 1 px = 0.01 unidades
         var raiz = new GameObject(c.nombre, typeof(RectTransform), typeof(Canvas), typeof(CanvasGroup), typeof(CartelTutorial));
         var canvas = raiz.GetComponent<Canvas>();

@@ -69,6 +69,14 @@ public class MenuPausa : MonoBehaviour
     [Tooltip("Tamano desde el que arranca al abrirse (1.03 = 3 % mas grande) y se achica hasta su lugar.")]
     [SerializeField] private float escalaInicial = 1.03f;
 
+    [Header("Aviso de como pausar (esquina de abajo a la derecha)")]
+    [Tooltip("\"PAUSA [Esc] o [Options]\". Aparece al salir la chica del portal y se va la primera vez que se pausa.")]
+    [SerializeField] private CanvasGroup aviso;
+    [SerializeField] private float avisoAparicion = 1.2f;
+    [Tooltip("Si nunca se pausa, a los cuantos segundos de aparecer se va solo.")]
+    [SerializeField] private float avisoDuracionMaxima = 10f;
+    [SerializeField] private float avisoDesvanecido = 0.8f;
+
     [Header("Controles")]
     [Tooltip("Con el stick apretado para un lado, cada cuanto pasa al boton siguiente (segundos).")]
     [SerializeField] private float repeticionStick = 0.28f;
@@ -87,6 +95,10 @@ public class MenuPausa : MonoBehaviour
     private CanvasGroup grupoPanel;
     private float visible;   // 0 = escondido, 1 = del todo a la vista (animado)
 
+    private enum EstadoAviso { Esperando, Visible, Yendose, Terminado }
+    private EstadoAviso estadoAviso;
+    private float inicioAviso, alfaAviso;
+
     private void Awake()
     {
         Abierto = false;
@@ -99,6 +111,8 @@ public class MenuPausa : MonoBehaviour
             grupoPanel.alpha = 0f;
             panel.SetActive(false);
         }
+
+        if (aviso != null) { aviso.alpha = 0f; aviso.interactable = false; aviso.blocksRaycasts = false; }
 
         // fuente propia para los sonidos del menu (suena aunque el juego este frenado)
         fuente = GetComponent<AudioSource>();
@@ -120,6 +134,7 @@ public class MenuPausa : MonoBehaviour
         var mouse = Mouse.current;
 
         AnimarPanel(Time.unscaledDeltaTime);
+        AnimarAviso(Time.unscaledDeltaTime);
 
         bool alternar = (teclado != null && teclado.escapeKey.wasPressedThisFrame) || Mando.Pausa;
         if (!Abierto)
@@ -231,6 +246,13 @@ public class MenuPausa : MonoBehaviour
         Time.timeScale = 0f;
         if (panel != null) panel.SetActive(true);
         if (Mouse.current != null) ultimoMouse = Mouse.current.position.ReadValue();
+        // ya aprendio a pausar: el aviso de la esquina se va y no vuelve
+        if (aviso != null && estadoAviso != EstadoAviso.Terminado)
+        {
+            estadoAviso = EstadoAviso.Terminado;
+            aviso.alpha = 0f;
+            aviso.gameObject.SetActive(false);
+        }
         MedirBotones();
         // siempre arranca en Continuar, ya elegido (sin animacion ni sonido al abrir)
         elegido = 0;
@@ -244,6 +266,33 @@ public class MenuPausa : MonoBehaviour
         frameCierre = Time.frameCount;   // el mismo toque que cierra no salta ni ataca
         Time.timeScale = escalaDeTiempoAntes;
         // el panel se desvanece en AnimarPanel y recien ahi se apaga
+    }
+
+    // aviso de como pausar: espera a que la chica salga del portal, aparece suave, y se va la primera vez
+    // que se pausa (o solo, si nunca se pausa)
+    private void AnimarAviso(float dt)
+    {
+        if (aviso == null || estadoAviso == EstadoAviso.Terminado) return;
+        switch (estadoAviso)
+        {
+            case EstadoAviso.Esperando:
+                aviso.alpha = 0f;
+                if (FindFirstObjectByType<InicioNivel>() == null || InicioNivel.YaSalio)
+                {
+                    estadoAviso = EstadoAviso.Visible;
+                    inicioAviso = Time.unscaledTime;
+                }
+                break;
+            case EstadoAviso.Visible:
+                alfaAviso = Mathf.MoveTowards(alfaAviso, 1f, avisoAparicion > 0f ? dt / avisoAparicion : 1f);
+                if (Time.unscaledTime - inicioAviso > avisoDuracionMaxima) estadoAviso = EstadoAviso.Yendose;
+                break;
+            case EstadoAviso.Yendose:
+                alfaAviso = Mathf.MoveTowards(alfaAviso, 0f, avisoDesvanecido > 0f ? dt / avisoDesvanecido : 1f);
+                if (alfaAviso <= 0f) { estadoAviso = EstadoAviso.Terminado; aviso.gameObject.SetActive(false); }
+                break;
+        }
+        aviso.alpha = Mathf.SmoothStep(0f, 1f, alfaAviso);
     }
 
     // aparece con un fundido mientras se achica apenas hasta su lugar; al cerrarse, se desvanece

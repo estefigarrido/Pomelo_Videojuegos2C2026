@@ -15,6 +15,8 @@ public class BarraVidaUmbrae : MonoBehaviour
     [SerializeField] private VidaEnemigo vida;
     [SerializeField] private UmbraeBoss umbrae;
     [SerializeField] private CamaraSeguidora camara;
+    [Tooltip("Armado de la arena: la barra se carga a su ritmo y cuando queda llena empieza la pelea.")]
+    [SerializeField] private InicioPeleaUmbrae inicioPelea;
 
     [Header("Piezas")]
     [SerializeField] private SpriteRenderer pista;
@@ -72,6 +74,7 @@ public class BarraVidaUmbrae : MonoBehaviour
             brillos[i] = sr;
         }
         if (camara == null) camara = FindFirstObjectByType<CamaraSeguidora>();
+        if (inicioPelea == null) inicioPelea = FindFirstObjectByType<InicioPeleaUmbrae>();
         Aplicar(0f);
     }
 
@@ -79,9 +82,11 @@ public class BarraVidaUmbrae : MonoBehaviour
     {
         float max = vida != null ? Mathf.Max(1f, vida.VidaMaxima) : 1f;
         float actual = vida != null ? Mathf.Clamp01(vida.Vida / max) : 0f;
-        // vacia hasta que la camara se aleja para la pelea
+        // vacia hasta que la camara se aleja para la pelea; despues se carga al ritmo del armado de la arena
+        // (InicioPeleaUmbrae): cuando queda llena empieza la pelea
         bool enPelea = camara != null && camara.Fijo;
-        float objetivo = enPelea ? actual : 0f;
+        float carga = inicioPelea != null ? inicioPelea.ProgresoCarga : 1f;
+        float objetivo = enPelea ? actual * carga : 0f;
         float dt = Time.deltaTime;
 
         if (objetivo < relleno - 0.0001f)

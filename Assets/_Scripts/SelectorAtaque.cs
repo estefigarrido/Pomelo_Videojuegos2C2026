@@ -29,7 +29,8 @@ public class SelectorAtaque : MonoBehaviour
     private void Update()
     {
         // con el menu de pausa abierto no ataca ni cambia de golpe
-        if (MenuPausa.BloqueaControles) return;
+        // tampoco mientras se arma la pelea con Umbrae (la chica queda quieta hasta que se carga su barra de vida)
+        if (MenuPausa.BloqueaControles || InicioPeleaUmbrae.ChicaQuieta) return;
 
         var teclado = Keyboard.current;
         if ((teclado != null && teclado[teclaCambiar].wasPressedThisFrame) || Mando.CambiarAtaque)

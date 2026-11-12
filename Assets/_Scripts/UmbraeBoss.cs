@@ -243,6 +243,8 @@ public class UmbraeBoss : MonoBehaviour
 
     private void Update()
     {
+        // mientras se arma la arena y se carga su barra de vida no se le puede hacer dano
+        if (vida != null) vida.Invulnerable = inicioPelea != null && inicioPelea.Armando;
         if (objetivo == null) return;
         enCombate = zonaCombate.Contains((Vector2)objetivo.position);
         // recien entra (y termino el inicio de la pelea): arranca el ciclo de ataques (sigue mientras dure la pelea)

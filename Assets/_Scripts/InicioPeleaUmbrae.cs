@@ -130,6 +130,13 @@ public class InicioPeleaUmbrae : MonoBehaviour
 
     // Umbrae empieza a atacar recien cuando esto es verdadero.
     public bool Terminado => estado == Estado.Lista;
+    // se esta armando la arena (la barra de vida de Umbrae se esta cargando): Umbrae no recibe dano
+    public bool Armando => estado == Estado.Armando;
+    // 0..1: cuanto se cargo la barra de vida de Umbrae (llena = empieza la pelea)
+    public float ProgresoCarga => estado == Estado.Guardada ? 0f
+        : estado == Estado.Armando ? Mathf.Clamp01(tiempo / Mathf.Max(0.01f, finArmado)) : 1f;
+    // la chica no se puede mover mientras se arma la pelea (lo leen MovimientoPersonaje y SelectorAtaque)
+    public static bool ChicaQuieta { get; private set; }
 
     // La ventana-ojo se enciende cuando aparece el rombo (ultima parte del armado) y se apaga al guardar todo.
     private float inicioOjo;
@@ -327,6 +334,8 @@ public class InicioPeleaUmbrae : MonoBehaviour
                 if (!queda) estado = Estado.Guardada;
                 break;
         }
+
+        ChicaQuieta = estado == Estado.Armando;
 
         // el templo se satura cuando empieza la pelea y se desatura cuando termina
         float objetivo = estado == Estado.Armando || estado == Estado.Lista ? saturacionPelea : saturacionAntes;
@@ -575,6 +584,8 @@ public class InicioPeleaUmbrae : MonoBehaviour
         foreach (var p in piezas) if (p.tipo == Tipo.Columna && !p.t.name.Contains("linea")) { suma += p.pos.x; n++; }
         return n > 0 ? suma / n : transform.position.x;
     }
+
+    private void OnDisable() => ChicaQuieta = false;
 
     private void OnValidate()
     {

@@ -8,8 +8,9 @@ using UnityEngine;
 //  2) se prenden los fuegos de las columnas (upscale rapido) y medio segundo despues crece el circulo violeta.
 //  3) los pinchos del techo bajan y los del piso salen; a la vez se prenden los fuegos de las torres del fondo.
 //  4) aparece el rombo del ojo con un upscale.
-//  Entre cada parte hay 'pausaEntrePartes' (2 s). La camara tiembla fuerte (0,8) mientras pasa algo y suave (0,3)
-//  en las pausas; deja de temblar cuando termina todo y Umbrae empieza a atacar (UmbraeBoss espera a 'Terminado').
+//  Entre cada parte hay 'pausaEntrePartes' (2 s). La camara no tiembla los primeros 2 s, despues tiembla fuerte
+//  (0,8) durante 2 s y sigue un 70 % mas leve (0,24); deja de temblar cuando termina todo y Umbrae empieza a
+//  atacar (UmbraeBoss espera a 'Terminado').
 // Cuando la pelea termina (se gana y se agarra la gema, o la chica pierde y vuelve al spawnpoint) se guarda
 // todo al reves, asi la proxima vez se vuelve a armar.
 public class InicioPeleaUmbrae : MonoBehaviour
@@ -45,10 +46,15 @@ public class InicioPeleaUmbrae : MonoBehaviour
     [Header("Ritmo y temblor")]
     [Tooltip("Segundos entre una parte de la animacion y la siguiente.")]
     [SerializeField] private float pausaEntrePartes = 2f;
-    [Tooltip("Temblor de la camara mientras pasa alguna animacion.")]
-    [SerializeField] private float temblorAnimacion = 0.8f;
-    [Tooltip("Temblor de la camara en las pausas entre animaciones.")]
-    [SerializeField] private float temblorPausa = 0.3f;
+    [Tooltip("Segundos desde que la chica entra a la arena hasta que empieza el temblor fuerte.")]
+    [SerializeField] private float esperaTemblor = 2f;
+    [Tooltip("Temblor fuerte de la camara.")]
+    [UnityEngine.Serialization.FormerlySerializedAs("temblorAnimacion")]
+    [SerializeField] private float temblorFuerte = 0.8f;
+    [Tooltip("Cuanto dura el temblor fuerte.")]
+    [SerializeField] private float segundosTemblorFuerte = 2f;
+    [Tooltip("Despues del temblor fuerte sigue uno mas leve hasta que empieza la pelea (0,7 = 70 % mas leve).")]
+    [Range(0f, 1f)] [SerializeField] private float reduccionTemblorLeve = 0.7f;
 
     [Header("Columnas y capiteles")]
     [SerializeField] private float segundosColumnas = 1.5f;
@@ -269,12 +275,12 @@ public class InicioPeleaUmbrae : MonoBehaviour
         finArmado += pausaFinal;
     }
 
-    // si alguna pieza se esta animando en este momento
-    private bool AlgoSeAnima()
+    // cuanto tiembla la camara segun el tiempo desde que la chica entro a la arena
+    private float TemblorAhora()
     {
-        foreach (var p in piezas)
-            if (tiempo >= p.inicio && tiempo <= p.inicio + p.duracion) return true;
-        return false;
+        if (tiempo < esperaTemblor) return 0f;
+        if (tiempo < esperaTemblor + segundosTemblorFuerte) return temblorFuerte;
+        return temblorFuerte * (1f - reduccionTemblorLeve);
     }
 
     private void Update()
@@ -297,8 +303,10 @@ public class InicioPeleaUmbrae : MonoBehaviour
                     if (tiempo < p.inicio) { Aplicar(p, 0f); continue; }
                     Aplicar(p, Mathf.Max(u, 0.0001f));
                 }
-                // tiembla fuerte mientras algo se anima y suave en las pausas (se renueva cada cuadro, asi no se apaga)
-                if (camara != null) camara.Temblar(0.12f, AlgoSeAnima() ? temblorAnimacion : temblorPausa);
+                // temblor: nada los primeros 'esperaTemblor' s, fuerte durante 'segundosTemblorFuerte' y despues
+                // un 70 % mas leve hasta que empieza la pelea (se renueva cada cuadro, asi no se apaga)
+                float intensidad = TemblorAhora();
+                if (camara != null && intensidad > 0f) camara.Temblar(0.12f, intensidad);
                 if (tiempo >= finArmado) estado = Estado.Lista;   // termina el temblor y empieza la pelea
                 break;
 

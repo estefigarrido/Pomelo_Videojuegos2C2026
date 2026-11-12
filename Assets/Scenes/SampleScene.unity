@@ -105990,8 +105990,10 @@ MonoBehaviour:
   piso: 38.59
   alturaArriba: 68.5
   pausaEntrePartes: 2
-  temblorAnimacion: 0.8
-  temblorPausa: 0.3
+  esperaTemblor: 2
+  temblorFuerte: 0.8
+  segundosTemblorFuerte: 2
+  reduccionTemblorLeve: 0.7
   segundosColumnas: 1.5
   segundosFuego: 0.45
   retrasoHalo: 0.5

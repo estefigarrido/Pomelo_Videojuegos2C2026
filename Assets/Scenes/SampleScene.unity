@@ -43586,7 +43586,7 @@ Transform:
   m_GameObject: {fileID: 582101481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.80569, y: -29.063004, z: 0}
+  m_LocalPosition: {x: 106.57, y: 42.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99987,6 +99987,7 @@ MonoBehaviour:
   mascara: {fileID: 0}
   bordeBorrado: 40
   duracionBorrado: 1
+  distanciaVertical: 5
   esperarAOtroCartel: 0
   desvanecerAlEmpezarABorrarme: []
   mostrarAlTerminarDeBorrarme: []
@@ -136260,6 +136261,7 @@ MonoBehaviour:
   mascara: {fileID: 0}
   bordeBorrado: 40
   duracionBorrado: 1
+  distanciaVertical: 5
   esperarAOtroCartel: 0
   desvanecerAlEmpezarABorrarme: []
   mostrarAlTerminarDeBorrarme: []

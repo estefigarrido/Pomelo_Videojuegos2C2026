@@ -24448,6 +24448,8 @@ MonoBehaviour:
   xMaximo: 26.49
   velocidad: 2.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &300479985
 Animator:
   serializedVersion: 7
@@ -37470,6 +37472,8 @@ MonoBehaviour:
   xMaximo: 109.090004
   velocidad: 2.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &495036885
 Animator:
   serializedVersion: 7
@@ -38573,6 +38577,8 @@ MonoBehaviour:
   xMaximo: 90.520004
   velocidad: 2.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 833665365}
+  xMinimoEnPelea: 84
 --- !u!95 &513564655
 Animator:
   serializedVersion: 7
@@ -103124,6 +103130,8 @@ MonoBehaviour:
   xMaximo: 123.7
   velocidad: 1.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &1522489949
 Animator:
   serializedVersion: 7
@@ -129550,6 +129558,8 @@ MonoBehaviour:
   xMaximo: 155.92
   velocidad: 1.5
   dibujoMiraIzquierda: 1
+  zonaPelea: {fileID: 0}
+  xMinimoEnPelea: 0
 --- !u!95 &1898961558
 Animator:
   serializedVersion: 7

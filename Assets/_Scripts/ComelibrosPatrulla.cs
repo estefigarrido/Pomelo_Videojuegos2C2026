@@ -15,10 +15,17 @@ public class ComelibrosPatrulla : MonoBehaviour
     [Tooltip("El dibujo original mira hacia la izquierda.")]
     [SerializeField] private bool dibujoMiraIzquierda = true;
 
+    [Header("Pelea con Umbrae (opcional)")]
+    [Tooltip("Si se pone, mientras dura esta pelea no camina a la izquierda de 'xMinimoEnPelea' (no se mete en la arena ni se ve en la camara de la pelea).")]
+    [SerializeField] private ZonaCamaraFija zonaPelea;
+    [SerializeField] private float xMinimoEnPelea;
+
     private SpriteRenderer dibujo;
     private float sentido = 1f;
 
-    public float XMinimo => xMinimo;
+    private bool EnPelea => zonaPelea != null && zonaPelea.PeleaEnCurso;
+    // el limite izquierdo de ahora (durante la pelea con Umbrae se corre a la derecha)
+    public float XMinimo => EnPelea ? Mathf.Min(xMaximo, Mathf.Max(xMinimo, xMinimoEnPelea)) : xMinimo;
     public float XMaximo => xMaximo;
 
     public void ConfigurarRecorrido(float minimo, float maximo)
@@ -39,10 +46,13 @@ public class ComelibrosPatrulla : MonoBehaviour
     private void Update()
     {
         Vector3 p = transform.position;
+        float minimo = XMinimo;
+        // si quedo a la izquierda del limite (empezo la pelea con Umbrae) se va caminando, sin saltar de lugar
+        bool yaAdentro = p.x >= minimo - 0.01f;
         p.x += sentido * velocidad * Time.deltaTime;
 
         if (p.x >= xMaximo) { p.x = xMaximo; sentido = -1f; }
-        else if (p.x <= xMinimo) { p.x = xMinimo; sentido = 1f; }
+        else if (p.x <= minimo) { if (yaAdentro) p.x = minimo; sentido = 1f; }
 
         transform.position = p;
         if (dibujo != null) dibujo.flipX = dibujoMiraIzquierda ? sentido > 0f : sentido < 0f;

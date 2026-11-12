@@ -12,6 +12,9 @@ public class RestauracionTemplo : MonoBehaviour
 {
     [Tooltip("Los sectores en el mundo (los pone el menu de configuracion a partir del Figma).")]
     [SerializeField] private Rect[] sectores;
+    [Tooltip("Sectores que se arreglan con la gema de Umbrae (sin gastar polen): la chica pasa con la gema en la mano " +
+             "y aprieta click derecho (o el boton de reparar del joystick). No cuentan para el reparto del polen.")]
+    [SerializeField] private Rect[] sectoresGema;
     [SerializeField] private float pixelesPorUnidad = 4f;
     [Tooltip("Cuanto se esfuma el borde del sector hacia afuera (unidades), para que no se vea el corte recto.")]
     [SerializeField] private float margen = 0.8f;
@@ -35,6 +38,7 @@ public class RestauracionTemplo : MonoBehaviour
     private class Animacion { public int sector; public float inicio; public bool desdeDerecha; public float acumulado; }
     private class Destello { public SpriteRenderer sr; public Vector2 pos, vel; public float vida, dur, tam; }
 
+    private Rect[] todos;          // los de polen y despues los de la gema
     private Texture2D mascara;
     private byte[] pixeles;
     private Rect total;
@@ -53,15 +57,18 @@ public class RestauracionTemplo : MonoBehaviour
     {
         Instancia = this;
         if (sectores == null || sectores.Length == 0) { enabled = false; return; }
-        total = sectores[0];
-        foreach (var s in sectores) total = Rect.MinMaxRect(Mathf.Min(total.xMin, s.xMin), Mathf.Min(total.yMin, s.yMin), Mathf.Max(total.xMax, s.xMax), Mathf.Max(total.yMax, s.yMax));
+        var lista = new List<Rect>(sectores);
+        if (sectoresGema != null) lista.AddRange(sectoresGema);
+        todos = lista.ToArray();
+        total = todos[0];
+        foreach (var s in todos) total = Rect.MinMaxRect(Mathf.Min(total.xMin, s.xMin), Mathf.Min(total.yMin, s.yMin), Mathf.Max(total.xMax, s.xMax), Mathf.Max(total.yMax, s.yMax));
         total = Rect.MinMaxRect(total.xMin - margen, total.yMin - margen, total.xMax + margen, total.yMax + margen);
         ancho = Mathf.CeilToInt(total.width * pixelesPorUnidad);
         alto = Mathf.CeilToInt(total.height * pixelesPorUnidad);
         mascara = new Texture2D(ancho, alto, TextureFormat.RG16, false, true) { wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Bilinear, name = "Mascara sectores" };
         pixeles = new byte[ancho * alto * 2];
         mascara.SetPixelData(pixeles, 0); mascara.Apply(false);
-        hecho = new bool[sectores.Length];
+        hecho = new bool[todos.Length];
         Shader.SetGlobalTexture(IdMascara, mascara);
         Shader.SetGlobalVector(IdRect, new Vector4(total.xMin, total.yMin, 1f / total.width, 1f / total.height));
     }
@@ -81,24 +88,41 @@ public class RestauracionTemplo : MonoBehaviour
 
     public Rect[] Sectores => sectores;
 
-    // el sector donde esta parada la chica (-1 si no esta en ninguno)
+    // el sector donde esta parada la chica (-1 si no esta en ninguno). Indice en 'todos':
+    // los primeros sectores.Length son los de polen y los que siguen, los de la gema
     public int SectorDeLaChica()
     {
-        if (chica == null || sectores == null) return -1;
+        if (chica == null || todos == null) return -1;
         var col = chica.GetComponent<Collider2D>();
         Vector2 p = col != null ? (Vector2)col.bounds.center : (Vector2)chica.position;
         int mejor = -1; float dist = 0.6f;   // un poco de tolerancia en los bordes
-        for (int i = 0; i < sectores.Length; i++)
+        for (int i = 0; i < todos.Length; i++)
         {
-            float d = DistanciaARect(p, sectores[i]);
+            float d = DistanciaARect(p, todos[i]);
             if (d <= 0f) return i;
             if (d < dist) { dist = d; mejor = i; }
         }
         return mejor;
     }
 
-    // la chica esta en una parte del templo que todavia no se arreglo (el boton titila mas fuerte)
-    public bool ChicaEnSectorSinRestaurar { get { int s = SectorDeLaChica(); return s >= 0 && !hecho[s]; } }
+    private bool EsDeGema(int i) => i >= sectores.Length;
+
+    // la chica esta en una parte del templo que todavia no se arreglo y que se arregla con polen (el boton titila mas fuerte)
+    public bool ChicaEnSectorSinRestaurar { get { int s = SectorDeLaChica(); return s >= 0 && !hecho[s] && !EsDeGema(s); } }
+
+    // la chica tiene la gema en la mano y esta en una parte que se arregla con la gema y todavia no se arreglo
+    public bool PuedeRestaurarConGema { get { int s = SectorDeLaChica(); return enabled && GemaEnMano.TieneGema && s >= 0 && EsDeGema(s) && !hecho[s]; } }
+
+    // arregla el sector de la gema donde esta la chica (gratis, sin polen). False si no se puede
+    public bool RestaurarConGema()
+    {
+        if (!PuedeRestaurarConGema) return false;
+        int s = SectorDeLaChica();
+        hecho[s] = true;
+        Vector2 desde = (Vector2)chica.position;
+        animando.Add(new Animacion { sector = s, inicio = Time.time, desdeDerecha = desde.x > todos[s].center.x });
+        return true;
+    }
 
     // fila (piso) de sectores a la que pertenece una altura: la que la contiene, o la mas cercana
     public int Fila(float y)
@@ -119,10 +143,10 @@ public class RestauracionTemplo : MonoBehaviour
         if (!enabled || !QuedanSectores) return false;
         Vector2 desde = chica != null ? (Vector2)chica.position : total.center;
         int mejor = SectorDeLaChica();
-        if (mejor < 0 || hecho[mejor]) return false;
+        if (mejor < 0 || hecho[mejor] || EsDeGema(mejor)) return false;   // los de la gema no se arreglan con polen
         hecho[mejor] = true;
         restaurados++;
-        animando.Add(new Animacion { sector = mejor, inicio = Time.time, desdeDerecha = desde.x > sectores[mejor].center.x });
+        animando.Add(new Animacion { sector = mejor, inicio = Time.time, desdeDerecha = desde.x > todos[mejor].center.x });
         return true;
     }
 
@@ -163,7 +187,7 @@ public class RestauracionTemplo : MonoBehaviour
 
     private void Pintar(Animacion a, float t)
     {
-        Rect s = sectores[a.sector];
+        Rect s = todos[a.sector];
         int x0 = Mathf.Max(0, Mathf.FloorToInt((s.xMin - margen - total.xMin) * pixelesPorUnidad));
         int x1 = Mathf.Min(ancho - 1, Mathf.CeilToInt((s.xMax + margen - total.xMin) * pixelesPorUnidad));
         int y0 = Mathf.Max(0, Mathf.FloorToInt((s.yMin - margen - total.yMin) * pixelesPorUnidad));
@@ -193,7 +217,7 @@ public class RestauracionTemplo : MonoBehaviour
     private void Estela(Animacion a, float t)
     {
         if (destellos == null || destellos.Length == 0 || t >= 1f) return;
-        Rect s = sectores[a.sector];
+        Rect s = todos[a.sector];
         a.acumulado += destellosPorSegundo * Time.deltaTime;
         while (a.acumulado >= 1f)
         {

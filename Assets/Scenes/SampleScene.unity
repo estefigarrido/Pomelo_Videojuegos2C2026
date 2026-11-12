@@ -133048,6 +133048,37 @@ MonoBehaviour:
     y: 27.97
     width: 47.65
     height: 47.089996
+  sectoresGema:
+  - serializedVersion: 2
+    x: -160.81
+    y: 28
+    width: 39.809998
+    height: 47.1
+  - serializedVersion: 2
+    x: -121
+    y: 28
+    width: 21
+    height: 47.1
+  - serializedVersion: 2
+    x: -100
+    y: 28
+    width: 36
+    height: 47.1
+  - serializedVersion: 2
+    x: -64
+    y: 28
+    width: 30
+    height: 47.1
+  - serializedVersion: 2
+    x: -34
+    y: 28
+    width: 30
+    height: 47.1
+  - serializedVersion: 2
+    x: -4
+    y: 28
+    width: 28
+    height: 47.1
   pixelesPorUnidad: 4
   margen: 0.5
   segundosRestaurar: 2.4

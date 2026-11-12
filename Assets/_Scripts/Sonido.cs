@@ -7,7 +7,8 @@ using UnityEngine;
 public static class Sonido
 {
     // volumen general de los efectos de sonido (puerta, botellitas, menu de pausa...), de 0 a 1
-    public const float VolumenEfectos = 0.45f;
+    // 0.30: nivelado con la musica de fondo (antes 0.45, un poco por encima)
+    public const float VolumenEfectos = 0.30f;
 
     public static AudioSource Reproducir(AudioClip clip, float volumen = 1f, float tono = 1f)
     {

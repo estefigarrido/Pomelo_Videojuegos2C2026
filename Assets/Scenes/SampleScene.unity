@@ -102074,6 +102074,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1506465831}
+  - component: {fileID: 1506465832}
   m_Layer: 0
   m_Name: Templo_Estatua
   m_TagString: Untagged
@@ -102110,6 +102111,27 @@ Transform:
   - {fileID: 1964536187}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1506465832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506465830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0837c6665084744aede8d090011325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EncuadreTemplo
+  columnaIzquierda: {fileID: 771532269}
+  columnaDerecha: {fileID: 1812129376}
+  distanciaActivar: 5
+  margenSalida: 0.6
+  yMinima: 47
+  yMaxima: 72
+  centroEncuadre: {x: -82.7, y: 60.4}
+  tamanoEncuadre: 12.5
+  duracion: 1.4
 --- !u!1 &1506718176
 GameObject:
   m_ObjectHideFlags: 0

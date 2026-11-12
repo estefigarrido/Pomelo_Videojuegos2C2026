@@ -16,6 +16,9 @@ using UnityEngine.UI;
 //     mismo espacio entre los dos que en el Figma de CONTINUAR (lo calcula MenuPausa para cada boton).
 //   - a la derecha del panel, a la altura de SALIR DEL JUEGO: DESPLAZARSE [rueda] o [stick R] (iconos de 40 px)
 //   - sonido al cambiar de boton: Assets/_MUSICA/Pausa_cambio_boton.wav
+//   - jugando, abajo a la derecha: aviso "PAUSA [Esc] o [Options]" en una placa redondeada con borde oliva
+//     (distinta de los carteles), que aparece al salir la chica del portal y se va la primera vez que se
+//     pausa (o sola, a los 10 s)
 // Queda guardado como prefab en Assets/_UI/Pausa/Menu_pausa.prefab y en la escena queda una copia conectada.
 // Menu:  Pomelo -> Pausa -> Armar menu de pausa
 public static class ArmarMenuPausa
@@ -150,9 +153,18 @@ public static class ArmarMenuPausa
         // 4. ayuda de abajo a la derecha
         ArmarAyuda(panel, fuente, rueda, stickR);
 
+        // 5. aviso de como pausar, en la esquina de abajo a la derecha (fuera del Panel: se ve jugando)
+        // versiones nitidas (3x, bordes afilados) de Tecla_ESC y Boton_options, hechas a partir de las
+        // originales, que no se tocan. Sin compresion: los iconos chiquitos se ensuciaban al comprimirlos.
+        var esc = SpriteNitido(Carpeta + "Tecla_ESC_hd.png");
+        var options = SpriteNitido(Carpeta + "Boton_options_hd.png");
+        CanvasGroup aviso = null;
+        if (esc != null && options != null) aviso = ArmarAviso((RectTransform)raiz.transform, fuente, esc, options);
+
         // conectar el script
         var so = new SerializedObject(raiz.GetComponent<MenuPausa>());
         so.FindProperty("panel").objectReferenceValue = panel.gameObject;
+        so.FindProperty("aviso").objectReferenceValue = aviso;
         var sonido = AssetDatabase.LoadAssetAtPath<AudioClip>(RutaSonidoCambio);
         if (sonido == null) Debug.LogWarning("No encontre el sonido " + RutaSonidoCambio + ": el menu va a andar sin sonido al cambiar de boton.");
         so.FindProperty("sonidoCambio").objectReferenceValue = sonido;
@@ -274,6 +286,94 @@ public static class ArmarMenuPausa
         mat.SetFloat("_UmbralForma", 0.2f);
         AssetDatabase.CreateAsset(mat, RutaMatFondo);
         return mat;
+    }
+
+    // ---------- aviso de como pausar ----------
+
+    // margenes seguros: el aviso "encastra" en la esquina que forman el borde derecho del HUD (69 px del borde
+    // de la pantalla) y la linea de abajo (71 px), en px de la pantalla de 1920 x 1080
+    private const float MargenSeguroX = 69f, MargenSeguroY = 71f;
+
+    // contenedor propio (contenedor_aviso_pausa.png, 1000 x 240), inspirado en el HUD y en la pausa:
+    // esquinas redondeadas, contorno verde oscuro con filete oliva, y un segundo contorno POR FUERA (por
+    // detras, separado por un hueco) como el doble reborde de los contenedores del HUD, con pinchitos
+    // arriba y abajo como los de las vidas. Sin rombos.
+    // Sus extremos (que no se estiran) miden 170 px; el cuerpo recto empieza a ~92 px de cada borde.
+    private const string RutaContenedorAviso = Carpeta + "contenedor_aviso_pausa.png";
+    private const float AltoImagenContenedor = 240f, ExtremosContenedor = 170f, InicioCuerpo = 92f;
+
+    // PAUSA  [Esc]  o  [Options], abajo a la derecha, dentro de los margenes seguros.
+    //  - el contenedor propio de arriba. Se estira solo por el medio (9 cortes), asi las esquinas, los
+    //    pinchitos y los rombos no se deforman.
+    //  - "Pausa" en versalitas a 32 px como los carteles, sin el ajuste de pares de letras (kerning) de la
+    //    fuente, que separaba de mas la U de la S
+    //  - la "o" a 20 px (antes 15: quedaba muy chica al lado de los iconos de 38 px)
+    //  - espacios parejos: lo mismo entre la palabra y el primer icono que entre cada pieza, medido con lo
+    //    que se ve de cada icono
+    private static CanvasGroup ArmarAviso(RectTransform raiz, TMP_FontAsset fuente, Sprite esc, Sprite options)
+    {
+        const float AltoIcono = 38f;                         // alto visible de los iconos
+        const float EntreTituloEIconos = 22f, EntreIconos = 14f;
+        const float AltoContenedor = 104f;   // antes 84: mas aire arriba y abajo del contenido
+        const float AireExtra = 20f;         // aire de mas a cada costado, despues de la curva de la esquina
+        float escalaContenedor = AltoContenedor / AltoImagenContenedor;
+        float Puntas = InicioCuerpo * escalaContenedor + AireExtra;
+
+        var contenedor = SpriteNitido(RutaContenedorAviso);   // sin compresion: el reborde claro es finito
+        if (contenedor != null)
+        {
+            var impC = (TextureImporter)AssetImporter.GetAtPath(RutaContenedorAviso);
+            var borde = new Vector4(ExtremosContenedor, 0f, ExtremosContenedor, 0f);
+            if (impC.spriteBorder != borde) { impC.spriteBorder = borde; impC.SaveAndReimport(); }
+            contenedor = AssetDatabase.LoadAssetAtPath<Sprite>(RutaContenedorAviso);
+        }
+        var rt = Hijo("Aviso pausa", raiz, Vector2.zero, new Vector2(10f, AltoContenedor));
+        rt.anchorMin = rt.anchorMax = new Vector2(1f, 0f);
+        rt.pivot = new Vector2(1f, 0f);
+        var grupo = rt.gameObject.AddComponent<CanvasGroup>();
+        grupo.alpha = 0f;
+        grupo.interactable = false;
+        grupo.blocksRaycasts = false;
+
+        // medir: de izquierda a derecha
+        var titulo = Texto("Titulo", rt, "Pausa", 32f, Vector2.zero, new Vector2(200f, 44f), fuente,
+                           TextAlignmentOptions.Left, pivot: new Vector2(0f, 0.5f));
+        titulo.fontStyle = FontStyles.SmallCaps;
+        titulo.enableKerning = false;   // sin kerning: espacio parejo entre letras
+        float anchoTitulo = titulo.GetPreferredValues("Pausa").x;
+        var o = Texto("o", rt, "o", 20f, Vector2.zero, new Vector2(24f, 30f), fuente, TextAlignmentOptions.Center);
+        float anchoO = o.GetPreferredValues("o").x;
+        // versiones 3x: en Tecla_ESC_hd se ven 78 px de 108; en Boton_options_hd, 72 px de 108
+        Vector2 tamEsc = esc.rect.size * (AltoIcono / 78f);
+        Vector2 tamOptions = options.rect.size * (AltoIcono / 72f);
+        float anchoEsc = AltoIcono, anchoOptions = AltoIcono;   // para los espacios, lo que se ve de cada uno
+
+        float x = 0f;
+        float xTitulo = x;                              x += anchoTitulo + EntreTituloEIconos;
+        float cEsc = x + anchoEsc / 2f;                 x += anchoEsc + EntreIconos;
+        float cO = x + anchoO / 2f;                     x += anchoO + EntreIconos;
+        float cOptions = x + anchoOptions / 2f;         x += anchoOptions;
+        float anchoContenido = x;
+        float anchoContenedor = anchoContenido + 2f * Puntas;
+        rt.sizeDelta = new Vector2(anchoContenedor, AltoContenedor);
+        rt.anchoredPosition = new Vector2(-MargenSeguroX, MargenSeguroY);
+
+        // contenedor: la barra del HUD, estirada solo por el medio
+        if (contenedor != null)
+        {
+            var fondo = Imagen("Contenedor", rt, contenedor, Vector2.zero, new Vector2(anchoContenedor, AltoContenedor));
+            fondo.type = Image.Type.Sliced;
+            fondo.pixelsPerUnitMultiplier = 1f / escalaContenedor;   // los extremos se achican en proporcion al alto
+            fondo.rectTransform.SetAsFirstSibling();
+        }
+
+        // contenido centrado en el contenedor
+        float izq = -anchoContenido / 2f;
+        titulo.rectTransform.anchoredPosition = new Vector2(izq + xTitulo, 0f);
+        Imagen("Esc", rt, esc, new Vector2(izq + cEsc, 0f), tamEsc);
+        o.rectTransform.anchoredPosition = new Vector2(izq + cO, -1f);
+        Imagen("Options", rt, options, new Vector2(izq + cOptions, 0f), tamOptions);
+        return grupo;
     }
 
     // ---------- sombra de los botones ----------
@@ -414,6 +514,25 @@ public static class ArmarMenuPausa
             imp.spriteImportMode = SpriteImportMode.Single;
             imp.alphaIsTransparency = true;
             imp.mipmapEnabled = false;
+            imp.SaveAndReimport();
+        }
+        return AssetDatabase.LoadAssetAtPath<Sprite>(ruta);
+    }
+
+    // una sola imagen, sin compresion y sin mipmaps: para iconos que tienen que verse nitidos
+    private static Sprite SpriteNitido(string ruta)
+    {
+        var imp = AssetImporter.GetAtPath(ruta) as TextureImporter;
+        if (imp == null) { Debug.LogError("No encontre " + ruta); return null; }
+        if (imp.textureType != TextureImporterType.Sprite || imp.spriteImportMode != SpriteImportMode.Single ||
+            imp.textureCompression != TextureImporterCompression.Uncompressed || imp.mipmapEnabled)
+        {
+            imp.textureType = TextureImporterType.Sprite;
+            imp.spriteImportMode = SpriteImportMode.Single;
+            imp.alphaIsTransparency = true;
+            imp.mipmapEnabled = false;
+            imp.filterMode = FilterMode.Bilinear;
+            imp.textureCompression = TextureImporterCompression.Uncompressed;
             imp.SaveAndReimport();
         }
         return AssetDatabase.LoadAssetAtPath<Sprite>(ruta);

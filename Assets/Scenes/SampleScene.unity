@@ -3783,6 +3783,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52360978}
   - component: {fileID: 52360979}
+  - component: {fileID: 52360980}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -3864,6 +3865,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &52360980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52360977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &52659888
 GameObject:
   m_ObjectHideFlags: 0
@@ -26822,6 +26835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 331366468}
   - component: {fileID: 331366469}
+  - component: {fileID: 331366470}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -26903,6 +26917,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &331366470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331366467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &331628472
 GameObject:
   m_ObjectHideFlags: 0
@@ -29620,6 +29646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 373237164}
   - component: {fileID: 373237165}
+  - component: {fileID: 373237166}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -29701,6 +29728,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &373237166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373237163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &373823870
 GameObject:
   m_ObjectHideFlags: 0
@@ -31048,6 +31087,7 @@ GameObject:
   m_Component:
   - component: {fileID: 402322919}
   - component: {fileID: 402322920}
+  - component: {fileID: 402322921}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -31129,6 +31169,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &402322921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402322918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &403556607
 GameObject:
   m_ObjectHideFlags: 0
@@ -32547,6 +32599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 414475758}
   - component: {fileID: 414475759}
+  - component: {fileID: 414475760}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -32628,6 +32681,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &414475760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414475757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &414634031
 GameObject:
   m_ObjectHideFlags: 0
@@ -43670,6 +43735,21 @@ MonoBehaviour:
   pixelesPorUnidad: 100
   duracionDespegue: 0.05
   duracionAterrizaje: 0.05
+  sonidosDespegue:
+  - {fileID: 8300000, guid: f357b3b7959768d4082150fa6e8ed19b, type: 3}
+  - {fileID: 8300000, guid: 1c1feccb2b1866d458aac46a9c3155f0, type: 3}
+  sonidosCaida:
+  - {fileID: 8300000, guid: e2d918e475bc40e4d9e1b38428c6da1d, type: 3}
+  - {fileID: 8300000, guid: ee3670b6fbc022644b9a567e4f167947, type: 3}
+  sonidosCaidaHoja:
+  - {fileID: 8300000, guid: 201487463a7e0254dbc51f3aeb564b7d, type: 3}
+  - {fileID: 8300000, guid: ec8123d6dccb6f6449479fce6f549750, type: 3}
+  sonidosCaidaPlataforma:
+  - {fileID: 8300000, guid: d8bd4725eb61215478e4d6c6823fd705, type: 3}
+  - {fileID: 8300000, guid: 239eab906ecacdf469d02fff7da148be, type: 3}
+  volumenDespegue: 0.45
+  volumenCaida: 0.6
+  caidaFuerte: 2.5
   distanciaDashPx: 1400
   duracionDash: 1
   aceleracionDash: 0.5
@@ -43726,6 +43806,9 @@ MonoBehaviour:
     color: {r: 1, g: 0.15, b: 0.15, a: 1}
     veces: 3
     duracion: 0.36
+  vibracionGrave: 0.45
+  vibracionAguda: 0.25
+  duracionVibracion: 0.18
 --- !u!114 &582101489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44221,6 +44304,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 83a68c2f3fa3f824a881c611d4fea0b8, type: 3}
   volumen: 0.5
   variacionTono: 0.04
+  volumenCorriendo: 0.65
+  tonoCorriendo: 1.06
+  pasosHoja:
+  - {fileID: 8300000, guid: 7c67ea87d1f502d46b75a2a40c69d27b, type: 3}
+  - {fileID: 8300000, guid: 51758412e3853844c91c73845995e06f, type: 3}
+  - {fileID: 8300000, guid: 7aa6780a4fe9a634baea69e4b8a15c49, type: 3}
+  - {fileID: 8300000, guid: e90f20664e4bcee46a5478dca24ac18c, type: 3}
 --- !u!1 &583196019
 GameObject:
   m_ObjectHideFlags: 0
@@ -44995,6 +45085,7 @@ GameObject:
   m_Component:
   - component: {fileID: 590425784}
   - component: {fileID: 590425785}
+  - component: {fileID: 590425786}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -45076,6 +45167,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &590425786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590425783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &593030093
 GameObject:
   m_ObjectHideFlags: 0
@@ -48390,6 +48493,7 @@ GameObject:
   m_Component:
   - component: {fileID: 652719144}
   - component: {fileID: 652719145}
+  - component: {fileID: 652719146}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -48471,6 +48575,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &652719146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652719143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &653331047
 GameObject:
   m_ObjectHideFlags: 0
@@ -72014,6 +72130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1016029227}
   - component: {fileID: 1016029228}
+  - component: {fileID: 1016029229}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -72095,6 +72212,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1016029229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016029226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1016600895
 GameObject:
   m_ObjectHideFlags: 0
@@ -74979,6 +75108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062017641}
   - component: {fileID: 1062017642}
+  - component: {fileID: 1062017643}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -75060,6 +75190,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1062017643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062017640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1070192745
 GameObject:
   m_ObjectHideFlags: 0
@@ -76670,6 +76812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1093230049}
   - component: {fileID: 1093230050}
+  - component: {fileID: 1093230051}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -76751,6 +76894,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1093230051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093230048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1094810888
 GameObject:
   m_ObjectHideFlags: 0
@@ -79307,6 +79462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1145188593}
   - component: {fileID: 1145188594}
+  - component: {fileID: 1145188595}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -79388,6 +79544,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1145188595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145188592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1145637363
 GameObject:
   m_ObjectHideFlags: 0
@@ -79489,6 +79657,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1145792421}
   - component: {fileID: 1145792422}
+  - component: {fileID: 1145792423}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -79570,6 +79739,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1145792423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145792420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1146778274
 GameObject:
   m_ObjectHideFlags: 0
@@ -80898,6 +81079,8 @@ MonoBehaviour:
   segundosTemblor: 0.2
   colorProtegido: {r: 0.55, g: 0.3, b: 0.95, a: 1}
   materialAditivo: {fileID: 2100000, guid: 161c680b2f16bc843804fb85dd8bbd04, type: 2}
+  esperaAlMorir: 1.2
+  segundosDesaparecer: 1
 --- !u!4 &1166418279
 Transform:
   m_ObjectHideFlags: 0
@@ -84386,6 +84569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1225941206}
   - component: {fileID: 1225941207}
+  - component: {fileID: 1225941208}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -84467,6 +84651,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1225941208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225941205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1227297953
 GameObject:
   m_ObjectHideFlags: 0
@@ -86127,6 +86323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1237655473}
   - component: {fileID: 1237655474}
+  - component: {fileID: 1237655475}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -86208,6 +86405,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1237655475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237655472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1239396855
 GameObject:
   m_ObjectHideFlags: 0
@@ -88177,6 +88386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1259715678}
   - component: {fileID: 1259715679}
+  - component: {fileID: 1259715680}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -88258,6 +88468,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1259715680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259715677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1260389181
 GameObject:
   m_ObjectHideFlags: 0
@@ -91832,6 +92054,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1316828045}
   - component: {fileID: 1316828046}
+  - component: {fileID: 1316828047}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -91913,6 +92136,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1316828047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316828044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1319567273
 GameObject:
   m_ObjectHideFlags: 0
@@ -94663,6 +94898,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1365574981}
   - component: {fileID: 1365574982}
+  - component: {fileID: 1365574983}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -94744,6 +94980,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1365574983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365574980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1365605030
 GameObject:
   m_ObjectHideFlags: 0
@@ -99593,6 +99841,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1468776157}
   - component: {fileID: 1468776158}
+  - component: {fileID: 1468776159}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -99674,6 +99923,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1468776159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468776156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1469251472
 GameObject:
   m_ObjectHideFlags: 0
@@ -102270,6 +102531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1511817807}
   - component: {fileID: 1511817808}
+  - component: {fileID: 1511817809}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -102351,6 +102613,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1511817809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511817806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1512294002
 GameObject:
   m_ObjectHideFlags: 0
@@ -110151,6 +110425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1623670397}
   - component: {fileID: 1623670398}
+  - component: {fileID: 1623670399}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -110232,6 +110507,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1623670399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623670396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1623921987
 GameObject:
   m_ObjectHideFlags: 0
@@ -115726,6 +116013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1711999235}
   - component: {fileID: 1711999236}
+  - component: {fileID: 1711999237}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -115807,6 +116095,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1711999237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711999234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1713575149
 GameObject:
   m_ObjectHideFlags: 0
@@ -124112,6 +124412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1849660369}
   - component: {fileID: 1849660370}
+  - component: {fileID: 1849660371}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -124193,6 +124494,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1849660371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849660368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &1849692376
 GameObject:
   m_ObjectHideFlags: 0
@@ -140053,6 +140366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2088629580}
   - component: {fileID: 2088629581}
+  - component: {fileID: 2088629582}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -140134,6 +140448,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2088629582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088629579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &2090514366
 GameObject:
   m_ObjectHideFlags: 0
@@ -142763,6 +143089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2136710127}
   - component: {fileID: 2136710128}
+  - component: {fileID: 2136710129}
   m_Layer: 0
   m_Name: Dibujo
   m_TagString: Untagged
@@ -142844,6 +143171,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2136710129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136710126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b064abbd0d3dfa74f8b5d3ca9ab33e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PisoPlataformaPiedra
 --- !u!1 &2136895897
 GameObject:
   m_ObjectHideFlags: 0

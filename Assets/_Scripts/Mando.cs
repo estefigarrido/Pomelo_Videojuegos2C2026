@@ -59,4 +59,53 @@ public static class Mando
         // en el stick, arriba es positivo; en la lista, arriba es el anterior
         return Mathf.Abs(valor) < 0.5f ? 0f : -Mathf.Sign(valor);
     }
+
+    // ---------- vibracion ----------
+    // Hace vibrar el joystick un ratito. 'grave' es el motor pesado (el golpe que se siente en la mano),
+    // 'agudo' el liviano (el zumbido). Van de 0 a 1. Si ya estaba vibrando, se queda con lo mas fuerte.
+    public static void Vibrar(float grave, float agudo, float duracion)
+    {
+        if (G == null) return;
+        Vibrador.Empezar(G, grave, agudo, duracion);
+    }
+
+    // apaga los motores cuando termina el tiempo, al pausar y al salir del juego
+    private class Vibrador : MonoBehaviour
+    {
+        private static Vibrador instancia;
+        private Gamepad mando;
+        private float grave, agudo, hasta;
+
+        public static void Empezar(Gamepad g, float grave, float agudo, float duracion)
+        {
+            if (instancia == null)
+            {
+                var go = new GameObject("Vibrador del joystick") { hideFlags = HideFlags.HideAndDontSave };
+                DontDestroyOnLoad(go);
+                instancia = go.AddComponent<Vibrador>();
+            }
+            var v = instancia;
+            bool sigue = v.mando == g && Time.unscaledTime < v.hasta;
+            v.mando = g;
+            v.grave = sigue ? Mathf.Max(v.grave, grave) : grave;
+            v.agudo = sigue ? Mathf.Max(v.agudo, agudo) : agudo;
+            v.hasta = Mathf.Max(sigue ? v.hasta : 0f, Time.unscaledTime + duracion);
+            g.SetMotorSpeeds(Mathf.Clamp01(v.grave), Mathf.Clamp01(v.agudo));
+        }
+
+        private void Update()
+        {
+            if (mando == null) return;
+            if (Time.unscaledTime >= hasta || MenuPausa.BloqueaControles) Parar();
+        }
+
+        private void Parar()
+        {
+            if (mando != null) mando.ResetHaptics();
+            mando = null;
+        }
+
+        private void OnApplicationPause(bool pausa) { if (pausa) Parar(); }
+        private void OnDisable() => Parar();
+    }
 }

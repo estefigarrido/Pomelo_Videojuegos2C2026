@@ -595,6 +595,8 @@ MonoBehaviour:
     y: 0.01618123
     width: 0.7759563
     height: 0.89644015
+  sonidoRotura: {fileID: 8300000, guid: c0f3a2899f2cd3c448f356aa4107fe16, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -2961,6 +2963,8 @@ MonoBehaviour:
     y: 0.04676259
     width: 0.9
     height: 0.89568347
+  sonidoRotura: {fileID: 8300000, guid: b42a82e75c1f7274ba3fff0eaa74bda1, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -3435,6 +3439,8 @@ MonoBehaviour:
     y: 0.04676259
     width: 0.9
     height: 0.89568347
+  sonidoRotura: {fileID: 8300000, guid: b42a82e75c1f7274ba3fff0eaa74bda1, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -8510,6 +8516,8 @@ MonoBehaviour:
     y: 0.04676259
     width: 0.9
     height: 0.89568347
+  sonidoRotura: {fileID: 8300000, guid: b42a82e75c1f7274ba3fff0eaa74bda1, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -16979,6 +16987,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -24122,6 +24132,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -29229,6 +29241,8 @@ MonoBehaviour:
     y: 0.01618123
     width: 0.7759563
     height: 0.89644015
+  sonidoRotura: {fileID: 8300000, guid: c0f3a2899f2cd3c448f356aa4107fe16, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -30310,6 +30324,8 @@ MonoBehaviour:
     y: 0.04676259
     width: 0.9
     height: 0.89568347
+  sonidoRotura: {fileID: 8300000, guid: b42a82e75c1f7274ba3fff0eaa74bda1, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -35015,6 +35031,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -39822,6 +39840,8 @@ MonoBehaviour:
     y: 0.01618123
     width: 0.7759563
     height: 0.89644015
+  sonidoRotura: {fileID: 8300000, guid: c0f3a2899f2cd3c448f356aa4107fe16, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -43477,6 +43497,7 @@ GameObject:
   - component: {fileID: 582101490}
   - component: {fileID: 582101491}
   - component: {fileID: 582101492}
+  - component: {fileID: 582101493}
   m_Layer: 0
   m_Name: personaje
   m_TagString: Untagged
@@ -43729,6 +43750,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2c2c2a5b12f75cb4e96e17b755b3720e, type: 3}
   - {fileID: 21300000, guid: 3023f6aabacb73e489250888d1d4b381, type: 3}
   fps: 12
+  sonidoLatigo: {fileID: 8300000, guid: fc23ea70a2505c7459d81d160db0368c, type: 3}
+  volumenLatigo: 0.8
   danio: 50
   intervaloEntreUsos: 0.53
   zonas:
@@ -44179,6 +44202,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SelectorAtaque
   teclaCambiar: 36
   inicial: 0
+--- !u!114 &582101493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582101481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef141d8455ec8734584a736eae5205e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PasosPersonaje
+  pasos:
+  - {fileID: 8300000, guid: 73defcdd4a7b540458b5751997aa10df, type: 3}
+  - {fileID: 8300000, guid: 463184489decb2a47846f621f16c3992, type: 3}
+  - {fileID: 8300000, guid: 4724430e597cc534b918c77e4e7f5be4, type: 3}
+  - {fileID: 8300000, guid: 83a68c2f3fa3f824a881c611d4fea0b8, type: 3}
+  volumen: 0.5
+  variacionTono: 0.04
 --- !u!1 &583196019
 GameObject:
   m_ObjectHideFlags: 0
@@ -49445,6 +49487,8 @@ MonoBehaviour:
     y: 0.01618123
     width: 0.7759563
     height: 0.89644015
+  sonidoRotura: {fileID: 8300000, guid: c0f3a2899f2cd3c448f356aa4107fe16, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -51330,6 +51374,8 @@ MonoBehaviour:
     y: 0.01618123
     width: 0.7759563
     height: 0.89644015
+  sonidoRotura: {fileID: 8300000, guid: c0f3a2899f2cd3c448f356aa4107fe16, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -52202,6 +52248,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -54202,6 +54250,8 @@ MonoBehaviour:
     y: 0.04676259
     width: 0.9
     height: 0.89568347
+  sonidoRotura: {fileID: 8300000, guid: b42a82e75c1f7274ba3fff0eaa74bda1, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -56287,6 +56337,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -63090,6 +63142,8 @@ MonoBehaviour:
     y: 0.01618123
     width: 0.7759563
     height: 0.89644015
+  sonidoRotura: {fileID: 8300000, guid: c0f3a2899f2cd3c448f356aa4107fe16, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -70815,6 +70869,8 @@ MonoBehaviour:
     y: 0.04676259
     width: 0.9
     height: 0.89568347
+  sonidoRotura: {fileID: 8300000, guid: b42a82e75c1f7274ba3fff0eaa74bda1, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -84162,6 +84218,8 @@ MonoBehaviour:
     y: 0.04676259
     width: 0.9
     height: 0.89568347
+  sonidoRotura: {fileID: 8300000, guid: b42a82e75c1f7274ba3fff0eaa74bda1, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -87229,6 +87287,8 @@ MonoBehaviour:
     y: 0.01618123
     width: 0.7759563
     height: 0.89644015
+  sonidoRotura: {fileID: 8300000, guid: c0f3a2899f2cd3c448f356aa4107fe16, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -89781,6 +89841,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -91314,6 +91376,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -92296,6 +92360,8 @@ MonoBehaviour:
     y: 0.04676259
     width: 0.9
     height: 0.89568347
+  sonidoRotura: {fileID: 8300000, guid: b42a82e75c1f7274ba3fff0eaa74bda1, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -93173,6 +93239,8 @@ MonoBehaviour:
     y: 0.04676259
     width: 0.9
     height: 0.89568347
+  sonidoRotura: {fileID: 8300000, guid: b42a82e75c1f7274ba3fff0eaa74bda1, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -99961,6 +100029,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -104006,6 +104076,8 @@ MonoBehaviour:
     y: 0.04676259
     width: 0.9
     height: 0.89568347
+  sonidoRotura: {fileID: 8300000, guid: b42a82e75c1f7274ba3fff0eaa74bda1, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -108008,6 +108080,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -111947,6 +112021,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -116897,6 +116973,8 @@ MonoBehaviour:
     y: 0.09009009
     width: 0.76811594
     height: 0.7657658
+  sonidoRotura: {fileID: 8300000, guid: e68a686bf40f3654494699ab371cae18, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -131362,6 +131440,8 @@ MonoBehaviour:
     y: 0.01618123
     width: 0.7759563
     height: 0.89644015
+  sonidoRotura: {fileID: 8300000, guid: c0f3a2899f2cd3c448f356aa4107fe16, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2
@@ -139316,6 +139396,8 @@ MonoBehaviour:
     y: 0.01618123
     width: 0.7759563
     height: 0.89644015
+  sonidoRotura: {fileID: 8300000, guid: c0f3a2899f2cd3c448f356aa4107fe16, type: 3}
+  volumenRotura: 0.7
   subida: {x: 0.9, y: 1.8}
   duracion: {x: 1.4, y: 2.4}
   desfaseMaximo: 0.2

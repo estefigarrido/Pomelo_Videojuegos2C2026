@@ -21,6 +21,13 @@ public class AtaqueLatigo : MonoBehaviour
     [SerializeField] private Sprite[] frames;
     [SerializeField] private float fps = 12f;
 
+    [Header("Sonido")]
+    [Tooltip("Latigo de plantas (Assets/_Sonidos/Latigo_plantas.wav): swish de aire + cuerda grave que vibra. " +
+             "Arranca con la animacion; su golpe cae en el cuadro 5 (0.33 s). Lo pone Pomelo -> Sonidos -> Conectar sonidos.")]
+    [SerializeField] private AudioClip sonidoLatigo;
+    [Range(0f, 1f)]
+    [SerializeField] private float volumenLatigo = 0.8f;
+
     [Header("Golpe")]
     [Tooltip("Vida que saca a cada enemigo (la vida maxima de los mobs es 100).")]
     [SerializeField] private float danio = 50f;
@@ -96,6 +103,7 @@ public class AtaqueLatigo : MonoBehaviour
         ultimoUso = Time.time;
         golpeados.Clear();
         rompioBotellita = false;
+        Sonido.Reproducir(sonidoLatigo, volumenLatigo);   // arranca junto con la animacion
         return true;
     }
 

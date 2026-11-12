@@ -28,6 +28,9 @@ public class SelectorAtaque : MonoBehaviour
 
     private void Update()
     {
+        // con el menu de pausa abierto no ataca ni cambia de golpe
+        if (MenuPausa.BloqueaControles) return;
+
         var teclado = Keyboard.current;
         if ((teclado != null && teclado[teclaCambiar].wasPressedThisFrame) || Mando.CambiarAtaque)
         {

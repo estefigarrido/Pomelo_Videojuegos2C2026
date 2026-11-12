@@ -2,7 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Para los carteles de tutorial que muestran dos formas de hacer lo mismo (por ejemplo flechas o A / D):
+// Para los carteles de tutorial y el menu de pausa, que muestran dos formas de hacer lo mismo
+// (por ejemplo flechas o A / D, o mouse o X):
 // muestra un grupo de iconos, a los "intervalo" segundos se funde al otro grupo, y despues vuelve, sin parar.
 // Los dos grupos estan en el mismo lugar, uno encima del otro.
 // Lo arma el menu  Pomelo -> Carteles -> Armar carteles  (Assets/Editor/ArmarCarteles.cs).
@@ -28,9 +29,10 @@ public class AlternarTeclas : MonoBehaviour
         float desde = 1f;   // 1 = se ve "primero", 0 = se ve "segundo"
         while (true)
         {
-            yield return new WaitForSeconds(intervalo);
+            // tiempo real: sigue andando con el juego en pausa (menu de pausa)
+            yield return new WaitForSecondsRealtime(intervalo);
             float hasta = 1f - desde;
-            for (float t = 0f; t < duracionFundido; t += Time.deltaTime)
+            for (float t = 0f; t < duracionFundido; t += Time.unscaledDeltaTime)
             {
                 Mostrar(Mathf.Lerp(desde, hasta, Mathf.SmoothStep(0f, 1f, t / duracionFundido)));
                 yield return null;

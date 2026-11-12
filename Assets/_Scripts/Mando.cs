@@ -11,6 +11,8 @@ using UnityEngine.InputSystem;
 //   Reparar templo ..... apretar el stick izquierdo (L3)
 //   Impulsarte (dash) .. Triangulo                  (en Xbox: Y)
 //   Recargar vida ...... Cuadrado                   (en Xbox: X)
+//   Pausa .............. Options / Start
+//   En la pausa: mover el stick derecho arriba / abajo elige, X acepta
 // El teclado y el mouse siguen andando igual; esto se suma.
 public static class Mando
 {
@@ -38,4 +40,23 @@ public static class Mando
     public static bool RepararTemplo => G != null && G.leftStickButton.wasPressedThisFrame;
     public static bool Impulsarte => G != null && G.buttonNorth.wasPressedThisFrame;
     public static bool RecargarVida => G != null && G.buttonWest.wasPressedThisFrame;
+
+    // ---------- menu de pausa ----------
+    // Pausa: el boton Options / Start. Aceptar: X (Cruz). (El Circulo no hace nada en la pausa.)
+    public static bool Pausa => G != null && G.startButton.wasPressedThisFrame;
+    public static bool Aceptar => G != null && G.buttonSouth.wasPressedThisFrame;
+
+    // -1 arriba, 0 nada, 1 abajo: stick derecho (el "R" del menu), tambien el izquierdo y la cruceta
+    public static float Vertical()
+    {
+        var g = G;
+        if (g == null) return 0f;
+        float derecho = g.rightStick.y.ReadValue();
+        float izquierdo = g.leftStick.y.ReadValue();
+        float valor = Mathf.Abs(derecho) >= Mathf.Abs(izquierdo) ? derecho : izquierdo;
+        float cruceta = g.dpad.y.ReadValue();
+        if (Mathf.Abs(cruceta) > 0.5f) valor = cruceta;
+        // en el stick, arriba es positivo; en la lista, arriba es el anterior
+        return Mathf.Abs(valor) < 0.5f ? 0f : -Mathf.Sign(valor);
+    }
 }

@@ -191,6 +191,9 @@ public class MovimientoPersonaje : MonoBehaviour
 
     private void Update()
     {
+        // con el menu de pausa abierto no se mueve (el juego esta frenado)
+        if (MenuPausa.BloqueaControles) return;
+
         var teclado = Keyboard.current;
 
         // el input se lee aca, en el frame exacto en que pasa

@@ -1205,6 +1205,9 @@ MonoBehaviour:
   segundosVueloHUD: 0.9
   cabezaEnElPiso: {x: 1.6, y: -1.4}
   giroCabezaCaida: -24
+  temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
+  temaDesdeSegundo: 40
+  volumenTema: 1.2
 --- !u!114 &18765321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46717,9 +46720,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 319714883
-  m_SortingLayer: 6
-  m_SortingOrder: 1
+  m_SortingLayerID: 544408636
+  m_SortingLayer: 4
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1719733596064570658, guid: db85e694271cf6c49961951311808b49, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -52709,7 +52712,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 544408636
   m_SortingLayer: 4
-  m_SortingOrder: 6
+  m_SortingOrder: 9
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5422070557161730601, guid: f6bdc0f371242374480c7aec21da5a5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -64029,9 +64032,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 319714883
-  m_SortingLayer: 6
-  m_SortingOrder: 1
+  m_SortingLayerID: 544408636
+  m_SortingLayer: 4
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5354692407829007569, guid: 53c263af04a41094ea8ce59f68963dbb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -75821,6 +75824,9 @@ MonoBehaviour:
   segundosVueloHUD: 0.9
   cabezaEnElPiso: {x: 1.6, y: -1.4}
   giroCabezaCaida: -24
+  temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
+  temaDesdeSegundo: 40
+  volumenTema: 1.2
 --- !u!114 &1075770085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80649,7 +80655,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 544408636
   m_SortingLayer: 4
-  m_SortingOrder: 5
+  m_SortingOrder: 8
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7756915483172000155, guid: 56e1cbc1e51ecaf4a85db7f9f888e954, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -133865,7 +133871,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 544408636
   m_SortingLayer: 4
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6116276599452248931, guid: ac97ae2a45d54042bc38d8a9d2ee8fa7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -138438,6 +138444,9 @@ MonoBehaviour:
   segundosVueloHUD: 0.9
   cabezaEnElPiso: {x: 1.6, y: -1.4}
   giroCabezaCaida: -24
+  temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
+  temaDesdeSegundo: 40
+  volumenTema: 1.2
 --- !u!114 &2048453792
 MonoBehaviour:
   m_ObjectHideFlags: 0

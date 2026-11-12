@@ -112,6 +112,33 @@ public class TroncoMeditador : MonoBehaviour
     [SerializeField] private Vector2 cabezaEnElPiso = new Vector2(1.6f, -1.4f);
     [SerializeField] private float giroCabezaCaida = -24f;
 
+    [Header("Musica de la pelea")]
+    [Tooltip("Suena cuando el tronco despierta (empieza la pelea) y se va cuando la chica se aleja o el tronco muere.")]
+    [SerializeField] private AudioClip temaPelea;
+    [Tooltip("Segundo de la cancion desde el que arranca (y al que vuelve cuando da la vuelta).")]
+    [SerializeField] private float temaDesdeSegundo = 40f;
+    [Tooltip("Volumen respecto de la musica del mapa (1.2 = 20% mas fuerte).")]
+    [SerializeField] private float volumenTema = 1.2f;
+
+    private MusicaDeFondo musica;
+    private bool sonandoTema;
+
+    private void PonerMusicaPelea()
+    {
+        if (sonandoTema || temaPelea == null) return;
+        if (musica == null) musica = FindFirstObjectByType<MusicaDeFondo>();
+        if (musica == null) return;
+        musica.PonerTema(temaPelea, musica.Volumen * volumenTema, -1f, -1f, -1f, temaDesdeSegundo);
+        sonandoTema = true;
+    }
+
+    private void QuitarMusicaPelea()
+    {
+        if (!sonandoTema) return;
+        sonandoTema = false;
+        if (musica != null) musica.QuitarTema();
+    }
+
     private class Pincho { public Transform t; public Vector3 escala; public float centroY, piso, retraso; public Collider2D[] cols; }
     private class Burbuja { public Transform t; public SpriteRenderer sr; public float vida, dur, vel, x0, fase, tam; }
     private class Brillo { public SpriteRenderer sr; public float fase, velocidad; }
@@ -189,7 +216,7 @@ public class TroncoMeditador : MonoBehaviour
         {
             camaraAlejada = cerca;
             if (cerca) camara.FijarEncuadre(new Vector2((x0 + x1) / 2f, piso + alturaCamara), tamanoCamara);
-            else camara.Liberar();
+            else { camara.Liberar(); QuitarMusicaPelea(); }
         }
 
         bool enAgro = p.x > x0 && p.x < x1 && p.y > piso - 1f && p.y < piso + tamanoAgro.y;
@@ -245,6 +272,7 @@ public class TroncoMeditador : MonoBehaviour
     {
         estado = Estado.Despertando;
         objetivoGlowAgro = 1f;
+        PonerMusicaPelea();
         StartCoroutine(CambiarOjos(true));
 
         // distribucion al azar (si hay mas de una, distinta a la anterior)
@@ -412,6 +440,7 @@ public class TroncoMeditador : MonoBehaviour
         if (cuerpo != null) cuerpo.enabled = false;
         if (camaraAlejada && camara != null) camara.Liberar();
         camaraAlejada = false;
+        QuitarMusicaPelea();
         if (cabeza != null && ojos.Length > 0) cabeza.sprite = ojos[0];
         // los pinchos dejan de lastimar enseguida y se guardan para siempre
         foreach (var p in pinchos) foreach (var c in p.cols) if (c != null) c.enabled = false;

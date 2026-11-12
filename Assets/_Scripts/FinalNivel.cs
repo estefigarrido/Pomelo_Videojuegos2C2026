@@ -143,6 +143,11 @@ public class FinalNivel : MonoBehaviour
         float arriba = b.max.y, abajo = b.min.y - 6f;
         go.transform.position = new Vector3(b.center.x, (arriba + abajo) / 2f, 0f);
         go.transform.localScale = new Vector3(b.size.x + 2f, arriba - abajo, 1f);
+        // solo afecta a la puerta y a su copia gris (orden de la puerta y el siguiente), no al resto del mapa
+        m.isCustomRangeActive = true;
+        // (primero el front: si el back queda por delante del front, Unity lo corre)
+        m.frontSortingLayerID = puerta.sortingLayerID; m.frontSortingOrder = puerta.sortingOrder + 1;
+        m.backSortingLayerID = puerta.sortingLayerID; m.backSortingOrder = puerta.sortingOrder - 1;
     }
 
     private void Update()

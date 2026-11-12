@@ -261,7 +261,8 @@ public class UmbraeBoss : MonoBehaviour
             glow.sprite = dibujo.sprite;
             glow.flipX = dibujo.flipX;
             glow.enabled = dibujo.enabled && alfaGlow > 0.001f;
-            glow.color = new Color(1f, 1f, 1f, alfaGlow);
+            // sigue la opacidad de Umbrae (cuando se vuelve intangible al acercarse la chica)
+            glow.color = new Color(1f, 1f, 1f, alfaGlow * dibujo.color.a);
         }
     }
 

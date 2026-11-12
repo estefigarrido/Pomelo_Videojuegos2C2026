@@ -113,10 +113,10 @@ public class TroncoMeditador : MonoBehaviour
     [SerializeField] private float giroCabezaCaida = -24f;
 
     [Header("Musica de la pelea")]
-    [Tooltip("Suena cuando el tronco despierta (empieza la pelea) y se va cuando la chica se aleja o el tronco muere.")]
+    [Tooltip("Suena apenas la chica entra al agro (empieza la pelea) y se va cuando se aleja o el tronco muere.")]
     [SerializeField] private AudioClip temaPelea;
     [Tooltip("Segundo de la cancion desde el que arranca (y al que vuelve cuando da la vuelta).")]
-    [SerializeField] private float temaDesdeSegundo = 40f;
+    [SerializeField] private float temaDesdeSegundo = 42f;
     [Tooltip("Volumen respecto de la musica del mapa (1.2 = 20% mas fuerte).")]
     [SerializeField] private float volumenTema = 1.2f;
 
@@ -224,6 +224,8 @@ public class TroncoMeditador : MonoBehaviour
         // queda "pendiente" al entrar al agro o al saltar dentro de el: al pisar el piso, despierta
         if (!enAgro) pendiente = false;
         else if (!estabaEnAgro || !enPiso) pendiente = true;
+        // la musica de la pelea arranca apenas entra al agro (aunque todavia este en el aire)
+        if (enAgro) PonerMusicaPelea();
         estabaEnAgro = enAgro;
         // quieta = en el piso y sin alejarse del lugar donde se freno. Se mide la distancia y no la velocidad:
         // empujando contra un pincho la fisica la sacude un poquito cada paso, pero no avanza

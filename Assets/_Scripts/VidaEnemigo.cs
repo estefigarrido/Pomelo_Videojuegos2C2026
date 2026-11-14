@@ -13,6 +13,9 @@ public class VidaEnemigo : MonoBehaviour
     [Tooltip("Activado (mobs): la animacion se apoya en la base del mob y se escala segun su ancho. " +
              "Desactivado (Umbrae): se dibuja en el lugar del mob, a su tamano y mirando para el mismo lado.")]
     [SerializeField] private bool ajustarMuerteAlTamano = true;
+    [Tooltip("Activado (pajaro): la animacion sale del centro del mob, como una esfera en el aire, en vez de " +
+             "apoyarse en su base (usar frames con el pivote al centro, carpeta _pajaro-muerte).")]
+    [SerializeField] private bool muerteDesdeElCentro = false;
     [Tooltip("Desactivado (tronco): al morir se queda en el lugar y su propio script hace la muerte.")]
     [SerializeField] private bool desactivarAlMorir = true;
 
@@ -108,7 +111,7 @@ public class VidaEnemigo : MonoBehaviour
         var go = new GameObject("Muerte " + name);
         if (ajustarMuerteAlTamano)
         {
-            go.transform.position = new Vector3(b.center.x, b.min.y, transform.position.z);
+            go.transform.position = new Vector3(b.center.x, muerteDesdeElCentro ? b.center.y : b.min.y, transform.position.z);
             go.transform.localScale = Vector3.one * escala;
         }
         else

@@ -1228,6 +1228,7 @@ MonoBehaviour:
   framesMuerte: []
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 0
   desactivarAlMorir: 0
   framesMuerteSabiduria: []
   piezasMuerte: []
@@ -17434,36 +17435,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &200569326
@@ -24592,6 +24594,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 0
   desactivarAlMorir: 1
   framesMuerteSabiduria:
   - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
@@ -25734,36 +25737,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &315116953
@@ -27444,36 +27448,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &336999310
@@ -37675,6 +37680,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 0
   desactivarAlMorir: 1
   framesMuerteSabiduria:
   - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
@@ -37946,36 +37952,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &496640493
@@ -38780,6 +38787,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 0
   desactivarAlMorir: 1
   framesMuerteSabiduria:
   - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
@@ -42809,36 +42817,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &570089699
@@ -48186,6 +48195,7 @@ MonoBehaviour:
   framesMuerte: []
   fpsMuerte: 12
   ajustarMuerteAlTamano: 0
+  muerteDesdeElCentro: 0
   desactivarAlMorir: 1
   framesMuerteSabiduria: []
   piezasMuerte: []
@@ -54307,36 +54317,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &754562886
@@ -60641,36 +60652,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &832901130
@@ -67785,36 +67797,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &951428064
@@ -72049,36 +72062,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &1011155890
@@ -76224,6 +76238,7 @@ MonoBehaviour:
   framesMuerte: []
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 0
   desactivarAlMorir: 0
   framesMuerteSabiduria: []
   piezasMuerte: []
@@ -104082,6 +104097,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 0
   desactivarAlMorir: 1
   framesMuerteSabiduria:
   - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
@@ -107957,36 +107973,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &1575331895
@@ -115280,36 +115297,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &1682088734
@@ -123315,36 +123333,37 @@ MonoBehaviour:
     veces: 3
     duracion: 0.36
   framesMuerte:
-  - {fileID: 21300000, guid: 87a923140a114234f9a55b866ce9fd85, type: 3}
-  - {fileID: 21300000, guid: 38fd6874afaf8924a9ac48e86fedb655, type: 3}
-  - {fileID: 21300000, guid: 3d868f020a546b54e8e09075385eb860, type: 3}
-  - {fileID: 21300000, guid: 73d41b47b79d7104185780e91d081161, type: 3}
-  - {fileID: 21300000, guid: 4ddf318646cecfd48a68e782b158de1f, type: 3}
-  - {fileID: 21300000, guid: f4c5b8b4eaba55e47851702fc7317de6, type: 3}
-  - {fileID: 21300000, guid: abc9cb0bacf55a148af33ab38cca45e9, type: 3}
-  - {fileID: 21300000, guid: 2522244a865be5f41b1d2947707a48e6, type: 3}
-  - {fileID: 21300000, guid: 06b11ef1e3fb8ec4fbd98fca702be7b7, type: 3}
-  - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
+  - {fileID: 21300000, guid: 793c341f9e2404b419cd5f9960978819, type: 3}
+  - {fileID: 21300000, guid: 973bc8dceac348948846827ae49b6472, type: 3}
+  - {fileID: 21300000, guid: 456160fac1fd22449bf8e3b0079fa27c, type: 3}
+  - {fileID: 21300000, guid: 84db36d6eea478f4b9a7c936f582487d, type: 3}
+  - {fileID: 21300000, guid: afdcd44e27151124293fbdd50580b316, type: 3}
+  - {fileID: 21300000, guid: dfa495312878c1348bd76f0eaf568601, type: 3}
+  - {fileID: 21300000, guid: 1bea9590757f5aa44b5aeec306c5724f, type: 3}
+  - {fileID: 21300000, guid: 910abde72d0fc8a47b0f99c334db128b, type: 3}
+  - {fileID: 21300000, guid: 1d24ea674bf9dc342a3a887fb8db1eac, type: 3}
+  - {fileID: 21300000, guid: 157c7e6dca990c64c83ae608424d8189, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 1
   desactivarAlMorir: 1
   framesMuerteSabiduria:
-  - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
-  - {fileID: 21300000, guid: ba7bb2b812f6346479d5b293d87c0205, type: 3}
-  - {fileID: 21300000, guid: 440ecbbf357008849a98ab53e93b681f, type: 3}
-  - {fileID: 21300000, guid: f32786939e2c8f3449597a4750d82745, type: 3}
-  - {fileID: 21300000, guid: 8ca213c5f7ef24a4991705d6c17cd530, type: 3}
-  - {fileID: 21300000, guid: 318149f1c76a64f489ada4f5b3cc79cc, type: 3}
+  - {fileID: 21300000, guid: d4fd0bda012d33b47a39cdea78fb13f1, type: 3}
+  - {fileID: 21300000, guid: 775f8b5eccc3a394b9e0b439b3afede9, type: 3}
+  - {fileID: 21300000, guid: 000d28963b829a04b8959f4ed9215ea5, type: 3}
+  - {fileID: 21300000, guid: f276442490e505b44bf0a0f8033a6cd6, type: 3}
+  - {fileID: 21300000, guid: cd9e2cbbeba0c7f449b59c5723c8a91e, type: 3}
+  - {fileID: 21300000, guid: f9748cc6118af834ea7f19134ad6eaf8, type: 3}
   piezasMuerte:
-  - {fileID: 21300000, guid: 7384c30babfca2748b270da529cfc556, type: 3}
-  - {fileID: 21300000, guid: 71459750cea3ef149bf5494f0f152aa8, type: 3}
-  - {fileID: 21300000, guid: 5b5c5d989775cb44fad66182fbde77af, type: 3}
-  - {fileID: 21300000, guid: 22856610cb4fce549a2971a85ba14008, type: 3}
-  - {fileID: 21300000, guid: cd26e785e078fb54da714123185bbdb8, type: 3}
-  - {fileID: 21300000, guid: 849902f9c63f03a4a86b32c0e46eef57, type: 3}
-  - {fileID: 21300000, guid: 86f044201f3a7db4a8d4f68456336f8c, type: 3}
-  - {fileID: 21300000, guid: 7716a5ed41bdc474a96c30ff70bf9b25, type: 3}
-  - {fileID: 21300000, guid: 6d9c4f8907dfef94bbeb37ea86cfff8a, type: 3}
+  - {fileID: 21300000, guid: 0030b3f0db59eca4d868cd09c8d4e600, type: 3}
+  - {fileID: 21300000, guid: 39f67fa99b5583c4188e976c248ba435, type: 3}
+  - {fileID: 21300000, guid: cc6c376f5ac4cd34ca4644cb3f91ecc8, type: 3}
+  - {fileID: 21300000, guid: e5e11a1e543cf5f4683724f32a3119aa, type: 3}
+  - {fileID: 21300000, guid: 06ba2e0e09189f241b2546d3ac7244e5, type: 3}
+  - {fileID: 21300000, guid: b850d62a35958d042837d8dc16b5a091, type: 3}
+  - {fileID: 21300000, guid: 8193cdce2b51a20459730bf4a621ff55, type: 3}
+  - {fileID: 21300000, guid: 0aba03246fcdbe2488757eeaf3159c3f, type: 3}
+  - {fileID: 21300000, guid: 508d20a8182d3cb49a7156fe6c0fae97, type: 3}
   materialMuerte: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   sabiduriaPorGolpe: 20
 --- !u!114 &1815182707
@@ -130557,6 +130576,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0653d720294dd2f4db4ceb462c9dbafa, type: 3}
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 0
   desactivarAlMorir: 1
   framesMuerteSabiduria:
   - {fileID: 21300000, guid: ee33b1f6d027ad9428e6b78a61c487bb, type: 3}
@@ -139515,6 +139535,7 @@ MonoBehaviour:
   framesMuerte: []
   fpsMuerte: 14
   ajustarMuerteAlTamano: 1
+  muerteDesdeElCentro: 0
   desactivarAlMorir: 0
   framesMuerteSabiduria: []
   piezasMuerte: []

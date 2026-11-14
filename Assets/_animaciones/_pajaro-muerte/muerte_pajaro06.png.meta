@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 1bea9590757f5aa44b5aeec306c5724f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7305464209040375274
+    second: muerte_pajaro06_0
+  - first:
+      213: -1751708767851492072
+    second: muerte_pajaro06_1
+  - first:
+      213: 96475254934996628
+    second: muerte_pajaro06_2
+  - first:
+      213: 7856325008080333038
+    second: muerte_pajaro06_3
+  - first:
+      213: 2460495458831998700
+    second: muerte_pajaro06_4
+  - first:
+      213: 5046917334630654638
+    second: muerte_pajaro06_5
+  - first:
+      213: 4521950785194753072
+    second: muerte_pajaro06_6
+  - first:
+      213: -1965169984804720838
+    second: muerte_pajaro06_7
+  - first:
+      213: -731018564146210151
+    second: muerte_pajaro06_8
+  - first:
+      213: 3647122242695068907
+    second: muerte_pajaro06_9
+  - first:
+      213: -5240998935279160908
+    second: muerte_pajaro06_10
+  - first:
+      213: -2071187548522892954
+    second: muerte_pajaro06_11
+  - first:
+      213: -2041620903653876263
+    second: muerte_pajaro06_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 250
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: muerte_pajaro06_0
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 680
+        width: 45
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed7e2bfdf8326560800000000000000
+      internalID: 7305464209040375274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_1
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 558
+        width: 63
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81d4646182ea0b7e0800000000000000
+      internalID: -1751708767851492072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_2
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 534
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4960404bbbfb65100800000000000000
+      internalID: 96475254934996628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_3
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 493
+        width: 44
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee865a268f5470d60800000000000000
+      internalID: 7856325008080333038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_4
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 456
+        width: 54
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cee9423659f652220800000000000000
+      internalID: 2460495458831998700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_5
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 390
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea2eb6d73904a0640800000000000000
+      internalID: 5046917334630654638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_6
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 295
+        width: 43
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03cf453e74231ce30800000000000000
+      internalID: 4521950785194753072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_7
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 149
+        width: 75
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3f647c8f405ab4e0800000000000000
+      internalID: -1965169984804720838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_8
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 143
+        width: 34
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99a59df2d76ead5f0800000000000000
+      internalID: -731018564146210151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_9
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 152
+        width: 67
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: becf3404b5e2d9230800000000000000
+      internalID: 3647122242695068907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_10
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 148
+        width: 21
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b13c728c3b3447b0800000000000000
+      internalID: -5240998935279160908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_11
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 102
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 661b413f5e9a143e0800000000000000
+      internalID: -2071187548522892954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: muerte_pajaro06_12
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 110
+        width: 73
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ddd2b7ea94baa3e0800000000000000
+      internalID: -2041620903653876263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      muerte_pajaro06_0: 7305464209040375274
+      muerte_pajaro06_1: -1751708767851492072
+      muerte_pajaro06_10: -5240998935279160908
+      muerte_pajaro06_11: -2071187548522892954
+      muerte_pajaro06_12: -2041620903653876263
+      muerte_pajaro06_2: 96475254934996628
+      muerte_pajaro06_3: 7856325008080333038
+      muerte_pajaro06_4: 2460495458831998700
+      muerte_pajaro06_5: 5046917334630654638
+      muerte_pajaro06_6: 4521950785194753072
+      muerte_pajaro06_7: -1965169984804720838
+      muerte_pajaro06_8: -731018564146210151
+      muerte_pajaro06_9: 3647122242695068907
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

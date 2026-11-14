@@ -12,7 +12,7 @@ public class Checkpoint : MonoBehaviour
     [SerializeField] private float periodoFlotacion = 1.6f;
 
     [Header("Brillo")]
-    [SerializeField] private Color colorBrillo = new Color(1f, 0.93f, 0.75f, 1f);
+    [SerializeField] private Color colorBrillo = new Color(1f, 0.784f, 0.325f, 1f);   // #FFC853
     [Tooltip("Tamano del halo respecto del icono.")]
     [SerializeField] private float tamanoBrillo = 2.4f;
     [SerializeField] private float brilloMinimo = 0.25f;

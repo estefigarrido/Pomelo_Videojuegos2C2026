@@ -29,15 +29,26 @@ public class SaludPersonaje : MonoBehaviour
     [SerializeField] private float duracionVibracion = 0.18f;
 
     [Header("Muerte con aviso (un pincho la levanto)")]
-    [Tooltip("Segundos de flashes rojos (en la chica y una vineta en la pantalla) antes de morir.")]
-    [SerializeField] private float segundosAvisoMuerte = 4f;
+    [Tooltip("Imagenes que cubren toda la pantalla, por encima de todo, una despues de la otra (pantalla_danio01..03).")]
+    [SerializeField] private Texture2D[] pantallaDanio;
+    [Tooltip("Segundos de cada imagen. La muerte dura la suma (2 + 2 + 1 = 5 s).")]
+    [SerializeField] private float[] segundosPantallaDanio = { 2f, 2f, 1f };
+    [Header("Pantalla al reaparecer (despues de cualquier muerte)")]
+    [Tooltip("Imagenes que cubren la pantalla al reaparecer, una despues de la otra (pantalla_respawn00..04).")]
+    [SerializeField] private Texture2D[] pantallaRespawn;
+    [Tooltip("Segundos que tardan en pasar todas (se reparten parejo).")]
+    [SerializeField] private float segundosPantallaRespawn = 1f;
+    [Tooltip("Opacidad de toda la animacion de respawn (0.3 = 30%).")]
+    [SerializeField] private float opacidadRespawn = 0.3f;
+    [Tooltip("Parte de cada imagen que se usa para aparecer y para irse (0.4 = 40% entra, 40% sale).")]
+    [Range(0.05f, 0.5f)] [SerializeField] private float fundidoRespawn = 0.4f;
+    [Tooltip("Segundos del fundido suave de una imagen a la siguiente.")]
+    [SerializeField] private float segundosFundido = 0.35f;
+    private UnityEngine.UI.RawImage pantallaAnterior;
+    [Tooltip("Flashes rojos de la chica mientras dura.")]
     [SerializeField] private float flashesPorSegundo = 3f;
     [Tooltip("Rojo oscuro, bordo.")]
     [SerializeField] private Color colorAviso = new Color(0.45f, 0.03f, 0.09f, 1f);
-    [Tooltip("Opacidad maxima de la vineta roja en los bordes de la pantalla.")]
-    [SerializeField] private float alfaVineta = 0.3f;
-    [Tooltip("Ancho de la vineta desde cada borde (0.05 = 5% de la pantalla).")]
-    [SerializeField] private float anchoVineta = 0.05f;
 
     private float vida;
     private float sabiduria;
@@ -164,6 +175,9 @@ public class SaludPersonaje : MonoBehaviour
     private System.Collections.IEnumerator AvisoMuerte()
     {
         sentenciada = true;
+        float segundosAvisoMuerte = 0f;
+        foreach (var s in segundosPantallaDanio) segundosAvisoMuerte += s;
+        if (segundosAvisoMuerte <= 0f) segundosAvisoMuerte = 5f;
         Debug.Log("[Vida] la levanto un pincho: muere en " + segundosAvisoMuerte + " s");
         parpadeo.Cortar();
         var dibujo = GetComponent<SpriteRenderer>();
@@ -175,17 +189,18 @@ public class SaludPersonaje : MonoBehaviour
         if (rb != null) { rb.linearVelocity = Vector2.zero; rb.simulated = false; }
         Mando.Vibrar(0.5f, 0.4f, 0.3f);
 
-        var vineta = CrearVineta();
+        var pantalla = CrearPantallaDanio();
         for (float t = 0f; t < segundosAvisoMuerte; t += Time.deltaTime)
         {
             // cada flash: sube rapido a rojo y se apaga; cada vez un poco mas seguido hacia el final
             float fase = t * flashesPorSegundo * Mathf.Lerp(1f, 1.6f, t / segundosAvisoMuerte);
             float k = Mathf.Pow(0.5f + 0.5f * Mathf.Cos((fase % 1f) * Mathf.PI * 2f), 2f);
             if (dibujo != null) { var c = Color.Lerp(original, colorAviso, k); c.a = original.a; dibujo.color = c; }
-            if (vineta != null) vineta.color = new Color(colorAviso.r, colorAviso.g, colorAviso.b, alfaVineta * (0.35f + 0.65f * k));
+            // la imagen de la pantalla que toca en este momento (2 s, 2 s y 1 s)
+            if (pantalla != null) PintarPantallas(pantalla, pantallaAnterior, pantallaDanio, segundosPantallaDanio, t, 1f);
             yield return null;
         }
-        if (vineta != null) { Destroy(vineta.texture); Destroy(vineta.canvas.gameObject); }
+        if (pantalla != null) Destroy(pantalla.canvas.gameObject);
         if (dibujo != null) dibujo.color = original;
         if (rb != null) rb.simulated = simulado;
         if (mov != null) mov.enabled = movActivo;
@@ -195,31 +210,74 @@ public class SaludPersonaje : MonoBehaviour
         Morir();
     }
 
-    // vineta roja: una franja finita pegada a los bordes de la pantalla (anchoVineta), por encima de todo
-    private UnityEngine.UI.RawImage CrearVineta()
+    // Pone en 'arriba' la imagen que toca a los 't' segundos (cada una dura lo que dice 'duraciones') y en
+    // 'abajo' la anterior: al empezar cada una se funde sobre la anterior en 'segundosFundido' (la primera
+    // aparece desde transparente). 'alfa' multiplica todo (para apagar la ultima al final).
+    private void PintarPantallas(UnityEngine.UI.RawImage arriba, UnityEngine.UI.RawImage abajo, Texture2D[] imagenes, float[] duraciones, float t, float alfa)
     {
-        var go = new GameObject("vineta muerte");
+        if (imagenes == null || imagenes.Length == 0) return;
+        int i = 0; float acumulado = 0f;
+        while (i < imagenes.Length - 1 && i < duraciones.Length && t >= acumulado + duraciones[i]) { acumulado += duraciones[i]; i++; }
+        var tex = imagenes[i];
+        if (arriba.texture != tex) Debug.Log("[Vida] " + arriba.canvas.name + ": " + (tex != null ? tex.name : "-") + " a los " + t.ToString("0.00") + " s");
+        float f = Mathf.SmoothStep(0f, 1f, (t - acumulado) / Mathf.Max(0.01f, segundosFundido));
+        arriba.texture = tex;
+        arriba.color = new Color(1f, 1f, 1f, f * alfa);
+        abajo.texture = i > 0 ? imagenes[i - 1] : null;
+        abajo.color = new Color(1f, 1f, 1f, i > 0 ? alfa : 0f);
+    }
+
+    // Al reaparecer: las imagenes de pantalla_respawn (00 a 04) pasan en 'segundosPantallaRespawn' en total,
+    // fundiendose una sobre otra; la ultima se apaga suave al final.
+    private System.Collections.IEnumerator PantallaRespawn()
+    {
+        if (pantallaRespawn == null || pantallaRespawn.Length == 0) yield break;
+        var img = CrearCapaPantalla("pantalla respawn", out var abajo);
+        abajo.color = Color.clear;
+        float cada = segundosPantallaRespawn / pantallaRespawn.Length;
+        int anterior = -1;
+        for (float t = 0f; t < segundosPantallaRespawn; t += Time.deltaTime)
+        {
+            // cada imagen aparece desde transparente y se va a transparente antes de la siguiente: el cambio
+            // de una pantalla a otra se nota como un latido de opacidad. Todo a 'opacidadRespawn'.
+            int i = Mathf.Min(pantallaRespawn.Length - 1, Mathf.FloorToInt(t / cada));
+            float u = (t - i * cada) / cada;
+            float entra = Mathf.SmoothStep(0f, 1f, u / fundidoRespawn);
+            float sale = Mathf.SmoothStep(0f, 1f, (1f - u) / fundidoRespawn);
+            img.texture = pantallaRespawn[i];
+            img.color = new Color(1f, 1f, 1f, opacidadRespawn * Mathf.Min(entra, sale));
+            if (i != anterior) { Debug.Log("[Vida] pantalla respawn: " + pantallaRespawn[i].name + " a los " + t.ToString("0.00") + " s"); anterior = i; }
+            yield return null;
+        }
+        Destroy(img.canvas.gameObject);
+    }
+
+    // las imagenes de pantalla_danio estiradas a toda la pantalla, por encima de todo (incluido el HUD)
+    private UnityEngine.UI.RawImage CrearPantallaDanio()
+    {
+        if (pantallaDanio == null || pantallaDanio.Length == 0) return null;
+        return CrearCapaPantalla("pantalla danio", out pantallaAnterior);
+    }
+
+    // un canvas por encima de todo con dos imagenes a pantalla completa: abajo la anterior, arriba la que se funde
+    private UnityEngine.UI.RawImage CrearCapaPantalla(string nombre, out UnityEngine.UI.RawImage anterior)
+    {
+        var go = new GameObject(nombre);
         var canvas = go.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 999;
-        var img = new GameObject("vineta").AddComponent<UnityEngine.UI.RawImage>();
+        // abajo la imagen anterior, arriba la que se esta fundiendo
+        anterior = new GameObject("imagen anterior").AddComponent<UnityEngine.UI.RawImage>();
+        anterior.transform.SetParent(go.transform, false);
+        anterior.raycastTarget = false;
+        var ra = anterior.rectTransform; ra.anchorMin = Vector2.zero; ra.anchorMax = Vector2.one; ra.offsetMin = ra.offsetMax = Vector2.zero;
+        anterior.color = Color.clear;
+        var img = new GameObject("imagen").AddComponent<UnityEngine.UI.RawImage>();
         img.transform.SetParent(go.transform, false);
+        img.color = Color.clear;
         img.raycastTarget = false;
         var r = img.rectTransform; r.anchorMin = Vector2.zero; r.anchorMax = Vector2.one; r.offsetMin = r.offsetMax = Vector2.zero;
-        const int n = 512;
-        var tex = new Texture2D(n, n, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp };
-        var px = new Color32[n * n];
-        for (int y = 0; y < n; y++)
-            for (int x = 0; x < n; x++)
-            {
-                float u = (x + 0.5f) / n, v = (y + 0.5f) / n;
-                float d = Mathf.Min(Mathf.Min(u, 1f - u), Mathf.Min(v, 1f - v));   // distancia al borde mas cercano
-                float a = 1f - Mathf.SmoothStep(0f, 1f, d / Mathf.Max(0.001f, anchoVineta));
-                px[y * n + x] = new Color32(255, 255, 255, (byte)(a * 255f));
-            }
-        tex.SetPixels32(px); tex.Apply();
-        img.texture = tex;
-        img.color = Color.clear;
+        img.texture = null;
         return img;
     }
 
@@ -238,5 +296,6 @@ public class SaludPersonaje : MonoBehaviour
         }
         vida = vidaMaxima;
         Reaparecio?.Invoke();
+        if (pantallaRespawn != null && pantallaRespawn.Length > 0) StartCoroutine(PantallaRespawn());
     }
 }

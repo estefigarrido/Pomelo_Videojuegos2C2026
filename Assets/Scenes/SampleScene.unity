@@ -1211,6 +1211,7 @@ MonoBehaviour:
   temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
   temaDesdeSegundo: 42
   volumenTema: 1.2
+  alturaLevantada: 0.25
 --- !u!114 &18765321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43828,6 +43829,11 @@ MonoBehaviour:
   vibracionGrave: 0.45
   vibracionAguda: 0.25
   duracionVibracion: 0.18
+  segundosAvisoMuerte: 4
+  flashesPorSegundo: 3
+  colorAviso: {r: 0.45, g: 0.03, b: 0.09, a: 1}
+  alfaVineta: 0.3
+  anchoVineta: 0.05
 --- !u!114 &582101489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76224,6 +76230,7 @@ MonoBehaviour:
   temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
   temaDesdeSegundo: 42
   volumenTema: 1.2
+  alturaLevantada: 0.25
 --- !u!114 &1075770085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139524,6 +139531,7 @@ MonoBehaviour:
   temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
   temaDesdeSegundo: 42
   volumenTema: 1.2
+  alturaLevantada: 0.25
 --- !u!114 &2048453792
 MonoBehaviour:
   m_ObjectHideFlags: 0

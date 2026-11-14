@@ -179,6 +179,9 @@ public class TroncoMeditador : MonoBehaviour
     private float alfaBrillos, objetivoBrillos;
     private float alfaGlowAgro, objetivoGlowAgro;
     private bool chicaEnZona;
+    private Collider2D colChica;
+    [Tooltip("Si un pincho la tiene con los pies a esta altura (o mas) sobre el piso del agro, la levanto: muere con aviso.")]
+    [SerializeField] private float alturaLevantada = 0.25f;
     private bool soltandoBurbujas;
     private float acumuladoBurbujas;
 
@@ -241,6 +244,8 @@ public class TroncoMeditador : MonoBehaviour
         if (!quieta) quietaDesde = -1f;
         else if (quietaDesde < 0f) quietaDesde = Time.time;
 
+        if (estado == Estado.Despertando || estado == Estado.Atacando) RevisarSiLaLevanto();
+
         switch (estado)
         {
             case Estado.Meditando:
@@ -265,6 +270,28 @@ public class TroncoMeditador : MonoBehaviour
         if (Time.time < proximoDanio) return;
         salud.RecibirDanio(danioPorSegundo);
         proximoDanio = Time.time + 1f;
+    }
+
+    // Si un pincho la levanto (o quedo trabada arriba de uno): esta encima de la base de un pincho, tocandolo,
+    // y con los pies por encima del piso del agro. Antes podia quedar ahi sin que pasara nada; ahora
+    // parpadea en rojo 4 s con una vineta roja y muere (SaludPersonaje.MorirConAviso).
+    private void RevisarSiLaLevanto()
+    {
+        if (salud == null || salud.Sentenciada) return;
+        if (colChica == null) colChica = salud.GetComponent<Collider2D>();
+        if (colChica == null) return;
+        Bounds b = colChica.bounds;
+        if (b.min.y < inicioAgro.y + alturaLevantada) return;
+        b.Expand(0.1f);
+        foreach (var p in pinchos)
+            foreach (var c in p.cols)
+            {
+                if (c == null || !c.enabled) continue;
+                Bounds bp = c.bounds;
+                if (b.center.x < bp.min.x || b.center.x > bp.max.x || !b.Intersects(bp)) continue;
+                salud.MorirConAviso();
+                return;
+            }
     }
 
     // se mide contra la base de cada pincho que salio (no contra el ancho del area, que es mas ancho que el dibujo):

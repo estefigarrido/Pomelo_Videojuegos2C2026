@@ -87,6 +87,12 @@ public class TroncoMeditador : MonoBehaviour
     [SerializeField] private Vector4[] manchas;
     [SerializeField] private Color[] coloresManchas;
     [SerializeField] private float segundosGlowAgro = 0.5f;
+    [Tooltip("Cuanto se ven las manchas mientras medita (0 = nada): avisan que cerca del tronco se pierde vida.")]
+    [SerializeField] private float alfaManchasMeditando = 0.45f;
+    [Tooltip("Multiplica la opacidad de las manchas (1 = la del color).")]
+    [SerializeField] private float intensidadManchas = 1.7f;
+    [Tooltip("Con la chica dentro de la zona de dano, las manchas laten mas fuerte y mas rapido.")]
+    [SerializeField] private float latidosPorSegundoEnZona = 2f;
 
     [Header("Glow que parpadea sobre los pinchos que salieron")]
     [SerializeField] private Color colorBrilloPinchos = new Color(0.79f, 0.66f, 0.96f, 0.5f);
@@ -172,6 +178,7 @@ public class TroncoMeditador : MonoBehaviour
     private readonly List<Brillo> brillosPinchos = new List<Brillo>();
     private float alfaBrillos, objetivoBrillos;
     private float alfaGlowAgro, objetivoGlowAgro;
+    private bool chicaEnZona;
     private bool soltandoBurbujas;
     private float acumuladoBurbujas;
 
@@ -253,7 +260,8 @@ public class TroncoMeditador : MonoBehaviour
     {
         if (salud == null) return;
         var zona = new Rect((Vector2)transform.position + centroZonaDanio - tamanoZonaDanio / 2f, tamanoZonaDanio);
-        if (!zona.Contains(p)) { proximoDanio = Time.time + 1f; return; }
+        chicaEnZona = zona.Contains(p);
+        if (!chicaEnZona) { proximoDanio = Time.time + 1f; return; }
         if (Time.time < proximoDanio) return;
         salud.RecibirDanio(danioPorSegundo);
         proximoDanio = Time.time + 1f;
@@ -651,17 +659,22 @@ public class TroncoMeditador : MonoBehaviour
         }
     }
 
-    // el glow del agro aparece y se apaga suave; cada mancha late y se mueve un poquito, como particulas
+    // el glow del agro aparece y se apaga suave; cada mancha late y se mueve un poquito, como particulas.
+    // Mientras medita se ve un poco (avisa que cerca se pierde vida); con la chica en la zona de dano late fuerte.
     private void ActualizarGlowAgro()
     {
-        alfaGlowAgro = Mathf.MoveTowards(alfaGlowAgro, objetivoGlowAgro, Time.deltaTime / Mathf.Max(0.01f, segundosGlowAgro));
+        bool vivo = estado != Estado.Muerto;
+        float objetivo = vivo ? Mathf.Max(objetivoGlowAgro, chicaEnZona ? 1f : alfaManchasMeditando) : 0f;
+        alfaGlowAgro = Mathf.MoveTowards(alfaGlowAgro, objetivo, Time.deltaTime / Mathf.Max(0.01f, segundosGlowAgro));
         for (int i = 0; i < manchasAgro.Count; i++)
         {
             var sr = manchasAgro[i];
             if (sr == null) continue;
             var c = coloresManchas != null && i < coloresManchas.Length ? coloresManchas[i] : Color.white;
-            float latido = 0.8f + 0.2f * Mathf.Sin(Time.time * 1.7f + i * 1.3f);
-            sr.color = new Color(c.r, c.g, c.b, c.a * alfaGlowAgro * latido);
+            float latido = vivo && chicaEnZona
+                ? 0.55f + 0.45f * Mathf.Sin((Time.time * latidosPorSegundoEnZona + i * 0.21f) * Mathf.PI * 2f)
+                : 0.8f + 0.2f * Mathf.Sin(Time.time * 1.7f + i * 1.3f);
+            sr.color = new Color(c.r, c.g, c.b, Mathf.Clamp01(c.a * intensidadManchas) * alfaGlowAgro * latido);
             var m = manchas[i];
             sr.transform.localPosition = new Vector3(m.x + Mathf.Sin(Time.time * 0.6f + i * 2.1f) * 0.12f,
                                                      m.y + Mathf.Sin(Time.time * 0.45f + i * 1.7f) * 0.18f, -0.01f);

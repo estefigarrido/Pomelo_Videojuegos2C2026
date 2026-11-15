@@ -1,8 +1,8 @@
 using UnityEngine;
 
 // Pasos de la chica al caminar (zapatilla sobre madera, Assets/_Sonidos/Paso_madera_1..4).
-// La animacion ChicaCaminando llama a Paso() en los cuadros en que apoya el talon (cuadro 1 y cuadro 7,
-// 0 s y 0.5 s de cada vuelta): esos "eventos" los pone el menu Pomelo -> Sonidos -> Conectar sonidos.
+// Suenan segun la distancia recorrida en el piso (cada cierta distancia, un paso), al ritmo de los pies de la
+// animacion de caminar o de correr. Tocar la tecla un ratito no hace sonar un paso.
 // Cada paso usa una variante al azar (nunca la misma dos veces seguidas), asi no suena repetido.
 [RequireComponent(typeof(Animator))]
 public class PasosPersonaje : MonoBehaviour
@@ -26,11 +26,12 @@ public class PasosPersonaje : MonoBehaviour
     [SerializeField] private AudioClip[] pasosHoja;
 
     [Header("Cada cuanto suena un paso (distancia recorrida en el piso)")]
-    [Tooltip("Unidades caminadas entre paso y paso (1.2 = un paso cada 120 px, el ritmo de la animacion de caminar).")]
-    [SerializeField] private float distanciaPorPaso = 1.2f;
-    [Tooltip("Unidades corridas entre paso y paso con el sprint.")]
-    [SerializeField] private float distanciaPorPasoCorriendo = 3.5f;
-
+    // camina a 6 u/s y ChicaCaminando apoya 2 pies en 1.08 s -> 3.25 u por paso; corre a 10.8 u/s y
+    // ChicaSprint apoya 2 pies en 1.17 s -> 6.3 u por paso. Si cambia la velocidad, cambiar esto igual.
+    [Tooltip("Unidades caminadas entre paso y paso (Caro eligio 5).")]
+    [SerializeField] private float distanciaPorPaso = 5f;
+    [Tooltip("Unidades corridas entre paso y paso con el sprint (9.7: la misma proporcion que caminando).")]
+    [SerializeField] private float distanciaPorPasoCorriendo = 9.7f;
     private int ultimo = -1;
     private MovimientoPersonaje movimiento;
     private float recorrido;     // distancia en el piso desde el ultimo paso
@@ -43,8 +44,8 @@ public class PasosPersonaje : MonoBehaviour
         xAnterior = transform.position.x;
     }
 
-    // Los pasos ya no dependen de la animacion (sonaban cada vez que se tocaba la tecla, porque la animacion
-    // arranca en el cuadro del paso): suenan cada 'distanciaPorPaso' recorrida en el piso. Toques cortos no suenan.
+    // Los pasos no dependen de cada toque de la tecla: suenan cada 'distanciaPorPaso' recorrida en el piso.
+    // Toques cortos no suenan.
     private void Update()
     {
         float x = transform.position.x;

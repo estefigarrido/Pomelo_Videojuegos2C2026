@@ -50,36 +50,23 @@ public static class ConectarSonidos
         Debug.Log("Sonidos conectados: " + conectados + ". Guarda la escena con Ctrl+S.");
     }
 
-    // Pasos: la animacion de caminar (ChicaCaminando, 12 cuadros a 12 por segundo) apoya el talon en el
-    // cuadro 1 (0 s) y en el cuadro 7 (0.5 s): ahi van los eventos "Paso". El componente PasosPersonaje
-    // (en la chica, junto al Animator) los recibe y hace sonar una de las 4 variantes de Paso_madera.
-    private const string RutaCaminar = "Assets/_animaciones/ChicaCaminando.anim";
-    private static readonly float[] TiemposPaso = { 0f, 0.5f };
-    private const string RutaCorrer = "Assets/_animaciones/ChicaSprint.anim";
-    private static readonly float[] TiemposPasoCorriendo = { 2f / 12f, 9f / 12f };
+    // Pasos: ya NO van en las animaciones (sonaban cada vez que se tocaba la tecla, porque la animacion arranca
+    // en el cuadro del paso). PasosPersonaje los hace sonar cada cierta distancia recorrida en el piso.
+    // Aca se sacan los eventos viejos "Paso" / "PasoCorriendo" de las animaciones, si quedaron.
+    private static readonly string[] RutasConPasosViejos =
+        { "Assets/_animaciones/ChicaCaminando.anim", "Assets/_animaciones/ChicaSprint.anim" };
 
     private static int ConectarPasos()
     {
-        var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(RutaCaminar);
-        if (clip == null) { Debug.LogWarning("No encontre " + RutaCaminar); return 0; }
-        var eventos = new System.Collections.Generic.List<AnimationEvent>();
-        foreach (var e in AnimationUtility.GetAnimationEvents(clip)) if (e.functionName != "Paso") eventos.Add(e);   // conserva otros eventos
-        foreach (float t in TiemposPaso) eventos.Add(new AnimationEvent { time = t, functionName = "Paso" });
-        AnimationUtility.SetAnimationEvents(clip, eventos.ToArray());
-        EditorUtility.SetDirty(clip);
-
-        // correr: ChicaSprint (_chica_sprinting_12fps, 14 cuadros a 12 por segundo) apoya un pie en el
-        // cuadro 3 (0.167 s) y el otro en el cuadro 10 (0.75 s)
-        var sprint = AssetDatabase.LoadAssetAtPath<AnimationClip>(RutaCorrer);
-        if (sprint == null) Debug.LogWarning("No encontre " + RutaCorrer);
-        else
+        foreach (var ruta in RutasConPasosViejos)
         {
-            var evs = new System.Collections.Generic.List<AnimationEvent>();
-            foreach (var e in AnimationUtility.GetAnimationEvents(sprint)) if (e.functionName != "PasoCorriendo") evs.Add(e);
-            foreach (float t in TiemposPasoCorriendo) evs.Add(new AnimationEvent { time = t, functionName = "PasoCorriendo" });
-            AnimationUtility.SetAnimationEvents(sprint, evs.ToArray());
-            EditorUtility.SetDirty(sprint);
-            Debug.Log("Pasos corriendo: en los cuadros 3 y 10 de " + sprint.name);
+            var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(ruta);
+            if (clip == null) continue;
+            var eventos = new System.Collections.Generic.List<AnimationEvent>();
+            foreach (var e in AnimationUtility.GetAnimationEvents(clip))
+                if (e.functionName != "Paso" && e.functionName != "PasoCorriendo") eventos.Add(e);   // conserva otros eventos
+            AnimationUtility.SetAnimationEvents(clip, eventos.ToArray());
+            EditorUtility.SetDirty(clip);
         }
         AssetDatabase.SaveAssets();
 
@@ -109,7 +96,13 @@ public static class ConectarSonidos
         for (int i = 0; i < hojas.Count; i++) propHoja.GetArrayElementAtIndex(i).objectReferenceValue = hojas[i];
         Debug.Log("Pasos sobre hojas: " + hojas.Count + " variantes");
         so.ApplyModifiedProperties();
-        Debug.Log("Pasos: " + lista.Count + " variantes, en los cuadros 1 y 7 de " + clip.name);
+        // distancia entre pasos, al ritmo de los pies de las animaciones (ver PasosPersonaje); se pone aca porque
+        // la chica que ya esta en la escena se queda con los valores viejos aunque cambie el codigo
+        var so2 = new SerializedObject(pasos);
+        so2.FindProperty("distanciaPorPaso").floatValue = 5f;
+        so2.FindProperty("distanciaPorPasoCorriendo").floatValue = 9.7f;   // misma proporcion que caminando
+        so2.ApplyModifiedProperties();
+        Debug.Log("Pasos: " + lista.Count + " variantes, uno cada 5 u caminando y cada 9.7 u corriendo");
         return lista.Count > 0 ? 1 : 0;
     }
 

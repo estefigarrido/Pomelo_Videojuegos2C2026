@@ -72,6 +72,9 @@ public class Checkpoint : MonoBehaviour
         inicioDesaparecer = Time.time;
         GetComponent<Collider2D>().enabled = false;
         salud.DefinirPuntoDeReaparicion(posicionBase);
+        // centro del icono quieto (sin la flotacion), asi el aviso queda centrado con el
+        Vector3 centroIcono = dibujo != null && dibujo.sprite != null ? dibujo.bounds.center - transform.position + posicionBase : posicionBase;
+        AvisoCheckpoint.Mostrar(dibujo != null ? dibujo.sprite : null, centroIcono);   // "Nuevo checkpoint" en pantalla
     }
 
     private void SetAlfa(float a)

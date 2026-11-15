@@ -125,7 +125,7 @@ public class MenuPausa : MonoBehaviour
     private void OnDestroy()
     {
         // si se cambia de escena con el menu abierto, que el juego no quede frenado
-        if (Abierto) { Abierto = false; Time.timeScale = escalaDeTiempoAntes; }
+        if (Abierto) { Abierto = false; Time.timeScale = escalaDeTiempoAntes; Sonido.Reanudar(); }
     }
 
     private void Update()
@@ -244,6 +244,7 @@ public class MenuPausa : MonoBehaviour
         Abierto = true;
         escalaDeTiempoAntes = Time.timeScale > 0f ? Time.timeScale : 1f;
         Time.timeScale = 0f;
+        Sonido.Pausar();   // los efectos que estaban sonando se congelan
         if (panel != null) panel.SetActive(true);
         if (Mouse.current != null) ultimoMouse = Mouse.current.position.ReadValue();
         // ya aprendio a pausar: el aviso de la esquina se va y no vuelve
@@ -265,6 +266,7 @@ public class MenuPausa : MonoBehaviour
         Abierto = false;
         frameCierre = Time.frameCount;   // el mismo toque que cierra no salta ni ataca
         Time.timeScale = escalaDeTiempoAntes;
+        Sonido.Reanudar();
         // el panel se desvanece en AnimarPanel y recien ahi se apaga
     }
 
@@ -343,6 +345,7 @@ public class MenuPausa : MonoBehaviour
             case Accion.NuevoJuego:
                 Abierto = false;
                 Time.timeScale = 1f;
+                Sonido.Reanudar();   // que los efectos no queden en pausa en la partida nueva
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 break;
             case Accion.Configuracion:

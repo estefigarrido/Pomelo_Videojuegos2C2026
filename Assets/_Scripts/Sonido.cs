@@ -21,7 +21,31 @@ public static class Sonido
         fuente.spatialBlend = 0f;
         fuente.playOnAwake = false;
         fuente.Play();
+        // se borra con el tiempo del juego: en pausa (timeScale 0) espera, asi el sonido puede seguir al reanudar
         Object.Destroy(go, clip.length / Mathf.Max(0.01f, Mathf.Abs(tono)) + 0.1f);
+        sonando.RemoveAll(f => f == null);
+        sonando.Add(fuente);
+        if (enPausa) fuente.Pause();
         return fuente;
+    }
+
+    // ---------- pausa ----------
+    // El menu de pausa congela los efectos que estan sonando (la puerta, una botellita...) y los sigue al cerrar.
+    // La musica no pasa por aca, asi que sigue sonando.
+    private static readonly System.Collections.Generic.List<AudioSource> sonando = new System.Collections.Generic.List<AudioSource>();
+    private static bool enPausa;
+
+    public static void Pausar()
+    {
+        enPausa = true;
+        sonando.RemoveAll(f => f == null);
+        foreach (var f in sonando) f.Pause();
+    }
+
+    public static void Reanudar()
+    {
+        enPausa = false;
+        sonando.RemoveAll(f => f == null);
+        foreach (var f in sonando) f.UnPause();
     }
 }

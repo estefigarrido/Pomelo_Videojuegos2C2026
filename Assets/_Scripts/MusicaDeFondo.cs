@@ -130,8 +130,23 @@ public class MusicaDeFondo : MonoBehaviour
         temaActivo = false;
     }
 
+    private bool musicaPausada;
+
+    // con el menu de pausa abierto la musica se frena, y sigue desde el mismo punto al cerrarlo
+    private void PausarConElMenu()
+    {
+        if (MenuPausa.Abierto == musicaPausada) return;
+        musicaPausada = MenuPausa.Abierto;
+        foreach (var f in new[] { fuentes[0], fuentes[1], fuenteTema, fuenteSaliente })
+        {
+            if (musicaPausada) f.Pause();
+            else f.UnPause();
+        }
+    }
+
     private void Update()
     {
+        PausarConElMenu();
         // mismo reloj que la camara, asi el cambio de musica va junto con el de-zoom
         mezclaTema = Mathf.MoveTowards(mezclaTema, temaActivo ? 1f : 0f, Time.deltaTime / Mathf.Max(0.01f, duracionCambioTema));
         for (int i = 0; i < 2; i++) fuentes[i].volume = volumen * nivel[i] * (1f - mezclaTema);
@@ -164,6 +179,7 @@ public class MusicaDeFondo : MonoBehaviour
             float inicio = Time.unscaledTime;
             while (sonando.time < sonando.clip.length - duracionFade)
             {
+                if (EnPausa()) inicio = Time.unscaledTime;   // una cancion en pausa no se corto: no se salta
                 if (!sonando.isPlaying && !EnPausa() && Time.unscaledTime - inicio > 2f) break;
                 yield return null;
             }
@@ -191,7 +207,7 @@ public class MusicaDeFondo : MonoBehaviour
         float t = 0f;
         while (t < duracionFade)
         {
-            t += Time.unscaledDeltaTime;
+            if (!EnPausa()) t += Time.unscaledDeltaTime;   // en pausa el fundido espera
             float k = Mathf.Clamp01(t / Mathf.Max(0.01f, duracionFade));
             if (saliente >= 0) nivel[saliente] = 1f - k;
             nivel[entrante] = k;
@@ -206,7 +222,7 @@ public class MusicaDeFondo : MonoBehaviour
 #if UNITY_EDITOR
         if (UnityEditor.EditorApplication.isPaused) return true;
 #endif
-        return AudioListener.pause;
+        return AudioListener.pause || MenuPausa.Abierto;
     }
 
     private void Mezclar()

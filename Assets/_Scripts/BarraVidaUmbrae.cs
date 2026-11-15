@@ -130,7 +130,8 @@ public class BarraVidaUmbrae : MonoBehaviour
 
         // temblorcito al recibir un golpe
         float tiembla = Mathf.Clamp01(1f - (Time.time - ultimoGolpe) / Mathf.Max(0.01f, segundosTemblor));
-        transform.localPosition = posicion + (Vector3)(Random.insideUnitCircle * temblor * tiembla);
+        // en pausa no se sigue sacudiendo
+        if (Time.deltaTime > 0f) transform.localPosition = posicion + (Vector3)(Random.insideUnitCircle * temblor * tiembla);
 
         // protegido: los ornamentos titilan en violeta claro (suman luz)
         bool protegido = umbrae != null && umbrae.Protegido && enPelea;

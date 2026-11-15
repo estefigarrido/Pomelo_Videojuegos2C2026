@@ -19,6 +19,7 @@ public class CamaraSeguidora : MonoBehaviour
     private float mezcla; // 0 = sigue a la chica, 1 = encuadre fijo
     private float duracionActual;
     private float inicioTemblor, finTemblor, intensidadTemblor;
+    private Vector2 ultimaSacudida;
 
     private void Awake()
     {
@@ -61,9 +62,13 @@ public class CamaraSeguidora : MonoBehaviour
 
         if (Time.time < finTemblor)
         {
-            float queda = 1f - (Time.time - inicioTemblor) / Mathf.Max(0.01f, finTemblor - inicioTemblor);
-            Vector2 sacudida = Random.insideUnitCircle * intensidadTemblor * queda;
-            transform.position += new Vector3(sacudida.x, sacudida.y, 0f);
+            // en pausa (el tiempo no avanza) se queda quieta donde estaba, en vez de seguir sacudiendose
+            if (Time.deltaTime > 0f)
+            {
+                float queda = 1f - (Time.time - inicioTemblor) / Mathf.Max(0.01f, finTemblor - inicioTemblor);
+                ultimaSacudida = Random.insideUnitCircle * intensidadTemblor * queda;
+            }
+            transform.position += new Vector3(ultimaSacudida.x, ultimaSacudida.y, 0f);
         }
     }
 

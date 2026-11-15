@@ -3,6 +3,10 @@ using UnityEngine.InputSystem;
 
 public class SaludPersonaje : MonoBehaviour
 {
+    [Header("Debug")]
+    [Tooltip("Muestra en la consola los mensajes de este script (apagado en el juego final).")]
+    [SerializeField] private bool mostrarDebug = false;
+
     [SerializeField] private float vidaMaxima = 100f;
     [Tooltip("Donde reaparece al morir. Si queda vacio, reaparece donde empezo el nivel.")]
     [SerializeField] private Transform puntoDeReaparicion;
@@ -96,7 +100,7 @@ public class SaludPersonaje : MonoBehaviour
         if (cantidad <= 0f || sabiduria >= sabiduriaMaxima) return;
 
         sabiduria = Mathf.Min(sabiduriaMaxima, sabiduria + cantidad);
-        Debug.Log("[Sabiduria] +" + cantidad + " -> " + sabiduria + "/" + sabiduriaMaxima);
+        if (mostrarDebug) Debug.Log("[Sabiduria] +" + cantidad + " -> " + sabiduria + "/" + sabiduriaMaxima);
     }
 
     // Una vida por vez, y solo si le falta vida y le alcanza la sabiduria.
@@ -106,7 +110,7 @@ public class SaludPersonaje : MonoBehaviour
 
         sabiduria -= costoRegeneracion;
         vida = Mathf.Min(vidaMaxima, vida + regeneracion);
-        Debug.Log("[Vida] +" + regeneracion + " (gasta " + costoRegeneracion + " de sabiduria) -> " + vida + "/" + vidaMaxima);
+        if (mostrarDebug) Debug.Log("[Vida] +" + regeneracion + " (gasta " + costoRegeneracion + " de sabiduria) -> " + vida + "/" + vidaMaxima);
     }
 
     // vibrar: los golpes de los mobs hacen vibrar el joystick; los pinchos pasan false
@@ -115,7 +119,7 @@ public class SaludPersonaje : MonoBehaviour
         if (vida <= 0f) return;
 
         vida = Mathf.Max(0f, vida - cantidad);
-        Debug.Log("[Vida] -" + cantidad + " -> " + vida + "/" + vidaMaxima);
+        if (mostrarDebug) Debug.Log("[Vida] -" + cantidad + " -> " + vida + "/" + vidaMaxima);
 
         // el joystick vibra un poco, como en los juegos: un golpe seco (motor grave) con algo de zumbido,
         // mas fuerte si con ese golpe se muere
@@ -138,7 +142,7 @@ public class SaludPersonaje : MonoBehaviour
         if (vida <= 0f || sentenciada) return;
 
         vida = Mathf.Max(0f, vida - danio);
-        Debug.Log("[Vida] cayo al agua venenosa: -" + danio + " -> " + vida + "/" + vidaMaxima);
+        if (mostrarDebug) Debug.Log("[Vida] cayo al agua venenosa: -" + danio + " -> " + vida + "/" + vidaMaxima);
         if (vida <= 0f) { Morir(); return; }
 
         parpadeo.Empezar();
@@ -161,7 +165,7 @@ public class SaludPersonaje : MonoBehaviour
     {
         puntoDeReaparicion = null;
         puntoGuardado = posicion;
-        Debug.Log("[Vida] nuevo punto de reaparicion: " + posicion);
+        if (mostrarDebug) Debug.Log("[Vida] nuevo punto de reaparicion: " + posicion);
     }
 
     // Un pincho la levanto: queda trabada arriba del pincho (quieta), parpadea en bordo y se ve la pantalla de
@@ -184,7 +188,7 @@ public class SaludPersonaje : MonoBehaviour
     private System.Collections.IEnumerator Atrapada_()
     {
         sentenciada = true;
-        Debug.Log("[Vida] la levanto un pincho: queda atrapada hasta que baje");
+        if (mostrarDebug) Debug.Log("[Vida] la levanto un pincho: queda atrapada hasta que baje");
         parpadeo.Cortar();
         var dibujo = GetComponent<SpriteRenderer>();
         colorAntesDeAtrapar = dibujo != null ? dibujo.color : Color.white;
@@ -228,7 +232,7 @@ public class SaludPersonaje : MonoBehaviour
         int i = 0; float acumulado = 0f;
         while (i < imagenes.Length - 1 && i < duraciones.Length && t >= acumulado + duraciones[i]) { acumulado += duraciones[i]; i++; }
         var tex = imagenes[i];
-        if (arriba.texture != tex) Debug.Log("[Vida] " + arriba.canvas.name + ": " + (tex != null ? tex.name : "-") + " a los " + t.ToString("0.00") + " s");
+        if (mostrarDebug && arriba.texture != tex) Debug.Log("[Vida] " + arriba.canvas.name + ": " + (tex != null ? tex.name : "-") + " a los " + t.ToString("0.00") + " s");
         float f = Mathf.SmoothStep(0f, 1f, (t - acumulado) / Mathf.Max(0.01f, segundosFundido));
         arriba.texture = tex;
         arriba.color = new Color(1f, 1f, 1f, f * alfa);
@@ -255,7 +259,7 @@ public class SaludPersonaje : MonoBehaviour
             float sale = Mathf.SmoothStep(0f, 1f, (1f - u) / fundidoRespawn);
             img.texture = pantallaRespawn[i];
             img.color = new Color(1f, 1f, 1f, opacidadRespawn * Mathf.Min(entra, sale));
-            if (i != anterior) { Debug.Log("[Vida] pantalla respawn: " + pantallaRespawn[i].name + " a los " + t.ToString("0.00") + " s"); anterior = i; }
+            if (i != anterior) { if (mostrarDebug) Debug.Log("[Vida] pantalla respawn: " + pantallaRespawn[i].name + " a los " + t.ToString("0.00") + " s"); anterior = i; }
             yield return null;
         }
         Destroy(img.canvas.gameObject);
@@ -296,7 +300,7 @@ public class SaludPersonaje : MonoBehaviour
         AlMorir?.Invoke();
         Vector3 destino = reaparicionUnaVez ?? (puntoDeReaparicion != null ? puntoDeReaparicion.position : puntoGuardado);
         reaparicionUnaVez = null;
-        Debug.Log("[Vida] murio, reaparece en " + destino);
+        if (mostrarDebug) Debug.Log("[Vida] murio, reaparece en " + destino);
 
         transform.position = destino;
         if (rb != null)

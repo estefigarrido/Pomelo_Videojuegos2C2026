@@ -19,6 +19,10 @@ using UnityEngine.UI;
 // Lo arma el menu  Pomelo -> Pausa -> Armar menu de pausa  (Assets/Editor/ArmarMenuPausa.cs).
 public class MenuPausa : MonoBehaviour
 {
+    [Header("Debug")]
+    [Tooltip("Muestra en la consola los mensajes de este script (apagado en el juego final).")]
+    [SerializeField] private bool mostrarDebug = false;
+
     public enum Accion { Continuar, NuevoJuego, Configuracion, Salir }
 
     [System.Serializable]
@@ -56,7 +60,7 @@ public class MenuPausa : MonoBehaviour
     [SerializeField] private float duracionCambio = 0.18f;
 
     [Header("Sonido")]
-    [Tooltip("Suena cada vez que se pasa a otro boton (Assets/_MUSICA/Pausa_cambio_boton.wav).")]
+    [Tooltip("Suena cada vez que se pasa a otro boton (Assets/_Musica/Pausa_cambio_boton.wav).")]
     [SerializeField] private AudioClip sonidoCambio;
     [Range(0f, 1f)]
     [SerializeField] private float volumenCambio = 0.6f;
@@ -349,7 +353,7 @@ public class MenuPausa : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 break;
             case Accion.Configuracion:
-                Debug.Log("[Pausa] Configuracion: todavia no hay pantalla de configuracion.");
+                if (mostrarDebug) Debug.Log("[Pausa] Configuracion: todavia no hay pantalla de configuracion.");
                 break;
             case Accion.Salir:
 #if UNITY_EDITOR

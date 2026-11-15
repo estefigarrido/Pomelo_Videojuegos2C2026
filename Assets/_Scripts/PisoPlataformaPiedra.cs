@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Marca: esta es una de las plataformas de piedra flotantes (_entorno/_Plataformas). Al caer encima, la chica
+// Marca: esta es una de las plataformas de piedra flotantes (_Entorno/_Plataformas). Al caer encima, la chica
 // usa el sonido Salto_caida_plataforma_* en vez de la caida comun.
 // No hace falta ponerla a mano: el menu Pomelo -> Sonidos -> Conectar sonidos se la agrega a todas las
 // plataformas que usan esos dibujos.

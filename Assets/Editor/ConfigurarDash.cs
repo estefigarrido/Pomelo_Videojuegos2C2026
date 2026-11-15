@@ -13,7 +13,7 @@ using UnityEngine;
 // Menu:  Pomelo -> Configurar dash
 public static class ConfigurarDash
 {
-    private const string Carpeta = "Assets/_animaciones/";
+    private const string Carpeta = "Assets/_Animaciones/";
     private const string ReferenciaSprint = Carpeta + "_chica_sprinting_12fps/001.png";
     private const string RutaClip = Carpeta + "ChicaDash.anim";
     private const string RutaController = Carpeta + "Personaje.controller";

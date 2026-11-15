@@ -54,7 +54,7 @@ public static class ConectarSonidos
     // en el cuadro del paso). PasosPersonaje los hace sonar cada cierta distancia recorrida en el piso.
     // Aca se sacan los eventos viejos "Paso" / "PasoCorriendo" de las animaciones, si quedaron.
     private static readonly string[] RutasConPasosViejos =
-        { "Assets/_animaciones/ChicaCaminando.anim", "Assets/_animaciones/ChicaSprint.anim" };
+        { "Assets/_Animaciones/ChicaCaminando.anim", "Assets/_Animaciones/ChicaSprint.anim" };
 
     private static int ConectarPasos()
     {
@@ -137,9 +137,9 @@ public static class ConectarSonidos
         return pera_ + alta_ + redonda_;
     }
 
-    // Plataformas de piedra flotantes: todo lo que dibuja un sprite de _entorno/_Plataformas/Plataforma*
+    // Plataformas de piedra flotantes: todo lo que dibuja un sprite de _Entorno/_Plataformas/Plataforma*
     // (no las flores) recibe la marca PisoPlataformaPiedra, asi la chica sabe que cayo sobre piedra suelta
-    private const string CarpetaPlataformas = "Assets/_entorno/_Plataformas/Plataforma";
+    private const string CarpetaPlataformas = "Assets/_Entorno/_Plataformas/Plataforma";
 
     private static void MarcarPlataformas()
     {

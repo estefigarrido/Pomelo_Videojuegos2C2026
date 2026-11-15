@@ -8,6 +8,10 @@ using UnityEngine;
 // nuevas, asi arrancan exactamente como al principio sin tocar sus scripts. Umbrae no se copia: se reinicia aparte.
 public class ReinicioNivel : MonoBehaviour
 {
+    [Header("Debug")]
+    [Tooltip("Muestra en la consola los mensajes de este script (apagado en el juego final).")]
+    [SerializeField] private bool mostrarDebug = false;
+
     [Tooltip("Donde reaparece la chica al volver al inicio (el primer spawnpoint).")]
     [SerializeField] private Transform primerSpawnpoint;
 
@@ -72,6 +76,6 @@ public class ReinicioNivel : MonoBehaviour
             g.actual = nuevo;
         }
         if (salud != null) salud.DefinirPuntoDeReaparicion(posicionInicio);
-        Debug.Log("[Reinicio] vuelve al primer spawnpoint; reaparecen " + guardados.Count + " mobs y spawnpoints");
+        if (mostrarDebug) Debug.Log("[Reinicio] vuelve al primer spawnpoint; reaparecen " + guardados.Count + " mobs y spawnpoints");
     }
 }

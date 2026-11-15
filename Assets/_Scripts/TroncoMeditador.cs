@@ -14,6 +14,10 @@ using UnityEngine;
 [RequireComponent(typeof(VidaEnemigo))]
 public class TroncoMeditador : MonoBehaviour
 {
+    [Header("Debug")]
+    [Tooltip("Muestra en la consola los mensajes de este script (apagado en el juego final).")]
+    [SerializeField] private bool mostrarDebug = false;
+
     [System.Serializable]
     public class Distribucion
     {
@@ -231,7 +235,7 @@ public class TroncoMeditador : MonoBehaviour
     private void ActualizarDefensa(Vector2 p)
     {
         bool enRango = estado != Estado.Muerto && ZonaDefensa().Contains(p);
-        if (enRango && !defendiendo) { defendiendo = true; Debug.Log("[Tronco] " + name + ": se defiende (pinchos a los costados)"); cicloDefensa = StartCoroutine(CicloDefensa()); }
+        if (enRango && !defendiendo) { defendiendo = true; if (mostrarDebug) Debug.Log("[Tronco] " + name + ": se defiende (pinchos a los costados)"); cicloDefensa = StartCoroutine(CicloDefensa()); }
         else if (!enRango && defendiendo) { defendiendo = false; }   // el ciclo termina solo al bajar
         if (vida != null && estado != Estado.Muerto) vida.Invulnerable = DefensaArriba;
         if (DefensaArriba) RevisarSiLaLevanto(pinchosDefensa);
@@ -438,7 +442,7 @@ public class TroncoMeditador : MonoBehaviour
                 if (!cerca || arriba >= segundosArriba)
                 {
                     PintarLatido(1f);
-                    Debug.Log("[Tronco] " + name + ": los pinchos bajan despues de " + arriba.ToString("0.00") + " s arriba" + (cerca ? "" : " (la chica se fue)"));
+                    if (mostrarDebug) Debug.Log("[Tronco] " + name + ": los pinchos bajan despues de " + arriba.ToString("0.00") + " s arriba" + (cerca ? "" : " (la chica se fue)"));
                     StartCoroutine(Guardar(true));
                 }
                 break;

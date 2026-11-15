@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class VidaEnemigo : MonoBehaviour
 {
+    [Header("Debug")]
+    [Tooltip("Muestra en la consola los mensajes de este script (apagado en el juego final).")]
+    [SerializeField] private bool mostrarDebug = false;
+
     [SerializeField] private float vidaMaxima = 100f;
     [Header("Parpadeo al recibir un golpe")]
     [SerializeField] private ParpadeoDanio parpadeo = new ParpadeoDanio();
@@ -72,7 +76,7 @@ public class VidaEnemigo : MonoBehaviour
         if (!Vivo || Invulnerable) return;
 
         vida = Mathf.Max(0f, vida - cantidad);
-        Debug.Log("[Enemigo] " + name + " -" + cantidad + " -> " + vida + "/" + vidaMaxima);
+        if (mostrarDebug) Debug.Log("[Enemigo] " + name + " -" + cantidad + " -> " + vida + "/" + vidaMaxima);
 
         // el golpe que lo mata suma la sabiduria cuando los pedacitos llegan al circulo del HUD
         bool vuelaAlHud = !Vivo && framesMuerteSabiduria != null && framesMuerteSabiduria.Length > 0

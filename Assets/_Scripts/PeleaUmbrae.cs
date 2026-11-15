@@ -9,6 +9,10 @@ using UnityEngine;
 [RequireComponent(typeof(ZonaCamaraFija))]
 public class PeleaUmbrae : MonoBehaviour
 {
+    [Header("Debug")]
+    [Tooltip("Muestra en la consola los mensajes de este script (apagado en el juego final).")]
+    [SerializeField] private bool mostrarDebug = false;
+
     [SerializeField] private UmbraeBoss jefe;
     [Tooltip("Donde reaparece la chica si muere peleando (el medio de la arena).")]
     [SerializeField] private Transform reaparicion;
@@ -43,7 +47,7 @@ public class PeleaUmbrae : MonoBehaviour
         if (muertes < muertesParaReiniciar)
         {
             if (reaparicion != null) salud.ReaparecerUnaVezEn(reaparicion.position);
-            Debug.Log("[Pelea Umbrae] muerte " + muertes + " de " + muertesParaReiniciar + ": reaparece en la arena");
+            if (mostrarDebug) Debug.Log("[Pelea Umbrae] muerte " + muertes + " de " + muertesParaReiniciar + ": reaparece en la arena");
             return;
         }
 
@@ -59,11 +63,11 @@ public class PeleaUmbrae : MonoBehaviour
             // perdio la pelea una vez mas despues de los reinicios: vuelve al primer spawnpoint y reaparecen los mobs
             reinicios = 0;
             reinicioNivel.VolverAlInicio(salud);
-            Debug.Log("[Pelea Umbrae] se perdio la pelea " + (reiniciosAntesDeVolverAlInicio + 1) + " veces: vuelve al inicio del nivel");
+            if (mostrarDebug) Debug.Log("[Pelea Umbrae] se perdio la pelea " + (reiniciosAntesDeVolverAlInicio + 1) + " veces: vuelve al inicio del nivel");
             return;
         }
         // vuelve al ultimo spawnpoint (lo hace SaludPersonaje solo)
-        Debug.Log("[Pelea Umbrae] " + muertesParaReiniciar + " muertes: vuelve al spawnpoint y se reinicia la pelea (reinicio " + reinicios + " de " + reiniciosAntesDeVolverAlInicio + ")");
+        if (mostrarDebug) Debug.Log("[Pelea Umbrae] " + muertesParaReiniciar + " muertes: vuelve al spawnpoint y se reinicia la pelea (reinicio " + reinicios + " de " + reiniciosAntesDeVolverAlInicio + ")");
     }
 
     private void OnDrawGizmos()

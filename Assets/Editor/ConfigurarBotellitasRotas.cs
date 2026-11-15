@@ -11,7 +11,7 @@ using UnityEngine;
 // Menu:  Pomelo -> Configurar botellitas rotas
 public static class ConfigurarBotellitasRotas
 {
-    private const string Carpeta = "Assets/_animaciones/_botellarota_0";
+    private const string Carpeta = "Assets/_Animaciones/_botellarota_0";
     private const byte AlfaMinima = 40;
 
     [MenuItem("Pomelo/Configurar botellitas rotas")]

@@ -1222,6 +1222,7 @@ MonoBehaviour:
   segundosBajarDefensa: 0.3
   lugaresDefensa: {x: 0.12, y: 0.86}
   altoDefensa: 1.05
+  anchoDefensa: 1.5
   ojosDefensa:
   - {fileID: 7274289340301713766, guid: aba4feb411c738a45bd771eb06f45952, type: 3}
   - {fileID: 1614905959104612770, guid: 5dfe8df23859f3048949cc7dd272f0f2, type: 3}
@@ -1232,6 +1233,8 @@ MonoBehaviour:
   colorGlowOjos: {r: 0.72, g: 0.45, b: 1, a: 0.75}
   tamanoGlowOjos: 0.75
   alturaLevantada: 0.25
+  segundosDanioAtrapada: 1
+  alturaPastoSobrePiso: 0.15
 --- !u!114 &18765321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38348,7 +38351,7 @@ Transform:
   m_GameObject: {fileID: 489585684}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.038573913, w: 0.9992558}
-  m_LocalPosition: {x: 0.10406718, y: -0.30183512, z: -0.01}
+  m_LocalPosition: {x: 0.10407038, y: -0.3018354, z: -0.01}
   m_LocalScale: {x: 0.13835497, y: 0.13835497, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39455,7 +39458,7 @@ Transform:
   m_GameObject: {fileID: 500824106}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 83.6, y: -16.61775, z: 0}
+  m_LocalPosition: {x: 83.6, y: -16.81775, z: 0}
   m_LocalScale: {x: 0.7015824, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -60727,6 +60730,104 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &820723059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 820723060}
+  - component: {fileID: 820723062}
+  - component: {fileID: 820723061}
+  m_Layer: 0
+  m_Name: hoja (plataforma)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &820723060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820723059}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 8.095222, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1941657041}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!251 &820723061
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820723059}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 170
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
+--- !u!61 &820723062
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820723059}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 4.708997, y: 0.24417044}
+  m_EdgeRadius: 0
 --- !u!1 &821060010
 GameObject:
   m_ObjectHideFlags: 0
@@ -65904,7 +66005,7 @@ Transform:
   m_GameObject: {fileID: 895772592}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.18665269, w: 0.982426}
-  m_LocalPosition: {x: -0.12285499, y: -0.5973438, z: -0.01}
+  m_LocalPosition: {x: -0.12285635, y: -0.59734476, z: -0.01}
   m_LocalScale: {x: 0.13070716, y: 0.13070716, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78054,6 +78155,7 @@ MonoBehaviour:
   segundosBajarDefensa: 0.3
   lugaresDefensa: {x: 0.12, y: 0.86}
   altoDefensa: 1.05
+  anchoDefensa: 1.5
   ojosDefensa:
   - {fileID: 7274289340301713766, guid: aba4feb411c738a45bd771eb06f45952, type: 3}
   - {fileID: 1614905959104612770, guid: 5dfe8df23859f3048949cc7dd272f0f2, type: 3}
@@ -78064,6 +78166,8 @@ MonoBehaviour:
   colorGlowOjos: {r: 0.72, g: 0.45, b: 1, a: 0.75}
   tamanoGlowOjos: 0.75
   alturaLevantada: 0.25
+  segundosDanioAtrapada: 1
+  alturaPastoSobrePiso: 0.15
 --- !u!114 &1075770085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79302,7 +79406,7 @@ Transform:
   m_GameObject: {fileID: 1099685380}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 84.58502, y: -16.395, z: 0}
+  m_LocalPosition: {x: 84.58502, y: -16.595001, z: 0}
   m_LocalScale: {x: 0.45009926, y: 0.45, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -104966,6 +105070,8 @@ MonoBehaviour:
   centroEncuadre: {x: -82.7, y: 60.4}
   tamanoEncuadre: 12.5
   duracion: 1.4
+  xFinal: -116
+  centroHaciaFinal: {x: -93.8, y: 60.4}
 --- !u!1 &1506718176
 GameObject:
   m_ObjectHideFlags: 0
@@ -105052,8 +105158,8 @@ Transform:
   m_GameObject: {fileID: 1506718176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 219.9524, y: 17.2346, z: 0}
-  m_LocalScale: {x: 0.6390067, y: 0.6390067, z: 0.6390067}
+  m_LocalPosition: {x: 219.9524, y: 16.95152, z: 0}
+  m_LocalScale: {x: 0.5112054, y: 0.5112054, z: 0.5112054}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -128987,7 +129093,7 @@ Transform:
   m_GameObject: {fileID: 1861983506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.054275785, w: 0.99852604}
-  m_LocalPosition: {x: -0.21169017, y: -0.60089517, z: -0.01}
+  m_LocalPosition: {x: -0.21169047, y: -0.6008949, z: -0.01}
   m_LocalScale: {x: 0.14924535, y: 0.14924535, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129260,7 +129366,7 @@ Transform:
   m_GameObject: {fileID: 1864229976}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.0729328, w: 0.99733686}
-  m_LocalPosition: {x: 0.23904009, y: -0.81338316, z: -0.01}
+  m_LocalPosition: {x: 0.23904046, y: -0.81338376, z: -0.01}
   m_LocalScale: {x: 0.16088246, y: 0.16088246, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129884,6 +129990,12 @@ MonoBehaviour:
   - {fileID: 1873500072}
   latido: 1.35
   duracionLatido: 0.3
+  sombrasPiezas:
+  - {fileID: 21300000, guid: c5b2af438a39c714b9c9c15f91c9f2ec, type: 3}
+  - {fileID: 21300000, guid: 5ddfbce38183154439f2bd0c55a9e735, type: 3}
+  - {fileID: 21300000, guid: 17421c63a3f8ab04aaee1aae72185fa2, type: 3}
+  opacidadSombra: 0.3
+  margenSombraPx: 14
   iconosGolpe:
   - {fileID: 1873500112}
   - {fileID: 1873500142}
@@ -136268,10 +136380,11 @@ Transform:
   m_GameObject: {fileID: 1941657039}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 219.1626, y: 12.809999, z: 0}
-  m_LocalScale: {x: 0.77022153, y: 0.77022153, z: 0.77022153}
+  m_LocalPosition: {x: 219.1626, y: 12.526919, z: 0}
+  m_LocalScale: {x: 0.77022153, y: 0.73719, z: 0.77022153}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 820723060}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1941657042
@@ -142605,6 +142718,7 @@ MonoBehaviour:
   segundosBajarDefensa: 0.3
   lugaresDefensa: {x: 0.12, y: 0.86}
   altoDefensa: 1.05
+  anchoDefensa: 1.5
   ojosDefensa:
   - {fileID: 7274289340301713766, guid: aba4feb411c738a45bd771eb06f45952, type: 3}
   - {fileID: 1614905959104612770, guid: 5dfe8df23859f3048949cc7dd272f0f2, type: 3}
@@ -142615,6 +142729,8 @@ MonoBehaviour:
   colorGlowOjos: {r: 0.72, g: 0.45, b: 1, a: 0.75}
   tamanoGlowOjos: 0.75
   alturaLevantada: 0.25
+  segundosDanioAtrapada: 1
+  alturaPastoSobrePiso: 0.15
 --- !u!114 &2048453792
 MonoBehaviour:
   m_ObjectHideFlags: 0

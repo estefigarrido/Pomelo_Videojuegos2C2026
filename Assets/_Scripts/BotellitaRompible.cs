@@ -62,10 +62,15 @@ public class BotellitaRompible : MonoBehaviour
 
     private void Awake() => dibujo = GetComponent<SpriteRenderer>();
 
-    public void Romper()
+    private bool enElAire;
+
+    // enElAire: las colgantes se rompen donde estan colgando (golpe del latigo a la botellita o bola de flores).
+    // Sin eso (el latigo le pego a la soga) la soga se corta, la botellita cae entera y se rompe en el piso.
+    public void Romper(bool enElAire = false)
     {
         if (rota) return;
         rota = true;
+        this.enElAire = enElAire;
         var col = GetComponent<Collider2D>(); if (col != null) col.enabled = false;
         // suelta de golpe el polen que le quedaba (carga la barra del templo)
         if (PolenPlantas.Instancia != null) PolenPlantas.Instancia.SoltarTodo(this);
@@ -87,8 +92,9 @@ public class BotellitaRompible : MonoBehaviour
             seRompe = Suelto("botellita cayendo", cuerpo);
             var grupo = transform.Find("dientes de leon");
             if (grupo != null) grupo.SetParent(seRompe.transform, true);
-            yield return Caer(seRompe);
+            if (!enElAire) yield return Caer(seRompe);
         }
+        bool rotaEnElAire = enElAire && seRompe != dibujo;
 
         // 2) se rompe donde esta: la animacion reemplaza al dibujo y los dientes de leon salen
         //    (el sonido arranca en el golpe del vidrio, junto con el primer cuadro de la rotura)
@@ -112,9 +118,28 @@ public class BotellitaRompible : MonoBehaviour
                 rotura.sprite = cuadrosRota[Mathf.Min(cuadro, cuadrosRota.Length - 1)];
             }
             if (quedaPolen) quedaPolen = MoverPolen(polen);
+            // rota en el aire: los pedazos no quedan flotando, caen y se desvanecen apenas termina la animacion
+            if (rotaEnElAire && rotura != null && !animando)
+            {
+                StartCoroutine(CaerPedazos(rotura));
+                rotura = null;
+            }
             if (!animando && !quedaPolen) yield break;
             yield return null;
         }
+    }
+
+    private IEnumerator CaerPedazos(SpriteRenderer sr)
+    {
+        float vel = 0f; Color c = sr.color;
+        for (float t = 0f; t < 0.45f; t += Time.deltaTime)
+        {
+            vel -= gravedad * Time.deltaTime;
+            sr.transform.position += Vector3.up * vel * Time.deltaTime;
+            sr.color = new Color(c.r, c.g, c.b, c.a * (1f - t / 0.45f));
+            yield return null;
+        }
+        sr.enabled = false;
     }
 
     // cae derecha (sin girar, asi la animacion arranca parada) hasta apoyar el vidrio en el piso

@@ -79,7 +79,24 @@ public class AtaqueLatigo : MonoBehaviour
                 float d = ((Vector2)col.bounds.center - (Vector2)transform.position).sqrMagnitude;
                 if (d < dist) { dist = d; masCerca = botellita; }
             }
-            if (masCerca != null && !rompioBotellita) { masCerca.Romper(); rompioBotellita = true; }
+            // le pego a la botellita: se rompe ahi mismo (las colgantes, en el aire)
+            if (masCerca != null && !rompioBotellita) { masCerca.Romper(true); rompioBotellita = true; }
+            // no le pego a ninguna botellita pero si a la soga de una colgante: la soga se corta, la botellita
+            // cae entera y se rompe al tocar el piso
+            if (!rompioBotellita)
+            {
+                var zonaGolpe = new Bounds(centro, tamano);
+                SogaBotellita cortada = null; float distSoga = float.MaxValue;
+                foreach (var s in SogaBotellita.Activas)
+                {
+                    if (s == null) continue;
+                    var b = s.GetComponent<BotellitaRompible>();
+                    if (b == null || b.Rota || !s.TocaLaSoga(zonaGolpe)) continue;
+                    float d = ((Vector2)s.transform.position - (Vector2)transform.position).sqrMagnitude;
+                    if (d < distSoga) { distSoga = d; cortada = s; }
+                }
+                if (cortada != null) { cortada.GetComponent<BotellitaRompible>().Romper(false); rompioBotellita = true; }
+            }
 
             // las bolas de ignorancia (no tienen collider): las que toca el latigo se repelen y se rompen
             var zona = new Bounds(centro, tamano);

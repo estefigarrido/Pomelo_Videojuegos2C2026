@@ -25,9 +25,17 @@ public class EncuadreTemplo : MonoBehaviour
     [Tooltip("Segundos que tarda en alejarse y en volver.")]
     [SerializeField] private float duracion = 1.4f;
 
+    [Header("Hasta el final (portal)")]
+    [Tooltip("La camara sigue alejada mientras la chica va del templo hasta esta x (el portal del final, a la izquierda), " +
+             "asi el de-zoom queda hasta que arranca el final.")]
+    [SerializeField] private float xFinal = -116f;
+    [Tooltip("Encuadre corrido hacia el portal, para el tramo entre el templo y el final (mismo tamano).")]
+    [SerializeField] private Vector2 centroHaciaFinal = new Vector2(-93.8f, 60.4f);
+
     private CamaraSeguidora camara;
     private Transform chica;
     private bool adentro;
+    private int encuadre;   // 0 sigue a la chica, 1 el templo, 2 corrido hacia el portal
 
     private void Start()
     {
@@ -43,10 +51,16 @@ public class EncuadreTemplo : MonoBehaviour
         float x0 = Mathf.Min(Borde(columnaIzquierda, true), Borde(columnaDerecha, true)) - distanciaActivar;
         float x1 = Mathf.Max(Borde(columnaIzquierda, false), Borde(columnaDerecha, false)) + distanciaActivar;
         float margen = adentro ? margenSalida : 0f;
-        bool ahora = p.x > x0 - margen && p.x < x1 + margen && p.y > yMinima && p.y < yMaxima;
-        if (ahora == adentro) return;
-        adentro = ahora;
-        if (adentro) camara.FijarEncuadre(centroEncuadre, tamanoEncuadre, duracion);
+        bool enAltura = p.y > yMinima && p.y < yMaxima;
+        bool enTemplo = p.x > x0 - margen && p.x < x1 + margen && enAltura;
+        // entre el templo y el portal del final (yendo a la izquierda): la camara sigue alejada, corrida hacia el portal
+        bool haciaFinal = !enTemplo && enAltura && p.x <= x0 && p.x > xFinal - margen && encuadre != 0;
+        int ahora = enTemplo ? 1 : haciaFinal ? 2 : 0;
+        if (ahora == encuadre) return;
+        encuadre = ahora;
+        adentro = ahora != 0;
+        if (ahora == 1) camara.FijarEncuadre(centroEncuadre, tamanoEncuadre, duracion);
+        else if (ahora == 2) camara.FijarEncuadre(centroHaciaFinal, tamanoEncuadre, duracion);
         else camara.Liberar(duracion);
     }
 
@@ -62,6 +76,7 @@ public class EncuadreTemplo : MonoBehaviour
     {
         if (adentro && camara != null) camara.Liberar(duracion);
         adentro = false;
+        encuadre = 0;
     }
 
     private void OnDrawGizmosSelected()

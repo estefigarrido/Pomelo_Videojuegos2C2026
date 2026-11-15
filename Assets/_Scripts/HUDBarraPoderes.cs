@@ -15,6 +15,12 @@ public class HUDBarraPoderes : MonoBehaviour
     [Tooltip("Cuanto se agranda la pieza al llegar (1.35 = 35% mas grande) y cuanto tarda en volver.")]
     [SerializeField] private float latido = 1.35f;
     [SerializeField] private float duracionLatido = 0.3f;
+    [Tooltip("Sombra de cada pieza (su silueta desenfocada en #252525, estatua_*_HUD_sombra): va detras, centrada (X 0, Y 0).")]
+    [SerializeField] private Sprite[] sombrasPiezas;
+    [Range(0f, 1f)] [SerializeField] private float opacidadSombra = 0.3f;
+    [Tooltip("Margen que tiene la imagen de la sombra a cada lado respecto de la pieza (px de la imagen).")]
+    [SerializeField] private float margenSombraPx = 14f;
+    private Image[] sombras;
 
     [Header("Golpe elegido (circulo principal)")]
     [Tooltip("Icono de cada golpe, en el orden de SelectorAtaque.Ataque (latigo, sabiduria).")]
@@ -54,6 +60,38 @@ public class HUDBarraPoderes : MonoBehaviour
         {
             inicioLatido[i] = -99f;
             piezas[i].enabled = false;
+        }
+        CrearSombras();
+    }
+
+    // la sombra es un hermano de la pieza, justo antes en la jerarquia (asi se dibuja detras), del mismo lugar y
+    // un poco mas grande por el margen del desenfoque
+    private void CrearSombras()
+    {
+        sombras = new Image[piezas.Length];
+        if (sombrasPiezas == null) return;
+        for (int i = 0; i < piezas.Length && i < sombrasPiezas.Length; i++)
+        {
+            if (sombrasPiezas[i] == null || piezas[i] == null || piezas[i].sprite == null) continue;
+            var pieza = piezas[i].rectTransform;
+            var go = new GameObject("sombra " + piezas[i].name, typeof(RectTransform), typeof(Image));
+            var rt = (RectTransform)go.transform;
+            rt.SetParent(pieza.parent, false);
+            rt.SetSiblingIndex(pieza.GetSiblingIndex());
+            var tam = piezas[i].sprite.rect.size;
+            float fx = (tam.x + margenSombraPx * 2f) / tam.x, fy = (tam.y + margenSombraPx * 2f) / tam.y;
+            // centrada en la pieza (X 0, Y 0) y mas grande por el margen del desenfoque
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.localRotation = pieza.localRotation;
+            rt.sizeDelta = new Vector2(pieza.rect.width * fx, pieza.rect.height * fy);
+            rt.position = pieza.TransformPoint(pieza.rect.center);
+            var img = go.GetComponent<Image>();
+            img.sprite = sombrasPiezas[i];
+            img.raycastTarget = false;
+            img.color = new Color(1f, 1f, 1f, opacidadSombra);
+            img.enabled = false;
+            sombras[i] = img;
         }
     }
 
@@ -131,6 +169,7 @@ public class HUDBarraPoderes : MonoBehaviour
     {
         if (lugar < 0 || lugar >= piezas.Length) return;
         piezas[lugar].enabled = true;
+        if (sombras != null && sombras[lugar] != null) sombras[lugar].enabled = true;
         inicioLatido[lugar] = Time.time;
     }
 
@@ -147,6 +186,7 @@ public class HUDBarraPoderes : MonoBehaviour
             float t = (Time.time - inicioLatido[i]) / duracionLatido;
             float escala = t < 1f ? Mathf.Lerp(latido, 1f, t * t * (3f - 2f * t)) : 1f;
             piezas[i].rectTransform.localScale = new Vector3(escala, escala, 1f);
+            if (sombras != null && sombras[i] != null) sombras[i].rectTransform.localScale = new Vector3(escala, escala, 1f);
         }
         ActualizarGolpe();
         ActualizarSelector();

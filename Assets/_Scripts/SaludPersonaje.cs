@@ -112,7 +112,7 @@ public class SaludPersonaje : MonoBehaviour
     // vibrar: los golpes de los mobs hacen vibrar el joystick; los pinchos pasan false
     public void RecibirDanio(float cantidad, bool vibrar = true)
     {
-        if (vida <= 0f || sentenciada) return;
+        if (vida <= 0f) return;
 
         vida = Mathf.Max(0f, vida - cantidad);
         Debug.Log("[Vida] -" + cantidad + " -> " + vida + "/" + vidaMaxima);
@@ -164,50 +164,59 @@ public class SaludPersonaje : MonoBehaviour
         Debug.Log("[Vida] nuevo punto de reaparicion: " + posicion);
     }
 
-    // Un pincho la levanto: queda quieta donde esta, parpadea en rojo junto con una vineta roja en los bordes
-    // de la pantalla durante 'segundosAvisoMuerte' (para que se entienda que va a morir) y despues muere.
-    public void MorirConAviso()
+    // Un pincho la levanto: queda trabada arriba del pincho (quieta), parpadea en bordo y se ve la pantalla de
+    // dano. Mientras siga atrapada el pincho la lastima (lo maneja quien la atrapo, con RecibirDanio) y ella puede
+    // regenerar vidas para aguantar. Cuando el pincho baja, la sueltan (SoltarDelPincho) y sigue jugando.
+    // Si se queda sin vida, muere como siempre.
+    public bool Atrapada => sentenciada;
+    private Color colorAntesDeAtrapar;
+    private bool movAntesDeAtrapar, simuladoAntesDeAtrapar;
+    private UnityEngine.UI.RawImage pantallaAtrapada;
+
+    public void AtraparEnPincho()
     {
         if (sentenciada || vida <= 0f) return;
-        StartCoroutine(AvisoMuerte());
+        StartCoroutine(Atrapada_());
     }
 
-    private System.Collections.IEnumerator AvisoMuerte()
+    public void SoltarDelPincho() => sentenciada = false;
+
+    private System.Collections.IEnumerator Atrapada_()
     {
         sentenciada = true;
-        float segundosAvisoMuerte = 0f;
-        foreach (var s in segundosPantallaDanio) segundosAvisoMuerte += s;
-        if (segundosAvisoMuerte <= 0f) segundosAvisoMuerte = 5f;
-        Debug.Log("[Vida] la levanto un pincho: muere en " + segundosAvisoMuerte + " s");
+        Debug.Log("[Vida] la levanto un pincho: queda atrapada hasta que baje");
         parpadeo.Cortar();
         var dibujo = GetComponent<SpriteRenderer>();
-        Color original = dibujo != null ? dibujo.color : Color.white;
+        colorAntesDeAtrapar = dibujo != null ? dibujo.color : Color.white;
         var mov = GetComponent<MovimientoPersonaje>();
-        bool movActivo = mov != null && mov.enabled;
+        movAntesDeAtrapar = mov != null && mov.enabled;
         if (mov != null) mov.enabled = false;
-        bool simulado = rb != null && rb.simulated;
+        simuladoAntesDeAtrapar = rb == null || rb.simulated;
         if (rb != null) { rb.linearVelocity = Vector2.zero; rb.simulated = false; }
         Mando.Vibrar(0.5f, 0.4f, 0.3f);
 
-        var pantalla = CrearPantallaDanio();
-        for (float t = 0f; t < segundosAvisoMuerte; t += Time.deltaTime)
+        pantallaAtrapada = CrearPantallaDanio();
+        for (float t = 0f; sentenciada && vida > 0f; t += Time.deltaTime)
         {
-            // cada flash: sube rapido a rojo y se apaga; cada vez un poco mas seguido hacia el final
-            float fase = t * flashesPorSegundo * Mathf.Lerp(1f, 1.6f, t / segundosAvisoMuerte);
+            float fase = t * flashesPorSegundo;
             float k = Mathf.Pow(0.5f + 0.5f * Mathf.Cos((fase % 1f) * Mathf.PI * 2f), 2f);
-            if (dibujo != null) { var c = Color.Lerp(original, colorAviso, k); c.a = original.a; dibujo.color = c; }
-            // la imagen de la pantalla que toca en este momento (2 s, 2 s y 1 s)
-            if (pantalla != null) PintarPantallas(pantalla, pantallaAnterior, pantallaDanio, segundosPantallaDanio, t, 1f);
+            if (dibujo != null) { var c = Color.Lerp(colorAntesDeAtrapar, colorAviso, k); c.a = colorAntesDeAtrapar.a; dibujo.color = c; }
+            if (pantallaAtrapada != null) PintarPantallas(pantallaAtrapada, pantallaAnterior, pantallaDanio, segundosPantallaDanio, t, 1f);
             yield return null;
         }
-        if (pantalla != null) Destroy(pantalla.canvas.gameObject);
-        if (dibujo != null) dibujo.color = original;
-        if (rb != null) rb.simulated = simulado;
-        if (mov != null) mov.enabled = movActivo;
+        Desatrapar();
+    }
+
+    // vuelve a moverse y a caer (al soltarla, o al morir atrapada)
+    private void Desatrapar()
+    {
+        if (pantallaAtrapada != null) { Destroy(pantallaAtrapada.canvas.gameObject); pantallaAtrapada = null; }
+        var dibujo = GetComponent<SpriteRenderer>();
+        if (dibujo != null) dibujo.color = colorAntesDeAtrapar;
+        var mov = GetComponent<MovimientoPersonaje>();
+        if (rb != null) rb.simulated = simuladoAntesDeAtrapar;
+        if (mov != null) mov.enabled = movAntesDeAtrapar;
         sentenciada = false;
-        vida = 0f;
-        Mando.Vibrar(0.8f, 0.6f, 0.45f);
-        Morir();
     }
 
     // Pone en 'arriba' la imagen que toca a los 't' segundos (cada una dura lo que dice 'duraciones') y en
@@ -283,6 +292,7 @@ public class SaludPersonaje : MonoBehaviour
 
     private void Morir()
     {
+        if (sentenciada) Desatrapar();   // murio atrapada en un pincho: la suelta antes de reaparecer
         AlMorir?.Invoke();
         Vector3 destino = reaparicionUnaVez ?? (puntoDeReaparicion != null ? puntoDeReaparicion.position : puntoGuardado);
         reaparicionUnaVez = null;

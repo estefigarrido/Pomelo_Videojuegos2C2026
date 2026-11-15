@@ -97,6 +97,29 @@ public class SogaBotellita : MonoBehaviour
         Acomodar();
     }
 
+    // Todas las sogas que todavia sostienen su botellita (el latigo las revisa para cortarlas).
+    public static readonly System.Collections.Generic.List<SogaBotellita> Activas = new System.Collections.Generic.List<SogaBotellita>();
+    private void OnEnable() { if (!Activas.Contains(this)) Activas.Add(this); }
+    private void OnDisable() => Activas.Remove(this);
+
+    // El latigo toca la soga (no la botellita): algun tramo de la soga, sin contar el nudo de la botellita,
+    // cae dentro de la zona del golpe.
+    public bool TocaLaSoga(Bounds zona)
+    {
+        if (cadena == null || suelta) return false;
+        zona.Expand(new Vector3(0.1f, 0.1f, 0f));
+        for (int i = 0; i < cadena.Cantidad - 2; i++)
+        {
+            Vector2 a = cadena.p[i], b = cadena.p[i + 1];
+            for (int k = 0; k <= 4; k++)
+            {
+                Vector2 q = Vector2.Lerp(a, b, k / 4f);
+                if (zona.Contains(new Vector3(q.x, q.y, zona.center.z))) return true;
+            }
+        }
+        return false;
+    }
+
     // la botellita se rompio: el cuerpo cae (lo maneja BotellitaRompible) y la soga queda suelta
     public void Soltar()
     {

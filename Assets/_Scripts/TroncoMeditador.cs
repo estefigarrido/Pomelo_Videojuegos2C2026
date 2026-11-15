@@ -278,7 +278,9 @@ public class TroncoMeditador : MonoBehaviour
                 var lp = sr.transform.localPosition; sr.transform.localPosition = new Vector3(lp.x * anchoDefensa, lp.y, lp.z);
             }
             Bounds b = Encapsular(srs);
-            g.transform.position += new Vector3(Mathf.Lerp(cuerpo.min.x, cuerpo.max.x, f) - b.center.x, cuerpo.min.y - hundirPinchos - b.min.y, 0f);
+            g.transform.position += new Vector3(Mathf.Lerp(cuerpo.min.x, cuerpo.max.x, f) - b.center.x, 0f, 0f);
+            float baseVisual = BasePinchos(g.transform);
+            foreach (var sr in srs) { var pp = sr.transform.position; pp.y = baseVisual; sr.transform.position = pp; }
             gruposDefensa.Add(g);
             foreach (var sr in srs)
                 pinchosDefensa.Add(new Pincho { t = sr.transform, sr = sr, escala = sr.transform.localScale, centroY = sr.transform.position.y, piso = sr.bounds.min.y, retraso = 0f, cols = sr.GetComponents<Collider2D>() });
@@ -386,6 +388,7 @@ public class TroncoMeditador : MonoBehaviour
         ActualizarGlowAgro();
         ActualizarBrillosPinchos();
         ActualizarBurbujas();
+        ActualizarAtrapada();
         if (estado == Estado.Muerto || chica == null) return;
 
         Vector2 p = chica.position;
@@ -456,8 +459,34 @@ public class TroncoMeditador : MonoBehaviour
 
     // Si un pincho la levanto (o quedo trabada arriba de uno): esta encima de la base de un pincho, tocandolo,
     // y con los pies por encima del piso del agro. Antes podia quedar ahi sin que pasara nada; ahora
-    // parpadea en rojo 4 s con una vineta roja y muere (SaludPersonaje.MorirConAviso).
+    // queda atrapada arriba del pincho (SaludPersonaje.AtraparEnPincho): mientras el pincho siga arriba la
+    // lastima cada 'segundosDanioAtrapada' (ella puede regenerar vidas para aguantar) y cuando baja la suelta.
     private void RevisarSiLaLevanto() => RevisarSiLaLevanto(pinchos);
+
+    [Header("Atrapada en un pincho")]
+    [Tooltip("Cada cuantos segundos la lastima el pincho que la levanto, mientras siga arriba.")]
+    [SerializeField] private float segundosDanioAtrapada = 1f;
+    private List<Pincho> atrapadaEn;
+    private float proximoDanioAtrapada;
+
+    private void ActualizarAtrapada()
+    {
+        if (atrapadaEn == null || salud == null) return;
+        if (!salud.Atrapada) { atrapadaEn = null; return; }   // murio y reaparecio
+        bool sigueArriba = false;
+        foreach (var p in atrapadaEn) foreach (var c in p.cols) if (c != null && c.enabled) { sigueArriba = true; break; }
+        if (!sigueArriba || estado == Estado.Muerto)
+        {
+            salud.SoltarDelPincho();
+            atrapadaEn = null;
+            return;
+        }
+        if (Time.time >= proximoDanioAtrapada)
+        {
+            salud.RecibirDanio(danioPinchos, false);
+            proximoDanioAtrapada = Time.time + segundosDanioAtrapada;
+        }
+    }
 
     private void RevisarSiLaLevanto(List<Pincho> lista)
     {
@@ -473,7 +502,9 @@ public class TroncoMeditador : MonoBehaviour
                 if (c == null || !c.enabled) continue;
                 Bounds bp = c.bounds;
                 if (b.center.x < bp.min.x || b.center.x > bp.max.x || !b.Intersects(bp)) continue;
-                salud.MorirConAviso();
+                salud.AtraparEnPincho();
+                atrapadaEn = lista;
+                proximoDanioAtrapada = Time.time + segundosDanioAtrapada;
                 return;
             }
     }
@@ -554,8 +585,13 @@ public class TroncoMeditador : MonoBehaviour
             // el grupo queda centrado en el area, y cada pincho apoyado (un poco hundido) en el piso de abajo suyo
             Bounds b = Encapsular(srs);
             g.transform.position += new Vector3(a.x - b.center.x, inicioAgro.y - b.min.y, 0f);
+            // todos salen de la misma altura: la del pasto donde apoyan las plantas. El pivote de cada pincho es el
+            // centro de su base, asi los inclinados no quedan mas altos o mas bajos que los rectos
+            float baseVisual = BasePinchos(g.transform);
             foreach (var sr in srs)
-                sr.transform.position += Vector3.up * (PisoDebajo(sr.bounds.center.x, g.transform) - hundirPinchos - sr.bounds.min.y);
+            {
+                var pp = sr.transform.position; pp.y = baseVisual; sr.transform.position = pp;
+            }
             grupos.Add(g);
             // lo que ocupa cada pincho en el piso (su base): los inclinados tienen la punta corrida hacia afuera,
             // y pegada a la base la chica no esta encima aunque la punta pase por arriba de ella
@@ -590,6 +626,14 @@ public class TroncoMeditador : MonoBehaviour
         foreach (var sr in srs) b.Encapsulate(sr.bounds);
         return b;
     }
+
+    [Tooltip("Cuanto mas arriba del piso solido (collider) esta la linea del pasto donde apoyan las plantas: " +
+             "de ahi salen todos los pinchos.")]
+    [SerializeField] private float alturaPastoSobrePiso = 0.15f;
+
+    // la misma altura para todos los pinchos: el piso solido en el medio del agro, subido hasta el pasto
+    private float BasePinchos(Transform grupo) =>
+        PisoDebajo(inicioAgro.x + tamanoAgro.x * 0.5f, grupo) + alturaPastoSobrePiso - hundirPinchos;
 
     // altura del piso solido debajo de x (cerca del piso del agro); si no encuentra, el piso del agro
     private float PisoDebajo(float x, Transform grupo)

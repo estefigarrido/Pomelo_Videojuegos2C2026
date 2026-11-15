@@ -235,7 +235,16 @@ public class AtaqueSabiduria : MonoBehaviour
             if (materialBrillo != null) srEstela.sharedMaterial = materialBrillo;
         }
 
-        Vector2 direccion = Apuntar(origen, sentido);
+        // si lo que apunta esta muy cerca (entre la chica y la salida de la bola), la bola sale desde la chica,
+        // asi no lo pasa de largo
+        Vector2 direccion = Apuntar(origen, sentido, out Vector2? objetivo);
+        if (objetivo.HasValue && (objetivo.Value.x - origen.x) * sentido < radio * 2f)
+        {
+            origen = new Vector3(transform.position.x, origen.y, origen.z);
+            raiz.transform.position = origen;
+            Vector2 hacia = objetivo.Value - (Vector2)origen;
+            if (hacia.sqrMagnitude > 0.0001f) direccion = hacia.normalized;
+        }
         raiz.AddComponent<ProyectilSabiduria>().Iniciar(direccion, velocidadInicial, velocidadMaxima, aceleracion, AlcanceActual, danio,
             giroMaximo, radio, colliderPropio, srBola.transform, srEstela, flores, distanciaEntreFlores);
     }
@@ -252,24 +261,44 @@ public class AtaqueSabiduria : MonoBehaviour
         }
     }
 
-    // busca el enemigo vivo mas cercano que este adelante y dentro del angulo de punteria
-    private Vector2 Apuntar(Vector3 origen, float sentido)
+    // busca lo mas cercano que este adelante y dentro del angulo de punteria: un enemigo vivo o una botellita
+    // sana (asi tambien le pega a las botellitas apoyadas en el piso, que quedan por debajo de la salida)
+    private Vector2 Apuntar(Vector3 origen, float sentido, out Vector2? elegido)
     {
         Vector2 mejor = new Vector2(sentido, 0f);
         float mejorDistancia = AlcanceActual;
+        Vector2? encontrado = null;
+        Vector2 chica = transform.position;
+        void Probar(Vector2 objetivo)
+        {
+            // adelante de la chica (no de la salida de la bola): asi cuenta aunque este pegado a ella
+            if ((objetivo.x - chica.x) * sentido <= 0.05f) return;
+            Vector2 hacia = objetivo - (Vector2)origen;
+            float distancia = hacia.magnitude;
+            if (distancia > mejorDistancia) return;
+            // de cerca el angulo se abre (una botellita en el piso, pegada, queda muy abajo)
+            float cercania = Mathf.Clamp01(Vector2.Distance(objetivo, chica) / 4f);
+            float angulo = Mathf.Lerp(80f, anguloPunteria, cercania);
+            Vector2 desdeChica = objetivo - new Vector2(chica.x, origen.y);
+            if (Vector2.Angle(new Vector2(sentido, 0f), desdeChica) > angulo) return;
+            mejorDistancia = distancia;
+            mejor = distancia > 0.0001f ? hacia / distancia : new Vector2(sentido, 0f);
+            encontrado = objetivo;
+        }
         foreach (var enemigo in FindObjectsByType<VidaEnemigo>(FindObjectsSortMode.None))
         {
             if (!enemigo.Vivo) continue;
             var col = enemigo.GetComponent<Collider2D>();
-            Vector2 objetivo = col != null ? (Vector2)col.bounds.center : (Vector2)enemigo.transform.position;
-            Vector2 hacia = objetivo - (Vector2)origen;
-            if (hacia.x * sentido <= 0.2f) continue;
-            float distancia = hacia.magnitude;
-            if (distancia > mejorDistancia) continue;
-            if (Vector2.Angle(new Vector2(sentido, 0f), hacia) > anguloPunteria) continue;
-            mejorDistancia = distancia;
-            mejor = hacia / distancia;
+            Probar(col != null ? (Vector2)col.bounds.center : (Vector2)enemigo.transform.position);
         }
+        foreach (var botellita in FindObjectsByType<BotellitaRompible>(FindObjectsSortMode.None))
+        {
+            if (botellita.Rota) continue;
+            var col = botellita.GetComponent<Collider2D>();
+            if (col == null || !col.enabled) continue;
+            Probar(col.bounds.center);
+        }
+        elegido = encontrado;
         return mejor;
     }
 

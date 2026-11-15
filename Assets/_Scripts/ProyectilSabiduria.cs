@@ -76,13 +76,14 @@ public class ProyectilSabiduria : MonoBehaviour
             var col = choque.collider;
             if (col == ignorar || col.GetComponentInParent<SaludPersonaje>() != null) continue;
 
-            // la bola rompe una sola botellita y ahi se frena (hay que pegarle a cada una)
+            // la bola rompe una sola botellita y ahi se frena (hay que pegarle a cada una).
+            // Las colgantes se rompen en el aire, donde las toca la bola
             var botellita = col.GetComponent<BotellitaRompible>();
             if (botellita != null)
             {
                 if (botellita.Rota) continue;
                 IrHasta(desde, choque.distance);
-                botellita.Romper();
+                botellita.Romper(true);
                 return true;
             }
 
@@ -98,12 +99,23 @@ public class ProyectilSabiduria : MonoBehaviour
             if (!col.isTrigger)
             {
                 IrHasta(desde, choque.distance);
+                // una botellita metida contra la pared: la bola choca con la pared justo al lado, igual la rompe
+                RomperPegada();
                 return true;
             }
         }
 
         IrHasta(desde, paso);
         return false;
+    }
+
+    private void RomperPegada()
+    {
+        foreach (var c in Physics2D.OverlapCircleAll(transform.position, radio + 0.45f))
+        {
+            var b = c.GetComponent<BotellitaRompible>();
+            if (b != null && !b.Rota) { b.Romper(true); return; }
+        }
     }
 
     private void IrHasta(Vector2 desde, float distancia)

@@ -1211,6 +1211,10 @@ MonoBehaviour:
   temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
   temaDesdeSegundo: 42
   volumenTema: 1.2
+  segundosArriba: 2
+  segundosLatido: 1
+  segundosPorDestello: 0.125
+  alfaLatido: 0.5
   alturaLevantada: 0.25
 --- !u!114 &18765321
 MonoBehaviour:
@@ -44024,7 +44028,7 @@ MonoBehaviour:
   fps: 12
   sonidoLatigo: {fileID: 8300000, guid: fc23ea70a2505c7459d81d160db0368c, type: 3}
   volumenLatigo: 0.8
-  danio: 50
+  danio: 45
   intervaloEntreUsos: 0.53
   zonas:
   - frame: 3
@@ -44243,7 +44247,7 @@ MonoBehaviour:
   aceleracion: 90
   alcance: 14
   alcancePeleaUmbrae: 26
-  danio: 20
+  danio: 24
   giroMaximo: 720
   radio: 0.3
   anguloPunteria: 30
@@ -48360,7 +48364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6b6bf6fc5cb804680a45dcd2967007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VidaEnemigo
-  vidaMaxima: 300
+  vidaMaxima: 600
   parpadeo:
     color: {r: 1, g: 0.15, b: 0.15, a: 1}
     veces: 3
@@ -76394,6 +76398,10 @@ MonoBehaviour:
   temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
   temaDesdeSegundo: 42
   volumenTema: 1.2
+  segundosArriba: 2
+  segundosLatido: 1
+  segundosPorDestello: 0.125
+  alfaLatido: 0.5
   alturaLevantada: 0.25
 --- !u!114 &1075770085
 MonoBehaviour:
@@ -139695,6 +139703,10 @@ MonoBehaviour:
   temaPelea: {fileID: 8300000, guid: 51bbf9fd39a9f1445bf2ee07c8db20b9, type: 3}
   temaDesdeSegundo: 42
   volumenTema: 1.2
+  segundosArriba: 2
+  segundosLatido: 1
+  segundosPorDestello: 0.125
+  alfaLatido: 0.5
   alturaLevantada: 0.25
 --- !u!114 &2048453792
 MonoBehaviour:

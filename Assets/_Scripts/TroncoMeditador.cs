@@ -190,6 +190,160 @@ public class TroncoMeditador : MonoBehaviour
     [SerializeField] private float segundosPorDestello = 0.125f;
     [SerializeField] private float alfaLatido = 0.5f;
 
+    [Header("Defensa: pinchos a los costados del cuerpo")]
+    [Tooltip("Zona donde se defiende, desde el borde izquierdo del dibujo del tronco: x = cuanto antes empieza " +
+             "(hacia la izquierda), y = hasta donde llega hacia la derecha (unidades).")]
+    [SerializeField] private Vector2 rangoDefensa = new Vector2(1.5f, 26f);
+    [Tooltip("Segundos arriba (lo protegen: no se le puede pegar) y abajo (se le puede pegar).")]
+    [SerializeField] private float segundosDefensaArriba = 2f;
+    [SerializeField] private float segundosDefensaAbajo = 2f;
+    [SerializeField] private float segundosSubirDefensa = 0.18f;
+    [SerializeField] private float segundosBajarDefensa = 0.3f;
+    [Tooltip("Donde salen los dos grupos, en fraccion del ancho del dibujo (0 = borde izquierdo, 1 = derecho).")]
+    [SerializeField] private Vector2 lugaresDefensa = new Vector2(0.12f, 0.86f);
+    [Tooltip("Alto de los pinchos de la defensa respecto del alto del dibujo del tronco.")]
+    [SerializeField] private float altoDefensa = 1.05f;
+    [Tooltip("Cuanto se ensancha cada pincho de la defensa (1 = como el dibujo).")]
+    [SerializeField] private float anchoDefensa = 1.5f;
+    [Tooltip("La cabeza con los ojos violeta (cerrados, entreabiertos, abiertos) mientras se defiende.")]
+    [SerializeField] private Sprite[] ojosDefensa = new Sprite[3];
+    [Tooltip("Centro de cada ojo en la cabeza (local), para el glow violeta.")]
+    [SerializeField] private Vector2[] posicionOjos = { new Vector2(-0.64f, -0.21f), new Vector2(0.31f, -0.21f) };
+    [SerializeField] private Color colorGlowOjos = new Color(0.72f, 0.45f, 1f, 0.75f);
+    [SerializeField] private float tamanoGlowOjos = 0.75f;
+
+    private readonly List<Pincho> pinchosDefensa = new List<Pincho>();
+    private readonly List<GameObject> gruposDefensa = new List<GameObject>();
+    private readonly List<SpriteRenderer> glowOjos = new List<SpriteRenderer>();
+    private float nivelDefensa;        // 0 abajo, 1 arriba
+    private float nivelGlowOjos;
+    private bool defendiendo;          // la chica esta en el rango y el ciclo corre
+    private Coroutine cicloDefensa;
+    public bool DefensaArriba => nivelDefensa > 0.5f;
+
+    private Rect ZonaDefensa()
+    {
+        var d = GetComponent<SpriteRenderer>();
+        Bounds b = d != null ? d.bounds : new Bounds(transform.position, Vector3.one * 4f);
+        return Rect.MinMaxRect(b.min.x - rangoDefensa.x, b.min.y - 1f, b.min.x + rangoDefensa.y, b.max.y + 3f);
+    }
+
+    private void ActualizarDefensa(Vector2 p)
+    {
+        bool enRango = estado != Estado.Muerto && ZonaDefensa().Contains(p);
+        if (enRango && !defendiendo) { defendiendo = true; Debug.Log("[Tronco] " + name + ": se defiende (pinchos a los costados)"); cicloDefensa = StartCoroutine(CicloDefensa()); }
+        else if (!enRango && defendiendo) { defendiendo = false; }   // el ciclo termina solo al bajar
+        if (vida != null && estado != Estado.Muerto) vida.Invulnerable = DefensaArriba;
+        if (DefensaArriba) RevisarSiLaLevanto(pinchosDefensa);
+    }
+
+    // 2 s arriba (lo protegen), 2 s abajo (se le puede pegar), mientras la chica siga en el rango
+    private IEnumerator CicloDefensa()
+    {
+        while (defendiendo && estado != Estado.Muerto)
+        {
+            CrearDefensa();
+            for (float t = 0f; t < segundosSubirDefensa; t += Time.deltaTime) { MoverDefensa(1f - (1f - t / segundosSubirDefensa) * (1f - t / segundosSubirDefensa)); yield return null; }
+            MoverDefensa(1f);
+            yield return new WaitForSeconds(segundosDefensaArriba);
+            for (float t = 0f; t < segundosBajarDefensa; t += Time.deltaTime) { float u = 1f - t / segundosBajarDefensa; MoverDefensa(u * u); yield return null; }
+            BorrarDefensa();
+            if (!defendiendo) break;
+            yield return new WaitForSeconds(segundosDefensaAbajo);
+        }
+        cicloDefensa = null;
+        defendiendo = false;
+    }
+
+    private void CrearDefensa()
+    {
+        BorrarDefensa();
+        var d = GetComponent<SpriteRenderer>();
+        if (grupoAncho == null || d == null) return;
+        Bounds cuerpo = d.bounds;
+        foreach (float f in new[] { lugaresDefensa.x, lugaresDefensa.y })
+        {
+            var g = Instantiate(grupoAncho, transform.parent);
+            g.name = "pinchos defensa tronco";
+            foreach (var pi in g.GetComponentsInChildren<Pinchos>()) pi.ConfigurarDanio(danioPinchos);
+            var srs = g.GetComponentsInChildren<SpriteRenderer>();
+            if (srs.Length == 0) { Destroy(g); continue; }
+            Bounds b0 = Encapsular(srs);
+            float estirar = cuerpo.size.y * altoDefensa / Mathf.Max(0.1f, b0.size.y);
+            foreach (var sr in srs)
+            {
+                // por delante del cuerpo, asi lo tapan como un escudo
+                sr.sortingLayerID = d.sortingLayerID; sr.sortingOrder = d.sortingOrder + 3;
+                var e = sr.transform.localScale; sr.transform.localScale = new Vector3(e.x * anchoDefensa, e.y * estirar, e.z);
+                var lp = sr.transform.localPosition; sr.transform.localPosition = new Vector3(lp.x * anchoDefensa, lp.y, lp.z);
+            }
+            Bounds b = Encapsular(srs);
+            g.transform.position += new Vector3(Mathf.Lerp(cuerpo.min.x, cuerpo.max.x, f) - b.center.x, cuerpo.min.y - hundirPinchos - b.min.y, 0f);
+            gruposDefensa.Add(g);
+            foreach (var sr in srs)
+                pinchosDefensa.Add(new Pincho { t = sr.transform, sr = sr, escala = sr.transform.localScale, centroY = sr.transform.position.y, piso = sr.bounds.min.y, retraso = 0f, cols = sr.GetComponents<Collider2D>() });
+        }
+        MoverDefensa(0f);
+    }
+
+    private void MoverDefensa(float s)
+    {
+        nivelDefensa = s;
+        s = Mathf.Max(0.02f, s);
+        foreach (var p in pinchosDefensa)
+        {
+            if (p.t == null) continue;
+            p.t.localScale = new Vector3(p.escala.x, p.escala.y * s, p.escala.z);
+            var pos = p.t.position; pos.y = p.piso + (p.centroY - p.piso) * s; p.t.position = pos;
+            foreach (var c in p.cols) if (c != null) c.enabled = s > 0.3f;
+        }
+    }
+
+    private void BorrarDefensa()
+    {
+        nivelDefensa = 0f;
+        foreach (var g in gruposDefensa) if (g != null) Destroy(g);
+        gruposDefensa.Clear();
+        pinchosDefensa.Clear();
+    }
+
+    // mientras se defiende: ojos violeta abiertos con un glow chiquito; al bajar, vuelven los de siempre
+    private void LateUpdate()
+    {
+        if (cabeza == null || ojosDefensa == null || ojosDefensa.Length < 3 || ojosDefensa[2] == null) return;
+        bool violeta = DefensaArriba && estado != Estado.Muerto;
+        if (violeta) cabeza.sprite = ojosDefensa[2];
+        else if (System.Array.IndexOf(ojosDefensa, cabeza.sprite) >= 0)
+            cabeza.sprite = (estado == Estado.Atacando || estado == Estado.Despertando) && ojos.Length > 2 ? ojos[2] : ojos[0];
+        if (glowOjos.Count == 0 && glowAgro != null) CrearGlowOjos();
+        nivelGlowOjos = Mathf.MoveTowards(nivelGlowOjos, violeta ? 1f : 0f, Time.deltaTime / 0.15f);
+        float latido = 0.8f + 0.2f * Mathf.Sin(Time.time * 6f);
+        foreach (var g in glowOjos)
+        {
+            if (g == null) continue;
+            var c = colorGlowOjos; c.a *= nivelGlowOjos * latido;
+            g.color = c;
+        }
+    }
+
+    private void CrearGlowOjos()
+    {
+        float lado = glowAgro.bounds.size.x;
+        foreach (var o in posicionOjos)
+        {
+            var go = new GameObject("glow ojo");
+            go.transform.SetParent(cabeza.transform, false);
+            go.transform.localPosition = new Vector3(o.x, o.y, -0.01f);
+            go.transform.localScale = Vector3.one * (tamanoGlowOjos / lado);
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = glowAgro;
+            if (materialSinLuz != null) sr.sharedMaterial = materialSinLuz;
+            sr.sortingLayerID = cabeza.sortingLayerID; sr.sortingOrder = cabeza.sortingOrder + 1;
+            sr.color = new Color(colorGlowOjos.r, colorGlowOjos.g, colorGlowOjos.b, 0f);
+            glowOjos.Add(sr);
+        }
+    }
+
     // opacidad de todos los pinchos que salieron
     private void PintarLatido(float alfa)
     {
@@ -236,6 +390,7 @@ public class TroncoMeditador : MonoBehaviour
 
         Vector2 p = chica.position;
         DaniarSiEstaCerca(p);
+        ActualizarDefensa(p);
         float x0 = inicioAgro.x, x1 = inicioAgro.x + tamanoAgro.x;
         float piso = inicioAgro.y;
 
@@ -302,7 +457,9 @@ public class TroncoMeditador : MonoBehaviour
     // Si un pincho la levanto (o quedo trabada arriba de uno): esta encima de la base de un pincho, tocandolo,
     // y con los pies por encima del piso del agro. Antes podia quedar ahi sin que pasara nada; ahora
     // parpadea en rojo 4 s con una vineta roja y muere (SaludPersonaje.MorirConAviso).
-    private void RevisarSiLaLevanto()
+    private void RevisarSiLaLevanto() => RevisarSiLaLevanto(pinchos);
+
+    private void RevisarSiLaLevanto(List<Pincho> lista)
     {
         if (salud == null || salud.Sentenciada) return;
         if (colChica == null) colChica = salud.GetComponent<Collider2D>();
@@ -310,7 +467,7 @@ public class TroncoMeditador : MonoBehaviour
         Bounds b = colChica.bounds;
         if (b.min.y < inicioAgro.y + alturaLevantada) return;
         b.Expand(0.1f);
-        foreach (var p in pinchos)
+        foreach (var p in lista)
             foreach (var c in p.cols)
             {
                 if (c == null || !c.enabled) continue;
@@ -501,6 +658,8 @@ public class TroncoMeditador : MonoBehaviour
     private void Morir()
     {
         StopAllCoroutines();
+        defendiendo = false;
+        BorrarDefensa();
         soltandoBurbujas = false;
         BorrarGlows();
         if (cuerpo != null) cuerpo.enabled = false;

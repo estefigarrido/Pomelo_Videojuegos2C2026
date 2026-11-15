@@ -145,7 +145,7 @@ public class TroncoMeditador : MonoBehaviour
         if (musica != null) musica.QuitarTema();
     }
 
-    private class Pincho { public Transform t; public Vector3 escala; public float centroY, piso, retraso; public Collider2D[] cols; }
+    private class Pincho { public Transform t; public SpriteRenderer sr; public Vector3 escala; public float centroY, piso, retraso; public Collider2D[] cols; }
     private class Burbuja { public Transform t; public SpriteRenderer sr; public float vida, dur, vel, x0, fase, tam; }
     private class Brillo { public SpriteRenderer sr; public float fase, velocidad; }
 
@@ -180,6 +180,25 @@ public class TroncoMeditador : MonoBehaviour
     private float alfaGlowAgro, objetivoGlowAgro;
     private bool chicaEnZona;
     private Collider2D colChica;
+    private float atacandoDesde;
+
+    [Header("Cuanto quedan arriba los pinchos")]
+    [Tooltip("Segundos que quedan arriba los pinchos del piso; despues bajan siempre, aunque la chica este cerca.")]
+    [SerializeField] private float segundosArriba = 2f;
+    [Tooltip("Los ultimos segundos arriba laten (opacidad 50% / 100% intercalada) para avisar que bajan.")]
+    [SerializeField] private float segundosLatido = 1f;
+    [SerializeField] private float segundosPorDestello = 0.125f;
+    [SerializeField] private float alfaLatido = 0.5f;
+
+    // opacidad de todos los pinchos que salieron
+    private void PintarLatido(float alfa)
+    {
+        foreach (var p in pinchos)
+        {
+            if (p.sr == null) continue;
+            var c = p.sr.color; c.a = alfa; p.sr.color = c;
+        }
+    }
     [Tooltip("Si un pincho la tiene con los pies a esta altura (o mas) sobre el piso del agro, la levanto: muere con aviso.")]
     [SerializeField] private float alturaLevantada = 0.25f;
     private bool soltandoBurbujas;
@@ -253,9 +272,17 @@ public class TroncoMeditador : MonoBehaviour
                 if (enAgro && enPiso && (pendiente || !quieta)) { pendiente = false; StartCoroutine(Despertar()); }
                 break;
             case Estado.Atacando:
-                bool segura = !enAgro || !SobreUnArea(p.x);
-                if (!cerca || (segura && quietaDesde >= 0f && Time.time - quietaDesde >= segundosQuieta))
+                // quedan arriba 'segundosArriba' y bajan siempre, aunque la chica este cerca (la pelea no se traba).
+                // El ultimo 'segundosLatido' laten entre 50% y 100% de opacidad para avisar que van a bajar.
+                float arriba = Time.time - atacandoDesde;
+                bool latiendo = arriba >= segundosArriba - segundosLatido;
+                PintarLatido(latiendo ? (Mathf.FloorToInt((arriba - (segundosArriba - segundosLatido)) / segundosPorDestello) % 2 == 0 ? alfaLatido : 1f) : 1f);
+                if (!cerca || arriba >= segundosArriba)
+                {
+                    PintarLatido(1f);
+                    Debug.Log("[Tronco] " + name + ": los pinchos bajan despues de " + arriba.ToString("0.00") + " s arriba" + (cerca ? "" : " (la chica se fue)"));
                     StartCoroutine(Guardar(true));
+                }
                 break;
         }
     }
@@ -335,6 +362,7 @@ public class TroncoMeditador : MonoBehaviour
         CrearPinchos();
         objetivoBrillos = 1f;
         estado = Estado.Atacando;
+        atacandoDesde = Time.time;
         if (quietaDesde >= 0f) quietaDesde = Time.time;   // lo quieta que estuvo antes de que salieran no cuenta
         float total = segundosSubida + desfaseMaximo;
         for (float t = 0f; t < total + 0.35f; t += Time.deltaTime)
@@ -387,6 +415,7 @@ public class TroncoMeditador : MonoBehaviour
                 pinchos.Add(new Pincho
                 {
                     t = t,
+                    sr = sr,
                     escala = t.localScale,
                     centroY = t.position.y,
                     piso = sr.bounds.min.y,

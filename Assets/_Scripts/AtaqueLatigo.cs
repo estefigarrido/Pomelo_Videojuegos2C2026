@@ -30,7 +30,7 @@ public class AtaqueLatigo : MonoBehaviour
 
     [Header("Golpe")]
     [Tooltip("Vida que saca a cada enemigo (la vida maxima de los mobs es 100).")]
-    [SerializeField] private float danio = 50f;
+    [SerializeField] private float danio = 45f;   // balance 15/11: antes 50 (-10%)
     [Tooltip("Segundos desde que se tira un latigazo hasta poder tirar el siguiente. Si la animacion " +
              "todavia no termino, se corta y empieza de nuevo. Antes eran 1.03 s (animacion 0.83 s + 0.2 s de espera); ahora 0.5 s menos.")]
     [SerializeField] private float intervaloEntreUsos = 0.53f;

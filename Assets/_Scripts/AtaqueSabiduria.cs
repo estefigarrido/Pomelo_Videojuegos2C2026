@@ -57,7 +57,7 @@ public class AtaqueSabiduria : MonoBehaviour
     [Tooltip("Alcance durante la pelea con Umbrae (la arena es mas grande y la camara esta mas lejos).")]
     [SerializeField] private float alcancePeleaUmbrae = 30f;
     [Tooltip("Vida que saca a un enemigo (la vida maxima de los mobs es 100).")]
-    [SerializeField] private float danio = 25f;
+    [SerializeField] private float danio = 24f;   // balance 15/11: antes 20 en la escena (+20%)
     [Tooltip("Grados por segundo que gira cuando va a velocidad maxima.")]
     [SerializeField] private float giroMaximo = 720f;
     [SerializeField] private float radio = 0.3f;

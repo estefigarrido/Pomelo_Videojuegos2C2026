@@ -73,6 +73,9 @@ public class EstatuaRestaurada : MonoBehaviour
     private readonly List<Brillito> brillitos = new List<Brillito>();
     private static Sprite spriteHaz, spriteMancha, spriteEstrella;
 
+    // true cuando termino de recuperar el color (la animacion de la reparacion termino)
+    public bool Terminada => estado == 2;
+
     private SpriteRenderer dibujo;
     private SpriteRenderer gris;
     private SpriteRenderer[] arregladas;

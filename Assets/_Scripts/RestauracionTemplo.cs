@@ -124,6 +124,24 @@ public class RestauracionTemplo : MonoBehaviour
         return true;
     }
 
+    // Arregla de una todos los sectores que empiezan a la izquierda de 'x' y siguen rotos (al llegar a la puerta
+    // del final se arregla el templo que queda a su izquierda). El barrido sale desde el lado de 'x'.
+    // Devuelve cuantos sectores empezo a arreglar.
+    public int RestaurarALaIzquierdaDe(float x)
+    {
+        if (!enabled || todos == null) return 0;
+        int n = 0;
+        for (int i = 0; i < todos.Length; i++)
+        {
+            if (hecho[i] || todos[i].xMin >= x) continue;
+            hecho[i] = true;
+            if (!EsDeGema(i)) restaurados++;
+            animando.Add(new Animacion { sector = i, inicio = Time.time + n * 0.15f, desdeDerecha = true });
+            n++;
+        }
+        return n;
+    }
+
     // fila (piso) de sectores a la que pertenece una altura: la que la contiene, o la mas cercana
     public int Fila(float y)
     {

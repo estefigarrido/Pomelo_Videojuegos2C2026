@@ -105364,7 +105364,10 @@ MonoBehaviour:
   tamanoEncuadre: 12.5
   duracion: 1.4
   xFinal: -116
-  centroHaciaFinal: {x: -93.8, y: 60.4}
+  xLlegaPuerta: -110
+  duracionLenta: 3
+  centroPuerta: {x: -111, y: 55.6}
+  tamanoPuerta: 7.2
 --- !u!1 &1506718176
 GameObject:
   m_ObjectHideFlags: 0

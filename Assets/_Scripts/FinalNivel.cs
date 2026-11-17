@@ -183,6 +183,12 @@ public class FinalNivel : MonoBehaviour
         // la camara queda como esta (el de-zoom del templo, que incluye el portal) hasta el final del juego;
         // solo si no venia con un encuadre fijo, se acerca al portal
         EnCurso = true;
+        // la chica llego a la puerta: se arregla todo el templo roto que queda a la izquierda de la puerta
+        if (RestauracionTemplo.Instancia != null)
+        {
+            int n = RestauracionTemplo.Instancia.RestaurarALaIzquierdaDe(zona.xMax);
+            if (n > 0) Debug.Log("[Final] se arreglan " + n + " sectores a la izquierda de la puerta");
+        }
         var camara = FindFirstObjectByType<CamaraSeguidora>();
         if (camara != null && !camara.Fijo) camara.FijarEncuadre(centroCamara, tamanoCamara);
 

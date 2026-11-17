@@ -41,6 +41,12 @@ public static class Mando
     public static bool Impulsarte => G != null && G.buttonNorth.wasPressedThisFrame;
     public static bool RecargarVida => G != null && G.buttonWest.wasPressedThisFrame;
 
+    // ---------- dialogos ----------
+    // Interactuar (abrir un dialogo): L1. Pasar de linea: cruceta derecha / izquierda.
+    public static bool Interactuar => G != null && G.leftShoulder.wasPressedThisFrame;
+    public static bool DialogoSiguiente => G != null && G.dpad.right.wasPressedThisFrame;
+    public static bool DialogoAnterior => G != null && G.dpad.left.wasPressedThisFrame;
+
     // ---------- menu de pausa ----------
     // Pausa: el boton Options / Start. Aceptar: X (Cruz). (El Circulo no hace nada en la pausa.)
     public static bool Pausa => G != null && G.startButton.wasPressedThisFrame;

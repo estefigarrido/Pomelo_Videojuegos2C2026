@@ -218,7 +218,8 @@ public class MovimientoPersonaje : MonoBehaviour
 
         // mientras se arma la pelea con Umbrae (hasta que se carga su barra de vida) se queda quieta:
         // no camina, no salta, no dashea; si estaba en el aire termina de caer
-        if (InicioPeleaUmbrae.ChicaQuieta)
+        // tambien mientras lee un dialogo (CuadroDialogo)
+        if (InicioPeleaUmbrae.ChicaQuieta || CuadroDialogo.Abierto)
         {
             direccion = 0f;
             pedidoDash = false;

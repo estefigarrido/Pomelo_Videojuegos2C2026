@@ -44,13 +44,13 @@ Material:
     - _EnableExternalAlpha: 0
     - _EscalaFigma: 1.5
     - _Exposicion: 1
-    - _OffsetY: 6
-    - _Rampa: 1
+    - _OffsetY: 11.7
+    - _Rampa: 0.497
     - _RampaMax: 0.6
     - _RampaMin: 0.15
     - _Sombra1Blur: -158.96
     - _Sombra2Blur: 21
-    - _Sombra3Blur: 0.8
+    - _Sombra3Blur: -1.14
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RampaClaro: {r: 0.62, g: 0.52, b: 0.8, a: 1}
@@ -64,6 +64,6 @@ Material:
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _Sombra1: {r: 0.18675539, g: 0, b: 0.33018857, a: 0.15}
     - _Sombra2: {r: 0.5982585, g: 0, b: 1, a: 0.1}
-    - _Sombra3: {r: 0.65882355, g: 0.46666652, b: 0.9686275, a: 0.15}
+    - _Sombra3: {r: 0.712627, g: 0.5330188, b: 1, a: 0.69411767}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

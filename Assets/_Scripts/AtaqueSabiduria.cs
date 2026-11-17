@@ -63,6 +63,8 @@ public class AtaqueSabiduria : MonoBehaviour
     [SerializeField] private float radio = 0.3f;
     [Tooltip("Si hay un enemigo adelante dentro de este angulo (grados), la bola va hacia el; si no, sale derecha.")]
     [SerializeField] private float anguloPunteria = 30f;
+    [Tooltip("A menos de esta distancia de la chica, un enemigo o botellita se apunta aunque este atras o arriba.")]
+    [SerializeField] private float cercaCualquierLado = 2.8f;
     [Tooltip("Cada cuantas unidades recorridas suelta una flor.")]
     [SerializeField] private float distanciaEntreFlores = 0.2f;
 
@@ -238,7 +240,7 @@ public class AtaqueSabiduria : MonoBehaviour
         // si lo que apunta esta muy cerca (entre la chica y la salida de la bola), la bola sale desde la chica,
         // asi no lo pasa de largo
         Vector2 direccion = Apuntar(origen, sentido, out Vector2? objetivo);
-        if (objetivo.HasValue && (objetivo.Value.x - origen.x) * sentido < radio * 2f)
+        if (objetivo.HasValue && ((objetivo.Value.x - origen.x) * sentido < radio * 2f || Vector2.Distance(objetivo.Value, transform.position) < cercaCualquierLado))
         {
             origen = new Vector3(transform.position.x, origen.y, origen.z);
             raiz.transform.position = origen;
@@ -271,8 +273,10 @@ public class AtaqueSabiduria : MonoBehaviour
         Vector2 chica = transform.position;
         void Probar(Vector2 objetivo)
         {
-            // adelante de la chica (no de la salida de la bola): asi cuenta aunque este pegado a ella
-            if ((objetivo.x - chica.x) * sentido <= 0.05f) return;
+            // adelante de la chica (no de la salida de la bola): asi cuenta aunque este pegado a ella.
+            // Muy cerca (menos de 'cercaCualquierLado') vale para cualquier lado: arriba, atras o encima de ella
+            bool pegado = Vector2.Distance(objetivo, chica) < cercaCualquierLado;
+            if (!pegado && (objetivo.x - chica.x) * sentido <= 0.05f) return;
             Vector2 hacia = objetivo - (Vector2)origen;
             float distancia = hacia.magnitude;
             if (distancia > mejorDistancia) return;
@@ -280,7 +284,7 @@ public class AtaqueSabiduria : MonoBehaviour
             float cercania = Mathf.Clamp01(Vector2.Distance(objetivo, chica) / 4f);
             float angulo = Mathf.Lerp(80f, anguloPunteria, cercania);
             Vector2 desdeChica = objetivo - new Vector2(chica.x, origen.y);
-            if (Vector2.Angle(new Vector2(sentido, 0f), desdeChica) > angulo) return;
+            if (!pegado && Vector2.Angle(new Vector2(sentido, 0f), desdeChica) > angulo) return;
             mejorDistancia = distancia;
             mejor = distancia > 0.0001f ? hacia / distancia : new Vector2(sentido, 0f);
             encontrado = objetivo;

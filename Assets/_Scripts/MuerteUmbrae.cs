@@ -30,6 +30,9 @@ public class MuerteUmbrae : MonoBehaviour
     [Tooltip("Brillo fuerte de la gema (destello_gema).")]
     [SerializeField] private Sprite destello;
     [SerializeField] private Material materialBrillo;
+    [Tooltip("Material de la gema que cae y queda suelta: sin el degradé violeta de Umbrae, asi siempre se ve verde " +
+             "(UmbraeSombrasInternas, el material original).")]
+    [SerializeField] private Material materialGema;
 
     private SpriteRenderer dibujo;
 
@@ -62,6 +65,7 @@ public class MuerteUmbrae : MonoBehaviour
             punta = transform.position,
             lado = dibujo != null && dibujo.flipX ? -1f : 1f,
             material = dibujo != null ? dibujo.sharedMaterial : null,
+            materialGema = materialGema,
             capa = dibujo != null ? dibujo.sortingLayerID : 0,
             orden = dibujo != null ? dibujo.sortingOrder : 0,
             escala = Mathf.Abs(transform.lossyScale.x)

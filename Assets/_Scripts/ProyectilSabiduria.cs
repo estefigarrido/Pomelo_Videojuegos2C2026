@@ -68,6 +68,16 @@ public class ProyectilSabiduria : MonoBehaviour
     private bool Avanzar(float paso)
     {
         Vector2 desde = transform.position;
+        // al salir, si la bola ya esta tocando un enemigo o una botellita (estaba pegado a la chica), le pega ahi
+        if (recorrido <= 0f)
+            foreach (var c in Physics2D.OverlapCircleAll(desde, radio))
+            {
+                if (c == ignorar || c.GetComponentInParent<SaludPersonaje>() != null) continue;
+                var bo = c.GetComponent<BotellitaRompible>();
+                if (bo != null && !bo.Rota) { bo.Romper(true); return true; }
+                var en = c.GetComponentInParent<VidaEnemigo>();
+                if (en != null && en.Vivo) { en.RecibirDanio(danio); return true; }
+            }
         var choques = Physics2D.CircleCastAll(desde, radio, direccion, paso);
         System.Array.Sort(choques, (a, b) => a.distance.CompareTo(b.distance));
 

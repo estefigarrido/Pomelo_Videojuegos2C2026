@@ -151,6 +151,10 @@ public class FinalNivel : MonoBehaviour
         m.backSortingLayerID = puerta.sortingLayerID; m.backSortingOrder = puerta.sortingOrder - 1;
     }
 
+    // true desde que arranca la secuencia final: el de-zoom del templo ya no se suelta (hasta la pantalla de victoria)
+    public static bool EnCurso { get; private set; }
+    private void OnEnable() => EnCurso = false;
+
     private void Update()
     {
         if (!empezo && chica != null && GemaEnMano.TieneGema && zona.Contains((Vector2)chica.position))
@@ -176,8 +180,11 @@ public class FinalNivel : MonoBehaviour
         if (animator != null) animator.enabled = false;
         var rb = chica.GetComponent<Rigidbody2D>();
         if (rb != null) { rb.linearVelocity = Vector2.zero; rb.simulated = false; }
+        // la camara queda como esta (el de-zoom del templo, que incluye el portal) hasta el final del juego;
+        // solo si no venia con un encuadre fijo, se acerca al portal
+        EnCurso = true;
         var camara = FindFirstObjectByType<CamaraSeguidora>();
-        if (camara != null) camara.FijarEncuadre(centroCamara, tamanoCamara);
+        if (camara != null && !camara.Fijo) camara.FijarEncuadre(centroCamara, tamanoCamara);
 
         var gemaMano = chica.GetComponent<GemaEnMano>();
         Vector3 piso = chica.position;

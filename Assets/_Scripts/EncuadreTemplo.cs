@@ -47,6 +47,8 @@ public class EncuadreTemplo : MonoBehaviour
     private void Update()
     {
         if (camara == null || chica == null || columnaIzquierda == null || columnaDerecha == null) return;
+        // una vez que empezo el final, el de-zoom queda fijo hasta la pantalla de victoria
+        if (FinalNivel.EnCurso) return;
         Vector2 p = chica.position;
         float x0 = Mathf.Min(Borde(columnaIzquierda, true), Borde(columnaDerecha, true)) - distanciaActivar;
         float x1 = Mathf.Max(Borde(columnaIzquierda, false), Borde(columnaDerecha, false)) + distanciaActivar;

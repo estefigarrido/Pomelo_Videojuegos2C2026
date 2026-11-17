@@ -22,6 +22,12 @@ Shader "Pomelo/Sprite Lit Sombras Internas"
         _Sombra3Blur("Sombra 3 blur", Float) = 6
         _OffsetY("Offset y (px Figma, para abajo)", Float) = 6
         _Exposicion("Exposicion (1.3 = 30 % mas, para que contraste con el fondo)", Float) = 1.3
+        _Rampa("Mapa de degradé violeta (0 = colores originales, 1 = violeta)", Range(0, 1)) = 0
+        _RampaColor0("Rampa 1: brazos, piernas, cuello", Color) = (0.18, 0.10, 0.31, 1)
+        _RampaColor1("Rampa 2: cabeza", Color) = (0.34, 0.23, 0.53, 1)
+        _RampaColor2("Rampa 3: capa", Color) = (0.45, 0.33, 0.69, 1)
+        _RampaColor3("Rampa 4: facetas claras", Color) = (0.76, 0.68, 0.91, 1)
+        _RampaPos("Gris de cada color de la rampa (x, y, z, w)", Vector) = (0.15, 0.33, 0.44, 0.6)
         [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
         [HideInInspector] _RendererColor("RendererColor", Color) = (1,1,1,1)
         [HideInInspector] _AlphaTex("External Alpha", 2D) = "white" {}
@@ -68,7 +74,23 @@ Shader "Pomelo/Sprite Lit Sombras Internas"
                 half4 _Color;
                 half4 _Sombra1, _Sombra2, _Sombra3;
                 float _Sombra1Blur, _Sombra2Blur, _Sombra3Blur, _OffsetY, _EscalaFigma, _Exposicion;
+                half4 _RampaColor0, _RampaColor1, _RampaColor2, _RampaColor3;
+                float4 _RampaPos;
+                float _Rampa;
             CBUFFER_END
+
+            // mapa de degradé de 4 colores: cada color esta puesto en un gris del dibujo (_RampaPos), asi
+            // grises muy parecidos (los de Umbrae van de 0.15 a 0.6) terminan en violetas bien distintos
+            half3 Rampa(half3 c)
+            {
+                // el proyecto esta en espacio lineal: el gris se pasa a sRGB para comparar con los grises del PNG
+                float l = pow(max(1e-5, dot(c, float3(0.299, 0.587, 0.114))), 1.0 / 2.2);
+                half3 r;
+                if (l <= _RampaPos.y) r = lerp(_RampaColor0.rgb, _RampaColor1.rgb, saturate((l - _RampaPos.x) / max(0.001, _RampaPos.y - _RampaPos.x)));
+                else if (l <= _RampaPos.z) r = lerp(_RampaColor1.rgb, _RampaColor2.rgb, saturate((l - _RampaPos.y) / max(0.001, _RampaPos.z - _RampaPos.y)));
+                else r = lerp(_RampaColor2.rgb, _RampaColor3.rgb, saturate((l - _RampaPos.z) / max(0.001, _RampaPos.w - _RampaPos.z)));
+                return lerp(c, r, _Rampa);
+            }
 
             Varyings LitVertex(Attributes input)
             {
@@ -110,7 +132,10 @@ Shader "Pomelo/Sprite Lit Sombras Internas"
 
             half4 LitFragment(Varyings input) : SV_Target
             {
-                half4 main = input.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
+                // el degradé va sobre el dibujo, antes del color del renderer (asi el parpadeo rojo de dano se sigue viendo)
+                half4 tex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
+                tex.rgb = Rampa(tex.rgb);
+                half4 main = input.color * tex;
                 main.rgb = Interna(main.rgb, input.uv, _Sombra1, _Sombra1Blur);
                 main.rgb = Interna(main.rgb, input.uv, _Sombra2, _Sombra2Blur);
                 main.rgb = Interna(main.rgb, input.uv, _Sombra3, _Sombra3Blur);

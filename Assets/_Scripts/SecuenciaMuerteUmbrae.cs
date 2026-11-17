@@ -25,6 +25,8 @@ public class SecuenciaMuerteUmbrae : MonoBehaviour
         public Vector3 punta;
         public float lado;
         public Material material;
+        [Tooltip("Material de la gema que cae y queda suelta (sin el degradé violeta de Umbrae: siempre verde).")]
+        public Material materialGema;
         public int capa;
         public int orden;
         // tamano de Umbrae (la escala de su objeto): la muerte y la gema se dibujan al mismo tamano
@@ -42,13 +44,14 @@ public class SecuenciaMuerteUmbrae : MonoBehaviour
         StartCoroutine(Reproducir());
     }
 
-    private SpriteRenderer CrearCapa(string nombre, int ordenExtra)
+    private SpriteRenderer CrearCapa(string nombre, int ordenExtra, bool esGema = false)
     {
         var go = new GameObject(nombre);
         go.transform.SetParent(transform, false);
         go.transform.position = d.punta;
         var sr = go.AddComponent<SpriteRenderer>();
-        if (d.material != null) sr.sharedMaterial = d.material;
+        var mat = esGema && d.materialGema != null ? d.materialGema : d.material;
+        if (mat != null) sr.sharedMaterial = mat;
         sr.sortingLayerID = d.capa;
         sr.sortingOrder = d.orden + ordenExtra;
         sr.flipX = d.lado < 0f;
@@ -78,7 +81,7 @@ public class SecuenciaMuerteUmbrae : MonoBehaviour
         int n = d.framesCaida != null ? d.framesCaida.Length : 0;
         if (n > 0)
         {
-            var capa = CrearCapa("Gema", 1);
+            var capa = CrearCapa("Gema", 1, true);
             capa.sprite = d.framesCaida[0];
 
             // cae derecho: arranca con la gema donde estaba lo verde del frame 0007 y baja
@@ -111,7 +114,8 @@ public class SecuenciaMuerteUmbrae : MonoBehaviour
             go.transform.localScale = Vector3.one * d.escala;
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = d.gema;
-            if (d.material != null) sr.sharedMaterial = d.material;
+            var matGema = d.materialGema != null ? d.materialGema : d.material;
+            if (matGema != null) sr.sharedMaterial = matGema;
             sr.sortingLayerID = d.capa;
             sr.sortingOrder = d.orden + 2;
             go.AddComponent<GemaUmbrae>().Iniciar(d.destello, d.materialBrillo);

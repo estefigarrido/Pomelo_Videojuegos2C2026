@@ -146,6 +146,12 @@ public class InicioPeleaUmbrae : MonoBehaviour
         : estado == Estado.Armando ? Mathf.Clamp01(tiempo / Mathf.Max(0.01f, finArmado)) : 1f;
     // la chica no se puede mover mientras se arma la pelea (lo leen MovimientoPersonaje y SelectorAtaque)
     public static bool ChicaQuieta { get; private set; }
+
+    [Tooltip("Cuanto camina la chica adentro de la arena antes de quedarse quieta (1 = 100 px).")]
+    [SerializeField] private float adentroAntesDeFrenar = 1f;
+    private bool frenada;
+    private int ladoEntrada;   // -1 entro por la izquierda, 1 por la derecha
+    private Transform chicaT;
     // la pupila esta tirando el destello del comienzo de la pelea (todavia no sigue a la chica)
     public bool Destellando => estado == Estado.Lista && Time.time - inicioLista < segundosDestello;
     private float inicioLista = -99f;
@@ -157,6 +163,7 @@ public class InicioPeleaUmbrae : MonoBehaviour
     private void Awake()
     {
         if (zona == null) zona = FindFirstObjectByType<ZonaCamaraFija>();
+        var saludChica = FindFirstObjectByType<SaludPersonaje>(); if (saludChica != null) chicaT = saludChica.transform;
 
         // las piezas de la decoracion: cada hijo directo, segun su nombre y su altura.
         // Los hijos sin dibujo son grupos (por ejemplo "pinchos_base_umbrae1"): se miran sus piezas de adentro.
@@ -348,7 +355,17 @@ public class InicioPeleaUmbrae : MonoBehaviour
                 break;
         }
 
-        ChicaQuieta = estado == Estado.Armando;
+        // la chica no se frena justo en el borde: sigue caminando hasta estar 'adentroAntesDeFrenar' (100 px)
+        // dentro de la arena, desde el lado por el que entro, y ahi se queda quieta hasta que empieza la pelea
+        if (estado != Estado.Armando) { frenada = false; ladoEntrada = 0; }
+        else if (!frenada && chicaT != null && zona != null)
+        {
+            Rect r = zona.Area;
+            float x = chicaT.position.x;
+            if (ladoEntrada == 0) ladoEntrada = x < r.center.x ? -1 : 1;
+            frenada = ladoEntrada < 0 ? x >= r.xMin + adentroAntesDeFrenar : x <= r.xMax - adentroAntesDeFrenar;
+        }
+        ChicaQuieta = estado == Estado.Armando && frenada;
 
         // el templo se satura cuando empieza la pelea y se desatura cuando termina
         float objetivo = estado == Estado.Armando || estado == Estado.Lista ? saturacionPelea : saturacionAntes;

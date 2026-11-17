@@ -43,6 +43,7 @@ public class ZonaCamaraFija : MonoBehaviour
 
     // true mientras la chica esta adentro peleando y el jefe sigue vivo
     public bool PeleaEnCurso => adentro && !jefeMuerto;
+    public Rect Area => zona;
 
     private void OnEnable() => GemaUmbrae.Recolectada += AlRecolectarGema;
     private void OnDisable() => GemaUmbrae.Recolectada -= AlRecolectarGema;

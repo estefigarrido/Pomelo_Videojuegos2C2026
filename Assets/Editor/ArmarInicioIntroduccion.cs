@@ -1268,9 +1268,8 @@ public static class ArmarInicioIntroduccion
             float alturaMayusculas = fi.capLine / fi.pointSize * fi.scale * TamanoTitulo;
             bajar = -alturaMayusculas / 2f - LugarTitulo.y;
         }
-        var titulo = Texto("TÉCHNI", lienzo, fuenteTitulo, TamanoTitulo, FontStyles.Normal,
-                           TextAlignmentOptions.Baseline, LugarTitulo + new Vector2(0f, bajar), new Vector2(1000f, 260f));
-        if (fuenteTitulo != null) titulo.fontSharedMaterial = MaterialConSombra(fuenteTitulo);
+        // el titulo ahora es la imagen del SVG de Caro (letras + brillo + sombra), ver TituloImagen.cs
+        TituloImagen.Crear(lienzo);
 
         // fila de Comenzar (baja lo mismo que el titulo, asi queda a la misma distancia)
         var fila = new GameObject("Comenzar", typeof(RectTransform)).GetComponent<RectTransform>();

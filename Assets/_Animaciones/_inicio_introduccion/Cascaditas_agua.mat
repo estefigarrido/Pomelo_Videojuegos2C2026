@@ -34,11 +34,11 @@ Material:
     - _FundidoAbajo: 0.25
     - _Gris: 0.7
     - _LargoBanda: 26
-    - _TonoPiedra: 1
+    - _TonoPiedra: 0.85
     - _Umbral: 0.6
     - _Velocidad: 120
     m_Colors:
     - _ColorAgua: {r: 0.35999998, g: 0.45999992, b: 0.41999996, a: 1}
-    - _ColorPiedra: {r: 0.10599997, g: 0.10599997, b: 0.09799997, a: 1}
+    - _ColorPiedra: {r: 0.2, g: 0.2, b: 0.19, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -47,6 +47,8 @@ public class PantallaInicio : MonoBehaviour
     [SerializeField] private Dialogo dialogoAlLlegar;
     [Tooltip("Segundos que pasan desde que la camara llega a la parte 2 hasta que aparece el dialogo.")]
     [SerializeField] private float segundosAntesDelDialogo = 3f;
+    [Tooltip("Cartel de tutorial (Caminar) que aparece cuando la chica recibe los controles.")]
+    [SerializeField] private CartelTutorial cartelAlLlegar;
 
     private Behaviour[] controlesChica;
     private bool chicaActiva;
@@ -130,11 +132,16 @@ public class PantallaInicio : MonoBehaviour
 
         // al llegar a la parte 2: primero el dialogo (Jaya sale a explorar) y, cuando se cierra, la chica recibe
         // los controles (moverse, correr, saltar, como en el nivel)
-        if (x >= 1f && tCamara >= duracionRecorrido + segundosAntesDelDialogo && !chicaActiva && !esperandoDialogo)
+        // (sin dialogo al llegar, la chica recibe los controles apenas llega la camara; hoy el dialogo de Jaya lo
+        // abre el Lore de la vasija)
+        if (x >= 1f && !chicaActiva && !esperandoDialogo)
         {
-            if (dialogoAlLlegar != null && CuadroDialogo.Instancia != null && CuadroDialogo.Instancia.Abrir(dialogoAlLlegar))
-                esperandoDialogo = true;
-            else ActivarChica();
+            if (dialogoAlLlegar == null) ActivarChica();
+            else if (tCamara >= duracionRecorrido + segundosAntesDelDialogo)
+            {
+                if (CuadroDialogo.Instancia != null && CuadroDialogo.Instancia.Abrir(dialogoAlLlegar)) esperandoDialogo = true;
+                else ActivarChica();
+            }
         }
         if (esperandoDialogo && !CuadroDialogo.Abierto)
         {
@@ -158,6 +165,7 @@ public class PantallaInicio : MonoBehaviour
     {
         chicaActiva = true;
         if (controlesChica != null) foreach (var c in controlesChica) if (c != null) c.enabled = true;
+        if (cartelAlLlegar != null) cartelAlLlegar.Mostrar();   // el cartel de Caminar aparece suave
     }
 
     // muestra de ancho la parte que toca (la cueva, la otra parte o en el camino entre las dos), centrada en alto

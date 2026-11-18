@@ -210,7 +210,17 @@ public static class ArmarInicioIntroduccion
 
         ArmarPisosParte2(cascada);
         var dialogo = ArmarDialogoAlLlegar(cascada);
-        ArmarPantalla(cam, chica, dialogo);
+        var (cartel, cartelSaltar) = PonerCarteles(cascada, chica, actual);
+        var posicionCartelArmado = cartel != null ? cartel.transform.position : Vector3.zero;
+        var posicionSaltarArmado = cartelSaltar != null ? cartelSaltar.transform.position : Vector3.zero;
+        // el dialogo de Jaya lo abre el Lore de la vasija, 1 s despues de aparecer (Caro)
+        foreach (var lore in cascada.GetComponentsInChildren<LoreDeLaVasija>(true))
+        {
+            var sol = new SerializedObject(lore);
+            sol.FindProperty("dialogo").objectReferenceValue = dialogo;
+            sol.ApplyModifiedPropertiesWithoutUndo();
+        }
+        ArmarPantalla(cam, chica, dialogo, cartel);
 
         // la "base" para la proxima vez: lo que arma el menu, sin los ajustes a mano
         var nuevas = escena.GetRootGameObjects().Where(g => RaicesDelMenu.Contains(g.name)).ToList();
@@ -233,6 +243,18 @@ public static class ArmarInicioIntroduccion
         var chicaFinal = GameObject.Find("Escenario/Cascada (templo)/Chica");
         if (chicaFinal != null) PantallaInicio.ApoyarEnElPiso(chicaFinal);
 
+        // los carteles de Caminar y Saltar, al lado de la chica ya ubicada (salvo que se los haya movido a mano)
+        if (chicaFinal != null)
+        {
+            var src = chicaFinal.GetComponent<SpriteRenderer>();
+            float pies = src != null ? src.bounds.min.y : chicaFinal.transform.position.y;
+            float cx = chicaFinal.transform.position.x;
+            if (cartel != null && (cartel.transform.position - posicionCartelArmado).sqrMagnitude < 1e-6f)
+                cartel.transform.position = new Vector3(cx + CartelDesdeLosPies.x, pies + CartelDesdeLosPies.y, cartel.transform.position.z);
+            if (cartelSaltar != null && (cartelSaltar.transform.position - posicionSaltarArmado).sqrMagnitude < 1e-6f)
+                cartelSaltar.transform.position = new Vector3(cx + SaltarDesdeLosPies.x, pies + SaltarDesdeLosPies.y, cartelSaltar.transform.position.z);
+        }
+
         Directory.CreateDirectory(Path.GetDirectoryName(RutaEscena));
         EditorSceneManager.SaveScene(escena, RutaEscena);
         PonerPrimeraEnElBuild();
@@ -253,8 +275,8 @@ public static class ArmarInicioIntroduccion
     // "Dialogo al llegar (Jaya)".
     private static readonly (string personaje, string texto)[] LineasAlLlegar =
     {
-        ("Jaya", "Nunca había llegado tan lejos... Del otro lado de la cascada hay ruinas del templo."),
-        ("Jaya", "“Si la maestra tenía razón, por acá debería haber algo que me ayude. Voy a explorar un poco.”"),
+        // el texto de Caro (lo habia escrito en el cuadro de dialogo de la escena)
+        ("Jaya", "“Parece que la crecida del río trajo objetos que nunca había visto. Que raro...”"),
     };
 
     private static Dialogo ArmarDialogoAlLlegar(Transform padre)
@@ -283,13 +305,17 @@ public static class ArmarInicioIntroduccion
             l.FindPropertyRelative("personaje").stringValue = LineasAlLlegar[i].personaje;
             l.FindPropertyRelative("texto").stringValue = LineasAlLlegar[i].texto;
         }
-        // no se abre acercandose ni con la tecla: lo abre PantallaInicio cuando la camara llega
-        so.FindProperty("distancia").vector2Value = Vector2.zero;
-        so.FindProperty("cartelInteractuar").objectReferenceValue = null;
+        // Lo usa el Lore de la vasija: arranca apagado; cuando aparece el Lore, el dialogo se pone sobre el y se
+        // prende: aparece el cartel 'Interactuar' (la chica esta cerca) y con E (o L1) se abre el cuadro.
+        so.FindProperty("distancia").vector2Value = new Vector2(3.5f, 3f);
+        so.FindProperty("cartelInteractuar").objectReferenceValue =
+            AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_UI/Carteles/Cartel_interactuar.prefab");
         so.FindProperty("soloUnaVez").boolValue = true;
         so.FindProperty("abrirAlEntrar").boolValue = false;
         so.ApplyModifiedPropertiesWithoutUndo();
-        return go.GetComponent<Dialogo>();
+        var d = go.GetComponent<Dialogo>();
+        d.enabled = false;
+        return d;
     }
     // como dejo el menu la escena la ultima vez (para saber que se cambio a mano)
     private const string RutaBase = "Assets/Editor/ArmarInicioIntroduccion_base.json";
@@ -526,6 +552,8 @@ public static class ArmarInicioIntroduccion
                 AguaDelante(raiz, centro, anchoPx * escala * 0.8f, orden + 3);
                 // un brillo suave con su misma forma, detras, que late despacio: se nota que es "especial"
                 PonerBrillo(raiz, rutas[i], f, escala, orden - 1);
+                // y de ella sale el Lore cuando la chica se acerca
+                PonerLore(raiz, sprite, orden + 6);
             }
             else
             {
@@ -541,7 +569,8 @@ public static class ArmarInicioIntroduccion
                     // de las columnas, con agua delante de la base, y sin piso (no se pueden pisar)
                     sr.color = ColorFondo;
                     sr.sortingOrder = ordenFondo;
-                    AguaDelante(padre, x0 + anchoPx * escala / 2f, anchoPx * escala, ordenFondo + 1);
+                    // de hijo del bloque: si se lo mueve a mano, su agua lo acompana
+                    AguaDelante(go.transform, x0 + anchoPx * escala / 2f, anchoPx * escala, ordenFondo + 1);
                 }
                 else
                 {
@@ -572,6 +601,111 @@ public static class ArmarInicioIntroduccion
         if (sr == null) return;
         sr.color = new Color(1f, 1f, 1f, 0.45f);
         sr.gameObject.AddComponent<Resplandor>();
+    }
+
+    // ---------- cartel de Caminar ----------
+    // El mismo prefab del nivel (Assets/_UI/Carteles/Cartel_caminar, lo arma Pomelo -> Carteles -> Armar carteles),
+    // a la derecha de la chica y a la altura de su pecho (el recuadro rojo de Caro). Del mismo tamano con respecto a
+    // la chica que en el nivel: alla mide 0.013 con la chica a 1; aca la chica esta a 1.4. Aparece cuando la chica
+    // recibe los controles (lo muestra PantallaInicio) y se borra cuando la chica le pasa por delante, como en el
+    // nivel. Si se mueve a mano, se conserva.
+    // El de Saltar (y doble salto) va despues, sobre el hueco entre el primer bloque y el siguiente (el otro
+    // recuadro rojo): aparece cuando el de Caminar se termina de borrar, como en el nivel.
+    private const string RutaCartelCaminar = "Assets/_UI/Carteles/Cartel_caminar.prefab";
+    private const string RutaCartelSaltar = "Assets/_UI/Carteles/Cartel_saltoysupersalto.prefab";
+    private static readonly Vector2 CartelDesdeLosPies = new Vector2(4.06f, 2.08f);   // unidades, desde los pies de la chica
+    private static readonly Vector2 SaltarDesdeLosPies = new Vector2(5.62f, 1.63f);
+    private const float EscalaCartelEnElNivel = 0.013f;
+
+    // los dos carteles, encadenados: Caminar lo muestra PantallaInicio; Saltar lo muestra Caminar al borrarse
+    private static (CartelTutorial caminar, CartelTutorial saltar) PonerCarteles(Transform padre, GameObject chica,
+                                                                                ConservarAjustes.Foto actual)
+    {
+        var caminar = PonerCartel(RutaCartelCaminar, "Cartel_caminar", CartelDesdeLosPies, padre, chica, actual);
+        var saltar = PonerCartel(RutaCartelSaltar, "Cartel_saltoysupersalto", SaltarDesdeLosPies, padre, chica, actual);
+        if (caminar != null && saltar != null)
+        {
+            var so = new SerializedObject(caminar);
+            var lista = so.FindProperty("mostrarAlTerminarDeBorrarme");
+            lista.arraySize = 1;
+            lista.GetArrayElementAtIndex(0).objectReferenceValue = saltar;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+        return (caminar, saltar);
+    }
+
+    private static CartelTutorial PonerCartel(string ruta, string nombre, Vector2 desdeLosPies, Transform padre, GameObject chica,
+                                              ConservarAjustes.Foto actual)
+    {
+        var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(ruta);
+        if (prefab == null || chica == null) { Debug.LogWarning("No encontre " + ruta); return null; }
+        // la chica de referencia: la que habia en la escena (si se la movio a mano), si no la recien puesta
+        var referencia = chica.transform;
+        if (actual != null && actual.porRuta.TryGetValue("Escenario/Cascada (templo)/Chica", out var vieja) && vieja != null)
+            referencia = vieja.transform;
+        var sr = chica.GetComponent<SpriteRenderer>();
+        float pies = chica.transform.position.y + (sr != null && sr.sprite != null ? sr.sprite.bounds.min.y * EscalaChica : 0f);
+
+        var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+        go.name = nombre;
+        go.transform.SetParent(padre, false);
+        go.transform.position = new Vector3(referencia.position.x + desdeLosPies.x, pies + desdeLosPies.y, -0.05f);
+        go.transform.localScale = Vector3.one * EscalaCartelEnElNivel * EscalaChica;
+        var cartel = go.GetComponent<CartelTutorial>();
+        if (cartel != null)
+        {
+            var so = new SerializedObject(cartel);
+            so.FindProperty("esperarAOtroCartel").boolValue = true;   // espera a que lo muestre PantallaInicio / Caminar
+            // los del nivel traen enlaces a otros carteles de alla: aca no van (Caminar -> Saltar se enlaza aparte)
+            so.FindProperty("desvanecerAlEmpezarABorrarme").arraySize = 0;
+            so.FindProperty("mostrarAlTerminarDeBorrarme").arraySize = 0;
+            so.FindProperty("desvanecerAlPisarHoja").objectReferenceValue = null;
+            so.FindProperty("esperarSalidaDelPortal").boolValue = false;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+        return cartel;
+    }
+
+    // ---------- el Lore que sale de la vasija ----------
+    // Puntos relativos a la base de la vasija (unidades), medidos sobre la captura de Caro: la linea celeste (donde
+    // se activa, a la izquierda de la vasija) y la cruz naranja (donde aparece el Lore, arriba y un poco a la
+    // izquierda). Se pueden mover despues en la escena (son objetos hijos).
+    // (Caro: que se active cuando la chica llega justo delante del arco, a unas 2.5 unidades de la vasija)
+    private static readonly Vector2 LoreSeActiva = new Vector2(-2.5f, 0f);
+    private static readonly Vector2 LoreDestino = new Vector2(-0.5f, 3f);
+    private const string RutaLore = "Assets/_Entorno/_Items/Lore.png";
+
+    private static void PonerLore(Transform raiz, Sprite dibujoVasija, int orden)
+    {
+        var lore = AssetDatabase.LoadAllAssetsAtPath(RutaLore).OfType<Sprite>().FirstOrDefault();
+        if (lore == null) { Debug.LogWarning("No encontre el Lore en " + RutaLore); return; }
+        var go = new GameObject("Lore (sale de la vasija)");
+        go.transform.SetParent(raiz, false);
+
+        var activa = new GameObject("Donde se activa").transform;
+        activa.SetParent(go.transform, false);
+        activa.localPosition = LoreSeActiva;
+        var destino = new GameObject("Donde aparece el Lore").transform;
+        destino.SetParent(go.transform, false);
+        destino.localPosition = LoreDestino;
+        // la boca de la vasija: arriba del dibujo (va dentro del dibujo, asi flota con la vasija)
+        Transform boca = null;
+        var dibujo = raiz.Find("Dibujo");
+        if (dibujo != null && dibujoVasija != null)
+        {
+            boca = new GameObject("Boca de la vasija").transform;
+            boca.SetParent(dibujo, false);
+            var b = dibujoVasija.bounds;
+            boca.localPosition = new Vector3(b.min.x + b.size.x * 0.6f, b.max.y - b.size.y * 0.15f, 0f);
+        }
+
+        var so = new SerializedObject(go.AddComponent<LoreDeLaVasija>());
+        so.FindProperty("dondeSeActiva").objectReferenceValue = activa;
+        so.FindProperty("destino").objectReferenceValue = destino;
+        so.FindProperty("boca").objectReferenceValue = boca;
+        so.FindProperty("lore").objectReferenceValue = lore;
+        so.FindProperty("ordenDibujo").intValue = orden;
+        so.ApplyModifiedPropertiesWithoutUndo();
     }
 
     // la sombra de las plataformas de la derecha: muy suave, apenas corrida para abajo, para que se separen del fondo
@@ -930,7 +1064,10 @@ public static class ArmarInicioIntroduccion
         var a = new GameObject("Agua adelante");
         a.transform.SetParent(padre, false);
         a.transform.position = new Vector3(centroX / PixelesPorUnidad, (AltoEscenaPx - LineaDelAguaPx + 2f) / PixelesPorUnidad, 0f);
-        a.transform.localScale = new Vector3(ancho / agua.rect.width, altoPx / agua.rect.height, 1f);
+        // el tamano es en el mundo: si el padre esta agrandado, se compensa
+        Vector3 lp = padre.lossyScale;
+        a.transform.localScale = new Vector3(ancho / agua.rect.width / Mathf.Max(0.0001f, Mathf.Abs(lp.x)),
+                                             altoPx / agua.rect.height / Mathf.Max(0.0001f, Mathf.Abs(lp.y)), 1f);
         var sr = a.AddComponent<SpriteRenderer>();
         sr.sprite = agua;
         sr.sortingOrder = orden;
@@ -1094,7 +1231,7 @@ public static class ArmarInicioIntroduccion
     private static readonly Vector2 TamanoFranja = new Vector2(348f, 64f);   // la fila + 44 px a los costados y 16 arriba/abajo
     private static readonly Color ColorFranja = new Color(0f, 0f, 0f, 0.55f);  // igual que los carteles
 
-    private static void ArmarPantalla(Camera cam, GameObject chica, Dialogo dialogo)
+    private static void ArmarPantalla(Camera cam, GameObject chica, Dialogo dialogo, CartelTutorial cartel)
     {
         Directory.CreateDirectory(CarpetaUI);
         var alegreya = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(RutaAlegreya);
@@ -1122,15 +1259,25 @@ public static class ArmarInicioIntroduccion
 
         // titulo, con brillo
         var fuenteTitulo = iosevka != null ? iosevka : alegreya;
+        // centrado en Y (Caro): la linea de base va a media altura de las mayusculas por debajo del centro de la
+        // pantalla, asi las mayusculas quedan justo en el medio (el acento de la E no cuenta). Se mide con la fuente.
+        float bajar = 0f;
+        if (fuenteTitulo != null && fuenteTitulo.faceInfo.pointSize > 0 && fuenteTitulo.faceInfo.capLine > 0f)
+        {
+            var fi = fuenteTitulo.faceInfo;
+            float alturaMayusculas = fi.capLine / fi.pointSize * fi.scale * TamanoTitulo;
+            bajar = -alturaMayusculas / 2f - LugarTitulo.y;
+        }
         var titulo = Texto("TÉCHNI", lienzo, fuenteTitulo, TamanoTitulo, FontStyles.Normal,
-                           TextAlignmentOptions.Baseline, LugarTitulo, new Vector2(1000f, 260f));
+                           TextAlignmentOptions.Baseline, LugarTitulo + new Vector2(0f, bajar), new Vector2(1000f, 260f));
         if (fuenteTitulo != null) titulo.fontSharedMaterial = MaterialConSombra(fuenteTitulo);
 
-        // fila de Comenzar
+        // fila de Comenzar (baja lo mismo que el titulo, asi queda a la misma distancia)
         var fila = new GameObject("Comenzar", typeof(RectTransform)).GetComponent<RectTransform>();
         fila.SetParent(lienzo, false);
         fila.anchorMin = fila.anchorMax = fila.pivot = new Vector2(0.5f, 0.5f);
         fila.sizeDelta = Vector2.zero;
+        fila.anchoredPosition = new Vector2(0f, bajar);
         var franja = Franja();
         if (franja != null)
         {
@@ -1162,7 +1309,9 @@ public static class ArmarInicioIntroduccion
         so.FindProperty("fundido").objectReferenceValue = imgNegro;
         so.FindProperty("textos").objectReferenceValue = grupoTextos;
         so.FindProperty("chica").objectReferenceValue = chica;
-        so.FindProperty("dialogoAlLlegar").objectReferenceValue = dialogo;
+        // el dialogo de Jaya ya no se abre al llegar: lo abre el Lore de la vasija (Caro)
+        so.FindProperty("dialogoAlLlegar").objectReferenceValue = null;
+        so.FindProperty("cartelAlLlegar").objectReferenceValue = cartel;
         so.ApplyModifiedPropertiesWithoutUndo();
 
         if (iosevka == null)

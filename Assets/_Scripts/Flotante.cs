@@ -6,6 +6,9 @@ using UnityEngine;
 // Asi, si se mueve el objeto a mano, el dibujo y su agua lo siguen juntos.
 // Usa el tiempo del juego: en pausa se queda quieto.
 // Lo pone el menu  Pomelo -> Escenas -> Armar escena Inicio_introducción
+// [SelectionBase]: al hacer clic sobre el dibujo en la escena se selecciona este objeto (la base), no el dibujo;
+// asi, al moverlo, se mueve todo junto (el dibujo, su brillo, el agua de adelante, el Lore de la vasija...).
+[SelectionBase]
 public class Flotante : MonoBehaviour
 {
     [Tooltip("Lo que sube, baja y se mece (el dibujo). Vacio = este mismo objeto.")]

@@ -8,7 +8,7 @@ using UnityEngine;
 // Lo arma el menu  Pomelo -> Escenas -> Armar escena Inicio_introducción
 public class Destellos : MonoBehaviour
 {
-    [Tooltip("x, y = lugar en el mundo; z = radio del halo en px de la escena (el r del SVG).")]
+    [Tooltip("x, y = lugar (relativo a este objeto); z = radio del halo en px de la escena (el r del SVG).")]
     [SerializeField] private Vector3[] puntos;
     [Tooltip("Desenfoque del halo, en px de la escena (en el SVG: 1.6).")]
     [SerializeField] private float desenfoque = 4.7f;
@@ -48,7 +48,8 @@ public class Destellos : MonoBehaviour
         {
             var go = new GameObject("Destello " + i);
             go.transform.SetParent(transform, false);
-            go.transform.position = new Vector3(puntos[i].x, puntos[i].y, 0f);
+            // relativos a este objeto: si se lo mueve, se mueven todos los puntitos
+            go.transform.localPosition = new Vector3(puntos[i].x, puntos[i].y, 0f);
             puntitos[i] = go.transform;
             dibujos[i] = go.AddComponent<SpriteRenderer>();
             dibujos[i].sprite = Dibujar(puntos[i].z);
@@ -98,7 +99,7 @@ public class Destellos : MonoBehaviour
             // flota en su lugar (ruido suave, distinto para cada uno)
             float dx = (Mathf.PerlinNoise(fase1[i], t * velocidadVaiven) - 0.5f) * 2f * vaiven;
             float dy = (Mathf.PerlinNoise(fase2[i], t * velocidadVaiven) - 0.5f) * 2f * vaiven;
-            puntitos[i].position = new Vector3(puntos[i].x + dx, puntos[i].y + dy, 0f);
+            puntitos[i].localPosition = new Vector3(puntos[i].x + dx, puntos[i].y + dy, 0f);
 
             // titila: se apaga y se prende suave, cada uno a su ritmo
             float titilar = 0.5f + 0.5f * Mathf.Sin(t * velocidad[i] + fase3[i]);

@@ -42,9 +42,15 @@ public class PantallaInicio : MonoBehaviour
     [Header("La chica de la parte 2")]
     [Tooltip("Arranca sin controles y los recibe cuando la camara llega a la parte 2.")]
     [SerializeField] private GameObject chica;
+    [Tooltip("Dialogo que se abre al llegar a la parte 2 (Jaya sale a explorar). La chica recibe los controles " +
+             "recien cuando se cierra. Vacio = los recibe al llegar.")]
+    [SerializeField] private Dialogo dialogoAlLlegar;
+    [Tooltip("Segundos que pasan desde que la camara llega a la parte 2 hasta que aparece el dialogo.")]
+    [SerializeField] private float segundosAntesDelDialogo = 3f;
 
     private Behaviour[] controlesChica;
     private bool chicaActiva;
+    private bool esperandoDialogo;
     private bool comenzando;
     private float inicio;
     private float avance;   // 0 = la cueva, 1 = la otra parte
@@ -64,7 +70,29 @@ public class PantallaInicio : MonoBehaviour
         {
             controlesChica = chica.GetComponents<MonoBehaviour>();
             foreach (var c in controlesChica) c.enabled = false;
+            ApoyarEnElPiso(chica);
         }
+    }
+
+    // Deja a la chica parada sobre lo que tenga abajo (la piedra): la baja (o la sube un poquito) hasta que su
+    // colisionador toca el piso. Lo usa tambien el menu que arma la escena.
+    public static void ApoyarEnElPiso(GameObject chica, float hastaUnidades = 6f)
+    {
+        if (chica == null || !chica.TryGetComponent<Collider2D>(out var propio)) return;
+        Physics2D.SyncTransforms();
+        var b = propio.bounds;
+        // desde un poquito por encima de los pies, para abajo
+        var desde = new Vector2(b.center.x, b.min.y + 0.3f);
+        RaycastHit2D? mejor = null;
+        foreach (var h in Physics2D.RaycastAll(desde, Vector2.down, hastaUnidades + 0.3f))
+        {
+            if (h.collider == null || h.collider.isTrigger || h.collider.transform.IsChildOf(chica.transform)) continue;
+            if (mejor == null || h.distance < mejor.Value.distance) mejor = h;
+        }
+        if (mejor == null) return;
+        float mover = mejor.Value.point.y - b.min.y + 0.005f;
+        chica.transform.position += new Vector3(0f, mover, 0f);
+        Physics2D.SyncTransforms();
     }
 
     // reloj del agua (shader Pomelo/AguaOndulante): avanza con el tiempo del juego, asi en pausa el agua se frena
@@ -100,11 +128,18 @@ public class PantallaInicio : MonoBehaviour
         avance = 0.5f - 0.5f * Mathf.Cos(x * Mathf.PI);
         Encuadrar();
 
-        // al llegar a la parte 2, la chica recibe los controles (moverse, correr, saltar, como en el nivel)
-        if (x >= 1f && !chicaActiva)
+        // al llegar a la parte 2: primero el dialogo (Jaya sale a explorar) y, cuando se cierra, la chica recibe
+        // los controles (moverse, correr, saltar, como en el nivel)
+        if (x >= 1f && tCamara >= duracionRecorrido + segundosAntesDelDialogo && !chicaActiva && !esperandoDialogo)
         {
-            chicaActiva = true;
-            if (controlesChica != null) foreach (var c in controlesChica) if (c != null) c.enabled = true;
+            if (dialogoAlLlegar != null && CuadroDialogo.Instancia != null && CuadroDialogo.Instancia.Abrir(dialogoAlLlegar))
+                esperandoDialogo = true;
+            else ActivarChica();
+        }
+        if (esperandoDialogo && !CuadroDialogo.Abierto)
+        {
+            esperandoDialogo = false;
+            ActivarChica();
         }
 
         if (!cargarNivelAlTerminar) return;
@@ -117,6 +152,12 @@ public class PantallaInicio : MonoBehaviour
             enabled = false;
             SceneManager.LoadScene(escenaJuego);
         }
+    }
+
+    private void ActivarChica()
+    {
+        chicaActiva = true;
+        if (controlesChica != null) foreach (var c in controlesChica) if (c != null) c.enabled = true;
     }
 
     // muestra de ancho la parte que toca (la cueva, la otra parte o en el camino entre las dos), centrada en alto

@@ -324,7 +324,13 @@ public static class ConservarAjustes
         var porComponente = new Dictionary<string, List<KeyValuePair<string, string>>>();
         foreach (var kv in actual.valores)
         {
-            if (base_ != null && base_.valores.TryGetValue(kv.Key, out var vb) && Iguales(vb, kv.Value)) continue;
+            if (base_ != null)
+            {
+                // si la base no tiene ese valor, es un campo nuevo del codigo (lo que hay es el valor por defecto,
+                // no un ajuste a mano): gana el del menu
+                if (!base_.valores.TryGetValue(kv.Key, out var vb)) continue;
+                if (Iguales(vb, kv.Value)) continue;
+            }
             if (nuevo.valores.TryGetValue(kv.Key, out var vn) && Iguales(vn, kv.Value)) continue;
             if (base_ == null && !nuevo.valores.ContainsKey(kv.Key)) continue;
             var partes = kv.Key.Split('|');

@@ -3,7 +3,8 @@ guid: 3656c2a8b0f344a7848f49c481a99587
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cartelInteractuar: {fileID: 4250720034094768461, guid: e75e8e08518b2ad43bc257cd2da52b06, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

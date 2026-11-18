@@ -103333,6 +103333,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CartelTutorial
   duracionAparicion: 1.2
   esperarSalidaDelPortal: 1
+  porCercania: 0
+  duracionCercania: 0.25
   borrarAlPasar: 0
   mascara: {fileID: 0}
   bordeBorrado: 40
@@ -138559,9 +138561,11 @@ MonoBehaviour:
     texto: "\xBFSer\xE1 esto lo que dijo la maestra que me ayudar\xEDa a reparar
       el templo?"
     ilustracion: {fileID: 0}
-  distancia: {x: 2, y: 2.5}
+  distancia: {x: 5, y: 2.5}
   centro: {x: 0, y: 0}
   tecla: 19
+  cartelInteractuar: {fileID: 4250720034094768461, guid: e75e8e08518b2ad43bc257cd2da52b06, type: 3}
+  posicionCartel: {x: 0, y: 1.6}
   indicador: {fileID: 0}
   soloUnaVez: 0
   abrirAlEntrar: 0
@@ -140418,6 +140422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CartelTutorial
   duracionAparicion: 1.2
   esperarSalidaDelPortal: 1
+  porCercania: 0
+  duracionCercania: 0.25
   borrarAlPasar: 0
   mascara: {fileID: 0}
   bordeBorrado: 40

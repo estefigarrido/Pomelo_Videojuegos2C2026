@@ -111,20 +111,67 @@ public static class ArmarCarteles
                 .Titulo("Impulsarte", new Vector2(0f, -20f))
                 .Icono(Teclado + "Tecla_F.png", new Vector2(209f, -20f))
                 .O(new Vector2(234.5f, -21f))
-                .Icono(Joystick + "Boton_Triangulo.png", new Vector2(260f, -20f))
-                .AlTerminarDeBorrarseMuestra("Cartel_recargarvida"),   // cuando le falta un cuarto, aparece el de Recargar vida
+                .Icono(Joystick + "Boton_Triangulo.png", new Vector2(260f, -20f)),
 
             //          RECARGAR VIDA   [R]   o   [cuadrado]
-            // antes del lago violeta, a la misma altura que los demas (y = -28.33).
-            // NO se borra al pasar la chica: se desvanece recien cuando ella pisa la primera hoja de loto del lago.
+            // en el piso de arriba: aparece solo al salir la chica del portal y se borra cuando ella le pasa por delante
+            // (en su mismo piso). Hay otra copia antes de la pelea con Umbrae.
             new Cartel("Cartel_recargarvida", new Vector2(323f, 40f), enEscena: true,
                        lugar: new Vector3(78.57f, -28.33f, -0.05f))
-                .DesvanecerAlPisarLaPrimeraHoja()
                 .Titulo("Recargar Vida", new Vector2(0f, -20f))
                 .Icono(Teclado + "Tecla_R.png", new Vector2(253.6f, -20f))
                 .O(new Vector2(279.7f, -21f))
                 .Icono(Joystick + "Boton_Cuadrado.png", new Vector2(305.8f, -20f)),
+
+            //          INTERACTUAR   [E]   o   [L1]        (Figma, pagina UI: Frame 63, 310 x 44)
+            // no va en la escena: lo crea cada objeto con Dialogo sobre si mismo. Aparece cuando la chica se acerca
+            // y se va cuando se aleja (no se borra al pasar).
+            new Cartel("Cartel_interactuar", new Vector2(310f, 40f), enEscena: false)
+                .PorCercania()
+                .Titulo("Interactuar", new Vector2(0f, -20f))
+                .Icono(Teclado + "Tecla_E.png", new Vector2(233f, -20f))
+                .O(new Vector2(261.5f, -21f))
+                .Icono(Joystick + "Boton_L1.png", new Vector2(291f, -20f)),
         };
+    }
+
+    // Menu:  Pomelo -> Carteles -> Armar cartel Interactuar
+    // Arma solo el prefab del cartel 'Interactuar' (no toca la escena ni los demas carteles) y lo deja puesto
+    // en los Dialogo de la escena que todavia no tienen cartel, y como valor por defecto de los Dialogo nuevos.
+    [MenuItem("Pomelo/Carteles/Armar cartel Interactuar")]
+    public static void ArmarInteractuar()
+    {
+        if (EditorApplication.isPlaying) { Debug.LogError("Para el Play antes de armar el cartel."); return; }
+        var fuente = FontAssetAlegreya();
+        if (fuente == null) return;
+        var c = Carteles().First(x => x.nombre == "Cartel_interactuar");
+        var chica = Object.FindFirstObjectByType<SaludPersonaje>();
+        var prefab = ArmarPrefab(c, fuente, chica != null ? chica.GetComponent<SpriteRenderer>() : null);
+        if (prefab == null) return;
+
+        // valor por defecto para los Dialogo que se agreguen de ahora en mas
+        var script = AssetImporter.GetAtPath("Assets/_Scripts/Dialogo.cs") as MonoImporter;
+        if (script != null)
+        {
+            script.SetDefaultReferences(new[] { "cartelInteractuar" }, new Object[] { prefab });
+            script.SaveAndReimport();
+        }
+
+        // los Dialogo que ya estan en la escena sin cartel
+        int puestos = 0;
+        foreach (var d in Object.FindObjectsByType<Dialogo>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            var so = new SerializedObject(d);
+            var p = so.FindProperty("cartelInteractuar");
+            if (p.objectReferenceValue != null) continue;
+            p.objectReferenceValue = prefab;
+            so.ApplyModifiedProperties();
+            puestos++;
+        }
+        if (puestos > 0) EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+        Selection.activeObject = prefab;
+        Debug.Log("Cartel 'Interactuar' armado en " + CarpetaCarteles + "Cartel_interactuar.prefab" +
+                  (puestos > 0 ? ". Lo puse en " + puestos + " Dialogo de la escena: guarda la escena con Ctrl+S." : "."));
     }
 
     // ---------- rutas y medidas comunes ----------
@@ -341,6 +388,9 @@ public static class ArmarCarteles
             this.soloUbicar = soloUbicar;
         }
 
+        public bool porCercania;           // lo muestra un objeto interactuable cuando la chica se acerca (no se borra)
+        public Cartel PorCercania() { porCercania = true; return this; }
+
         public bool desvaneceAlPisarHoja;  // se va cuando la chica pisa la primera hoja de loto a su derecha
         public Cartel DesvanecerAlPisarLaPrimeraHoja() { desvaneceAlPisarHoja = true; return this; }
         public Cartel AlEmpezarABorrarseDesvanece(params string[] carteles) { desvanece.AddRange(carteles); return this; }
@@ -553,6 +603,12 @@ public static class ArmarCarteles
 
         var so = new SerializedObject(raiz.GetComponent<CartelTutorial>());
         so.FindProperty("mascara").objectReferenceValue = mascara;
+        if (c.porCercania)
+        {
+            so.FindProperty("porCercania").boolValue = true;
+            so.FindProperty("borrarAlPasar").boolValue = false;
+            so.FindProperty("esperarSalidaDelPortal").boolValue = false;
+        }
         so.ApplyModifiedPropertiesWithoutUndo();
 
         var prefab = PrefabUtility.SaveAsPrefabAsset(raiz, CarpetaCarteles + c.nombre + ".prefab");

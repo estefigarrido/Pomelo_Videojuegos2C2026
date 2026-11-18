@@ -24,6 +24,11 @@ public class CartelTutorial : MonoBehaviour
     [SerializeField] private float duracionAparicion = 1.2f;
     [Tooltip("Si esta prendido, espera a que la chica termine de salir por la puerta del portal.")]
     [SerializeField] private bool esperarSalidaDelPortal = true;
+    [Tooltip("Cartel de un objeto interactuable (por ejemplo 'Interactuar'): no aparece solo ni se borra al pasar. " +
+             "Lo muestra el objeto (Dialogo) cuando la chica se acerca y lo esconde cuando se aleja.")]
+    [SerializeField] private bool porCercania;
+    [Tooltip("Solo por cercania: segundos que tarda en aparecer y en irse.")]
+    [SerializeField] private float duracionCercania = 0.25f;
 
     [Header("Borrado al pasar la chica")]
     [Tooltip("Si esta apagado, no se borra cuando la chica le pasa por delante (por ejemplo el de Recargar vida, " +
@@ -115,13 +120,25 @@ public class CartelTutorial : MonoBehaviour
             canvas.sortingOrder = dibujoChica.sortingOrder - 1;
         }
 
-        // este lo muestra otro cartel (Mostrar)
-        if (esperarAOtroCartel) yield break;
+        // este lo muestra otro cartel (Mostrar), o el objeto interactuable cuando la chica esta cerca (Cerca)
+        if (esperarAOtroCartel || porCercania) yield break;
 
         if (esperarSalidaDelPortal && FindFirstObjectByType<InicioNivel>() != null)
             while (!salio && !InicioNivel.YaSalio) yield return null;
 
         if (!visible && !yendose) yield return Aparecer();
+    }
+
+    // Cartel por cercania: aparece (true) o se va (false) suave. Lo llama el objeto interactuable.
+    private bool cerca;
+    private Coroutine fundidoCercania;
+    public void Cerca(bool estaCerca)
+    {
+        if (estaCerca == cerca && fundidoCercania != null) return;
+        cerca = estaCerca;
+        if (!gameObject.activeInHierarchy) return;
+        if (fundidoCercania != null) StopCoroutine(fundidoCercania);
+        fundidoCercania = StartCoroutine(Fundido(grupo.alpha, estaCerca ? 1f : 0f, duracionCercania));
     }
 
     // Lo llama otro cartel cuando termina de borrarse.
@@ -155,7 +172,7 @@ public class CartelTutorial : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!borrarAlPasar || mascara == null || dibujoChica == null || yendose) return;
+        if (porCercania || !borrarAlPasar || mascara == null || dibujoChica == null || yendose) return;
 
         // donde esta la chica, medido desde el borde izquierdo de la mascara (en px del cartel)
         var rt = mascara.rectTransform;

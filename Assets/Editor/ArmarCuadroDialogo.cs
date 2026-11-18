@@ -33,11 +33,12 @@ public static class ArmarCuadroDialogo
         var viejo = canvas.transform.Find("Cuadro de dialogo");
         if (viejo != null) Undo.DestroyObjectImmediate(viejo.gameObject);
 
-        // raiz: ocupa toda la pantalla, invisible hasta que se abre un dialogo
+        // raiz: ocupa toda la pantalla. En el editor queda visible (para acomodarlo); al jugar, CuadroDialogo la
+        // esconde hasta que se abre un dialogo.
         var raiz = Nuevo("Cuadro de dialogo", canvas.transform);
         Estirar(raiz);
         var grupo = raiz.gameObject.AddComponent<CanvasGroup>();
-        grupo.alpha = 0f; grupo.interactable = false; grupo.blocksRaycasts = false;
+        grupo.alpha = 1f; grupo.interactable = false; grupo.blocksRaycasts = false;
 
         // ilustracion de pantalla completa
         var ilu = Nuevo("Ilustracion", raiz);
@@ -54,23 +55,36 @@ public static class ArmarCuadroDialogo
         cuadro.sizeDelta = new Vector2(1631f, 256f);
         cuadro.anchoredPosition = new Vector2(10.5f, 103f);
 
-        var fondo = Imagen("Fondo", cuadro, null, new Color(0f, 0f, 0f, 0.6f), new Vector2(7f, 6f), new Vector2(1621f, 244f));
-        var marco = SpriteDe(Carpeta + "marco_dialogo.png");
-        Imagen("Marco izquierdo", cuadro, marco, Color.white, Vector2.zero, new Vector2(162f, 256f));
-        var der = Imagen("Marco derecho", cuadro, marco, Color.white, new Vector2(1469f, 0f), new Vector2(162f, 256f));
-        // el mismo marco girado 180 grados alrededor de su centro
-        der.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        der.rectTransform.anchoredPosition = new Vector2(1469f + 81f, -128f);
-        der.rectTransform.localEulerAngles = new Vector3(0f, 0f, 180f);
+        // Todo lo de adentro sigue al tamano del Cuadro: cambiandole el ancho / alto (Width / Height) se acomoda solo.
+        //  - el fondo se estira (7 / 6 px de margen como en el Figma);
+        //  - los marcos se pegan a los costados y se estiran a lo alto: solo se alarga la parte lisa de la linea
+        //    (el PNG tiene bordes de 9-slice), los adornos no se deforman;
+        //  - el nombre y el texto van de borde a borde (104 px a la izquierda, 100 a la derecha); el texto ocupa
+        //    todo el alto que queda, asi la alineacion arriba / centro / abajo (Alignment) tiene efecto;
+        //  - los iconos quedan pegados arriba a la derecha.
+        var fondo = Imagen("Fondo", cuadro, null, new Color(0f, 0f, 0f, 0.6f), Vector2.zero, Vector2.zero);
+        Bordes(fondo.rectTransform, 7f, 6f, 3f, 6f);
 
-        var nombre = Texto("Nombre", cuadro, FuenteNombre, 32f, FontStyles.SmallCaps, new Vector2(104f, 46f), new Vector2(1300f, 44f), false);
+        var marco = SpriteDe(Carpeta + "marco_dialogo.png");
+        var izq = Imagen("Marco izquierdo", cuadro, marco, Color.white, Vector2.zero, Vector2.zero);
+        AlCostado(izq, 0f);
+        var der = Imagen("Marco derecho", cuadro, marco, Color.white, Vector2.zero, Vector2.zero);
+        AlCostado(der, 1f);
+        der.rectTransform.localEulerAngles = new Vector3(0f, 0f, 180f);   // el mismo marco, girado
+
+        var nombre = Texto("Nombre", cuadro, FuenteNombre, 32f, FontStyles.SmallCaps, Vector2.zero, Vector2.zero, false);
+        Arriba(nombre.rectTransform, 104f, 100f, 46f, 44f);
+        nombre.alignment = TextAlignmentOptions.Left;
         nombre.text = "Lady Li Hua";
-        var texto = Texto("Texto", cuadro, FuenteTexto, 36f, FontStyles.Normal, new Vector2(104f, 100f), new Vector2(1427f, 130f), true);
-        texto.text = "“Es admirable tu valor para entrar aquí y querer conocer los saberes olvidados.”";
+        var texto = Texto("Texto", cuadro, FuenteTexto, 36f, FontStyles.Normal, Vector2.zero, Vector2.zero, true);
+        Bordes(texto.rectTransform, 104f, 100f, 100f, 26f);
+        texto.text = "“Es admirable tu valor para entrar aquí y querer conocer los saberes olvidados. Los demás maestros no tuvieron la misma suerte que yo, verás...”";
 
         var gris = new Color(1f, 1f, 1f, 0.6f);
-        var seguir = Imagen("Icono seguir", cuadro, SpriteDe(Carpeta + "dialogo_icono_A.png"), gris, new Vector2(1553f, 42f), new Vector2(30f, 30f));
-        var fin = Imagen("Icono fin", cuadro, SpriteDe(Carpeta + "dailogo_icono_B.png"), gris, new Vector2(1553f, 42f), new Vector2(30f, 31f));
+        var seguir = Imagen("Icono seguir", cuadro, SpriteDe(Carpeta + "dialogo_icono_A.png"), gris, Vector2.zero, Vector2.zero);
+        ArribaDerecha(seguir.rectTransform, 1631f - 1553f, 42f, new Vector2(30f, 30f));
+        var fin = Imagen("Icono fin", cuadro, SpriteDe(Carpeta + "dailogo_icono_B.png"), gris, Vector2.zero, Vector2.zero);
+        ArribaDerecha(fin.rectTransform, 1631f - 1553f, 42f, new Vector2(30f, 31f));
         fin.enabled = false;
 
         var cd = raiz.gameObject.AddComponent<CuadroDialogo>();
@@ -89,6 +103,47 @@ public static class ArmarCuadroDialogo
         EditorSceneManager.MarkSceneDirty(raiz.gameObject.scene);
         Selection.activeGameObject = raiz.gameObject;
         Debug.Log("[Dialogos] Cuadro de dialogo armado en '" + canvas.name + "'. Guardá la escena.");
+    }
+
+    // ocupa todo el cuadro menos estos margenes (izquierda, derecha, arriba, abajo)
+    private static void Bordes(RectTransform rt, float izq, float der, float arriba, float abajo)
+    {
+        rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one;
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.offsetMin = new Vector2(izq, abajo);
+        rt.offsetMax = new Vector2(-der, -arriba);
+    }
+
+    // franja de borde a borde, a 'desdeArriba' del borde de arriba y de 'alto' px
+    private static void Arriba(RectTransform rt, float izq, float der, float desdeArriba, float alto)
+    {
+        rt.anchorMin = new Vector2(0f, 1f); rt.anchorMax = new Vector2(1f, 1f);
+        rt.pivot = new Vector2(0f, 1f);
+        rt.offsetMin = new Vector2(izq, -desdeArriba - alto);
+        rt.offsetMax = new Vector2(-der, -desdeArriba);
+    }
+
+    // pegado arriba a la derecha: 'desdeDerecha' es donde empieza (su borde izquierdo) medido desde el borde derecho
+    private static void ArribaDerecha(RectTransform rt, float desdeDerecha, float desdeArriba, Vector2 tamano)
+    {
+        rt.anchorMin = rt.anchorMax = new Vector2(1f, 1f);
+        rt.pivot = new Vector2(0f, 1f);
+        rt.sizeDelta = tamano;
+        rt.anchoredPosition = new Vector2(-desdeDerecha, -desdeArriba);
+    }
+
+    // marco pegado a un costado (0 = izquierda, 1 = derecha), de 162 px de ancho y todo el alto del cuadro.
+    // Usa el 9-slice del PNG (243 x 384, se dibuja a 162 x 256 => 1.5 px del PNG por px de pantalla).
+    private static void AlCostado(Image img, float lado)
+    {
+        var rt = img.rectTransform;
+        rt.anchorMin = new Vector2(lado, 0f); rt.anchorMax = new Vector2(lado, 1f);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.sizeDelta = new Vector2(162f, 0f);
+        rt.anchoredPosition = new Vector2(lado < 0.5f ? 81f : -81f, 0f);
+        img.type = Image.Type.Sliced;
+        img.fillCenter = true;
+        img.pixelsPerUnitMultiplier = 1.5f;
     }
 
     private static RectTransform Nuevo(string nombre, Transform padre)

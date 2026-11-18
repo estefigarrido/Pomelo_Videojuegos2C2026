@@ -50,7 +50,7 @@ public class CuadroDialogo : MonoBehaviour
     private int totalLetras;
     private int cuadroAbierto = -1; // cuadro (frame) en que se abrio: ese cuadro no cuenta la tecla
     private Coroutine fundido, fundidoIlustracion;
-    private Vector2? posicionTexto;   // donde va el texto cuando hay nombre (la del cuadro armado)
+    private float? bordeArribaTexto;  // donde empieza el texto cuando hay nombre (como quedo acomodado en la escena)
 
     private void Awake()
     {
@@ -138,12 +138,18 @@ public class CuadroDialogo : MonoBehaviour
             nombre.text = conNombre ? l.personaje : "";
             nombre.enabled = conNombre;
         }
-        // sin nombre, el texto sube al lugar del nombre
+        // sin nombre, el borde de arriba del texto sube hasta donde empieza el nombre (el resto queda igual:
+        // respeta como se haya acomodado el texto y su alineacion)
         var rt = texto.rectTransform;
-        if (posicionTexto == null) posicionTexto = rt.anchoredPosition;
-        rt.anchoredPosition = conNombre || nombre == null
-            ? posicionTexto.Value
-            : new Vector2(posicionTexto.Value.x, nombre.rectTransform.anchoredPosition.y);
+        if (bordeArribaTexto == null) bordeArribaTexto = rt.offsetMax.y;
+        rt.offsetMax = new Vector2(rt.offsetMax.x, bordeArribaTexto.Value);
+        if (!conNombre && nombre != null)
+        {
+            var rn = nombre.rectTransform;
+            float arribaNombre = rn.localPosition.y + rn.rect.yMax;
+            float arribaTexto = rt.localPosition.y + rt.rect.yMax;
+            rt.offsetMax += new Vector2(0f, arribaNombre - arribaTexto);
+        }
         texto.text = l.texto;
         texto.ForceMeshUpdate();
         totalLetras = texto.textInfo.characterCount;

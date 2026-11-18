@@ -34,7 +34,9 @@ public static class ArmarCarteles
             //                    -------          ----------
             //          CAMINAR   [<]  [>]    o     [stick R]
             //                    [A]  [D]   (las flechas y A / D se van turnando cada 2.5 s, Frame 60)
-            new Cartel("Cartel_caminar", new Vector2(300f, 68f), enEscena: true)
+            // (ya no va en el nivel: Caro lo paso a la pantalla de inicio, donde lo pone el menu
+            //  Pomelo -> Escenas -> Armar escena Inicio_introducción. Aca solo se arma el prefab.)
+            new Cartel("Cartel_caminar", new Vector2(300f, 68f), enEscena: false)
                 .Titulo("Caminar", new Vector2(0f, -52.5f))
                 .Icono(Teclado + "Computadora.png", new Vector2(199f, -10f))
                 .Linea(new Vector2(198.5f, -28f), 71f)
@@ -47,12 +49,11 @@ public static class ArmarCarteles
 
             //          SALTAR        [espacio]  o  [X]
             //          DOBLE SALTO              [espacio]  o  [X]  x2
-            // va donde estaba antes el de Caminar (al lado del portal de entrada).
-            // Cuando empieza a borrarse, se desvanece el de Caminar; cuando le falta un cuarto, aparece el de Atacar.
-            new Cartel("Cartel_saltoysupersalto", new Vector2(305f, 87f), enEscena: true,
+            // (ya no va en el nivel: Caro lo paso a la pantalla de inicio, despues del de Caminar; lo pone el menu
+            //  Pomelo -> Escenas -> Armar escena Inicio_introducción. Aca solo se arma el prefab. En el nivel, el de
+            //  Atacar ahora aparece solo, al salir la chica del portal.)
+            new Cartel("Cartel_saltoysupersalto", new Vector2(305f, 87f), enEscena: false,
                        lugar: new Vector3(-22.41f, -28.33f, -0.05f))
-                .AlEmpezarABorrarseDesvanece("Cartel_caminar")
-                .AlTerminarDeBorrarseMuestra("Cartel_atacar")
                 .Titulo("Saltar", new Vector2(0f, -17f))
                 .Icono(Teclado + "Tecla_barraespaciadora.png", new Vector2(129f, -17f))
                 .O(new Vector2(157f, -18f))

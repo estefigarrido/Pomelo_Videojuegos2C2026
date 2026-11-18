@@ -26,6 +26,14 @@ public class LoreDeLaVasija : MonoBehaviour
     [SerializeField] private Color colorLuz = new Color32(0xee, 0xf4, 0xe2, 255);
     [SerializeField] private int ordenDibujo = 0;
 
+    [Header("Dialogo")]
+    [Tooltip("El Dialogo del Lore (arranca apagado). Cuando aparece el Lore se prende y se pone sobre el: muestra el " +
+             "cartel 'Interactuar' y, al apretar E (o L1), abre el cuadro de dialogo. La chica queda quieta desde que " +
+             "llega hasta que se cierra el dialogo.")]
+    [SerializeField] private Dialogo dialogo;
+    [Tooltip("Tamano del cartel 'Interactuar' con respecto al del nivel (aca la chica esta a 1.4).")]
+    [SerializeField] private float escalaCartel = 1.4f;
+
     [Header("Tiempos")]
     [SerializeField] private float duracionSalida = 1.8f;
     [SerializeField] private float duracionAparecer = 0.7f;
@@ -33,6 +41,15 @@ public class LoreDeLaVasija : MonoBehaviour
     [SerializeField] private float curva = 0.8f;
 
     private enum Estado { Esperando, Saliendo, Apareciendo, Quieto }
+    private enum Charla { Nada, Esperando, Abierto, Terminado }
+    private Charla charla = Charla.Nada;
+    private bool cartelAgrandado;
+
+    private void Awake()
+    {
+        // el dialogo no se puede usar hasta que aparece el Lore
+        if (dialogo != null) dialogo.enabled = false;
+    }
     private Estado estado = Estado.Esperando;
     private Transform chica;
     private Transform bolita, emblema, luz;
@@ -49,6 +66,10 @@ public class LoreDeLaVasija : MonoBehaviour
         bolita = Crear("Bolita", punto, ordenDibujo + 2, out srBolita);
         luz = Crear("Luz del lore", punto, ordenDibujo, out srLuz);
         emblema = Crear("Lore", lore, ordenDibujo + 1, out srEmblema);
+        // todo arranca apagado, chico y transparente (nunca se ve un cuadro con el emblema a su tamano original)
+        Ubicar(destino != null ? destino.position : transform.position, 0f);
+        bolita.localScale = Vector3.zero;
+        srBolita.color = new Color(colorLuz.r, colorLuz.g, colorLuz.b, 0f);
         bolita.gameObject.SetActive(false);
         luz.gameObject.SetActive(false);
         emblema.gameObject.SetActive(false);
@@ -73,6 +94,8 @@ public class LoreDeLaVasija : MonoBehaviour
             case Estado.Esperando:
                 if (chica != null && dondeSeActiva != null && chica.position.x >= dondeSeActiva.position.x)
                 {
+                    // la chica se queda quieta (en reposo) hasta que termina el dialogo
+                    QuietaPorEscena.Frenar();
                     estado = Estado.Saliendo;
                     t = 0f;
                     desde = boca != null ? boca.position : transform.position;
@@ -93,7 +116,16 @@ public class LoreDeLaVasija : MonoBehaviour
                 float aparece = Mathf.Clamp01(t * 4f);   // sale chiquita de la vasija y crece rapido
                 bolita.localScale = Vector3.one * tamanoBolita * aparece * (1f + 0.12f * Mathf.Sin(tiempo * 8f));
                 srBolita.color = new Color(colorLuz.r, colorLuz.g, colorLuz.b, aparece);
-                if (t >= 1f) { estado = Estado.Apareciendo; t = 0f; emblema.gameObject.SetActive(true); luz.gameObject.SetActive(true); }
+                if (t >= 1f)
+                {
+                    estado = Estado.Apareciendo;
+                    t = 0f;
+                    // se ubica (chico y transparente) ANTES de prenderse: si no, el primer cuadro se veia el emblema
+                    // a su tamano original, gigante
+                    Ubicar(destino != null ? destino.position : bolita.position, 0f);
+                    emblema.gameObject.SetActive(true);
+                    luz.gameObject.SetActive(true);
+                }
                 break;
             }
 
@@ -107,7 +139,7 @@ public class LoreDeLaVasija : MonoBehaviour
                 bolita.localScale = Vector3.one * tamanoBolita * (1f + 2.5f * k);
                 srBolita.color = new Color(colorLuz.r, colorLuz.g, colorLuz.b, 1f - k);
                 Ubicar(lugar, k);
-                if (t >= 1f) { estado = Estado.Quieto; bolita.gameObject.SetActive(false); }
+                if (t >= 1f) { estado = Estado.Quieto; bolita.gameObject.SetActive(false); PrenderDialogo(); }
                 break;
             }
 
@@ -115,6 +147,43 @@ public class LoreDeLaVasija : MonoBehaviour
                 Ubicar((destino != null ? destino.position : emblema.position) + Vector3.up * (Mathf.Sin(tiempo * 1.6f) * 0.06f), 1f);
                 break;
         }
+
+        // el dialogo: el cartel 'Interactuar' esta sobre el Lore; al apretar E (o L1) se abre el cuadro (lo hace el
+        // Dialogo) y, cuando se cierra, la chica se puede mover
+        switch (charla)
+        {
+            case Charla.Esperando:
+                AgrandarCartel();
+                if (CuadroDialogo.Abierto) charla = Charla.Abierto;
+                break;
+            case Charla.Abierto:
+                if (!CuadroDialogo.Abierto) { charla = Charla.Terminado; QuietaPorEscena.Soltar(); }
+                break;
+        }
+    }
+
+    private void PrenderDialogo()
+    {
+        if (dialogo == null) { charla = Charla.Terminado; QuietaPorEscena.Soltar(); return; }
+        // el dialogo se pone sobre el Lore (su cartel 'Interactuar' aparece arriba del emblema) y se prende
+        if (destino != null) dialogo.transform.position = destino.position;
+        dialogo.enabled = true;
+        charla = Charla.Esperando;
+    }
+
+    // el cartel 'Interactuar' lo crea el Dialogo del tamano del nivel; aca va proporcional a la chica (1.4)
+    private void AgrandarCartel()
+    {
+        if (cartelAgrandado || dialogo == null) return;
+        var cartel = dialogo.GetComponentInChildren<CartelTutorial>(true);
+        if (cartel == null) return;
+        cartel.transform.localScale *= escalaCartel;
+        cartelAgrandado = true;
+    }
+
+    private void OnDestroy()
+    {
+        if (charla != Charla.Terminado && estado != Estado.Esperando) QuietaPorEscena.Soltar();
     }
 
     // el emblema (a su alto) y la luz detras, que late despacio

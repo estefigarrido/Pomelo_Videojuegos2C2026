@@ -574,8 +574,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u201CEs admirable tu valor para entrar aqu\xED y querer conocer los saberes
-    olvidados. Los dem\xE1s maestros no tuvieron la misma suerte que yo, ver\xE1s...\u201D"
+  m_text: "\u201CEste es un texto de ejemplo donde podemos ver c\xF3mo se ve un p\xE1rrafo
+    en dos o una l\xEDnea. Si quer\xE9s ponerle m\xE1s texto, hac\xE9 otro marco
+    de di\xE1logo.\""
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: be2daaab3cf008f4b878b1ec58cd30f9, type: 2}
   m_sharedMaterial: {fileID: -3126082750057569819, guid: be2daaab3cf008f4b878b1ec58cd30f9, type: 2}
@@ -610,7 +611,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -32334,7 +32335,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 10.5, y: 103}
-  m_SizeDelta: {x: 1631, y: 263.3}
+  m_SizeDelta: {x: 1631, y: 248}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &397185766
 GameObject:
@@ -36404,7 +36405,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 104, y: -46}
+  m_AnchoredPosition: {x: 104, y: -44}
   m_SizeDelta: {x: -204, y: 44}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &443153153
@@ -82757,7 +82758,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.5, y: 1.5}
+  m_AnchoredPosition: {x: 0.5, y: 1.5000153}
   m_SizeDelta: {x: -13, y: -9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1123913332

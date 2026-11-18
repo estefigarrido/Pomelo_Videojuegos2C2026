@@ -39,6 +39,12 @@ public class PantallaInicio : MonoBehaviour
     [SerializeField] private Image fundido;
     [SerializeField] private float duracionFundido = 0.8f;
 
+    [Header("La chica de la parte 2")]
+    [Tooltip("Arranca sin controles y los recibe cuando la camara llega a la parte 2.")]
+    [SerializeField] private GameObject chica;
+
+    private Behaviour[] controlesChica;
+    private bool chicaActiva;
     private bool comenzando;
     private float inicio;
     private float avance;   // 0 = la cueva, 1 = la otra parte
@@ -52,6 +58,13 @@ public class PantallaInicio : MonoBehaviour
             fundido.raycastTarget = false;
         }
         Encuadrar();
+
+        // la chica no se mueve ni ataca mientras se ve la cueva (la barra espaciadora es tambien "Comenzar")
+        if (chica != null)
+        {
+            controlesChica = chica.GetComponents<MonoBehaviour>();
+            foreach (var c in controlesChica) c.enabled = false;
+        }
     }
 
     // reloj del agua (shader Pomelo/AguaOndulante): avanza con el tiempo del juego, asi en pausa el agua se frena
@@ -86,6 +99,13 @@ public class PantallaInicio : MonoBehaviour
         float x = duracionRecorrido > 0f ? Mathf.Clamp01(tCamara / duracionRecorrido) : 1f;
         avance = 0.5f - 0.5f * Mathf.Cos(x * Mathf.PI);
         Encuadrar();
+
+        // al llegar a la parte 2, la chica recibe los controles (moverse, correr, saltar, como en el nivel)
+        if (x >= 1f && !chicaActiva)
+        {
+            chicaActiva = true;
+            if (controlesChica != null) foreach (var c in controlesChica) if (c != null) c.enabled = true;
+        }
 
         if (!cargarNivelAlTerminar) return;
         float tFundido = tCamara - duracionRecorrido - esperaAlLlegar;

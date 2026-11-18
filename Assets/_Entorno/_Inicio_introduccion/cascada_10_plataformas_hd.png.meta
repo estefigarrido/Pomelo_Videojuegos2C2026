@@ -1,0 +1,325 @@
+fileFormatVersion: 2
+guid: b3e804169d2ec754a801c0630fefd1e2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5386594368551989672
+    second: cascada_10_plataformas_hd_0
+  - first:
+      213: -5650780611623394338
+    second: cascada_10_plataformas_hd_1
+  - first:
+      213: -783679203547004252
+    second: cascada_10_plataformas_hd_2
+  - first:
+      213: -342004837553619048
+    second: cascada_10_plataformas_hd_3
+  - first:
+      213: 5666220003687893499
+    second: cascada_10_plataformas_hd_4
+  - first:
+      213: -6477835765751755269
+    second: cascada_10_plataformas_hd_5
+  - first:
+      213: -2694011899572471635
+    second: cascada_10_plataformas_hd_6
+  - first:
+      213: -8447992533108187904
+    second: cascada_10_plataformas_hd_7
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cascada_10_plataformas_hd_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 1052
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a139aee90701ca40800000000000000
+      internalID: 5386594368551989672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_10_plataformas_hd_1
+      rect:
+        serializedVersion: 2
+        x: 1488
+        y: 8
+        width: 283
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed3e58c09f46491b0800000000000000
+      internalID: -5650780611623394338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_10_plataformas_hd_2
+      rect:
+        serializedVersion: 2
+        x: 1989
+        y: 1
+        width: 445
+        height: 214
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a248be9aefcf15f0800000000000000
+      internalID: -783679203547004252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_10_plataformas_hd_3
+      rect:
+        serializedVersion: 2
+        x: 2622
+        y: 8
+        width: 283
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89fb62a8964f04bf0800000000000000
+      internalID: -342004837553619048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_10_plataformas_hd_4
+      rect:
+        serializedVersion: 2
+        x: 3236
+        y: 2
+        width: 406
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf9870b821572ae40800000000000000
+      internalID: 5666220003687893499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_10_plataformas_hd_5
+      rect:
+        serializedVersion: 2
+        x: 3869
+        y: 8
+        width: 284
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfdcb0d21ba1a16a0800000000000000
+      internalID: -6477835765751755269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_10_plataformas_hd_6
+      rect:
+        serializedVersion: 2
+        x: 4297
+        y: 47
+        width: 445
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da8be496372fc9ad0800000000000000
+      internalID: -2694011899572471635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_10_plataformas_hd_7
+      rect:
+        serializedVersion: 2
+        x: 4873
+        y: 54
+        width: 253
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00d1feeec83b2ca80800000000000000
+      internalID: -8447992533108187904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      cascada_10_plataformas_hd_0: 5386594368551989672
+      cascada_10_plataformas_hd_1: -5650780611623394338
+      cascada_10_plataformas_hd_2: -783679203547004252
+      cascada_10_plataformas_hd_3: -342004837553619048
+      cascada_10_plataformas_hd_4: 5666220003687893499
+      cascada_10_plataformas_hd_5: -6477835765751755269
+      cascada_10_plataformas_hd_6: -2694011899572471635
+      cascada_10_plataformas_hd_7: -8447992533108187904
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

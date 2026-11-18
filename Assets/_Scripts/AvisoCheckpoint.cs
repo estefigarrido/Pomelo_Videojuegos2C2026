@@ -57,6 +57,7 @@ public class AvisoCheckpoint : MonoBehaviour
         }
         instancia.lugarIcono = lugar;
         instancia.inicio = Time.time;
+        instancia.FijarLugar();
         instancia.Ubicar(-instancia.subida);   // ya en su lugar desde el primer cuadro
     }
 
@@ -94,10 +95,20 @@ public class AvisoCheckpoint : MonoBehaviour
         Ubicar(y);
     }
 
-    // En x, centrado con el icono del checkpoint; en y, siempre a la misma altura de la PANTALLA
-    // (alturaDesdeAbajo de 1080 = la misma proporcion en cualquier resolucion). Se mide en pixeles de pantalla,
-    // asi no depende del tamano ni del lugar del lienzo.
+    // Al tomar el checkpoint se elige el lugar del aviso EN EL MUNDO: en x, centrado con el icono; en y, el punto
+    // que en ese momento esta a 'alturaDesdeAbajo' de la pantalla. Desde ahi queda clavado en ese lugar del
+    // mundo, en x y en y: si la chica salta y la camara sube o baja, el aviso no la sigue.
+    private Vector3 lugarAviso;
     private Camera camaraJuego;
+
+    private void FijarLugar()
+    {
+        var cam = CamaraJuego();
+        if (cam == null) { lugarAviso = lugarIcono; return; }
+        Vector3 icono = cam.WorldToScreenPoint(lugarIcono);
+        float yPantalla = alturaDesdeAbajo * Screen.height / 1080f;
+        lugarAviso = cam.ScreenToWorldPoint(new Vector3(icono.x, yPantalla, icono.z));
+    }
 
     // la camara que sigue a la chica (en la escena no tiene la etiqueta MainCamera, asi que Camera.main no la encuentra)
     private Camera CamaraJuego()
@@ -114,8 +125,8 @@ public class AvisoCheckpoint : MonoBehaviour
         var cam = CamaraJuego();
         if (cam == null || lienzo == null) return;
         float escalaPantalla = Screen.height / 1080f;
-        Vector3 icono = cam.WorldToScreenPoint(lugarIcono);
-        var pantalla = new Vector2(icono.x, (alturaDesdeAbajo + subidaPx) * escalaPantalla);
+        Vector3 aviso = cam.WorldToScreenPoint(lugarAviso);   // el lugar fijo del mundo, visto desde la camara de ahora
+        var pantalla = new Vector2(aviso.x, aviso.y + subidaPx * escalaPantalla);
         var lienzoRaiz = GetComponentInParent<Canvas>()?.rootCanvas;
         Camera camLienzo = lienzoRaiz != null && lienzoRaiz.renderMode != RenderMode.ScreenSpaceOverlay ? lienzoRaiz.worldCamera : null;
         if (RectTransformUtility.ScreenPointToWorldPointInRectangle(lienzo, pantalla, camLienzo, out var mundo))

@@ -99,8 +99,8 @@ public static class ConectarSonidos
         // distancia entre pasos, al ritmo de los pies de las animaciones (ver PasosPersonaje); se pone aca porque
         // la chica que ya esta en la escena se queda con los valores viejos aunque cambie el codigo
         var so2 = new SerializedObject(pasos);
-        so2.FindProperty("distanciaPorPaso").floatValue = 5f;
-        so2.FindProperty("distanciaPorPasoCorriendo").floatValue = 9.7f;   // misma proporcion que caminando
+        so2.FindProperty("distanciaEntrePasos").floatValue = 5f;
+        so2.FindProperty("distanciaEntrePasosCorriendo").floatValue = 9.7f;   // misma proporcion que caminando
         so2.ApplyModifiedProperties();
         Debug.Log("Pasos: " + lista.Count + " variantes, uno cada 5 u caminando y cada 9.7 u corriendo");
         return lista.Count > 0 ? 1 : 0;

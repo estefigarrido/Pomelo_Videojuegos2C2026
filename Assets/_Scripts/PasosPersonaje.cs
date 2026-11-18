@@ -28,10 +28,12 @@ public class PasosPersonaje : MonoBehaviour
     [Header("Cada cuanto suena un paso (distancia recorrida en el piso)")]
     // camina a 6 u/s y ChicaCaminando apoya 2 pies en 1.08 s -> 3.25 u por paso; corre a 10.8 u/s y
     // ChicaSprint apoya 2 pies en 1.17 s -> 6.3 u por paso. Si cambia la velocidad, cambiar esto igual.
+    // OJO: se llaman distinto que antes (distanciaPorPaso) a proposito: la escena tenia guardados los valores viejos
+    // (1.2 y 3.5, pasos demasiado seguidos) y volvian con cada merge. Con el nombre nuevo se usan 5 y 9.7.
     [Tooltip("Unidades caminadas entre paso y paso (Caro eligio 5).")]
-    [SerializeField] private float distanciaPorPaso = 5f;
+    [SerializeField] private float distanciaEntrePasos = 5f;
     [Tooltip("Unidades corridas entre paso y paso con el sprint (9.7: la misma proporcion que caminando).")]
-    [SerializeField] private float distanciaPorPasoCorriendo = 9.7f;
+    [SerializeField] private float distanciaEntrePasosCorriendo = 9.7f;
     private int ultimo = -1;
     private MovimientoPersonaje movimiento;
     private float recorrido;     // distancia en el piso desde el ultimo paso
@@ -44,7 +46,7 @@ public class PasosPersonaje : MonoBehaviour
         xAnterior = transform.position.x;
     }
 
-    // Los pasos no dependen de cada toque de la tecla: suenan cada 'distanciaPorPaso' recorrida en el piso.
+    // Los pasos no dependen de cada toque de la tecla: suenan cada 'distanciaEntrePasos' recorrida en el piso.
     // Toques cortos no suenan.
     private void Update()
     {
@@ -66,7 +68,7 @@ public class PasosPersonaje : MonoBehaviour
     }
 
     private float PasoActual() =>
-        Mathf.Max(0.1f, movimiento != null && movimiento.SprintActivo ? distanciaPorPasoCorriendo : distanciaPorPaso);
+        Mathf.Max(0.1f, movimiento != null && movimiento.SprintActivo ? distanciaEntrePasosCorriendo : distanciaEntrePasos);
 
     // Las animaciones todavia llaman a estos eventos ("Paso" al caminar, "PasoCorriendo" al correr): ya no suenan
     // desde aca, quedan vacios para que Unity no avise que falta el metodo.

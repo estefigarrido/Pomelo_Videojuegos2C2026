@@ -45438,7 +45438,7 @@ Transform:
   m_GameObject: {fileID: 582101481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 92.8, y: 48.8, z: 0}
+  m_LocalPosition: {x: -25.80569, y: -29.063004, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46193,8 +46193,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 51758412e3853844c91c73845995e06f, type: 3}
   - {fileID: 8300000, guid: 7aa6780a4fe9a634baea69e4b8a15c49, type: 3}
   - {fileID: 8300000, guid: e90f20664e4bcee46a5478dca24ac18c, type: 3}
-  distanciaPorPaso: 1.2
-  distanciaPorPasoCorriendo: 3.5
+  distanciaEntrePasos: 5
+  distanciaEntrePasosCorriendo: 9.7
 --- !u!1 &583196019
 GameObject:
   m_ObjectHideFlags: 0

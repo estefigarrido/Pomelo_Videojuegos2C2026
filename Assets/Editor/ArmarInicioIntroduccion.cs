@@ -526,6 +526,8 @@ public static class ArmarInicioIntroduccion
                 AguaDelante(raiz, centro, anchoPx * escala * 0.8f, orden + 3);
                 // un brillo suave con su misma forma, detras, que late despacio: se nota que es "especial"
                 PonerBrillo(raiz, rutas[i], f, escala, orden - 1);
+                // y de ella sale el Lore cuando la chica se acerca
+                PonerLore(raiz, sprite, orden + 6);
             }
             else
             {
@@ -572,6 +574,48 @@ public static class ArmarInicioIntroduccion
         if (sr == null) return;
         sr.color = new Color(1f, 1f, 1f, 0.45f);
         sr.gameObject.AddComponent<Resplandor>();
+    }
+
+    // ---------- el Lore que sale de la vasija ----------
+    // Puntos relativos a la base de la vasija (unidades), medidos sobre la captura de Caro: la linea celeste (donde
+    // se activa, a la izquierda de la vasija) y la cruz naranja (donde aparece el Lore, arriba y un poco a la
+    // izquierda). Se pueden mover despues en la escena (son objetos hijos).
+    // (Caro: que se active cuando la chica llega justo delante del arco, a unas 2.5 unidades de la vasija)
+    private static readonly Vector2 LoreSeActiva = new Vector2(-2.5f, 0f);
+    private static readonly Vector2 LoreDestino = new Vector2(-0.5f, 3f);
+    private const string RutaLore = "Assets/_Entorno/_Items/Lore.png";
+
+    private static void PonerLore(Transform raiz, Sprite dibujoVasija, int orden)
+    {
+        var lore = AssetDatabase.LoadAllAssetsAtPath(RutaLore).OfType<Sprite>().FirstOrDefault();
+        if (lore == null) { Debug.LogWarning("No encontre el Lore en " + RutaLore); return; }
+        var go = new GameObject("Lore (sale de la vasija)");
+        go.transform.SetParent(raiz, false);
+
+        var activa = new GameObject("Donde se activa").transform;
+        activa.SetParent(go.transform, false);
+        activa.localPosition = LoreSeActiva;
+        var destino = new GameObject("Donde aparece el Lore").transform;
+        destino.SetParent(go.transform, false);
+        destino.localPosition = LoreDestino;
+        // la boca de la vasija: arriba del dibujo (va dentro del dibujo, asi flota con la vasija)
+        Transform boca = null;
+        var dibujo = raiz.Find("Dibujo");
+        if (dibujo != null && dibujoVasija != null)
+        {
+            boca = new GameObject("Boca de la vasija").transform;
+            boca.SetParent(dibujo, false);
+            var b = dibujoVasija.bounds;
+            boca.localPosition = new Vector3(b.min.x + b.size.x * 0.6f, b.max.y - b.size.y * 0.15f, 0f);
+        }
+
+        var so = new SerializedObject(go.AddComponent<LoreDeLaVasija>());
+        so.FindProperty("dondeSeActiva").objectReferenceValue = activa;
+        so.FindProperty("destino").objectReferenceValue = destino;
+        so.FindProperty("boca").objectReferenceValue = boca;
+        so.FindProperty("lore").objectReferenceValue = lore;
+        so.FindProperty("ordenDibujo").intValue = orden;
+        so.ApplyModifiedPropertiesWithoutUndo();
     }
 
     // la sombra de las plataformas de la derecha: muy suave, apenas corrida para abajo, para que se separen del fondo
@@ -1122,15 +1166,25 @@ public static class ArmarInicioIntroduccion
 
         // titulo, con brillo
         var fuenteTitulo = iosevka != null ? iosevka : alegreya;
+        // centrado en Y (Caro): la linea de base va a media altura de las mayusculas por debajo del centro de la
+        // pantalla, asi las mayusculas quedan justo en el medio (el acento de la E no cuenta). Se mide con la fuente.
+        float bajar = 0f;
+        if (fuenteTitulo != null && fuenteTitulo.faceInfo.pointSize > 0 && fuenteTitulo.faceInfo.capLine > 0f)
+        {
+            var fi = fuenteTitulo.faceInfo;
+            float alturaMayusculas = fi.capLine / fi.pointSize * fi.scale * TamanoTitulo;
+            bajar = -alturaMayusculas / 2f - LugarTitulo.y;
+        }
         var titulo = Texto("TÉCHNI", lienzo, fuenteTitulo, TamanoTitulo, FontStyles.Normal,
-                           TextAlignmentOptions.Baseline, LugarTitulo, new Vector2(1000f, 260f));
+                           TextAlignmentOptions.Baseline, LugarTitulo + new Vector2(0f, bajar), new Vector2(1000f, 260f));
         if (fuenteTitulo != null) titulo.fontSharedMaterial = MaterialConSombra(fuenteTitulo);
 
-        // fila de Comenzar
+        // fila de Comenzar (baja lo mismo que el titulo, asi queda a la misma distancia)
         var fila = new GameObject("Comenzar", typeof(RectTransform)).GetComponent<RectTransform>();
         fila.SetParent(lienzo, false);
         fila.anchorMin = fila.anchorMax = fila.pivot = new Vector2(0.5f, 0.5f);
         fila.sizeDelta = Vector2.zero;
+        fila.anchoredPosition = new Vector2(0f, bajar);
         var franja = Franja();
         if (franja != null)
         {

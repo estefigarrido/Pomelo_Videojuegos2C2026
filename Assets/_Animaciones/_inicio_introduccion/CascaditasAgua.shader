@@ -14,8 +14,8 @@ Shader "Pomelo/CascaditasAgua"
         _Umbral ("Desde que tan claro es agua", Range(0, 1)) = 0.6
         _FundidoAbajo ("Fundir la parte de abajo con el agua", Range(0, 0.5)) = 0.18
         _ColorAgua ("Color del agua (para fundir la parte de abajo)", Color) = (0.36, 0.46, 0.42, 1)
-        _ColorPiedra ("Color de la piedra (el de las piedras negras)", Color) = (0.106, 0.106, 0.098, 1)
-        _TonoPiedra ("Cuanto toma ese color la piedra", Range(0, 1)) = 1
+        _ColorPiedra ("Color de la piedra (gris oscuro, de la familia de las piedras negras)", Color) = (0.2, 0.2, 0.19, 1)
+        _TonoPiedra ("Cuanto toma ese color la piedra", Range(0, 1)) = 0.85
     }
 
     SubShader
@@ -76,9 +76,10 @@ Shader "Pomelo/CascaditasAgua"
                 float u = (yPx + _TiempoAgua * _Velocidad) / _LargoBanda + sin(x * 0.35) * 0.6;   // cada tira desfasada
                 float banda = sin(u * 6.2831853) * 0.5 + 0.5;
                 banda = banda * banda;                                                            // chorritos finos
-                // la piedra del color de las piedras negras (Caro): se pinta de ese color, conservando apenas sus
-                // luces y sombras (los cantos de arriba quedan un poco mas claros). El agua (las tiras) queda clara.
-                float3 piedra = saturate(_ColorPiedra.rgb * (0.55 + claro * 1.6));
+                // la piedra gris oscura, de la familia de las piedras negras (Caro; casi negra quedaba rara): se pinta
+                // de ese color conservando sus luces y sombras (los cantos de arriba mas claros, los costados mas
+                // oscuros), asi se siguen leyendo los escalones. El agua (las tiras) queda clara.
+                float3 piedra = saturate(_ColorPiedra.rgb * (0.6 + claro * 1.9));
                 c.rgb = lerp(c.rgb, piedra, _TonoPiedra * (1.0 - agua));
                 c.rgb *= 1.0 + agua * _Contraste * (banda - 0.45);
                 // la parte de abajo (el reflejo, que queda dentro del agua) se va pareciendo al color del agua hacia

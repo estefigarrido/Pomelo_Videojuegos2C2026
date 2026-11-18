@@ -1601,7 +1601,7 @@ GameObject:
   - component: {fileID: 23561520}
   - component: {fileID: 23561521}
   m_Layer: 0
-  m_Name: escalera_nouveau_1088x1950 (116)
+  m_Name: muro_floral_840x1890 (antes escalera)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1616,8 +1616,8 @@ Transform:
   m_GameObject: {fileID: 23561519}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 89.691, y: 5.567, z: 0}
-  m_LocalScale: {x: 0.9998, y: 0.9999, z: 1}
+  m_LocalPosition: {x: 89.25029, y: 5.567, z: 0}
+  m_LocalScale: {x: 1.1879231, y: 1.1880418, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 587418064}
@@ -1671,7 +1671,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 8
   m_MaskInteraction: 1
-  m_Sprite: {fileID: 21300000, guid: 9d9cf2af8b7165449aceeebcc1024d81, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4d2d2516ebe04194db8dacd601e871f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5557,6 +5557,89 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &77615607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 77615609}
+  - component: {fileID: 77615608}
+  m_Layer: 0
+  m_Name: camTemp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!20 &77615608
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77615607}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &77615609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77615607}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &77662917
 GameObject:
   m_ObjectHideFlags: 0
@@ -58077,7 +58160,7 @@ GameObject:
   - component: {fileID: 765018992}
   - component: {fileID: 765018993}
   m_Layer: 0
-  m_Name: escalera_nouveau_1072x2040 (100)
+  m_Name: muro_floral_840x1890 (antes escalera)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58092,8 +58175,8 @@ Transform:
   m_GameObject: {fileID: 765018991}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 85.291, y: 32.999, z: 0}
-  m_LocalScale: {x: 0.9997, y: 1, z: 1}
+  m_LocalPosition: {x: 83.386215, y: 32.999, z: 0}
+  m_LocalScale: {x: 1.242756, y: 1.243129, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 587418064}
@@ -58147,7 +58230,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 6
   m_MaskInteraction: 1
-  m_Sprite: {fileID: 21300000, guid: f94f8ee91bd5d844d97b25967243b610, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4d2d2516ebe04194db8dacd601e871f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -76777,7 +76860,7 @@ GameObject:
   - component: {fileID: 1024784948}
   - component: {fileID: 1024784949}
   m_Layer: 0
-  m_Name: escalera_nouveau_1072x2040 (100)
+  m_Name: muro_floral_caido_840x1890 (antes escalera)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76792,8 +76875,8 @@ Transform:
   m_GameObject: {fileID: 1024784947}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 85.291, y: 32.999, z: 0}
-  m_LocalScale: {x: 0.9997, y: 1, z: 1}
+  m_LocalPosition: {x: 83.386215, y: 32.999, z: 0}
+  m_LocalScale: {x: 1.242756, y: 1.243129, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 566643175}
@@ -76847,7 +76930,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 6
   m_MaskInteraction: 1
-  m_Sprite: {fileID: 21300000, guid: 27d96e6581ae70f498fe5ebbe29af3f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 941419566dd4a5b4e99483db9d0ad779, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128880,7 +128963,7 @@ GameObject:
   - component: {fileID: 1812550514}
   - component: {fileID: 1812550515}
   m_Layer: 0
-  m_Name: escalera_nouveau_1088x1950 (116)
+  m_Name: muro_floral_caido_840x1890 (antes escalera)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128895,8 +128978,8 @@ Transform:
   m_GameObject: {fileID: 1812550513}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 89.691, y: 5.567, z: 0}
-  m_LocalScale: {x: 0.9998, y: 0.9999, z: 1}
+  m_LocalPosition: {x: 89.25029, y: 5.567, z: 0}
+  m_LocalScale: {x: 1.1879231, y: 1.1880418, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 566643175}
@@ -128950,7 +129033,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 8
   m_MaskInteraction: 1
-  m_Sprite: {fileID: 21300000, guid: 67446f6a099d948479a94c7bf10029ab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 941419566dd4a5b4e99483db9d0ad779, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -151787,3 +151870,4 @@ SceneRoots:
   - {fileID: 1070747707}
   - {fileID: 423524615}
   - {fileID: 1328908935}
+  - {fileID: 77615609}

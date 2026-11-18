@@ -1,0 +1,949 @@
+fileFormatVersion: 2
+guid: 6fc91bf3d83cf37498673434f5c0fd16
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5945980137705525277
+    second: cascada_09_agua_0
+  - first:
+      213: 6531950787263753419
+    second: cascada_09_agua_1
+  - first:
+      213: -7949945708149699654
+    second: cascada_09_agua_2
+  - first:
+      213: -4852305728725483528
+    second: cascada_09_agua_3
+  - first:
+      213: 3497623136870995207
+    second: cascada_09_agua_4
+  - first:
+      213: 2828689739228284077
+    second: cascada_09_agua_5
+  - first:
+      213: -5936450742369466902
+    second: cascada_09_agua_6
+  - first:
+      213: 6664728584720073159
+    second: cascada_09_agua_7
+  - first:
+      213: 3023665533297516769
+    second: cascada_09_agua_8
+  - first:
+      213: -63945858761594018
+    second: cascada_09_agua_9
+  - first:
+      213: -261340084199067175
+    second: cascada_09_agua_10
+  - first:
+      213: -3571591945419895890
+    second: cascada_09_agua_11
+  - first:
+      213: 5848332118473142065
+    second: cascada_09_agua_12
+  - first:
+      213: -4982232297022197070
+    second: cascada_09_agua_13
+  - first:
+      213: 4302767428614241377
+    second: cascada_09_agua_14
+  - first:
+      213: -6268183772485332121
+    second: cascada_09_agua_15
+  - first:
+      213: 60604713372808590
+    second: cascada_09_agua_16
+  - first:
+      213: -4110057437312462206
+    second: cascada_09_agua_17
+  - first:
+      213: 4322410679202995371
+    second: cascada_09_agua_18
+  - first:
+      213: 2589674809313753954
+    second: cascada_09_agua_19
+  - first:
+      213: 2491416767464645542
+    second: cascada_09_agua_20
+  - first:
+      213: -5115367885647867640
+    second: cascada_09_agua_21
+  - first:
+      213: -4143122597039040497
+    second: cascada_09_agua_22
+  - first:
+      213: -4714566387588241582
+    second: cascada_09_agua_23
+  - first:
+      213: -8169252497826305560
+    second: cascada_09_agua_24
+  - first:
+      213: 1578727123251469449
+    second: cascada_09_agua_25
+  - first:
+      213: 535845525420563690
+    second: cascada_09_agua_26
+  - first:
+      213: -4462319107200876731
+    second: cascada_09_agua_27
+  - first:
+      213: 4051073628729667001
+    second: cascada_09_agua_28
+  - first:
+      213: -9122944472459161757
+    second: cascada_09_agua_29
+  - first:
+      213: 3846265586646254298
+    second: cascada_09_agua_30
+  - first:
+      213: 2481482666464600456
+    second: cascada_09_agua_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 1
+  spritePivot: {x: 0, y: 1}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cascada_09_agua_0
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 147
+        width: 46
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3efa8826192ab7da0800000000000000
+      internalID: -5945980137705525277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_1
+      rect:
+        serializedVersion: 2
+        x: 1893
+        y: 150
+        width: 184
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcc603d12a626aa50800000000000000
+      internalID: 6531950787263753419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_2
+      rect:
+        serializedVersion: 2
+        x: 2807
+        y: 147
+        width: 120
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abb8812cf7e1ca190800000000000000
+      internalID: -7949945708149699654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_3
+      rect:
+        serializedVersion: 2
+        x: 3077
+        y: 140
+        width: 259
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ff79b9f5a529acb0800000000000000
+      internalID: -4852305728725483528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_4
+      rect:
+        serializedVersion: 2
+        x: 1384
+        y: 130
+        width: 102
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 705126736bd0a8030800000000000000
+      internalID: 3497623136870995207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_5
+      rect:
+        serializedVersion: 2
+        x: 1811
+        y: 130
+        width: 176
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da48e7ea456814720800000000000000
+      internalID: 2828689739228284077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_6
+      rect:
+        serializedVersion: 2
+        x: 3098
+        y: 132
+        width: 220
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae5c672a08d7d9da0800000000000000
+      internalID: -5936450742369466902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_7
+      rect:
+        serializedVersion: 2
+        x: 2305
+        y: 121
+        width: 87
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c1c1a8265fdd7c50800000000000000
+      internalID: 6664728584720073159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_8
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 112
+        width: 142
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e06acf48c736f920800000000000000
+      internalID: 3023665533297516769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_9
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 95
+        width: 153
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5b68ab8491dc1ff0800000000000000
+      internalID: -63945858761594018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_10
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 97
+        width: 153
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d17ebbf3988f5cf0800000000000000
+      internalID: -261340084199067175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_11
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 0
+        width: 507
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eabc99a7c082f6ec0800000000000000
+      internalID: -3571591945419895890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_12
+      rect:
+        serializedVersion: 2
+        x: 2430
+        y: 89
+        width: 52
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13f69127313792150800000000000000
+      internalID: 5848332118473142065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_13
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 77
+        width: 109
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b273837f1e8bdab0800000000000000
+      internalID: -4982232297022197070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_14
+      rect:
+        serializedVersion: 2
+        x: 1739
+        y: 81
+        width: 138
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16c3ca5ed2086bb30800000000000000
+      internalID: 4302767428614241377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_15
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 67
+        width: 124
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 763d426b110f209a0800000000000000
+      internalID: -6268183772485332121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_16
+      rect:
+        serializedVersion: 2
+        x: 1102
+        y: 67
+        width: 212
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e85fc4c6aaf47d000800000000000000
+      internalID: 60604713372808590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_17
+      rect:
+        serializedVersion: 2
+        x: 2147
+        y: 71
+        width: 139
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 282d98a698426f6c0800000000000000
+      internalID: -4110057437312462206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_18
+      rect:
+        serializedVersion: 2
+        x: 3125
+        y: 54
+        width: 231
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bacdf339c994cfb30800000000000000
+      internalID: 4322410679202995371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_19
+      rect:
+        serializedVersion: 2
+        x: 3435
+        y: 71
+        width: 24
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26b7ce4b48f50f320800000000000000
+      internalID: 2589674809313753954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_20
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 56
+        width: 134
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a3ae24995a439220800000000000000
+      internalID: 2491416767464645542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_21
+      rect:
+        serializedVersion: 2
+        x: 1168
+        y: 55
+        width: 50
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8019488a2009209b0800000000000000
+      internalID: -5115367885647867640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_22
+      rect:
+        serializedVersion: 2
+        x: 1867
+        y: 52
+        width: 217
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f08189ef2fba086c0800000000000000
+      internalID: -4143122597039040497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_23
+      rect:
+        serializedVersion: 2
+        x: 2098
+        y: 57
+        width: 106
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2576ecd69de729eb0800000000000000
+      internalID: -4714566387588241582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_24
+      rect:
+        serializedVersion: 2
+        x: 3176
+        y: 37
+        width: 238
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e92792c22cf0ae80800000000000000
+      internalID: -8169252497826305560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_25
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 49
+        width: 204
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98c9da244f3c8e510800000000000000
+      internalID: 1578727123251469449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_26
+      rect:
+        serializedVersion: 2
+        x: 2641
+        y: 45
+        width: 211
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aecdc259aa4bf6700800000000000000
+      internalID: 535845525420563690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 37
+        width: 201
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54f7ad41a68a212c0800000000000000
+      internalID: -4462319107200876731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_28
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 34
+        width: 128
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bd6267700e483830800000000000000
+      internalID: 4051073628729667001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_29
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 36
+        width: 147
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f4575765ac46180800000000000000
+      internalID: -9122944472459161757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_30
+      rect:
+        serializedVersion: 2
+        x: 2479
+        y: 37
+        width: 118
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad20cd33c2ea06530800000000000000
+      internalID: 3846265586646254298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cascada_09_agua_31
+      rect:
+        serializedVersion: 2
+        x: 2311
+        y: 26
+        width: 146
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88169e2765fff6220800000000000000
+      internalID: 2481482666464600456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      cascada_09_agua_0: -5945980137705525277
+      cascada_09_agua_1: 6531950787263753419
+      cascada_09_agua_10: -261340084199067175
+      cascada_09_agua_11: -3571591945419895890
+      cascada_09_agua_12: 5848332118473142065
+      cascada_09_agua_13: -4982232297022197070
+      cascada_09_agua_14: 4302767428614241377
+      cascada_09_agua_15: -6268183772485332121
+      cascada_09_agua_16: 60604713372808590
+      cascada_09_agua_17: -4110057437312462206
+      cascada_09_agua_18: 4322410679202995371
+      cascada_09_agua_19: 2589674809313753954
+      cascada_09_agua_2: -7949945708149699654
+      cascada_09_agua_20: 2491416767464645542
+      cascada_09_agua_21: -5115367885647867640
+      cascada_09_agua_22: -4143122597039040497
+      cascada_09_agua_23: -4714566387588241582
+      cascada_09_agua_24: -8169252497826305560
+      cascada_09_agua_25: 1578727123251469449
+      cascada_09_agua_26: 535845525420563690
+      cascada_09_agua_27: -4462319107200876731
+      cascada_09_agua_28: 4051073628729667001
+      cascada_09_agua_29: -9122944472459161757
+      cascada_09_agua_3: -4852305728725483528
+      cascada_09_agua_30: 3846265586646254298
+      cascada_09_agua_31: 2481482666464600456
+      cascada_09_agua_4: 3497623136870995207
+      cascada_09_agua_5: 2828689739228284077
+      cascada_09_agua_6: -5936450742369466902
+      cascada_09_agua_7: 6664728584720073159
+      cascada_09_agua_8: 3023665533297516769
+      cascada_09_agua_9: -63945858761594018
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

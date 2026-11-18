@@ -12,6 +12,10 @@ Shader "Pomelo/CascaditasAgua"
         _LargoBanda ("Largo de cada chorrito (px)", Float) = 26
         _Contraste ("Cuanto se notan", Range(0, 1)) = 0.35
         _Umbral ("Desde que tan claro es agua", Range(0, 1)) = 0.6
+        _FundidoAbajo ("Fundir la parte de abajo con el agua", Range(0, 0.5)) = 0.18
+        _ColorAgua ("Color del agua (para fundir la parte de abajo)", Color) = (0.36, 0.46, 0.42, 1)
+        _ColorPiedra ("Color de la piedra (el de las piedras negras)", Color) = (0.106, 0.106, 0.098, 1)
+        _TonoPiedra ("Cuanto toma ese color la piedra", Range(0, 1)) = 1
     }
 
     SubShader
@@ -43,6 +47,10 @@ Shader "Pomelo/CascaditasAgua"
                 float _LargoBanda;
                 float _Contraste;
                 float _Umbral;
+                float _FundidoAbajo;
+                half4 _ColorAgua;
+                half4 _ColorPiedra;
+                float _TonoPiedra;
             CBUFFER_END
 
             float _TiempoAgua;
@@ -68,7 +76,15 @@ Shader "Pomelo/CascaditasAgua"
                 float u = (yPx + _TiempoAgua * _Velocidad) / _LargoBanda + sin(x * 0.35) * 0.6;   // cada tira desfasada
                 float banda = sin(u * 6.2831853) * 0.5 + 0.5;
                 banda = banda * banda;                                                            // chorritos finos
+                // la piedra del color de las piedras negras (Caro): se pinta de ese color, conservando apenas sus
+                // luces y sombras (los cantos de arriba quedan un poco mas claros). El agua (las tiras) queda clara.
+                float3 piedra = saturate(_ColorPiedra.rgb * (0.55 + claro * 1.6));
+                c.rgb = lerp(c.rgb, piedra, _TonoPiedra * (1.0 - agua));
                 c.rgb *= 1.0 + agua * _Contraste * (banda - 0.45);
+                // la parte de abajo (el reflejo, que queda dentro del agua) se va pareciendo al color del agua hacia
+                // el borde, asi no se corta en una linea recta contra el resto del agua. Sigue opaca (antes se hacia
+                // transparente y se veia lo de atras, Caro).
+                c.rgb = lerp(_ColorAgua.rgb, c.rgb, smoothstep(0.0, max(_FundidoAbajo, 0.001), i.uv.y));
                 return c;
             }
             ENDHLSL

@@ -30,9 +30,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _AltoFila: 9
-    - _AltoPx: 170
+    - _AltoPx: 235
     - _Amplitud: 6
-    - _AnchoPx: 3591
+    - _AnchoPx: 3590
     - _Brillo: 0.05
     - _CuantasRayas: 0.35
     - _LargoRaya: 110

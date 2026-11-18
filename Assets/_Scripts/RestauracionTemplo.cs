@@ -33,6 +33,19 @@ public class RestauracionTemplo : MonoBehaviour
     public static RestauracionTemplo Instancia { get; private set; }
     public bool QuedanSectores => restaurados < (sectores != null ? sectores.Length : 0);
     public int Restaurados => restaurados;
+
+    // Que tan reparado esta el templo (0 a 100): sectores arreglados (con polen o con la gema) sobre el total.
+    // Lo muestra la pantalla de estadistica final como "Desempeno".
+    public float PorcentajeReparado
+    {
+        get
+        {
+            if (hecho == null || hecho.Length == 0) return 0f;
+            int n = 0;
+            foreach (bool h in hecho) if (h) n++;
+            return 100f * n / hecho.Length;
+        }
+    }
     public event System.Action<int> SectorRestaurado;
 
     private class Animacion { public int sector; public float inicio; public bool desdeDerecha; public float acumulado; }

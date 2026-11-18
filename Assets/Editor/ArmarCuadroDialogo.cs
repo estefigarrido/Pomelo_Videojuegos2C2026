@@ -141,6 +141,8 @@ public static class ArmarCuadroDialogo
         t.textWrappingMode = varias ? TextWrappingModes.Normal : TextWrappingModes.NoWrap;
         t.overflowMode = TextOverflowModes.Overflow;
         t.raycastTarget = false;
+        // sin kerning: los pares importados de Alegreya vienen exagerados y separan / pegan letras al azar
+        t.fontFeatures.Clear();
         return t;
     }
 

@@ -50,6 +50,7 @@ public class CuadroDialogo : MonoBehaviour
     private int totalLetras;
     private int cuadroAbierto = -1; // cuadro (frame) en que se abrio: ese cuadro no cuenta la tecla
     private Coroutine fundido, fundidoIlustracion;
+    private Vector2? posicionTexto;   // donde va el texto cuando hay nombre (la del cuadro armado)
 
     private void Awake()
     {
@@ -59,6 +60,8 @@ public class CuadroDialogo : MonoBehaviour
         grupo.interactable = false;
         grupo.blocksRaycasts = false;
         if (grupoIlustracion != null) grupoIlustracion.alpha = 0f;
+        // sin kerning: los pares importados de Alegreya vienen exagerados y separan / pegan letras al azar
+        foreach (var t in GetComponentsInChildren<TMP_Text>(true)) t.fontFeatures.Clear();
         gameObject.SetActive(true);
     }
 
@@ -129,11 +132,18 @@ public class CuadroDialogo : MonoBehaviour
     {
         linea = i;
         var l = dialogo.Lineas[i];
+        bool conNombre = !l.sinNombre && !string.IsNullOrEmpty(l.personaje);
         if (nombre != null)
         {
-            nombre.text = l.personaje;
-            nombre.enabled = !string.IsNullOrEmpty(l.personaje);
+            nombre.text = conNombre ? l.personaje : "";
+            nombre.enabled = conNombre;
         }
+        // sin nombre, el texto sube al lugar del nombre
+        var rt = texto.rectTransform;
+        if (posicionTexto == null) posicionTexto = rt.anchoredPosition;
+        rt.anchoredPosition = conNombre || nombre == null
+            ? posicionTexto.Value
+            : new Vector2(posicionTexto.Value.x, nombre.rectTransform.anchoredPosition.y);
         texto.text = l.texto;
         texto.ForceMeshUpdate();
         totalLetras = texto.textInfo.characterCount;

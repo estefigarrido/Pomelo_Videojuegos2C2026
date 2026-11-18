@@ -73,6 +73,8 @@ public class CartelTutorial : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         grupo = GetComponent<CanvasGroup>();
+        // sin kerning: los pares importados de Alegreya vienen exagerados y separan / pegan letras al azar
+        foreach (var t in GetComponentsInChildren<TMPro.TMP_Text>(true)) t.fontFeatures.Clear();
         grupo.alpha = 0f;
         grupo.interactable = false;
         grupo.blocksRaycasts = false;

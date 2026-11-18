@@ -13,7 +13,9 @@ public class Dialogo : MonoBehaviour
     [System.Serializable]
     public class Linea
     {
-        [Tooltip("Quien habla (por ejemplo: Lady Li Hua). Vacio = no se muestra nombre.")]
+        [Tooltip("Prendido: la linea no lleva nombre (por ejemplo al tocar un objeto) y el texto sube a ocupar su lugar.")]
+        public bool sinNombre;
+        [Tooltip("Quien habla (por ejemplo: Lady Li Hua).")]
         public string personaje;
         [TextArea(2, 5)]
         public string texto;

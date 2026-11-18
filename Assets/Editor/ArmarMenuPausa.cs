@@ -249,8 +249,7 @@ public static class ArmarMenuPausa
         AssetDatabase.AddObjectToAsset(fa.atlasTextures[0], fa);
         fa.material.name = "Alegreya Bold SDF Material";
         AssetDatabase.AddObjectToAsset(fa.material, fa);
-        fa.TryAddCharacters("AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZzÁáÉéÍíÓóÚúÑñ0123456789 .,:;!¡?¿-");
-        EditorUtility.SetDirty(fa);
+        FijarFuentes.Fijar(fa);   // todas las letras y modo estatico, asi el archivo no cambia solo
         AssetDatabase.SaveAssets();
         return fa;
     }

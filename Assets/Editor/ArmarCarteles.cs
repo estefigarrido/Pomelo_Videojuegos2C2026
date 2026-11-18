@@ -482,7 +482,9 @@ public static class ArmarCarteles
 
     private static float AnchoDeLaO(TMP_FontAsset fuente)
     {
-        fuente.TryAddCharacters("o");
+        // la fuente es estatica (Pomelo -> Fuentes -> Fijar fuentes) y ya trae la "o"; solo se agrega si faltara
+        if (!fuente.characterLookupTable.ContainsKey('o') && fuente.atlasPopulationMode != AtlasPopulationMode.Static)
+            fuente.TryAddCharacters("o");
         if (fuente.characterLookupTable.TryGetValue('o', out var ch) && ch.glyph != null)
             return ch.glyph.metrics.width * (TamanoO / fuente.faceInfo.pointSize) * fuente.faceInfo.scale;
         return TamanoO * 0.5f;
@@ -725,8 +727,7 @@ public static class ArmarCarteles
         AssetDatabase.AddObjectToAsset(fa.atlasTextures[0], fa);
         fa.material.name = "Alegreya SDF Material";
         AssetDatabase.AddObjectToAsset(fa.material, fa);
-        fa.TryAddCharacters("AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZzÁáÉéÍíÓóÚúÑñ0123456789 .,:;!¡?¿-");
-        EditorUtility.SetDirty(fa);
+        FijarFuentes.Fijar(fa);   // todas las letras y modo estatico, asi el archivo no cambia solo
         AssetDatabase.SaveAssets();
         return fa;
     }

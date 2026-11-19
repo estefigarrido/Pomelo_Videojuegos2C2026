@@ -31,6 +31,8 @@ public class LoreDeLaVasija : MonoBehaviour
              "cartel 'Interactuar' y, al apretar E (o L1), abre el cuadro de dialogo. La chica queda quieta desde que " +
              "llega hasta que se cierra el dialogo.")]
     [SerializeField] private Dialogo dialogo;
+    [Tooltip("Cartel de tutorial que aparece cuando se cierra el dialogo (el de Saltar).")]
+    [SerializeField] private CartelTutorial cartelAlTerminar;
     [Tooltip("Tamano del cartel 'Interactuar' con respecto al del nivel (aca la chica esta a 1.4).")]
     [SerializeField] private float escalaCartel = 1.4f;
 
@@ -157,7 +159,12 @@ public class LoreDeLaVasija : MonoBehaviour
                 if (CuadroDialogo.Abierto) charla = Charla.Abierto;
                 break;
             case Charla.Abierto:
-                if (!CuadroDialogo.Abierto) { charla = Charla.Terminado; QuietaPorEscena.Soltar(); }
+                if (!CuadroDialogo.Abierto)
+                {
+                    charla = Charla.Terminado;
+                    QuietaPorEscena.Soltar();
+                    if (cartelAlTerminar != null) cartelAlTerminar.Mostrar();   // aparece el cartel de Saltar
+                }
                 break;
         }
     }

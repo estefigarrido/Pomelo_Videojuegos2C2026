@@ -253,6 +253,7 @@ public static class ArmarInicioIntroduccion
         {
             var sol = new SerializedObject(lore);
             sol.FindProperty("dialogo").objectReferenceValue = dialogo;
+            sol.FindProperty("cartelAlTerminar").objectReferenceValue = cartelSaltar;   // Saltar, al cerrar el dialogo
             sol.ApplyModifiedPropertiesWithoutUndo();
         }
         ArmarPantalla(cam, chica, dialogo, cartel);
@@ -727,16 +728,10 @@ public static class ArmarInicioIntroduccion
     private static (CartelTutorial caminar, CartelTutorial saltar) PonerCarteles(Transform padre, GameObject chica,
                                                                                 ConservarAjustes.Foto actual)
     {
+        // (Caro: el de Saltar ya no aparece cuando se borra el de Caminar, sino al terminar el dialogo del Lore;
+        //  lo muestra LoreDeLaVasija)
         var caminar = PonerCartel(RutaCartelCaminar, "Cartel_caminar", CartelDesdeLosPies, padre, chica, actual);
         var saltar = PonerCartel(RutaCartelSaltar, "Cartel_saltoysupersalto", SaltarDesdeLosPies, padre, chica, actual);
-        if (caminar != null && saltar != null)
-        {
-            var so = new SerializedObject(caminar);
-            var lista = so.FindProperty("mostrarAlTerminarDeBorrarme");
-            lista.arraySize = 1;
-            lista.GetArrayElementAtIndex(0).objectReferenceValue = saltar;
-            so.ApplyModifiedPropertiesWithoutUndo();
-        }
         return (caminar, saltar);
     }
 

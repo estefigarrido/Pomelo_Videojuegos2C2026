@@ -1,0 +1,2483 @@
+fileFormatVersion: 2
+guid: ebe6e625995c17e4aa95423df26cb3e8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2763112717526468782
+    second: 018_04_rayos_de_luz_0
+  - first:
+      213: 3871102695567740050
+    second: 018_04_rayos_de_luz_1
+  - first:
+      213: 8223281877702421592
+    second: 018_04_rayos_de_luz_2
+  - first:
+      213: 1259555798731813197
+    second: 018_04_rayos_de_luz_3
+  - first:
+      213: 908786523632362682
+    second: 018_04_rayos_de_luz_4
+  - first:
+      213: -7149969004943511584
+    second: 018_04_rayos_de_luz_5
+  - first:
+      213: -1814474886011881818
+    second: 018_04_rayos_de_luz_6
+  - first:
+      213: 2070334468301359666
+    second: 018_04_rayos_de_luz_7
+  - first:
+      213: -5537561827862403713
+    second: 018_04_rayos_de_luz_8
+  - first:
+      213: -1989270071069329360
+    second: 018_04_rayos_de_luz_9
+  - first:
+      213: 59919045677294294
+    second: 018_04_rayos_de_luz_10
+  - first:
+      213: 6907467248341294780
+    second: 018_04_rayos_de_luz_11
+  - first:
+      213: 6786614131303054397
+    second: 018_04_rayos_de_luz_12
+  - first:
+      213: -2129126764247492225
+    second: 018_04_rayos_de_luz_13
+  - first:
+      213: 3042831293737028156
+    second: 018_04_rayos_de_luz_14
+  - first:
+      213: -6593676716073212181
+    second: 018_04_rayos_de_luz_15
+  - first:
+      213: 2019577921042862642
+    second: 018_04_rayos_de_luz_16
+  - first:
+      213: 2587472128671222907
+    second: 018_04_rayos_de_luz_17
+  - first:
+      213: 4872833907055840518
+    second: 018_04_rayos_de_luz_18
+  - first:
+      213: 7553834163656009201
+    second: 018_04_rayos_de_luz_19
+  - first:
+      213: 350696040120183508
+    second: 018_04_rayos_de_luz_20
+  - first:
+      213: 6253728862959352793
+    second: 018_04_rayos_de_luz_21
+  - first:
+      213: -6090867684633857130
+    second: 018_04_rayos_de_luz_22
+  - first:
+      213: 7405028421529391484
+    second: 018_04_rayos_de_luz_23
+  - first:
+      213: -7526406798398157572
+    second: 018_04_rayos_de_luz_24
+  - first:
+      213: -5662222276288711572
+    second: 018_04_rayos_de_luz_25
+  - first:
+      213: -1887269717853647598
+    second: 018_04_rayos_de_luz_26
+  - first:
+      213: 4786766522276663850
+    second: 018_04_rayos_de_luz_27
+  - first:
+      213: -8574695239690260598
+    second: 018_04_rayos_de_luz_28
+  - first:
+      213: 1052224571556289414
+    second: 018_04_rayos_de_luz_29
+  - first:
+      213: -4388243117601916531
+    second: 018_04_rayos_de_luz_30
+  - first:
+      213: -1775113936571239538
+    second: 018_04_rayos_de_luz_31
+  - first:
+      213: -2433775196920619964
+    second: 018_04_rayos_de_luz_32
+  - first:
+      213: -1253923050326288484
+    second: 018_04_rayos_de_luz_33
+  - first:
+      213: -7907962456873526551
+    second: 018_04_rayos_de_luz_34
+  - first:
+      213: 4636675396326832897
+    second: 018_04_rayos_de_luz_35
+  - first:
+      213: 2120551881326160779
+    second: 018_04_rayos_de_luz_36
+  - first:
+      213: 358953556822448750
+    second: 018_04_rayos_de_luz_37
+  - first:
+      213: 1912255503781609631
+    second: 018_04_rayos_de_luz_38
+  - first:
+      213: 7191881657754762399
+    second: 018_04_rayos_de_luz_39
+  - first:
+      213: -2938405498511284931
+    second: 018_04_rayos_de_luz_40
+  - first:
+      213: -3431238985119295258
+    second: 018_04_rayos_de_luz_41
+  - first:
+      213: -5508749569360909620
+    second: 018_04_rayos_de_luz_42
+  - first:
+      213: -7879435520569069514
+    second: 018_04_rayos_de_luz_43
+  - first:
+      213: 8818838114976641009
+    second: 018_04_rayos_de_luz_44
+  - first:
+      213: 7542609498523440213
+    second: 018_04_rayos_de_luz_45
+  - first:
+      213: -8123969708850837230
+    second: 018_04_rayos_de_luz_46
+  - first:
+      213: -70241369762749774
+    second: 018_04_rayos_de_luz_47
+  - first:
+      213: -6906609910931015651
+    second: 018_04_rayos_de_luz_48
+  - first:
+      213: -3361890763748579080
+    second: 018_04_rayos_de_luz_49
+  - first:
+      213: -4297687107840012482
+    second: 018_04_rayos_de_luz_50
+  - first:
+      213: -8824557946337754581
+    second: 018_04_rayos_de_luz_51
+  - first:
+      213: -7433303755700125759
+    second: 018_04_rayos_de_luz_52
+  - first:
+      213: -8351304922611175370
+    second: 018_04_rayos_de_luz_53
+  - first:
+      213: -5147789352429966154
+    second: 018_04_rayos_de_luz_54
+  - first:
+      213: -8722468202910959806
+    second: 018_04_rayos_de_luz_55
+  - first:
+      213: 5169629927448764497
+    second: 018_04_rayos_de_luz_56
+  - first:
+      213: -8482890261999668918
+    second: 018_04_rayos_de_luz_57
+  - first:
+      213: -1974363127466454350
+    second: 018_04_rayos_de_luz_58
+  - first:
+      213: -83672085696642927
+    second: 018_04_rayos_de_luz_59
+  - first:
+      213: 1321130041001570942
+    second: 018_04_rayos_de_luz_60
+  - first:
+      213: -4758276784552990035
+    second: 018_04_rayos_de_luz_61
+  - first:
+      213: -7432933455001131591
+    second: 018_04_rayos_de_luz_62
+  - first:
+      213: -445019056792759632
+    second: 018_04_rayos_de_luz_63
+  - first:
+      213: -4350255336920110205
+    second: 018_04_rayos_de_luz_64
+  - first:
+      213: 744228428528894928
+    second: 018_04_rayos_de_luz_65
+  - first:
+      213: -2441240507783619282
+    second: 018_04_rayos_de_luz_66
+  - first:
+      213: 6968706324327180864
+    second: 018_04_rayos_de_luz_67
+  - first:
+      213: 3623844353309631816
+    second: 018_04_rayos_de_luz_68
+  - first:
+      213: -6905367690899182586
+    second: 018_04_rayos_de_luz_69
+  - first:
+      213: 4388958937707070998
+    second: 018_04_rayos_de_luz_70
+  - first:
+      213: -8085115097259784250
+    second: 018_04_rayos_de_luz_71
+  - first:
+      213: -5553574029653078757
+    second: 018_04_rayos_de_luz_72
+  - first:
+      213: 4015691286138284980
+    second: 018_04_rayos_de_luz_73
+  - first:
+      213: 8772691791838717301
+    second: 018_04_rayos_de_luz_74
+  - first:
+      213: 911553828597281692
+    second: 018_04_rayos_de_luz_75
+  - first:
+      213: -705604671502561824
+    second: 018_04_rayos_de_luz_76
+  - first:
+      213: 7854982869713396779
+    second: 018_04_rayos_de_luz_77
+  - first:
+      213: 7739629540834186309
+    second: 018_04_rayos_de_luz_78
+  - first:
+      213: -8493773355703714854
+    second: 018_04_rayos_de_luz_79
+  - first:
+      213: -6559505029307153644
+    second: 018_04_rayos_de_luz_80
+  - first:
+      213: 5994673854896269654
+    second: 018_04_rayos_de_luz_81
+  - first:
+      213: 3707618374905473113
+    second: 018_04_rayos_de_luz_82
+  - first:
+      213: -1893813001359627338
+    second: 018_04_rayos_de_luz_83
+  - first:
+      213: -1891169165441503311
+    second: 018_04_rayos_de_luz_84
+  - first:
+      213: -8336140146954198644
+    second: 018_04_rayos_de_luz_85
+  - first:
+      213: -6197594832986377247
+    second: 018_04_rayos_de_luz_86
+  - first:
+      213: -1874821512727291950
+    second: 018_04_rayos_de_luz_87
+  - first:
+      213: -1773743979225649190
+    second: 018_04_rayos_de_luz_88
+  - first:
+      213: -2201845775895977252
+    second: 018_04_rayos_de_luz_89
+  - first:
+      213: 3117407908270141148
+    second: 018_04_rayos_de_luz_90
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 1
+  spritePivot: {x: 0, y: 1}
+  spritePixelsToUnits: 68.85
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_0
+      rect:
+        serializedVersion: 2
+        x: 1511
+        y: 171
+        width: 1064
+        height: 1989
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 257787d7f9377a9d0800000000000000
+      internalID: -2763112717526468782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_1
+      rect:
+        serializedVersion: 2
+        x: 1763
+        y: 188
+        width: 1010
+        height: 1972
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29c4f52446be8b530800000000000000
+      internalID: 3871102695567740050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_2
+      rect:
+        serializedVersion: 2
+        x: 2123
+        y: 171
+        width: 1113
+        height: 1989
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85c2c588c47fe1270800000000000000
+      internalID: 8223281877702421592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_3
+      rect:
+        serializedVersion: 2
+        x: 2591
+        y: 195
+        width: 1029
+        height: 1965
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4171365357da7110800000000000000
+      internalID: 1259555798731813197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_4
+      rect:
+        serializedVersion: 2
+        x: 2750
+        y: 182
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab4e4cd3788ac9c00800000000000000
+      internalID: 908786523632362682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_5
+      rect:
+        serializedVersion: 2
+        x: 2960
+        y: 171
+        width: 1100
+        height: 1989
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0efe949721536cc90800000000000000
+      internalID: -7149969004943511584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_6
+      rect:
+        serializedVersion: 2
+        x: 3030
+        y: 187
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a6f46564b0b1d6e0800000000000000
+      internalID: -1814474886011881818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_7
+      rect:
+        serializedVersion: 2
+        x: 3509
+        y: 171
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23a8955da3e4bbc10800000000000000
+      internalID: 2070334468301359666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_8
+      rect:
+        serializedVersion: 2
+        x: 3542
+        y: 184
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f75af785bd0a623b0800000000000000
+      internalID: -5537561827862403713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_9
+      rect:
+        serializedVersion: 2
+        x: 3867
+        y: 177
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 038b893f861b464e0800000000000000
+      internalID: -1989270071069329360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_10
+      rect:
+        serializedVersion: 2
+        x: 4030
+        y: 182
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d220e8fd00e4d000800000000000000
+      internalID: 59919045677294294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_11
+      rect:
+        serializedVersion: 2
+        x: 2421
+        y: 180
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbe17037dd04cdf50800000000000000
+      internalID: 6907467248341294780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_12
+      rect:
+        serializedVersion: 2
+        x: 2438
+        y: 181
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3cf6fb6895ee2e50800000000000000
+      internalID: 6786614131303054397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_13
+      rect:
+        serializedVersion: 2
+        x: 2443
+        y: 171
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f79504f0d72d372e0800000000000000
+      internalID: -2129126764247492225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_14
+      rect:
+        serializedVersion: 2
+        x: 2485
+        y: 178
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3a43a6a0fe4a3a20800000000000000
+      internalID: 3042831293737028156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_15
+      rect:
+        serializedVersion: 2
+        x: 2526
+        y: 174
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be621b626fd8e74a0800000000000000
+      internalID: -6593676716073212181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_16
+      rect:
+        serializedVersion: 2
+        x: 2542
+        y: 179
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2325bf34b6bf60c10800000000000000
+      internalID: 2019577921042862642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_17
+      rect:
+        serializedVersion: 2
+        x: 2696
+        y: 181
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7c0ca7213c88e320800000000000000
+      internalID: 2587472128671222907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_18
+      rect:
+        serializedVersion: 2
+        x: 2719
+        y: 176
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60dca8ffe98cf9340800000000000000
+      internalID: 4872833907055840518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_19
+      rect:
+        serializedVersion: 2
+        x: 2761
+        y: 179
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f52de0662c94d860800000000000000
+      internalID: 7553834163656009201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_20
+      rect:
+        serializedVersion: 2
+        x: 3038
+        y: 171
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4daef7fb03cedd400800000000000000
+      internalID: 350696040120183508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_21
+      rect:
+        serializedVersion: 2
+        x: 3046
+        y: 183
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dbbc466445b9c650800000000000000
+      internalID: 6253728862959352793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_22
+      rect:
+        serializedVersion: 2
+        x: 3070
+        y: 184
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6933e739c14e87ba0800000000000000
+      internalID: -6090867684633857130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_23
+      rect:
+        serializedVersion: 2
+        x: 3076
+        y: 179
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c715ee8ad12f3c660800000000000000
+      internalID: 7405028421529391484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_24
+      rect:
+        serializedVersion: 2
+        x: 3081
+        y: 179
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfc846ab4e4dc8790800000000000000
+      internalID: -7526406798398157572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_25
+      rect:
+        serializedVersion: 2
+        x: 3091
+        y: 171
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c64f186e6debb61b0800000000000000
+      internalID: -5662222276288711572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_26
+      rect:
+        serializedVersion: 2
+        x: 3128
+        y: 181
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21d4bf7d0321fc5e0800000000000000
+      internalID: -1887269717853647598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_27
+      rect:
+        serializedVersion: 2
+        x: 3160
+        y: 179
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2258076ac20e6240800000000000000
+      internalID: 4786766522276663850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_28
+      rect:
+        serializedVersion: 2
+        x: 3169
+        y: 181
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f67053c10900980800000000000000
+      internalID: -8574695239690260598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_29
+      rect:
+        serializedVersion: 2
+        x: 3176
+        y: 183
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68bdc834ca04a9e00800000000000000
+      internalID: 1052224571556289414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_30
+      rect:
+        serializedVersion: 2
+        x: 3199
+        y: 181
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d89f84b6224d913c0800000000000000
+      internalID: -4388243117601916531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_31
+      rect:
+        serializedVersion: 2
+        x: 3526
+        y: 182
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8373d697478d57e0800000000000000
+      internalID: -1775113936571239538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_32
+      rect:
+        serializedVersion: 2
+        x: 3552
+        y: 183
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44cd3646a5e793ed0800000000000000
+      internalID: -2433775196920619964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_33
+      rect:
+        serializedVersion: 2
+        x: 3578
+        y: 185
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9790a911ab299ee0800000000000000
+      internalID: -1253923050326288484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_34
+      rect:
+        serializedVersion: 2
+        x: 3584
+        y: 178
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ea9dec2b06414290800000000000000
+      internalID: -7907962456873526551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_35
+      rect:
+        serializedVersion: 2
+        x: 3591
+        y: 171
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10bbad0f4b7c85040800000000000000
+      internalID: 4636675396326832897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_36
+      rect:
+        serializedVersion: 2
+        x: 3614
+        y: 186
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8b6b3e63b6bd6d10800000000000000
+      internalID: 2120551881326160779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_37
+      rect:
+        serializedVersion: 2
+        x: 3857
+        y: 171
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6ad34dab524bf400800000000000000
+      internalID: 358953556822448750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_38
+      rect:
+        serializedVersion: 2
+        x: 3892
+        y: 181
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9040b6cf32b98a10800000000000000
+      internalID: 1912255503781609631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_39
+      rect:
+        serializedVersion: 2
+        x: 3898
+        y: 182
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9cbe157342bec360800000000000000
+      internalID: 7191881657754762399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_40
+      rect:
+        serializedVersion: 2
+        x: 3917
+        y: 178
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d352e2774cfa837d0800000000000000
+      internalID: -2938405498511284931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_41
+      rect:
+        serializedVersion: 2
+        x: 3929
+        y: 179
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e81e70925ac160d0800000000000000
+      internalID: -3431238985119295258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_42
+      rect:
+        serializedVersion: 2
+        x: 3937
+        y: 181
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cca28a9047dfc83b0800000000000000
+      internalID: -5508749569360909620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_43
+      rect:
+        serializedVersion: 2
+        x: 3943
+        y: 183
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 630b2ed142f96a290800000000000000
+      internalID: -7879435520569069514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_44
+      rect:
+        serializedVersion: 2
+        x: 3976
+        y: 181
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ffabd69a8ec26a70800000000000000
+      internalID: 8818838114976641009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_45
+      rect:
+        serializedVersion: 2
+        x: 3979
+        y: 187
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5541afe506bbca860800000000000000
+      internalID: 7542609498523440213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_46
+      rect:
+        serializedVersion: 2
+        x: 3999
+        y: 176
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21989e9a79cd14f80800000000000000
+      internalID: -8123969708850837230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_47
+      rect:
+        serializedVersion: 2
+        x: 4041
+        y: 179
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b221caa8d3760ff0800000000000000
+      internalID: -70241369762749774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_48
+      rect:
+        serializedVersion: 2
+        x: 2428
+        y: 174
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d18b3c8f0eac620a0800000000000000
+      internalID: -6906609910931015651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_49
+      rect:
+        serializedVersion: 2
+        x: 2470
+        y: 177
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f86915992a2851d0800000000000000
+      internalID: -3361890763748579080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_50
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 172
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3f8b65785c8b54c0800000000000000
+      internalID: -4297687107840012482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_51
+      rect:
+        serializedVersion: 2
+        x: 2505
+        y: 179
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2200b46d4fd88580800000000000000
+      internalID: -8824557946337754581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_52
+      rect:
+        serializedVersion: 2
+        x: 2521
+        y: 177
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cfbae51e9997d890800000000000000
+      internalID: -7433303755700125759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_53
+      rect:
+        serializedVersion: 2
+        x: 2531
+        y: 171
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6303ac48b643a1c80800000000000000
+      internalID: -8351304922611175370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_54
+      rect:
+        serializedVersion: 2
+        x: 2676
+        y: 171
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bcafddabd06f88b0800000000000000
+      internalID: -5147789352429966154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_55
+      rect:
+        serializedVersion: 2
+        x: 2739
+        y: 171
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2473ad0126193f680800000000000000
+      internalID: -8722468202910959806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_56
+      rect:
+        serializedVersion: 2
+        x: 2756
+        y: 171
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 150efc577073eb740800000000000000
+      internalID: 5169629927448764497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_57
+      rect:
+        serializedVersion: 2
+        x: 3017
+        y: 172
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a41b3e04048b64a80800000000000000
+      internalID: -8482890261999668918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_58
+      rect:
+        serializedVersion: 2
+        x: 3032
+        y: 177
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b29bb93237a994e0800000000000000
+      internalID: -1974363127466454350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_59
+      rect:
+        serializedVersion: 2
+        x: 3048
+        y: 171
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1908f6e6eacb6def0800000000000000
+      internalID: -83672085696642927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_60
+      rect:
+        serializedVersion: 2
+        x: 3065
+        y: 174
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e72fefbc5c8955210800000000000000
+      internalID: 1321130041001570942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_61
+      rect:
+        serializedVersion: 2
+        x: 3104
+        y: 171
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa2bb1997437fdb0800000000000000
+      internalID: -4758276784552990035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_62
+      rect:
+        serializedVersion: 2
+        x: 3116
+        y: 174
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b56a8f676ae8d890800000000000000
+      internalID: -7432933455001131591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_63
+      rect:
+        serializedVersion: 2
+        x: 3125
+        y: 174
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b296919689f2d9f0800000000000000
+      internalID: -445019056792759632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_64
+      rect:
+        serializedVersion: 2
+        x: 3133
+        y: 177
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38b21a8d1d9c0a3c0800000000000000
+      internalID: -4350255336920110205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_65
+      rect:
+        serializedVersion: 2
+        x: 3139
+        y: 179
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d3463a00d7045a00800000000000000
+      internalID: 744228428528894928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_66
+      rect:
+        serializedVersion: 2
+        x: 3139
+        y: 171
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2d534241b8fe1ed0800000000000000
+      internalID: -2441240507783619282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_67
+      rect:
+        serializedVersion: 2
+        x: 3159
+        y: 171
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04a2a8dea71d5b060800000000000000
+      internalID: 6968706324327180864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_68
+      rect:
+        serializedVersion: 2
+        x: 3184
+        y: 171
+        width: 23
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84563584d3b7a4230800000000000000
+      internalID: 3623844353309631816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_69
+      rect:
+        serializedVersion: 2
+        x: 3211
+        y: 171
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60cae7cdba43b20a0800000000000000
+      internalID: -6905367690899182586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_70
+      rect:
+        serializedVersion: 2
+        x: 3524
+        y: 171
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6164ecf66e6b8ec30800000000000000
+      internalID: 4388958937707070998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_71
+      rect:
+        serializedVersion: 2
+        x: 3544
+        y: 177
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c7cea3e7a6ebcf80800000000000000
+      internalID: -8085115097259784250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_72
+      rect:
+        serializedVersion: 2
+        x: 3580
+        y: 180
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1d81b818ddbde2b0800000000000000
+      internalID: -5553574029653078757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_73
+      rect:
+        serializedVersion: 2
+        x: 3616
+        y: 172
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bb67edd2f99ab730800000000000000
+      internalID: 4015691286138284980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_74
+      rect:
+        serializedVersion: 2
+        x: 3872
+        y: 172
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 575288874bcdeb970800000000000000
+      internalID: 8772691791838717301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_75
+      rect:
+        serializedVersion: 2
+        x: 3884
+        y: 174
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c933033a06d76ac00800000000000000
+      internalID: 911553828597281692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_76
+      rect:
+        serializedVersion: 2
+        x: 3893
+        y: 174
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0edcb3b2a403536f0800000000000000
+      internalID: -705604671502561824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_77
+      rect:
+        serializedVersion: 2
+        x: 3901
+        y: 177
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b24ab027d41820d60800000000000000
+      internalID: 7854982869713396779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_78
+      rect:
+        serializedVersion: 2
+        x: 3907
+        y: 179
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5449a82af00b86b60800000000000000
+      internalID: 7739629540834186309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_79
+      rect:
+        serializedVersion: 2
+        x: 3927
+        y: 171
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adb3a9a822e002a80800000000000000
+      internalID: -8493773355703714854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_80
+      rect:
+        serializedVersion: 2
+        x: 3951
+        y: 171
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41342c9fde4f7f4a0800000000000000
+      internalID: -6559505029307153644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_81
+      rect:
+        serializedVersion: 2
+        x: 4019
+        y: 171
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 659e9612c1c513350800000000000000
+      internalID: 5994673854896269654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_82
+      rect:
+        serializedVersion: 2
+        x: 4036
+        y: 171
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 958a3f6a44b147330800000000000000
+      internalID: 3707618374905473113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_83
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 171
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bb61feeb13d7b5e0800000000000000
+      internalID: -1893813001359627338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_84
+      rect:
+        serializedVersion: 2
+        x: 2727
+        y: 171
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bfefa3f9a731c5e0800000000000000
+      internalID: -1891169165441503311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_85
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 171
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c812ceef3b4105c80800000000000000
+      internalID: -8336140146954198644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_86
+      rect:
+        serializedVersion: 2
+        x: 3171
+        y: 172
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e3fc0ee558bdf9a0800000000000000
+      internalID: -6197594832986377247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_87
+      rect:
+        serializedVersion: 2
+        x: 3239
+        y: 171
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d711a474cb4bf5e0800000000000000
+      internalID: -1874821512727291950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_88
+      rect:
+        serializedVersion: 2
+        x: 3584
+        y: 173
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adf64c3af356267e0800000000000000
+      internalID: -1773743979225649190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_89
+      rect:
+        serializedVersion: 2
+        x: 3939
+        y: 172
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd2a685cee87171e0800000000000000
+      internalID: -2201845775895977252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 018_04_rayos_de_luz_90
+      rect:
+        serializedVersion: 2
+        x: 4007
+        y: 171
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cde6f60d9f1434b20800000000000000
+      internalID: 3117407908270141148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      018_04_rayos_de_luz_0: -2763112717526468782
+      018_04_rayos_de_luz_1: 3871102695567740050
+      018_04_rayos_de_luz_10: 59919045677294294
+      018_04_rayos_de_luz_11: 6907467248341294780
+      018_04_rayos_de_luz_12: 6786614131303054397
+      018_04_rayos_de_luz_13: -2129126764247492225
+      018_04_rayos_de_luz_14: 3042831293737028156
+      018_04_rayos_de_luz_15: -6593676716073212181
+      018_04_rayos_de_luz_16: 2019577921042862642
+      018_04_rayos_de_luz_17: 2587472128671222907
+      018_04_rayos_de_luz_18: 4872833907055840518
+      018_04_rayos_de_luz_19: 7553834163656009201
+      018_04_rayos_de_luz_2: 8223281877702421592
+      018_04_rayos_de_luz_20: 350696040120183508
+      018_04_rayos_de_luz_21: 6253728862959352793
+      018_04_rayos_de_luz_22: -6090867684633857130
+      018_04_rayos_de_luz_23: 7405028421529391484
+      018_04_rayos_de_luz_24: -7526406798398157572
+      018_04_rayos_de_luz_25: -5662222276288711572
+      018_04_rayos_de_luz_26: -1887269717853647598
+      018_04_rayos_de_luz_27: 4786766522276663850
+      018_04_rayos_de_luz_28: -8574695239690260598
+      018_04_rayos_de_luz_29: 1052224571556289414
+      018_04_rayos_de_luz_3: 1259555798731813197
+      018_04_rayos_de_luz_30: -4388243117601916531
+      018_04_rayos_de_luz_31: -1775113936571239538
+      018_04_rayos_de_luz_32: -2433775196920619964
+      018_04_rayos_de_luz_33: -1253923050326288484
+      018_04_rayos_de_luz_34: -7907962456873526551
+      018_04_rayos_de_luz_35: 4636675396326832897
+      018_04_rayos_de_luz_36: 2120551881326160779
+      018_04_rayos_de_luz_37: 358953556822448750
+      018_04_rayos_de_luz_38: 1912255503781609631
+      018_04_rayos_de_luz_39: 7191881657754762399
+      018_04_rayos_de_luz_4: 908786523632362682
+      018_04_rayos_de_luz_40: -2938405498511284931
+      018_04_rayos_de_luz_41: -3431238985119295258
+      018_04_rayos_de_luz_42: -5508749569360909620
+      018_04_rayos_de_luz_43: -7879435520569069514
+      018_04_rayos_de_luz_44: 8818838114976641009
+      018_04_rayos_de_luz_45: 7542609498523440213
+      018_04_rayos_de_luz_46: -8123969708850837230
+      018_04_rayos_de_luz_47: -70241369762749774
+      018_04_rayos_de_luz_48: -6906609910931015651
+      018_04_rayos_de_luz_49: -3361890763748579080
+      018_04_rayos_de_luz_5: -7149969004943511584
+      018_04_rayos_de_luz_50: -4297687107840012482
+      018_04_rayos_de_luz_51: -8824557946337754581
+      018_04_rayos_de_luz_52: -7433303755700125759
+      018_04_rayos_de_luz_53: -8351304922611175370
+      018_04_rayos_de_luz_54: -5147789352429966154
+      018_04_rayos_de_luz_55: -8722468202910959806
+      018_04_rayos_de_luz_56: 5169629927448764497
+      018_04_rayos_de_luz_57: -8482890261999668918
+      018_04_rayos_de_luz_58: -1974363127466454350
+      018_04_rayos_de_luz_59: -83672085696642927
+      018_04_rayos_de_luz_6: -1814474886011881818
+      018_04_rayos_de_luz_60: 1321130041001570942
+      018_04_rayos_de_luz_61: -4758276784552990035
+      018_04_rayos_de_luz_62: -7432933455001131591
+      018_04_rayos_de_luz_63: -445019056792759632
+      018_04_rayos_de_luz_64: -4350255336920110205
+      018_04_rayos_de_luz_65: 744228428528894928
+      018_04_rayos_de_luz_66: -2441240507783619282
+      018_04_rayos_de_luz_67: 6968706324327180864
+      018_04_rayos_de_luz_68: 3623844353309631816
+      018_04_rayos_de_luz_69: -6905367690899182586
+      018_04_rayos_de_luz_7: 2070334468301359666
+      018_04_rayos_de_luz_70: 4388958937707070998
+      018_04_rayos_de_luz_71: -8085115097259784250
+      018_04_rayos_de_luz_72: -5553574029653078757
+      018_04_rayos_de_luz_73: 4015691286138284980
+      018_04_rayos_de_luz_74: 8772691791838717301
+      018_04_rayos_de_luz_75: 911553828597281692
+      018_04_rayos_de_luz_76: -705604671502561824
+      018_04_rayos_de_luz_77: 7854982869713396779
+      018_04_rayos_de_luz_78: 7739629540834186309
+      018_04_rayos_de_luz_79: -8493773355703714854
+      018_04_rayos_de_luz_8: -5537561827862403713
+      018_04_rayos_de_luz_80: -6559505029307153644
+      018_04_rayos_de_luz_81: 5994673854896269654
+      018_04_rayos_de_luz_82: 3707618374905473113
+      018_04_rayos_de_luz_83: -1893813001359627338
+      018_04_rayos_de_luz_84: -1891169165441503311
+      018_04_rayos_de_luz_85: -8336140146954198644
+      018_04_rayos_de_luz_86: -6197594832986377247
+      018_04_rayos_de_luz_87: -1874821512727291950
+      018_04_rayos_de_luz_88: -1773743979225649190
+      018_04_rayos_de_luz_89: -2201845775895977252
+      018_04_rayos_de_luz_9: -1989270071069329360
+      018_04_rayos_de_luz_90: 3117407908270141148
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

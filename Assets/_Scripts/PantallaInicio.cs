@@ -53,6 +53,22 @@ public class PantallaInicio : MonoBehaviour
     [Tooltip("Cartel de tutorial (Caminar) que aparece cuando la chica recibe los controles.")]
     [SerializeField] private CartelTutorial cartelAlLlegar;
 
+    [Header("Camara que sigue a la chica")]
+    [Tooltip("Despues de Comenzar, la camara va hasta la chica y la sigue (como en el nivel) por la cueva y la " +
+             "parte 2, sin salirse del dibujo. Apagado = encuadra la parte 2 entera, como antes.")]
+    [SerializeField] private bool seguirALaChica = true;
+    [Tooltip("Mitad del alto que muestra la camara al seguirla (el mismo zoom que en el nivel: 5.4).")]
+    [SerializeField] private float tamanoSeguir = 5.4f;
+    [Tooltip("Cuanto por encima de la chica va el centro de la camara (unidades).")]
+    [SerializeField] private float offsetVertical = 1f;
+    [Tooltip("Segundos que tarda la camara en alcanzarla (suave).")]
+    [SerializeField] private float suavizadoSeguir = 0.25f;
+    [Tooltip("Apagado: la camara la sigue solo de costado y se queda a la altura del piso donde arranca (no sube " +
+             "cuando salta). Prendido: tambien la sigue para arriba y para abajo.")]
+    [SerializeField] private bool seguirAltura = false;
+    private Vector3 velCamara;
+    private float alturaPiso = float.NaN;   // y de la chica parada donde arranca
+
     private BotonesInicio botones;
     private Behaviour[] controlesChica;
     private bool chicaActiva;
@@ -78,6 +94,7 @@ public class PantallaInicio : MonoBehaviour
             controlesChica = chica.GetComponents<MonoBehaviour>();
             foreach (var c in controlesChica) c.enabled = false;
             ApoyarEnElPiso(chica);
+            alturaPiso = chica.transform.position.y;
         }
     }
 
@@ -186,15 +203,40 @@ public class PantallaInicio : MonoBehaviour
     private void Encuadrar()
     {
         if (camara == null) return;
-        float desde = Mathf.Lerp(0f, inicioOtraParte, avance);
-        float hasta = Mathf.Lerp(anchoCueva, finOtraParte, avance);
-        float ancho = hasta - desde;
         float aspecto = camara.aspect > 0f ? camara.aspect : 16f / 9f;
-        float alto = Mathf.Min(ancho / aspecto, altoDibujo);
-        camara.orthographicSize = alto / 2f;
         var p = camara.transform.position;
-        // el centro a 'centroDesdeArriba' de arriba, sin que la camara se salga del dibujo (ni arriba ni abajo)
-        float centro = Mathf.Clamp(altoDibujo - centroDesdeArriba, alto / 2f, altoDibujo - alto / 2f);
-        camara.transform.position = new Vector3((desde + hasta) / 2f, centro, p.z);
+
+        // la cueva entera (el principio)
+        float altoCueva = Mathf.Min(anchoCueva / aspecto, altoDibujo);
+        var centroCueva = new Vector2(anchoCueva / 2f, Mathf.Clamp(altoDibujo - centroDesdeArriba, altoCueva / 2f, altoDibujo - altoCueva / 2f));
+
+        Vector2 centroDestino; float altoDestino;
+        if (seguirALaChica && chica != null)
+        {
+            // pegada a la chica, con el zoom del nivel, sin salirse del dibujo (de 0 a finOtraParte)
+            altoDestino = Mathf.Min(tamanoSeguir * 2f, altoDibujo);
+            float medioAncho = altoDestino * aspecto / 2f;
+            var c = chica.transform.position;
+            float y = seguirAltura || float.IsNaN(alturaPiso) ? c.y : alturaPiso;
+            centroDestino = new Vector2(Mathf.Clamp(c.x, medioAncho, Mathf.Max(medioAncho, finOtraParte - medioAncho)),
+                                        Mathf.Clamp(y + offsetVertical, altoDestino / 2f, altoDibujo - altoDestino / 2f));
+        }
+        else
+        {
+            // la parte 2 entera (como antes)
+            float ancho2 = finOtraParte - inicioOtraParte;
+            altoDestino = Mathf.Min(ancho2 / aspecto, altoDibujo);
+            centroDestino = new Vector2((inicioOtraParte + finOtraParte) / 2f,
+                                        Mathf.Clamp(altoDibujo - centroDesdeArriba, altoDestino / 2f, altoDibujo - altoDestino / 2f));
+        }
+
+        float alto = Mathf.Lerp(altoCueva, altoDestino, avance);
+        var centro = Vector2.Lerp(centroCueva, centroDestino, avance);
+        camara.orthographicSize = alto / 2f;
+        var objetivo = new Vector3(centro.x, centro.y, p.z);
+        // ya llego: la sigue suave
+        if (seguirALaChica && avance >= 1f && Application.isPlaying)
+            objetivo = Vector3.SmoothDamp(p, objetivo, ref velCamara, suavizadoSeguir);
+        camara.transform.position = objetivo;
     }
 }

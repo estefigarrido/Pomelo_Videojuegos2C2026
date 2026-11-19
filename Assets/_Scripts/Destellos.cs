@@ -53,6 +53,8 @@ public class Destellos : MonoBehaviour
             puntitos[i] = go.transform;
             dibujos[i] = go.AddComponent<SpriteRenderer>();
             dibujos[i].sprite = Dibujar(puntos[i].z);
+            // por encima del escenario (que esta en sus sorting layers): si quedara en Default no se veria
+            dibujos[i].sortingLayerName = Capas.Efectos;
             dibujos[i].sortingOrder = ordenDibujo;
 
             fase1[i] = Random.value * 100f;

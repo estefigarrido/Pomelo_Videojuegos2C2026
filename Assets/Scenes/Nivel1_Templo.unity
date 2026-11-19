@@ -47907,8 +47907,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 51758412e3853844c91c73845995e06f, type: 3}
   - {fileID: 8300000, guid: 7aa6780a4fe9a634baea69e4b8a15c49, type: 3}
   - {fileID: 8300000, guid: e90f20664e4bcee46a5478dca24ac18c, type: 3}
-  distanciaEntrePasos: 5
-  distanciaEntrePasosCorriendo: 9.7
+  distanciaEntrePasos: 3
+  distanciaEntrePasosCorriendo: 5.8
 --- !u!1 &583196019
 GameObject:
   m_ObjectHideFlags: 0

@@ -1301,7 +1301,7 @@ MonoBehaviour:
   segundosQuieta: 2
   margenSeguro: 0.3
   capaPinchos: Personajes
-  ordenPinchos: 1
+  ordenPinchos: -1
   danioPinchos: 20
   estiramientoPinchos: 1.35
   hundirPinchos: 0.3
@@ -79874,7 +79874,7 @@ MonoBehaviour:
   segundosQuieta: 0.8
   margenSeguro: 0.3
   capaPinchos: Personajes
-  ordenPinchos: 1
+  ordenPinchos: -1
   danioPinchos: 20
   estiramientoPinchos: 1.35
   hundirPinchos: 0.1
@@ -145564,7 +145564,7 @@ MonoBehaviour:
   segundosQuieta: 0.8
   margenSeguro: 0.3
   capaPinchos: Personajes
-  ordenPinchos: 1
+  ordenPinchos: -1
   danioPinchos: 20
   estiramientoPinchos: 1.35
   hundirPinchos: 0.1

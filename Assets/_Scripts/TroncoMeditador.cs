@@ -67,7 +67,9 @@ public class TroncoMeditador : MonoBehaviour
     [SerializeField] private float margenSeguro = 0.3f;
     [Tooltip("Capa (sorting layer) de los pinchos que saca del piso.")]
     [SerializeField] private string capaPinchos = Capas.Personajes;
-    [SerializeField] private int ordenPinchos = 0;
+    [Tooltip("Orden de los pinchos dentro de su capa. -1: detras de los pisos de Personajes (el del nivel 3 tiene " +
+             "orden 1) y delante del tronco, que esta en Escenario.")]
+    [SerializeField] private int ordenPinchos = -1;
     [Tooltip("Vida que saca cada golpe de los pinchos del tronco: 20 = una de las 5 vidas.")]
     [SerializeField] private float danioPinchos = 20f;
     [Tooltip("Cuanto se estiran los pinchos para arriba (1 = tamano del dibujo). El mas bajo tiene que quedar " +
@@ -76,6 +78,9 @@ public class TroncoMeditador : MonoBehaviour
     [SerializeField] private float estiramientoPinchos = 1.35f;
     [Tooltip("Cuanto se hunde la base de cada pincho en el piso, para que nunca parezca que flota.")]
     [SerializeField] private float hundirPinchos = 0.1f;
+    [Tooltip("Cuanto mas se hunden todos los pinchos del piso (ademas de 'hundirPinchos'). Se estiran lo mismo, asi la " +
+             "punta queda a la misma altura y no se pueden saltar: solo se baja la base, que a veces parecia flotar.")]
+    [SerializeField] private float bajarPinchos = 0.25f;
 
     [Header("Anticipacion: glow violeta y burbujas en cada area")]
     [SerializeField] private Sprite glowArea;
@@ -195,7 +200,18 @@ public class TroncoMeditador : MonoBehaviour
     [SerializeField] private float segundosPorDestello = 0.125f;
     [SerializeField] private float alfaLatido = 0.5f;
 
+    [Header("Pinchos normales tambien sobre el tronco")]
+    [Tooltip("Los pinchos del piso tambien salen donde esta el tronco: la distribucion elegida se continua, con su " +
+             "mismo ritmo, hacia el lado del tronco hasta cubrir su cuerpo. Asi la chica sigue esquivando el mismo " +
+             "patron que venia esquivando en el agro.")]
+    [SerializeField] private bool pinchosSobreElTronco = true;
+    [Tooltip("Cuanto mas alla del dibujo del tronco (de cada lado) llegan los pinchos extra.")]
+    [SerializeField] private float margenSobreTronco = 0.5f;
+
     [Header("Defensa: pinchos a los costados del cuerpo")]
+    [Tooltip("Si esta apagado, el tronco no saca los pinchos de defensa al tener a la chica cerca (y siempre se " +
+             "le puede pegar). Probando: apagado, con los pinchos normales extendidos sobre el tronco.")]
+    [SerializeField] private bool usarDefensa = false;
     [Tooltip("Zona donde se defiende, desde el borde izquierdo del dibujo del tronco: x = cuanto antes empieza " +
              "(hacia la izquierda), y = hasta donde llega hacia la derecha (unidades).")]
     [SerializeField] private Vector2 rangoDefensa = new Vector2(1.5f, 26f);
@@ -235,6 +251,12 @@ public class TroncoMeditador : MonoBehaviour
 
     private void ActualizarDefensa(Vector2 p)
     {
+        if (!usarDefensa)
+        {
+            defendiendo = false;   // si estaba corriendo el ciclo, termina solo al bajar
+            if (vida != null && estado != Estado.Muerto) vida.Invulnerable = DefensaArriba;
+            return;
+        }
         bool enRango = estado != Estado.Muerto && ZonaDefensa().Contains(p);
         if (enRango && !defendiendo) { defendiendo = true; if (mostrarDebug) Debug.Log("[Tronco] " + name + ": se defiende (pinchos a los costados)"); cicloDefensa = StartCoroutine(CicloDefensa()); }
         else if (!enRango && defendiendo) { defendiendo = false; }   // el ciclo termina solo al bajar
@@ -371,6 +393,22 @@ public class TroncoMeditador : MonoBehaviour
         cuerpo = GetComponent<Collider2D>();
         vida.AlMorir += Morir;
         if (cabeza != null) cabezaInicial = cabeza.transform.localPosition;
+        // la cabeza va en la misma capa que el cuerpo, justo encima: asi los pinchos que salen delante del tronco
+        // tapan cabeza y cuerpo juntos (antes la cabeza quedaba delante de los pinchos y el cuerpo detras)
+        var dibujoCuerpo = GetComponent<SpriteRenderer>();
+        if (cabeza != null && dibujoCuerpo != null)
+        {
+            cabeza.sortingLayerID = dibujoCuerpo.sortingLayerID;
+            // +4: por encima del glow violeta del agro (+2) y de los pinchos de defensa (+3), como antes
+            cabeza.sortingOrder = dibujoCuerpo.sortingOrder + 4;
+        }
+        // la pieza de la estatua que tiene en el cuerpo, igual: en la capa del tronco, asi los pinchos la tapan
+        // (al morir pasa a Efectos para volar al HUD por encima de todo)
+        if (piezaEstatua != null && dibujoCuerpo != null)
+        {
+            piezaEstatua.sortingLayerID = dibujoCuerpo.sortingLayerID;
+            piezaEstatua.sortingOrder = dibujoCuerpo.sortingOrder + 5;
+        }
         faseFlotar = Random.value;
     }
 
@@ -540,6 +578,7 @@ public class TroncoMeditador : MonoBehaviour
         ultimaDistribucion = elegida;
         areasActivas.Clear();
         foreach (var a in distribuciones[elegida].areas) areasActivas.Add(new Vector2(inicioAgro.x + a.x, a.y));
+        if (pinchosSobreElTronco) ExtenderSobreElTronco(distribuciones[elegida].areas);
 
         // anticipacion: glow violeta y burbujas en cada area; tiembla la camara hasta que terminan de salir
         if (camara != null) camara.Temblar(segundosAnticipacion + segundosSubida + desfaseMaximo + 0.1f, intensidadTemblor);
@@ -568,6 +607,62 @@ public class TroncoMeditador : MonoBehaviour
         BorrarGlows();
     }
 
+    // Continua la distribucion (con su mismo ritmo) hacia el lado donde esta el tronco, hasta cubrir su dibujo.
+    // El ritmo es el periodo de la secuencia de anchos (ej: 1.16 / 2.53 alternados = cada 2 areas); si no se
+    // repite, se toma la distribucion entera como un periodo. Las areas nuevas no se pisan con las que ya estan.
+    private void ExtenderSobreElTronco(Vector2[] originales)
+    {
+        if (originales == null || originales.Length == 0) return;
+        var a = new List<Vector2>(originales);
+        a.Sort((u, v) => u.x.CompareTo(v.x));
+        int n = a.Count;
+
+        var dibujo = GetComponent<SpriteRenderer>();
+        Bounds b = dibujo != null ? dibujo.bounds : (cuerpo != null ? cuerpo.bounds : new Bounds(transform.position, Vector3.one * 4f));
+        float zMin = b.min.x - margenSobreTronco - inicioAgro.x;   // en unidades desde el borde del agro, como las areas
+        float zMax = b.max.x + margenSobreTronco - inicioAgro.x;
+        float primeraIzq = a[0].x - a[0].y / 2f, ultimaDer = a[n - 1].x + a[n - 1].y / 2f;
+
+        int m = 0;
+        for (int k = 1; k < n && m == 0; k++)
+        {
+            bool repite = true;
+            for (int i = 0; i + k < n && repite; i++) repite = Mathf.Abs(a[i].y - a[i + k].y) < 0.05f;
+            if (repite) m = k;
+        }
+        float periodo = m > 0 ? a[m].x - a[0].x : (n > 1 ? (a[n - 1].x - a[0].x) * n / (n - 1f) : a[0].y * 3f);
+        if (periodo <= 0.01f) return;
+
+        int agregadas = 0;
+        for (int lado = -1; lado <= 1; lado += 2)
+        {
+            if (lado < 0 && zMin >= primeraIzq) continue;
+            if (lado > 0 && zMax <= ultimaDer) continue;
+            for (int k = 1; k < 60; k++)
+            {
+                bool quedanEnZona = false;
+                foreach (var area in a)
+                {
+                    float x = area.x + lado * k * periodo, izq = x - area.y / 2f, der = x + area.y / 2f;
+                    if (lado < 0 ? der > primeraIzq - 0.05f : izq < ultimaDer + 0.05f) continue;   // pisaria las de siempre
+                    if (lado < 0 ? der >= zMin : izq <= zMax) quedanEnZona = true;
+                    if (der < zMin || izq > zMax) continue;                                     // fuera del tronco
+                    // con un periodo de varias areas, copias de distintas vueltas caen en el mismo lugar: una sola
+                    // (dos grupos superpuestos se ven opacos cuando titilan al bajar)
+                    float xMundo = inicioAgro.x + x;
+                    bool repetida = false;
+                    foreach (var ya in areasActivas) if (Mathf.Abs(ya.x - xMundo) < 0.05f) { repetida = true; break; }
+                    if (repetida) continue;
+                    areasActivas.Add(new Vector2(xMundo, area.y));
+                    agregadas++;
+                }
+                if (!quedanEnZona && k > 1) break;
+            }
+        }
+        if (mostrarDebug && agregadas > 0)
+            Debug.Log("[Tronco] " + name + ": " + agregadas + " areas de pinchos extra sobre el tronco (periodo " + periodo.ToString("0.00") + ")");
+    }
+
     private void CrearPinchos()
     {
         foreach (var a in areasActivas)
@@ -586,6 +681,13 @@ public class TroncoMeditador : MonoBehaviour
                 sr.sortingLayerName = capaPinchos; sr.sortingOrder = ordenPinchos;
                 var e = sr.transform.localScale;
                 sr.transform.localScale = new Vector3(e.x, e.y * estiramientoPinchos, e.z);
+                // se hunden 'bajarPinchos' mas: se alargan eso mismo para que la punta no baje
+                float alto = sr.bounds.size.y;
+                if (bajarPinchos > 0f && alto > 0.01f)
+                {
+                    e = sr.transform.localScale;
+                    sr.transform.localScale = new Vector3(e.x, e.y * (alto + bajarPinchos) / alto, e.z);
+                }
             }
             // el grupo queda centrado en el area, y cada pincho apoyado (un poco hundido) en el piso de abajo suyo
             Bounds b = Encapsular(srs);
@@ -638,7 +740,7 @@ public class TroncoMeditador : MonoBehaviour
 
     // la misma altura para todos los pinchos: el piso solido en el medio del agro, subido hasta el pasto
     private float BasePinchos(Transform grupo) =>
-        PisoDebajo(inicioAgro.x + tamanoAgro.x * 0.5f, grupo) + alturaPastoSobrePiso - hundirPinchos;
+        PisoDebajo(inicioAgro.x + tamanoAgro.x * 0.5f, grupo) + alturaPastoSobrePiso - hundirPinchos - bajarPinchos;
 
     // altura del piso solido debajo de x (cerca del piso del agro); si no encuentra, el piso del agro
     private float PisoDebajo(float x, Transform grupo)

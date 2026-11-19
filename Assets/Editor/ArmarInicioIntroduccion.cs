@@ -457,7 +457,7 @@ public static class ArmarInicioIntroduccion
     // los objetos de primer nivel que arma este menu (los demas que haya en la escena no se tocan)
     private static readonly HashSet<string> RaicesDelMenu = new HashSet<string>
     {
-        "Main Camera", "Luz global", "Escenario", "Pantalla de inicio", "Canvas",
+        "Main Camera", "Luz global", "Escenario", "Pantalla de inicio", "UI",   // "UI": antes "Canvas" (Franco lo renombro)
     };
 
     // el centro de la camara en la cueva, medido desde arriba (px de la escena): el encuadre de antes
@@ -789,7 +789,7 @@ public static class ArmarInicioIntroduccion
     private static Dialogo ArmarDialogoAlLlegar(Transform padre)
     {
         // el cuadro de dialogo va en un Canvas como el del HUD del nivel (1920 x 1080), arriba de la pantalla de inicio
-        var canvasGo = new GameObject("Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
+        var canvasGo = new GameObject("UI", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
         var canvas = canvasGo.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 10;

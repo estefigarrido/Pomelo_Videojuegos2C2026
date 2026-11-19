@@ -62,6 +62,7 @@ public class InstruccionAtaque : MonoBehaviour
     private float abiertaDesde;
     private Coroutine fundido;
     private bool cerrando;
+    private bool estaAbierta;   // esta copia (si hubiera otra pantalla en la escena, no responde a las teclas)
 
     private void Awake()
     {
@@ -83,7 +84,7 @@ public class InstruccionAtaque : MonoBehaviour
 
     private void OnDisable()
     {
-        if (Abierta) { Abierta = false; QuietaPorEscena.Soltar(); }
+        if (estaAbierta) { Abierta = false; estaAbierta = false; QuietaPorEscena.Soltar(); }
     }
 
     // Lo llama el dialogo de la runa al terminar.
@@ -92,6 +93,7 @@ public class InstruccionAtaque : MonoBehaviour
     {
         if (Abierta) return;
         Abierta = true;
+        estaAbierta = true;
         cerrando = false;
         abiertaDesde = Time.unscaledTime;
         QuietaPorEscena.Frenar();
@@ -116,12 +118,17 @@ public class InstruccionAtaque : MonoBehaviour
         yield return Fundir(0f);
         grupo.blocksRaycasts = false;
         Abierta = false;
+        estaAbierta = false;
         QuietaPorEscena.Soltar();
     }
 
     private void Update()
     {
-        if (!Abierta) return;
+        if (!estaAbierta) return;
+        // (Estefi, 19/11) mientras se ve, la chica queda quieta aunque otra cosa la suelte (el Lore de la tablilla la
+        // soltaba al cerrarse el dialogo): si no, la B tambien cambiaba el golpe en el juego (se anulaban) y el click
+        // la hacia atacar detras de la pantalla
+        if (!cerrando && !QuietaPorEscena.Activa) QuietaPorEscena.Frenar();
         if (!cerrando && !MenuPausa.BloqueaControles)
         {
             var teclado = Keyboard.current;

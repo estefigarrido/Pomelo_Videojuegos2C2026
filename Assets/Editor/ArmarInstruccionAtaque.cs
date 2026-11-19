@@ -30,9 +30,15 @@ public static class ArmarInstruccionAtaque
     {
         if (Application.isPlaying) { Debug.LogError("[Instruccion ataque] Salí del modo Play para armarla."); return; }
 
-        var canvas = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None)
-            .Where(c => c.isRootCanvas && c.renderMode == RenderMode.ScreenSpaceOverlay)
-            .OrderByDescending(c => c.name == "Canvas").FirstOrDefault();
+        // (Estefi, 19/11) si ya hay una pantalla, se rearma en el mismo Canvas: antes elegia un Canvas cualquiera y
+        // quedaban copias en varios (UI, Menu pausa, Aviso checkpoint) que respondian todas a la B
+        var existentes = Object.FindObjectsByType<InstruccionAtaque>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        var canvas = existentes.Length > 0 && existentes[0].GetComponentInParent<Canvas>() != null
+            ? existentes[0].GetComponentInParent<Canvas>().rootCanvas
+            : Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .Where(c => c.isRootCanvas && c.renderMode == RenderMode.ScreenSpaceOverlay)
+                .OrderByDescending(c => c.name == "Canvas").FirstOrDefault();
+        if (canvas != null) foreach (var e in existentes) if (e != null && e.transform.parent != canvas.transform) Undo.DestroyObjectImmediate(e.gameObject);
         if (canvas == null) { Debug.LogError("[Instruccion ataque] No encontré el Canvas del HUD (Screen Space - Overlay)."); return; }
 
         var fuente = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(Fuente);

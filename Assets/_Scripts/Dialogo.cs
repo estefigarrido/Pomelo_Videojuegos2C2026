@@ -42,6 +42,9 @@ public class Dialogo : MonoBehaviour
     [SerializeField] private bool soloUnaVez;
     [Tooltip("Si esta prendido, se abre solo cuando la chica entra a la zona (sin apretar la tecla).")]
     [SerializeField] private bool abrirAlEntrar;
+    [Tooltip("Con 'abrir al entrar': se abre solo la primera vez. Despues hay que interactuar (cartel 'Interactuar'), " +
+             "asi no frena a la chica cada vez que pasa (por ejemplo la runa del principio).")]
+    [SerializeField] private bool abrirAlEntrarSoloLaPrimeraVez;
 
     [Header("Al terminar")]
     [SerializeField] private UnityEvent alTerminar;
@@ -85,7 +88,7 @@ public class Dialogo : MonoBehaviour
     private void Update()
     {
         bool adentro = PuedeHablar();
-        bool mostrar = adentro && !CuadroDialogo.Abierto;
+        bool mostrar = adentro && !CuadroDialogo.Abierto && !InstruccionAtaque.Abierta;
         if (mostrar != mostrando)
         {
             mostrando = mostrar;
@@ -93,11 +96,11 @@ public class Dialogo : MonoBehaviour
             else if (indicador != null) indicador.SetActive(mostrar);
         }
 
-        if (adentro && !CuadroDialogo.Abierto && !MenuPausa.BloqueaControles)
+        if (adentro && !CuadroDialogo.Abierto && !InstruccionAtaque.Abierta && !MenuPausa.BloqueaControles)
         {
             var teclado = Keyboard.current;
             bool apreto = (teclado != null && teclado[tecla].wasPressedThisFrame) || Mando.Interactuar;
-            bool entro = abrirAlEntrar && !estabaAdentro;
+            bool entro = abrirAlEntrar && !estabaAdentro && !(abrirAlEntrarSoloLaPrimeraVez && usado);
             if ((apreto || entro) && CuadroDialogo.Instancia != null) CuadroDialogo.Instancia.Abrir(this);
         }
         estabaAdentro = adentro;

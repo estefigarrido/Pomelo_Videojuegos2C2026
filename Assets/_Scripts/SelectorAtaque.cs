@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// La chica usa un solo golpe a la vez: con V cambia entre el latigo y la bola de sabiduria,
+// La chica usa un solo golpe a la vez: con B cambia entre el latigo y la bola de sabiduria,
 // y con click izquierdo tira el que esta elegido. El circulo de la barra de poderes muestra el elegido.
 [RequireComponent(typeof(AtaqueLatigo), typeof(AtaqueSabiduria))]
 public class SelectorAtaque : MonoBehaviour
 {
     public enum Ataque { Latigo, Sabiduria }
 
-    [SerializeField] private Key teclaCambiar = Key.V;
+    [SerializeField] private Key teclaCambiar = Key.B;
     [SerializeField] private Ataque inicial = Ataque.Latigo;
 
     private AtaqueLatigo latigo;
@@ -18,6 +18,14 @@ public class SelectorAtaque : MonoBehaviour
 
     // Avisa cada vez que cambia el golpe elegido (lo usa el HUD).
     public static event System.Action<Ataque> Cambio;
+
+    // Cambia el golpe elegido desde afuera (la pantalla de instruccion de ataque) y avisa al HUD.
+    public static void Elegir(Ataque nuevo)
+    {
+        if (Elegido == nuevo) return;
+        Elegido = nuevo;
+        Cambio?.Invoke(Elegido);
+    }
 
     private void Awake()
     {

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 // HUD de arriba a la derecha (barra de poderes del Figma).
 // Los 3 lugares de la izquierda guardan las piezas de la estatua que sueltan los troncos al morir
 // (brazo, pecho y peineta): empiezan vacios y cada pieza aparece con un latido cuando llega volando.
-// El circulo principal muestra el golpe elegido (latigo o sabiduria, se cambia con V): al cambiar,
+// El circulo principal muestra el golpe elegido (latigo o sabiduria, se cambia con B): al cambiar,
 // los iconos se cruzan rapido y el circulo se ilumina un poco.
 // Los puntitos verdes de arriba del circulo de la hoja (selector_poder_A / B) marcan cual de los dos
 // golpes esta elegido: al cambiar, un dibujo se funde con el otro y el nuevo destella un instante.

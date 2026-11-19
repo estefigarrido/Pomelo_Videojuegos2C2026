@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 8002434689399484906}
   - component: {fileID: 881461697016654962}
   m_Layer: 0
-  m_Name: Tecla_V
+  m_Name: Tecla_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -9116550869677321199, guid: 94c53cfa10a42e04084d3c0539a4f9db, type: 3}
+  m_Sprite: {fileID: -9116550869677321199, guid: 875d955be3854fa1b5fd57292a1b6f1b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

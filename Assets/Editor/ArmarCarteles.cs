@@ -84,13 +84,13 @@ public static class ArmarCarteles
                 .O(new Vector2(183f, -21f))
                 .Icono(Joystick + "Joystick_derechopresionado.png", new Vector2(209.5f, -20f)),
 
-            //          CAMBIAR DE ATAQUE   [V]   o   [R1]  [R2]
+            //          CAMBIAR DE ATAQUE   [B]   o   [R1]  [R2]
             // mas adelante en el nivel (pasando las flores amarillas), a la misma altura que los demas (y = -28.33)
             new Cartel("Cartel_cambioataque", new Vector2(420f, 40f), enEscena: true,
                        lugar: new Vector3(19.2f, -28.33f, -0.05f))
                 .AlTerminarDeBorrarseMuestra("Cartel_reparartemplo")   // cuando le falta un cuarto, aparece el de Reparar templo
                 .Titulo("Cambiar de ataque", new Vector2(0f, -20f))
-                .Icono(Teclado + "Tecla_V.png", new Vector2(311f, -20f))
+                .Icono(Teclado + "Tecla_B.png", new Vector2(311f, -20f))
                 .O(new Vector2(338f, -21f))
                 .Icono(Joystick + "Boton_R1.png", new Vector2(364f, -20f))
                 .Icono(Joystick + "Boton_R2.png", new Vector2(404f, -20f)),

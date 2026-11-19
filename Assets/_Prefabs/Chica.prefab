@@ -763,7 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8526a9d149b745a090d6e0405a5147d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectorAtaque
-  teclaCambiar: 36
+  teclaCambiar: 16
   inicial: 0
 --- !u!114 &582101493
 MonoBehaviour:

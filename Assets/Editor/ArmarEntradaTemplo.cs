@@ -176,6 +176,10 @@ public static class ArmarEntradaTemplo
               "Reconstruye todo el templo para conseguir un mayor desempeño como maestra botánica",
               32f, FontStyles.Normal, Blanco80, 160f, 762f, 1600f, 44f, TextAlignmentOptions.Center, false);
 
+        // (Estefi, 19/11) loader de tres puntos debajo de la nota, un poco separado: va dentro del fondo, asi aparece y
+        // se va con la pantalla
+        PonerPuntosCargando(fondo);
+
         var et = raiz.gameObject.AddComponent<EntradaTemplo>();
         var so = new SerializedObject(et);
         so.FindProperty("fondo").objectReferenceValue = cgFondo;
@@ -187,6 +191,31 @@ public static class ArmarEntradaTemplo
 
         raiz.SetAsLastSibling();
         return raiz.gameObject;
+    }
+
+    // tres puntos blancos de 20 px, separados 36 px (centro a centro), centrados en y 880 (la nota termina en 806)
+    public static void PonerPuntosCargando(Transform fondo)
+    {
+        var viejo = fondo.Find("Cargando");
+        if (viejo != null) Object.DestroyImmediate(viejo.gameObject);
+        var cont = Nuevo("Cargando", fondo);
+        Ubicar(cont, 960f - 60f, 880f - 15f, 120f, 30f);
+        var puntos = new Image[3];
+        for (int i = 0; i < 3; i++)
+        {
+            var rt = Nuevo("Punto " + (i + 1), cont);
+            rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.sizeDelta = new Vector2(20f, 20f);
+            rt.anchoredPosition = new Vector2((i - 1) * 36f, 0f);
+            puntos[i] = rt.gameObject.AddComponent<Image>();
+            puntos[i].color = Color.white;
+            puntos[i].raycastTarget = false;
+        }
+        var so = new SerializedObject(cont.gameObject.AddComponent<PuntosCargando>());
+        var lista = so.FindProperty("puntos");
+        lista.arraySize = 3;
+        for (int i = 0; i < 3; i++) lista.GetArrayElementAtIndex(i).objectReferenceValue = puntos[i];
+        so.ApplyModifiedPropertiesWithoutUndo();
     }
 
     private static string Resaltar(string s) => "<smallcaps><color=" + Verde + ">" + s + "</color></smallcaps>";

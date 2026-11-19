@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-// Escena de la maestra (Lady Li Hua) en Inicio_introduccion.
+// Escena de la maestra (Maestra Li Hua) en Inicio_introduccion.
 //  - Cuando la camara termina de alejarse (PantallaInicio: apenas la chica llega a la piedra que sigue al jarron), la
 //    hojita del mural de botanica empieza a brillar verde clarito, con el destello encima, y queda asi hasta que se
 //    sale del templo al Nivel 1.
@@ -34,11 +34,11 @@ public class EscenaMaestra : MonoBehaviour
 
     [Header("Ritmo")]
     [Tooltip("Segundos desde que la chica cruza la linea (ya quieta) hasta que empieza a aparecer la pantalla.")]
-    [SerializeField] private float esperaAntes = 2f;
+    [SerializeField] private float esperaAntes = 1f;
     [Tooltip("Segundos que tarda la pantalla en aparecer (y en irse).")]
     [SerializeField] private float segundosFundido = 2f;
     [Tooltip("Segundos con la pantalla entera antes de que aparezca el dialogo.")]
-    [SerializeField] private float esperaDialogo = 2f;
+    [SerializeField] private float esperaDialogo = 1f;
 
     [Header("Brillo de la hojita")]
     [Tooltip("Verde clarito.")]
@@ -157,7 +157,7 @@ public class EscenaMaestra : MonoBehaviour
         if (mostrarDebug) Debug.Log("[Maestra] la chica llego: aparece la pantalla");
         enEscena = true;
         QuietaPorEscena.Frenar();
-        yield return new WaitForSeconds(esperaAntes);   // (Estefi, 19/11) la pantalla aparece 2 s mas tarde
+        yield return new WaitForSeconds(esperaAntes);   // (Estefi, 19/11) la pantalla aparece 1 s despues de cruzar
         if (pantalla != null) yield return Fundir(pantalla, 1f, segundosFundido);
         yield return new WaitForSeconds(esperaDialogo);
 

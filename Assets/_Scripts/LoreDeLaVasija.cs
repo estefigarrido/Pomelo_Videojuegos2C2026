@@ -63,6 +63,8 @@ public class LoreDeLaVasija : MonoBehaviour
         if (dialogo != null) dialogo.enabled = false;
     }
     private Estado estado = Estado.Esperando;
+    // ya salio la lucecita (o mas): lo usa el menu de pausa para sacar su aviso antes del Lore
+    public bool SalioLaLuz => estado >= Estado.Saliendo;
     private Transform chica;
     private Transform bolita, emblema, luz;
     private SpriteRenderer srBolita, srEmblema, srLuz;

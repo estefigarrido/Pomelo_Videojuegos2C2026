@@ -13,6 +13,10 @@ public class EstadisticaFinal : MonoBehaviour
 {
     public static bool Visible { get; private set; }
 
+    [Header("Debug")]
+    [Tooltip("Muestra en la consola los mensajes de este script (apagado en el juego final).")]
+    [SerializeField] private bool mostrarDebug = false;
+
     [Header("Piezas (las pone el menu que arma la pantalla)")]
     [SerializeField] private CanvasGroup fondo;
     [Tooltip("Partes que aparecen una por una, en este orden.")]
@@ -77,7 +81,7 @@ public class EstadisticaFinal : MonoBehaviour
     private IEnumerator Mostrar()
     {
         int desempeno = Mathf.RoundToInt(RestauracionTemplo.Instancia != null ? RestauracionTemplo.Instancia.PorcentajeReparado : 0f);
-        Debug.Log("[Estadistica final] desempeno " + desempeno + " / 100");
+        if (mostrarDebug) Debug.Log("[Estadistica final] desempeno " + desempeno + " / 100");
         if (valor != null) valor.text = "0 / 100";
 
         yield return new WaitForSeconds(espera);

@@ -11,6 +11,10 @@ using UnityEngine;
 //     ya de espaldas pasa detras de la puerta y del portal, y la puerta baja delante de ella.
 public class FinalNivel : MonoBehaviour
 {
+    [Header("Debug")]
+    [Tooltip("Muestra en la consola los mensajes de este script (apagado en el juego final).")]
+    [SerializeField] private bool mostrarDebug = false;
+
     [Header("Portal y puerta")]
     [SerializeField] private SpriteRenderer portal;
     [SerializeField] private Sprite portalGris;
@@ -187,7 +191,7 @@ public class FinalNivel : MonoBehaviour
         if (RestauracionTemplo.Instancia != null)
         {
             int n = RestauracionTemplo.Instancia.RestaurarALaIzquierdaDe(zona.xMax);
-            if (n > 0) Debug.Log("[Final] se arreglan " + n + " sectores a la izquierda de la puerta");
+            if (n > 0 && mostrarDebug) Debug.Log("[Final] se arreglan " + n + " sectores a la izquierda de la puerta");
         }
         var camara = FindFirstObjectByType<CamaraSeguidora>();
         if (camara != null && !camara.Fijo) camara.FijarEncuadre(centroCamara, tamanoCamara);

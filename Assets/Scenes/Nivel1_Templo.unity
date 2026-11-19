@@ -19062,6 +19062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384a0c8537144d74a935a23ded294bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FinalNivel
+  mostrarDebug: 0
   portal: {fileID: 412795911}
   portalGris: {fileID: 7826781516696011370, guid: 4fb77600f3ce40d9bba9e71ad273d54d, type: 3}
   puerta: {fileID: 841153302}
@@ -32357,6 +32358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf831dc908c542fbb348cbb5faa6f09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EstadisticaFinal
+  mostrarDebug: 0
   fondo: {fileID: 643039047}
   partes:
   - {fileID: 1609197934}
@@ -45781,9 +45783,8 @@ MonoBehaviour:
   multiplicadorSprint: 1.8
   duracionSprint: 8
   cooldownSprint: 3
-  alturaSaltoPx: 200
-  alturaSuperSaltoPx: 400
-  ventanaSuperSalto: 0.5
+  alturaSaltoPx: 270
+  alturaDobleSaltoPx: 230
   pixelesPorUnidad: 100
   duracionDespegue: 0.05
   duracionAterrizaje: 0.05
@@ -107480,7 +107481,7 @@ Transform:
   m_GameObject: {fileID: 1506718176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 219.9524, y: 16.95152, z: 0}
+  m_LocalPosition: {x: 220.9864, y: 16.95152, z: 0}
   m_LocalScale: {x: 0.5112054, y: 0.5112054, z: 0.5112054}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -118908,17 +118909,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1666041650 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 979131712867425252, guid: 8286e73b870c1a04cb3d43f2863bbb2e, type: 3}
-  m_PrefabInstance: {fileID: 1859695023}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72974d7b46c5c864280963a720abe0c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CartelTutorial
 --- !u!224 &1666041653 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5387635338668596123, guid: 8286e73b870c1a04cb3d43f2863bbb2e, type: 3}
@@ -139252,7 +139242,7 @@ Transform:
   m_GameObject: {fileID: 1941657039}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 219.1626, y: 12.526919, z: 0}
+  m_LocalPosition: {x: 220.19661, y: 12.526919, z: 0}
   m_LocalScale: {x: 0.77022153, y: 0.73719, z: 0.77022153}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -71,7 +71,8 @@ public class TroncoMeditador : MonoBehaviour
     [Tooltip("Vida que saca cada golpe de los pinchos del tronco: 20 = una de las 5 vidas.")]
     [SerializeField] private float danioPinchos = 20f;
     [Tooltip("Cuanto se estiran los pinchos para arriba (1 = tamano del dibujo). El mas bajo tiene que quedar " +
-             "bien por encima del supersalto de la chica (4 unidades), asi no los puede saltar ni subirse a la punta.")]
+             "bien por encima del salto mas alto de la chica (salto + doble salto en la punta = 5 unidades; el mas bajo " +
+             "mide 5,6), asi no los puede saltar ni subirse a la punta.")]
     [SerializeField] private float estiramientoPinchos = 1.35f;
     [Tooltip("Cuanto se hunde la base de cada pincho en el piso, para que nunca parezca que flota.")]
     [SerializeField] private float hundirPinchos = 0.1f;

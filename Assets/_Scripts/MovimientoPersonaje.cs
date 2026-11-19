@@ -28,11 +28,12 @@ public class MovimientoPersonaje : MonoBehaviour
 
     [Header("Salto  (espacio)")]
     [Tooltip("Altura del salto normal, en pixeles del dibujo.")]
-    [SerializeField] private float alturaSaltoPx = 120f;
-    [Tooltip("Altura del supersalto (doble toque de espacio), en pixeles del dibujo.")]
-    [SerializeField] private float alturaSuperSaltoPx = 350f;
-    [Tooltip("Segundos que hay para el segundo toque de espacio, contados desde el primero. Un doble click tipico de juego va de 0.2 a 0.3.")]
-    [SerializeField] private float ventanaSuperSalto = 0.5f;
+    [SerializeField] private float alturaSaltoPx = 270f;
+    [Tooltip("Doble salto: volver a apretar espacio en el aire (en cualquier momento, una vez por salto). " +
+             "Sube esta altura MAS desde donde esta la chica en ese momento, en pixeles del dibujo. " +
+             "Parejo con el salto normal (~85 %), asi el segundo salto no esta potenciado.")]
+    [UnityEngine.Serialization.FormerlySerializedAs("alturaSuperSaltoPx")]
+    [SerializeField] private float alturaDobleSaltoPx = 230f;
     [Tooltip("Cuantos pixeles del dibujo entran en 1 unidad de Unity. El personaje esta importado a 100.")]
     [SerializeField] private float pixelesPorUnidad = 100f;
 
@@ -162,7 +163,7 @@ public class MovimientoPersonaje : MonoBehaviour
 
     // los pixeles pasados a unidades de Unity
     private float AlturaSalto => alturaSaltoPx / Mathf.Max(1f, pixelesPorUnidad);
-    private float AlturaSuperSalto => alturaSuperSaltoPx / Mathf.Max(1f, pixelesPorUnidad);
+    private float AlturaDobleSalto => alturaDobleSaltoPx / Mathf.Max(1f, pixelesPorUnidad);
 
     // Velocidad del dash a los 't' segundos de empezar: sube suave, va pareja y baja suave al final.
     // Sin rampas, 600 px en 0.6 s son 10 unidades por segundo parejas. Con rampas, en ellas recorre la
@@ -402,22 +403,26 @@ public class MovimientoPersonaje : MonoBehaviour
     {
         if (apretado)
         {
-            // Segundo toque estando en el aire: lo lleva hasta la altura del supersalto.
-            bool acabaDeDespegar = Time.time - momentoDespegue <= ventanaSuperSalto;
-            if (!enPiso && !superSaltoUsado && acabaDeDespegar)
+            // Doble salto: segundo toque en el aire, en cualquier momento (subiendo o cayendo), una sola vez
+            // hasta volver a tocar el piso. Sube 'alturaDobleSaltoPx' desde donde esta. Si todavia vale el
+            // coyote time (recien se fue del borde) gana el salto normal.
+            bool enCoyote = Time.time - ultimaVezEnPiso <= tiempoCoyote;
+            if (!enPiso && !enCoyote && !superSaltoUsado)
             {
-                float loQueFalta = (alturaDespegue + AlturaSuperSalto) - rb.position.y;
-                if (loQueFalta > 0f)
+                ImpulsarHasta(AlturaDobleSalto);
+                superSaltoUsado = true;
+
+                // la subida de la animacion vuelve a empezar desde la altura actual hasta la nueva punta
+                float altura = rb.position.y - alturaDespegue;
+                alturaObjetivo = altura + AlturaDobleSalto;
+                if (fase != FaseSalto.Despegue)
                 {
-                    ImpulsarHasta(loQueFalta);
-                    superSaltoUsado = true;
-
-                    // la misma animacion se estira hasta la nueva altura: no se reinicia
-                    alturaObjetivo = AlturaSuperSalto;
-                    if (fase == FaseSalto.Caida || fase == FaseSalto.Ninguna) CambiarFase(FaseSalto.Subida);
-
-                    if (mostrarDebug) Debug.Log("[SuperSalto] hasta " + alturaSuperSaltoPx + "px del despegue");
+                    CambiarFase(FaseSalto.Subida);
+                    alturaInicioSubida = altura;
+                    progresoSubida = 0f;
                 }
+
+                if (mostrarDebug) Debug.Log("[DobleSalto] +" + alturaDobleSaltoPx + "px desde donde esta");
                 return;
             }
 
@@ -442,7 +447,7 @@ public class MovimientoPersonaje : MonoBehaviour
         ultimoPedidoDeSalto = -99f;
         // Justo al despegar, Unity todavia avisa un instante que toca el piso. Si un
         // doble toque muy rapido cae en ese instante, saldria otro salto normal en vez
-        // del supersalto. Durante 0,1 s no se le cree al piso.
+        // del doble salto. Durante 0,1 s no se le cree al piso.
         ignorarPisoHasta = Time.time + 0.1f;
 
         alturaObjetivo = AlturaSalto;

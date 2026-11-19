@@ -38,7 +38,7 @@ public class EscenaMaestra : MonoBehaviour
     [Tooltip("Segundos que tarda la pantalla en aparecer (y en irse).")]
     [SerializeField] private float segundosFundido = 2f;
     [Tooltip("Segundos con la pantalla entera antes de que aparezca el dialogo.")]
-    [SerializeField] private float esperaDialogo = 2f;
+    [SerializeField] private float esperaDialogo = 1f;
 
     [Header("Brillo de la hojita")]
     [Tooltip("Verde clarito.")]

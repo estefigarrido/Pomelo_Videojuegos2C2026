@@ -80,6 +80,7 @@ public class MenuPausa : MonoBehaviour
     [Tooltip("Si nunca se pausa, a los cuantos segundos de aparecer se va solo.")]
     [SerializeField] private float avisoDuracionMaxima = 10f;
     [SerializeField] private float avisoDesvanecido = 0.8f;
+    private LoreDeLaVasija[] lores;   // el aviso se va cuando sale la lucecita de alguno
 
     [Header("Controles")]
     [Tooltip("Con el stick apretado para un lado, cada cuanto pasa al boton siguiente (segundos).")]
@@ -292,6 +293,9 @@ public class MenuPausa : MonoBehaviour
             case EstadoAviso.Visible:
                 alfaAviso = Mathf.MoveTowards(alfaAviso, 1f, avisoAparicion > 0f ? dt / avisoAparicion : 1f);
                 if (Time.unscaledTime - inicioAviso > avisoDuracionMaxima) estadoAviso = EstadoAviso.Yendose;
+                // (Estefi, 19/11) se va apenas sale la lucecita del Lore (la tablilla), antes del dialogo
+                if (lores == null) lores = FindObjectsByType<LoreDeLaVasija>(FindObjectsSortMode.None);
+                foreach (var l in lores) if (l != null && l.SalioLaLuz) { estadoAviso = EstadoAviso.Yendose; break; }
                 break;
             case EstadoAviso.Yendose:
                 alfaAviso = Mathf.MoveTowards(alfaAviso, 0f, avisoDesvanecido > 0f ? dt / avisoDesvanecido : 1f);

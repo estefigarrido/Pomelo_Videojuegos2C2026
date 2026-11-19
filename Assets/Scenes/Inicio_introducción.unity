@@ -16179,7 +16179,7 @@ MonoBehaviour:
   hastaX: 89.20785
   esperaAntes: 1
   segundosFundido: 2
-  esperaDialogo: 2
+  esperaDialogo: 1
   colorBrillo: {r: 0.78, g: 1, b: 0.74, a: 1}
   destello: {fileID: 21300000, guid: 7dbab14b81ff62c4e9ebf51b0ac9f271, type: 3}
   opacidadDestello: 1

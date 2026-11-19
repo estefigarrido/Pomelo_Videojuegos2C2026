@@ -57,10 +57,14 @@ public class PantallaInicio : MonoBehaviour
     [Tooltip("Despues de Comenzar, la camara va hasta la chica y la sigue (como en el nivel) por la cueva y la " +
              "parte 2, sin salirse del dibujo. Apagado = encuadra la parte 2 entera, como antes.")]
     [SerializeField] private bool seguirALaChica = true;
-    [Tooltip("Mitad del alto que muestra la camara al seguirla (el mismo zoom que en el nivel: 5.4).")]
-    [SerializeField] private float tamanoSeguir = 5.4f;
+    [Tooltip("Mitad del alto que muestra la camara al seguirla (en el nivel es 5.4; aca un poco mas, para que el doble " +
+             "salto entre en el cuadro).")]
+    [SerializeField] private float tamanoSeguir = 6.4f;
     [Tooltip("Cuanto por encima de la chica va el centro de la camara (unidades).")]
-    [SerializeField] private float offsetVertical = 1f;
+    [SerializeField] private float offsetVertical = 1.6f;
+    [Tooltip("Cuanto por encima del borde de abajo del dibujo queda siempre el borde de abajo de la camara (unidades): " +
+             "asi nunca se ve debajo del agua (las columnas y el fondo vacio).")]
+    [SerializeField] private float margenAbajo = 0.3f;
     [Tooltip("Segundos que tarda la camara en alcanzarla (suave).")]
     [SerializeField] private float suavizadoSeguir = 0.25f;
     [Tooltip("Apagado: la camara la sigue solo de costado y se queda a la altura del piso donde arranca (no sube " +
@@ -267,7 +271,8 @@ public class PantallaInicio : MonoBehaviour
             var c = chica.transform.position;
             float y = seguirAltura || float.IsNaN(alturaPiso) ? c.y : alturaPiso;
             centroDestino = new Vector2(Mathf.Clamp(c.x, medioAncho, Mathf.Max(medioAncho, finOtraParte - medioAncho)),
-                                        Mathf.Clamp(y + offsetVertical, altoDestino / 2f, altoDibujo - altoDestino / 2f));
+                                        Mathf.Clamp(y + offsetVertical, margenAbajo + altoDestino / 2f,
+                                                    Mathf.Max(margenAbajo + altoDestino / 2f, altoDibujo - altoDestino / 2f)));
         }
         else
         {
@@ -284,7 +289,18 @@ public class PantallaInicio : MonoBehaviour
         var objetivo = new Vector3(centro.x, centro.y, p.z);
         // ya llego: la sigue suave
         if (seguirALaChica && avance >= 1f && Application.isPlaying)
+        {
             objetivo = Vector3.SmoothDamp(p, objetivo, ref velCamara, suavizadoSeguir);
+            // el tamano cambia enseguida (al alejarse) pero la posicion llega con retraso: sin este limite, mientras
+            // se aleja, el borde de abajo bajaba del dibujo y se veia debajo del agua. Se limita despues del suavizado
+            float medioAlto = alto / 2f, medioAncho = medioAlto * aspecto;
+            float yMin = margenAbajo + medioAlto, yMax = Mathf.Max(yMin, altoDibujo - medioAlto);
+            float xMin = medioAncho, xMax = Mathf.Max(xMin, finOtraParte - medioAncho);
+            var limitado = new Vector3(Mathf.Clamp(objetivo.x, xMin, xMax), Mathf.Clamp(objetivo.y, yMin, yMax), objetivo.z);
+            if (limitado.x != objetivo.x) velCamara.x = 0f;
+            if (limitado.y != objetivo.y) velCamara.y = 0f;
+            objetivo = limitado;
+        }
         camara.transform.position = objetivo;
     }
 }

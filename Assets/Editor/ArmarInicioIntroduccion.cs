@@ -318,7 +318,7 @@ public static class ArmarInicioIntroduccion
         // la pantalla "Ingresaste al Templo de botanica" (Assets/_Pantallas_info/Entrada_templo_botánica), en el Canvas
         var canvasNuevo = escena.GetRootGameObjects().FirstOrDefault(g => g.name == "UI");
         if (canvasNuevo != null) ArmarEntradaTemplo.Armar(canvasNuevo.transform);
-        // la maestra (Lady Li Hua) antes de la cascadita: su pantalla y sus dos lineas
+        // la maestra (Maestra Li Hua) antes de la cascadita: su pantalla y sus dos lineas
         if (canvasNuevo != null) ArmarMaestra(cascada, canvasNuevo.transform);
 
         // cada capa en su sorting layer (Fondo, Edificios, FondoDetalles, Decorado, Escenario, Frente; la chica en
@@ -914,7 +914,7 @@ public static class ArmarInicioIntroduccion
         d.enabled = false;
         return d;
     }
-    // ---------- la maestra (Lady Li Hua), antes de la cascadita ----------
+    // ---------- la maestra (Maestra Li Hua), antes de la cascadita ----------
     // Estefi (19/11): pasando el jarron, parada en la piedra de antes de la cascadita (bloque agua 6), aparece la
     // pantalla de la maestra (2 s, easing suave), a los 2 s el dialogo (dos lineas, con las flechas como el resto) y al
     // cerrarlo la pantalla se va igual. Lo maneja EscenaMaestra.
@@ -923,11 +923,11 @@ public static class ArmarInicioIntroduccion
     // "image 331"), pasadas a x del mundo: al cruzarlas pasa cada interaccion.
     private const float LineaJaya = 70.85f;     // Line 3: sobre la piedra de antes del jarron -> dialogo de Jaya (Lore)
     private const float LineaAlejar = 77.9f;    // Line 4: sobre la piedra que sigue al jarron -> la camara se aleja
-    private const float LineaLiHua = 87.2f;     // Line 5: sobre el bloque de antes de la cascadita -> Lady Li Hua
+    private const float LineaLiHua = 87.2f;     // Line 5: sobre el bloque de antes de la cascadita -> Maestra Li Hua
     private static readonly (string personaje, string texto)[] LineasMaestra =
     {
-        ("Lady Li Hua", "“Es admirable tu valor para entrar aquí y querer conocer los saberes olvidados.\nLos demás maestros no tuvieron la misma suerte que yo, verás...”"),
-        ("Lady Li Hua", "“como mi estatua no fue completamente destruida, puedes ayudarme y no todo está perdido.\nLas artes todavía se pueden recuperar. Yo sola no puedo hacerlo... te necesito!”"),
+        ("Maestra Li Hua", "“Es admirable tu valor para entrar aquí y querer conocer los saberes olvidados.\nLos demás maestros no tuvieron la misma suerte que yo, verás...”"),
+        ("Maestra Li Hua", "“como mi estatua no fue completamente destruida, puedes ayudarme y no todo está perdido.\nLas artes todavía se pueden recuperar. Yo sola no puedo hacerlo... te necesito!”"),
     };
 
     private static void ArmarMaestra(Transform cascada, Transform canvas)
@@ -944,7 +944,7 @@ public static class ArmarInicioIntroduccion
         if (sprite == null) Debug.LogWarning("[Inicio] No encontre " + RutaPantallaMaestra + ": la maestra queda sin pantalla.");
 
         // la pantalla: a pantalla completa, detras del cuadro de dialogo
-        var pantalla = new GameObject("Pantalla maestra (Lady Li Hua)", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
+        var pantalla = new GameObject("Pantalla maestra (Maestra Li Hua)", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
         var rt = (RectTransform)pantalla.transform;
         rt.SetParent(canvas, false);
         rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one;
@@ -958,7 +958,7 @@ public static class ArmarInicioIntroduccion
         grupo.alpha = 0f; grupo.interactable = false; grupo.blocksRaycasts = false;
 
         // las lineas (Dialogo de Franco, apagado: lo abre EscenaMaestra)
-        var go = new GameObject("Dialogo maestra (Lady Li Hua)");
+        var go = new GameObject("Dialogo maestra (Maestra Li Hua)");
         go.transform.SetParent(cascada, false);
         var d = go.AddComponent<Dialogo>();
         var sod = new SerializedObject(d);

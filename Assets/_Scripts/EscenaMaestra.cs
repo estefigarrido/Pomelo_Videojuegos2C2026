@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-// Escena de la maestra (Lady Li Hua) en Inicio_introduccion.
+// Escena de la maestra (Maestra Li Hua) en Inicio_introduccion.
 //  - Cuando la camara termina de alejarse (PantallaInicio: apenas la chica llega a la piedra que sigue al jarron), la
 //    hojita del mural de botanica empieza a brillar verde clarito, con el destello encima, y queda asi hasta que se
 //    sale del templo al Nivel 1.

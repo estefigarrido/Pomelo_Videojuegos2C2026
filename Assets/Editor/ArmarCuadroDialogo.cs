@@ -75,7 +75,7 @@ public static class ArmarCuadroDialogo
         var nombre = Texto("Nombre", cuadro, FuenteNombre, 32f, FontStyles.SmallCaps, Vector2.zero, Vector2.zero, false);
         Arriba(nombre.rectTransform, 104f, 100f, 46f, 44f);
         nombre.alignment = TextAlignmentOptions.Left;
-        nombre.text = "Lady Li Hua";
+        nombre.text = "Maestra Li Hua";
         var texto = Texto("Texto", cuadro, FuenteTexto, 36f, FontStyles.Normal, Vector2.zero, Vector2.zero, true);
         Bordes(texto.rectTransform, 104f, 100f, 100f, 26f);
         texto.text = "“Es admirable tu valor para entrar aquí y querer conocer los saberes olvidados. Los demás maestros no tuvieron la misma suerte que yo, verás...”";

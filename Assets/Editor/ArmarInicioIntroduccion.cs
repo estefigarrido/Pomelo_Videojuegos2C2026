@@ -186,6 +186,13 @@ public static class ArmarInicioIntroduccion
             if (c.nombre.StartsWith("Jarr"))
             {
                 var raizVasija = ArmarFlotante(c, sprite, padre, "Vasija flotante", orden, 0.9f);
+                // Estefi (19/11): el jarron es solido, con la forma del dibujo: se puede pasar por encima y pararse arriba
+                var dibujoVasija = raizVasija.Find("Dibujo");
+                if (dibujoVasija != null && dibujoVasija.GetComponent<PolygonCollider2D>() == null)
+                {
+                    dibujoVasija.gameObject.AddComponent<PolygonCollider2D>();
+                    dibujoVasija.gameObject.AddComponent<PisoPlataformaPiedra>();   // suena como piedra al caer encima
+                }
                 PonerBrillo(raizVasija, c.Ruta, c.F, 1f, orden - 1);
                 PonerLore(raizVasija, sprite, orden + 6);
                 continue;
@@ -310,6 +317,8 @@ public static class ArmarInicioIntroduccion
         // la pantalla "Ingresaste al Templo de botanica" (Assets/_Pantallas_info/Entrada_templo_botánica), en el Canvas
         var canvasNuevo = escena.GetRootGameObjects().FirstOrDefault(g => g.name == "UI");
         if (canvasNuevo != null) ArmarEntradaTemplo.Armar(canvasNuevo.transform);
+        // la maestra (Lady Li Hua) antes de la cascadita: su pantalla y sus dos lineas
+        if (canvasNuevo != null) ArmarMaestra(cascada, canvasNuevo.transform);
 
         // cada capa en su sorting layer (Fondo, Edificios, FondoDetalles, Decorado, Escenario, Frente; la chica en
         // Personajes) con ordenes chicos dentro de cada una
@@ -346,6 +355,9 @@ public static class ArmarInicioIntroduccion
                 cartel.transform.position = new Vector3(cx + CartelDesdeLosPies.x, pies + CartelDesdeLosPies.y, cartel.transform.position.z);
             if (cartelSaltar != null && (cartelSaltar.transform.position - posicionSaltarArmado).sqrMagnitude < 1e-6f)
                 cartelSaltar.transform.position = new Vector3(cx + SaltarDesdeLosPies.x, pies + SaltarDesdeLosPies.y, cartelSaltar.transform.position.z);
+            // (Caro, 19/11, "Ajuste de dialogos y tiempos") el de Saltar mas adelante, en x 55.68
+            if (cartelSaltar != null && cartelSaltar.transform is RectTransform rtSaltar)
+                rtSaltar.anchoredPosition = new Vector2(SaltarEnXDeCaro, rtSaltar.anchoredPosition.y);
             // Correr: a la derecha del de Caminar (donde este), con un espacio entre los dos (Caro, recuadro violeta)
             if (cartelCorrer != null && cartel != null && (cartelCorrer.transform.position - posicionCorrerArmado).sqrMagnitude < 1e-6f)
                 cartelCorrer.transform.position = new Vector3(cartel.transform.position.x + AnchoEnElMundo(cartel) * CorrerDespuesDeCaminar,
@@ -843,7 +855,9 @@ public static class ArmarInicioIntroduccion
     private static Dialogo ArmarDialogoAlLlegar(Transform padre)
     {
         // el cuadro de dialogo va en un Canvas como el del HUD del nivel (1920 x 1080), arriba de la pantalla de inicio
-        var canvasGo = new GameObject("UI", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
+        // se crea llamado "Canvas" porque ArmarCuadroDialogo pone el cuadro en el Canvas que se llama asi (si no, lo
+        // ponia en el "UI" viejo, que despues se borra, y la escena quedaba sin cuadro de dialogo); despues pasa a "UI"
+        var canvasGo = new GameObject("Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
         var canvas = canvasGo.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 10;
@@ -852,6 +866,9 @@ public static class ArmarInicioIntroduccion
         escalador.referenceResolution = new Vector2(1920f, 1080f);
         escalador.matchWidthOrHeight = 0.5f;
         ArmarCuadroDialogo.Armar();
+        canvasGo.name = "UI";
+        if (canvasGo.transform.Find("Cuadro de dialogo") == null)
+            Debug.LogError("[Inicio] El cuadro de dialogo no quedo en el Canvas de la intro.");
         Selection.activeGameObject = null;
         // igual que el cuadro del nivel (Nivel1_Templo, que Franco ajusto a mano): 248 de alto y el nombre 2 px mas
         // arriba, asi queda a la misma altura que el resto de los cuadros de dialogo
@@ -896,6 +913,92 @@ public static class ArmarInicioIntroduccion
         d.enabled = false;
         return d;
     }
+    // ---------- la maestra (Lady Li Hua), antes de la cascadita ----------
+    // Estefi (19/11): pasando el jarron, parada en la piedra de antes de la cascadita (bloque agua 6), aparece la
+    // pantalla de la maestra (2 s, easing suave), a los 2 s el dialogo (dos lineas, con las flechas como el resto) y al
+    // cerrarlo la pantalla se va igual. Lo maneja EscenaMaestra.
+    private const string RutaPantallaMaestra = "Assets/_Pantallas_info/dialogo_maestrabotanica.png";
+    private static readonly (string personaje, string texto)[] LineasMaestra =
+    {
+        ("Lady Li Hua", "“Es admirable tu valor para entrar aquí y querer conocer los saberes olvidados. Los demás maestros no tuvieron la misma suerte que yo, verás...”"),
+        ("Lady Li Hua", "“como mi estatua no fue completamente destruida, creo que aún recuerdo un par de trucos que podrían servirte para comenzar este camino. A ver... ¿cómo eran?...”"),
+    };
+
+    private static void ArmarMaestra(Transform cascada, Transform canvas)
+    {
+        // la imagen, como sprite de una sola pieza
+        if (AssetImporter.GetAtPath(RutaPantallaMaestra) is TextureImporter imp &&
+            (imp.textureType != TextureImporterType.Sprite || imp.spriteImportMode != SpriteImportMode.Single))
+        {
+            imp.textureType = TextureImporterType.Sprite;
+            imp.spriteImportMode = SpriteImportMode.Single;
+            imp.SaveAndReimport();
+        }
+        var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(RutaPantallaMaestra);
+        if (sprite == null) Debug.LogWarning("[Inicio] No encontre " + RutaPantallaMaestra + ": la maestra queda sin pantalla.");
+
+        // la pantalla: a pantalla completa, detras del cuadro de dialogo
+        var pantalla = new GameObject("Pantalla maestra (Lady Li Hua)", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
+        var rt = (RectTransform)pantalla.transform;
+        rt.SetParent(canvas, false);
+        rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one;
+        rt.offsetMin = rt.offsetMax = Vector2.zero;
+        var cuadroDialogo = canvas.Find("Cuadro de dialogo");
+        if (cuadroDialogo != null) rt.SetSiblingIndex(cuadroDialogo.GetSiblingIndex());
+        var img = pantalla.GetComponent<Image>();
+        img.sprite = sprite;
+        img.raycastTarget = false;
+        var grupo = pantalla.GetComponent<CanvasGroup>();
+        grupo.alpha = 0f; grupo.interactable = false; grupo.blocksRaycasts = false;
+
+        // las lineas (Dialogo de Franco, apagado: lo abre EscenaMaestra)
+        var go = new GameObject("Dialogo maestra (Lady Li Hua)");
+        go.transform.SetParent(cascada, false);
+        var d = go.AddComponent<Dialogo>();
+        var sod = new SerializedObject(d);
+        var lineas = sod.FindProperty("lineas");
+        lineas.arraySize = LineasMaestra.Length;
+        for (int i = 0; i < LineasMaestra.Length; i++)
+        {
+            var l = lineas.GetArrayElementAtIndex(i);
+            l.FindPropertyRelative("sinNombre").boolValue = false;
+            l.FindPropertyRelative("personaje").stringValue = LineasMaestra[i].personaje;
+            l.FindPropertyRelative("texto").stringValue = LineasMaestra[i].texto;
+        }
+        sod.FindProperty("soloUnaVez").boolValue = true;
+        sod.ApplyModifiedPropertiesWithoutUndo();
+        d.enabled = false;
+
+        // donde: sobre el bloque agua 6 (el bloque negro de adelante de la columna inclinada), desde su borde
+        // izquierdo hasta la cascadita (Vector 195, la primera tira de agua)
+        var escenaMaestra = go.AddComponent<EscenaMaestra>();
+        var so = new SerializedObject(escenaMaestra);
+        so.FindProperty("pantalla").objectReferenceValue = grupo;
+        so.FindProperty("dialogo").objectReferenceValue = d;
+        var srs = cascada.GetComponentsInChildren<SpriteRenderer>(true);
+        var bloque = srs.FirstOrDefault(s => s.name.Contains("bloque agua 6"));
+        if (bloque != null)
+        {
+            var b = bloque.bounds;
+            var tira = srs.FirstOrDefault(s => s.name.Contains("Vector 195"));
+            float hasta = tira != null && tira.bounds.min.x > b.min.x ? tira.bounds.min.x : b.min.x + 2.5f;
+            so.FindProperty("desdeX").floatValue = b.min.x;
+            so.FindProperty("hastaX").floatValue = hasta;
+            go.transform.position = new Vector3((b.min.x + hasta) / 2f, b.max.y, 0f);
+        }
+        else Debug.LogWarning("[Inicio] No encontre la cascadita (bloque agua 6): revisar la zona de EscenaMaestra.");
+        // la hojita del mural de botanica: brilla verde desde que la camara termina de alejarse hasta que termina el
+        // dialogo
+        var hoja = srs.FirstOrDefault(s => s.name.Contains("hoja_mural_botanica"));
+        so.FindProperty("hoja").objectReferenceValue = hoja;
+        // glow verde clarito y, encima, el destello de la gema al 60 % (Estefi, 19/11)
+        so.FindProperty("colorBrillo").colorValue = new Color(0.78f, 1f, 0.74f, 1f);
+        so.FindProperty("destello").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Entorno/_Items/destello_gema.png");
+        so.FindProperty("opacidadDestello").floatValue = 0.6f;
+        if (hoja == null) Debug.LogWarning("[Inicio] No encontre la hojita del mural de botanica (hoja_mural_botanica).");
+        so.ApplyModifiedPropertiesWithoutUndo();
+    }
+
     // como dejo el menu la escena la ultima vez (para saber que se cambio a mano)
     private const string RutaBase = "Assets/Editor/ArmarInicioIntroduccion_base.json";
 
@@ -983,6 +1086,7 @@ public static class ArmarInicioIntroduccion
     // (Caro, 19/11) Caminar -> Correr -> Saltar: cuando termina de borrarse uno aparece el siguiente.
     // Los tres se borran al pasarles por delante, como los del nivel.
     private const string RutaCartelCorrer = "Assets/_UI/Carteles/Cartel_correr.prefab";
+    private const float SaltarEnXDeCaro = 55.68f;   // x del cartel de Saltar que dejo Caro a mano
     private const float CorrerDespuesDeCaminar = 1.35f;   // anchos del cartel de Caminar, desde el de Caminar
 
     private static float AnchoEnElMundo(CartelTutorial c)
@@ -1509,6 +1613,23 @@ public static class ArmarInicioIntroduccion
         so.FindProperty("finOtraParte").floatValue = AnchoEscenaPx / PixelesPorUnidad;
         so.FindProperty("altoDibujo").floatValue = AltoEscenaPx / PixelesPorUnidad;
         so.FindProperty("centroDesdeArriba").floatValue = CentroDesdeArribaPx / PixelesPorUnidad;
+        // la piedra que sigue al jarron (la de adelante del mural verde): parada ahi 2 s, la camara se aleja
+        // (Estefi, 19/11; antes era la de antes del jarron, donde ahora frena el dialogo de Jaya)
+        so.FindProperty("esperaAlejar").floatValue = 2f;
+        var vasija = GameObject.Find("Escenario/Cascada (templo)/Vasija flotante");
+        if (vasija != null)
+        {
+            float xv = vasija.transform.position.x;
+            var piedra = colocadas.Where(c => c.go != null && c.go.name.Contains("pieza") && c.go.GetComponent<SpriteRenderer>() != null)
+                                  .Select(c => c.go.GetComponent<SpriteRenderer>().bounds)
+                                  .Where(b => b.min.x >= xv - 0.5f)
+                                  .OrderBy(b => b.min.x).FirstOrDefault();
+            if (piedra.size.x > 0f)
+            {
+                so.FindProperty("alejarDesdeX").floatValue = piedra.min.x;
+                so.FindProperty("alejarHastaX").floatValue = piedra.max.x;
+            }
+        }
         so.ApplyModifiedPropertiesWithoutUndo();
 
         if (iosevka == null)

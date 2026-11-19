@@ -69,6 +69,26 @@ public class PantallaInicio : MonoBehaviour
     private Vector3 velCamara;
     private float alturaPiso = float.NaN;   // y de la chica parada donde arranca
 
+    [Header("Golpes")]
+    [Tooltip("Apagado: en la intro la chica no puede atacar (ni con click izquierdo ni con el mando).")]
+    [SerializeField] private bool chicaPuedeAtacar = false;
+
+    [Header("Alejar la camara despues del jarron")]
+    [Tooltip("Cuando la chica esta parada sobre la piedra que sigue al jarron (de 'alejarDesdeX' a 'alejarHastaX') " +
+             "durante 'esperaAlejar' segundos, la camara se aleja de a poco hasta 'tamanoAlejado' y queda asi, para " +
+             "ver el alrededor (los murales, el techo y el agua). Lo pone el menu que arma la escena.")]
+    [SerializeField] private float alejarDesdeX = float.NaN;
+    [SerializeField] private float alejarHastaX = float.NaN;
+    [SerializeField] private float esperaAlejar = 2f;
+    [Tooltip("Mitad del alto que muestra la camara alejada (antes 5.4: muestra unas 28 unidades de alto).")]
+    [SerializeField] private float tamanoAlejado = 14f;
+    [Tooltip("Segundos que tarda en alejarse (gradual).")]
+    [SerializeField] private float duracionAlejar = 2.5f;
+    private float tiempoSobrePiedra;
+    private float alejado = -1f;   // -1 = todavia no; de 0 a 1 mientras se aleja; 1 = alejada
+    // la camara ya termino de alejarse (lo usa EscenaMaestra para que brille la hojita del mural)
+    public bool TerminoDeAlejarse => alejado >= 1f;
+
     private BotonesInicio botones;
     private Behaviour[] controlesChica;
     private bool chicaActiva;
@@ -142,6 +162,7 @@ public class PantallaInicio : MonoBehaviour
         }
 
         float t = Time.unscaledTime - inicio;
+        RevisarAlejar();
 
         // el titulo y "Comenzar" se van primero
         if (textos != null)
@@ -194,10 +215,30 @@ public class PantallaInicio : MonoBehaviour
         if (MusicaIntro.Instancia != null) MusicaIntro.Instancia.Comenzar();
     }
 
+    // 2 s parada sobre la piedra que sigue al jarron -> la camara se aleja de a poco y queda alejada
+    private void RevisarAlejar()
+    {
+        if (alejado >= 0f)
+        {
+            alejado = Mathf.MoveTowards(alejado, 1f, Time.deltaTime / Mathf.Max(0.01f, duracionAlejar));
+            return;
+        }
+        if (!chicaActiva || chica == null || float.IsNaN(alejarDesdeX)) return;
+        var mov = chica.GetComponent<MovimientoPersonaje>();
+        float x = chica.transform.position.x;
+        bool encima = mov != null && mov.EnPiso && x >= alejarDesdeX && x <= alejarHastaX;
+        tiempoSobrePiedra = encima ? tiempoSobrePiedra + Time.deltaTime : 0f;
+        if (tiempoSobrePiedra >= esperaAlejar) alejado = 0f;
+    }
+
     private void ActivarChica()
     {
         chicaActiva = true;
-        if (controlesChica != null) foreach (var c in controlesChica) if (c != null) c.enabled = true;
+        // (Estefi, 19/11) en la intro del templo no ataca: el selector de golpes (click izquierdo / boton de atacar / V)
+        // queda apagado salvo que se prenda 'chicaPuedeAtacar'
+        if (controlesChica != null)
+            foreach (var c in controlesChica)
+                if (c != null && (chicaPuedeAtacar || !(c is SelectorAtaque))) c.enabled = true;
         if (cartelAlLlegar != null) cartelAlLlegar.Mostrar();   // el cartel de Caminar aparece suave
     }
 
@@ -216,7 +257,8 @@ public class PantallaInicio : MonoBehaviour
         if (seguirALaChica && chica != null)
         {
             // pegada a la chica, con el zoom del nivel, sin salirse del dibujo (de 0 a finOtraParte)
-            altoDestino = Mathf.Min(tamanoSeguir * 2f, altoDibujo);
+            float tamano = alejado > 0f ? Mathf.Lerp(tamanoSeguir, tamanoAlejado, Mathf.SmoothStep(0f, 1f, alejado)) : tamanoSeguir;
+            altoDestino = Mathf.Min(tamano * 2f, altoDibujo);
             float medioAncho = altoDestino * aspecto / 2f;
             var c = chica.transform.position;
             float y = seguirAltura || float.IsNaN(alturaPiso) ? c.y : alturaPiso;

@@ -18,7 +18,10 @@ public class CuadroDialogo : MonoBehaviour
 {
     public static CuadroDialogo Instancia { get; private set; }
     // la chica se queda quieta mientras hay un dialogo abierto
-    public static bool Abierto => Instancia != null && Instancia.dialogo != null;
+    // (Caro) tambien despues de cerrarlo, hasta que se suelta la tecla con que se cerro: esa tecla (flecha derecha / D /
+    // cruceta) solo cierra el cuadro, no hace caminar a la chica
+    public static bool Abierto => Instancia != null && (Instancia.dialogo != null || Instancia.esperandoSoltar);
+    private bool esperandoSoltar;
     [Header("Piezas (las pone el menu que arma el cuadro)")]
     [SerializeField] private RectTransform cuadro;
     [SerializeField] private TMP_Text nombre;
@@ -86,14 +89,23 @@ public class CuadroDialogo : MonoBehaviour
         if (dialogo == null) return;
         var terminado = dialogo;
         dialogo = null;
+        esperandoSoltar = true;   // la chica sigue quieta hasta que se suelte la tecla (ver Update)
         if (fundido != null) StopCoroutine(fundido);
         fundido = StartCoroutine(Fundir(grupo, 0f, segundosFundido));
         CambiarIlustracion(null);
         terminado.AlTerminar();
     }
 
+    private bool TeclaDeAvanzarApretada()
+    {
+        var teclado = Keyboard.current;
+        if (teclado != null && (teclado[teclaSiguiente].isPressed || teclado[teclaSiguiente2].isPressed)) return true;
+        return Mando.Horizontal() > 0f;
+    }
+
     private void Update()
     {
+        if (esperandoSoltar && dialogo == null && !TeclaDeAvanzarApretada()) esperandoSoltar = false;
         if (dialogo == null || MenuPausa.BloqueaControles) return;
 
         // el texto aparece letra por letra

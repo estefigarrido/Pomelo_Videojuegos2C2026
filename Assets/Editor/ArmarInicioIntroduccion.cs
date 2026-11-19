@@ -981,8 +981,7 @@ public static class ArmarInicioIntroduccion
 
     // los dos carteles, encadenados: Caminar lo muestra PantallaInicio; Saltar lo muestra Caminar al borrarse
     // (Caro, 19/11) Caminar -> Correr -> Saltar: cuando termina de borrarse uno aparece el siguiente.
-    // Caminar se cierra con su tecla (flecha derecha / D): mientras se ve la chica no se mueve (asi la tecla que cierra
-    // el cartel no la hace avanzar y caerse). Correr y Saltar quedan mas adelante y se borran al pasarles por delante.
+    // Los tres se borran al pasarles por delante, como los del nivel.
     private const string RutaCartelCorrer = "Assets/_UI/Carteles/Cartel_correr.prefab";
     private const float CorrerDespuesDeCaminar = 1.35f;   // anchos del cartel de Caminar, desde el de Caminar
 
@@ -1000,8 +999,8 @@ public static class ArmarInicioIntroduccion
         var saltar = PonerCartel(RutaCartelSaltar, "Cartel_saltoysupersalto", SaltarDesdeLosPies, padre, chica, actual);
         if (caminar != null && correr != null)
             correr.transform.position = caminar.transform.position + Vector3.right * AnchoEnElMundo(caminar) * CorrerDespuesDeCaminar;
-        CerrarConTecla(caminar, CartelTutorial.BotonMando.AdelanteConStick, UnityEngine.InputSystem.Key.RightArrow, UnityEngine.InputSystem.Key.D);
-        // (Correr no frena a la chica: queda mas adelante, fuera de la pantalla; se borra al pasarle por delante)
+        // (Caro: todos se borran al pasarles por delante, y la chica camina apenas llega la camara; ninguno la frena.
+        //  CerrarConTecla queda por si se quiere volver a usar)
         Encadenar(caminar, correr);
         Encadenar(correr, saltar);
         return (caminar, correr, saltar);

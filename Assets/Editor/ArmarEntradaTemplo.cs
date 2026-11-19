@@ -77,6 +77,8 @@ public static class ArmarEntradaTemplo
         so.FindProperty("puerta").objectReferenceValue = puerta;
         so.FindProperty("pantalla").objectReferenceValue = pantalla;
         so.FindProperty("quieta").objectReferenceValue = SpritePorGuid(GuidQuieta);
+        // al cerrarse suena como la puerta del Nivel 1 al abrirse
+        so.FindProperty("sonidoPuerta").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/_Sonidos/Puerta_piedra_subiendo.wav");
         var giro = GuidsGiro.Select(SpritePorGuid).Where(s => s != null).ToArray();
         var lista = so.FindProperty("framesGiro");
         lista.arraySize = giro.Length;

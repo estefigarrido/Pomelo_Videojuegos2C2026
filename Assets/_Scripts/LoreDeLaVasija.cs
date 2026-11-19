@@ -37,6 +37,9 @@ public class LoreDeLaVasija : MonoBehaviour
              "cartel 'Interactuar' y, al apretar E (o L1), abre el cuadro de dialogo. La chica queda quieta desde que " +
              "llega hasta que se cierra el dialogo.")]
     [SerializeField] private Dialogo dialogo;
+    [Tooltip("El dialogo se abre solo apenas aparece el Lore (sin el cartel 'Interactuar'). Apagado: hay que acercarse " +
+             "y apretar E (o L1).")]
+    [SerializeField] private bool abrirSolo = true;
     [Tooltip("Cartel de tutorial que aparece cuando se cierra el dialogo (el de Saltar).")]
     [SerializeField] private CartelTutorial cartelAlTerminar;    [Tooltip("Tamano del cartel 'Interactuar' con respecto al del nivel (aca la chica esta a 1.4).")]
     [SerializeField] private float escalaCartel = 1.4f;
@@ -171,8 +174,11 @@ public class LoreDeLaVasija : MonoBehaviour
                 break;
         }
 
-        // el dialogo: el cartel 'Interactuar' esta sobre el Lore; al apretar E (o L1) se abre el cuadro (lo hace el
-        // Dialogo) y, cuando se cierra, la chica se puede mover
+        // desde que frena hasta que se cierra el dialogo la chica no se mueve (aunque otra cosa la haya soltado)
+        if (estado != Estado.Esperando && charla != Charla.Terminado && !QuietaPorEscena.Activa) QuietaPorEscena.Frenar();
+
+        // el dialogo se abre solo (o, con 'abrirSolo' apagado, con el cartel 'Interactuar' y E / L1) y, cuando se
+        // cierra, la chica se puede mover
         switch (charla)
         {
             case Charla.Esperando:
@@ -207,6 +213,12 @@ public class LoreDeLaVasija : MonoBehaviour
     private void PrenderDialogo()
     {
         if (dialogo == null) { charla = Charla.Terminado; QuietaPorEscena.Soltar(); return; }
+        // (Caro) el dialogo empieza solo apenas aparece el Lore, sin tener que interactuar
+        if (abrirSolo && CuadroDialogo.Instancia != null && CuadroDialogo.Instancia.Abrir(dialogo))
+        {
+            charla = Charla.Abierto;
+            return;
+        }
         // el dialogo se pone sobre el Lore (su cartel 'Interactuar' aparece arriba del emblema) y se prende
         if (destino != null) dialogo.transform.position = destino.position;
         dialogo.enabled = true;

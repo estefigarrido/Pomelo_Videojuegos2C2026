@@ -40,7 +40,15 @@ public class PuertaDelTemplo : MonoBehaviour
     [SerializeField] private float esperaAntesDeSubir = 0.3f;
     [SerializeField] private float duracionSubidaPuerta = 2.5f;
     [SerializeField] private float esperaAntesDeBajar = 0.5f;
-    [SerializeField] private float duracionBajadaPuerta = 2.5f;
+    [Tooltip("Segundos que tarda en bajar (1.75 = lo que dura el arrastre de piedra, como la puerta del Nivel 1).")]
+    [SerializeField] private float duracionBajadaPuerta = 1.75f;
+    [Tooltip("Segundos despues de que se cierra la puerta hasta que aparece la pantalla de entrada.")]
+    [SerializeField] private float esperaPantalla = 2f;
+
+    [Header("Sonido")]
+    [Tooltip("Al cerrarse: el mismo arrastre de piedra que la puerta del Nivel 1 al abrirse (Puerta_piedra_subiendo).")]
+    [SerializeField] private AudioClip sonidoPuerta;
+    [SerializeField] private float volumenPuerta = 0.6f;
 
     private Transform chica;
     private Collider2D colChica;
@@ -149,8 +157,11 @@ public class PuertaDelTemplo : MonoBehaviour
         if (dibujoChica != null) { dibujoChica.sortingLayerID = puerta.sortingLayerID; dibujoChica.sortingOrder = puerta.sortingOrder - 1; }
         yield return new WaitForSeconds(esperaAntesDeBajar);
 
-        // la puerta baja (tapandola: ya entro) y aparece la pantalla
+        // la puerta baja (tapandola: ya entro), con el arrastre de piedra de la puerta del Nivel 1, y a los
+        // 'esperaPantalla' segundos aparece la pantalla
+        if (sonidoPuerta != null) Sonido.Reproducir(sonidoPuerta, volumenPuerta);
         yield return Deslizar(puerta.transform, abierta, cerrada, duracionBajadaPuerta);
+        yield return new WaitForSeconds(esperaPantalla);
         if (mostrarDebug) Debug.Log("[Puerta del templo] entro: aparece la pantalla");
         if (pantalla != null) pantalla.MostrarAhora();
     }

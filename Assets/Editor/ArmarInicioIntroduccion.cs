@@ -293,15 +293,17 @@ public static class ArmarInicioIntroduccion
         ArmarPisosParte2(cascada);
         ArmarMusica(cascada);
         var dialogo = ArmarDialogoAlLlegar(cascada);
-        var (cartel, cartelSaltar) = PonerCarteles(cascada, chica, actual);
+        var (cartel, cartelCorrer, cartelSaltar) = PonerCarteles(cascada, chica, actual);
         var posicionCartelArmado = cartel != null ? cartel.transform.position : Vector3.zero;
+        var posicionCorrerArmado = cartelCorrer != null ? cartelCorrer.transform.position : Vector3.zero;
         var posicionSaltarArmado = cartelSaltar != null ? cartelSaltar.transform.position : Vector3.zero;
-        // el dialogo de Jaya lo abre el Lore de la vasija
+        // el dialogo de Jaya lo abre el Lore de la vasija (el cartel de Saltar ya no lo muestra el Lore: va despues del
+        // de Correr)
         foreach (var lore in cascada.GetComponentsInChildren<LoreDeLaVasija>(true))
         {
             var sol = new SerializedObject(lore);
             sol.FindProperty("dialogo").objectReferenceValue = dialogo;
-            sol.FindProperty("cartelAlTerminar").objectReferenceValue = cartelSaltar;   // Saltar, al cerrar el dialogo
+            sol.FindProperty("cartelAlTerminar").objectReferenceValue = null;
             sol.ApplyModifiedPropertiesWithoutUndo();
         }
         ArmarPantalla(cam, chica, dialogo, cartel);
@@ -344,8 +346,12 @@ public static class ArmarInicioIntroduccion
                 cartel.transform.position = new Vector3(cx + CartelDesdeLosPies.x, pies + CartelDesdeLosPies.y, cartel.transform.position.z);
             if (cartelSaltar != null && (cartelSaltar.transform.position - posicionSaltarArmado).sqrMagnitude < 1e-6f)
                 cartelSaltar.transform.position = new Vector3(cx + SaltarDesdeLosPies.x, pies + SaltarDesdeLosPies.y, cartelSaltar.transform.position.z);
+            // Correr: a la derecha del de Caminar (donde este), con un espacio entre los dos (Caro, recuadro violeta)
+            if (cartelCorrer != null && cartel != null && (cartelCorrer.transform.position - posicionCorrerArmado).sqrMagnitude < 1e-6f)
+                cartelCorrer.transform.position = new Vector3(cartel.transform.position.x + AnchoEnElMundo(cartel) * CorrerDespuesDeCaminar,
+                                                              cartel.transform.position.y, cartelCorrer.transform.position.z);
             // la altura siempre es la del nivel (aunque se los haya corrido a mano de costado)
-            foreach (var ct in new[] { cartel, cartelSaltar })
+            foreach (var ct in new[] { cartel, cartelCorrer, cartelSaltar })
                 if (ct != null)
                     ct.transform.position = new Vector3(ct.transform.position.x, pies + AlturaCartelSobrePies, ct.transform.position.z);
         }
@@ -974,14 +980,54 @@ public static class ArmarInicioIntroduccion
     private const float EscalaCartelEnElNivel = 0.013f;
 
     // los dos carteles, encadenados: Caminar lo muestra PantallaInicio; Saltar lo muestra Caminar al borrarse
-    private static (CartelTutorial caminar, CartelTutorial saltar) PonerCarteles(Transform padre, GameObject chica,
-                                                                                ConservarAjustes.Foto actual)
+    // (Caro, 19/11) Caminar -> Correr -> Saltar: cuando termina de borrarse uno aparece el siguiente.
+    // Caminar se cierra con su tecla (flecha derecha / D): mientras se ve la chica no se mueve (asi la tecla que cierra
+    // el cartel no la hace avanzar y caerse). Correr y Saltar quedan mas adelante y se borran al pasarles por delante.
+    private const string RutaCartelCorrer = "Assets/_UI/Carteles/Cartel_correr.prefab";
+    private const float CorrerDespuesDeCaminar = 1.35f;   // anchos del cartel de Caminar, desde el de Caminar
+
+    private static float AnchoEnElMundo(CartelTutorial c)
     {
-        // (Caro: el de Saltar ya no aparece cuando se borra el de Caminar, sino al terminar el dialogo del Lore;
-        //  lo muestra LoreDeLaVasija)
+        var rt = c.transform as RectTransform;
+        return rt != null ? rt.rect.width * Mathf.Abs(rt.lossyScale.x) : 4f;
+    }
+
+    private static (CartelTutorial caminar, CartelTutorial correr, CartelTutorial saltar) PonerCarteles(Transform padre,
+        GameObject chica, ConservarAjustes.Foto actual)
+    {
         var caminar = PonerCartel(RutaCartelCaminar, "Cartel_caminar", CartelDesdeLosPies, padre, chica, actual);
+        var correr = PonerCartel(RutaCartelCorrer, "Cartel_correr", CartelDesdeLosPies, padre, chica, actual);
         var saltar = PonerCartel(RutaCartelSaltar, "Cartel_saltoysupersalto", SaltarDesdeLosPies, padre, chica, actual);
-        return (caminar, saltar);
+        if (caminar != null && correr != null)
+            correr.transform.position = caminar.transform.position + Vector3.right * AnchoEnElMundo(caminar) * CorrerDespuesDeCaminar;
+        CerrarConTecla(caminar, CartelTutorial.BotonMando.AdelanteConStick, UnityEngine.InputSystem.Key.RightArrow, UnityEngine.InputSystem.Key.D);
+        // (Correr no frena a la chica: queda mas adelante, fuera de la pantalla; se borra al pasarle por delante)
+        Encadenar(caminar, correr);
+        Encadenar(correr, saltar);
+        return (caminar, correr, saltar);
+    }
+
+    private static void CerrarConTecla(CartelTutorial c, CartelTutorial.BotonMando boton, params UnityEngine.InputSystem.Key[] teclas)
+    {
+        if (c == null) return;
+        var so = new SerializedObject(c);
+        so.FindProperty("cerrarConTecla").boolValue = true;
+        var lista = so.FindProperty("teclasParaCerrar");
+        lista.arraySize = teclas.Length;
+        for (int i = 0; i < teclas.Length; i++) lista.GetArrayElementAtIndex(i).intValue = (int)teclas[i];
+        so.FindProperty("botonParaCerrar").enumValueIndex = (int)boton;
+        so.ApplyModifiedPropertiesWithoutUndo();
+    }
+
+    // cuando 'antes' termina de borrarse, aparece 'despues'
+    private static void Encadenar(CartelTutorial antes, CartelTutorial despues)
+    {
+        if (antes == null || despues == null) return;
+        var so = new SerializedObject(antes);
+        var lista = so.FindProperty("mostrarAlTerminarDeBorrarme");
+        lista.arraySize = 1;
+        lista.GetArrayElementAtIndex(0).objectReferenceValue = despues;
+        so.ApplyModifiedPropertiesWithoutUndo();
     }
 
     private static CartelTutorial PonerCartel(string ruta, string nombre, Vector2 desdeLosPies, Transform padre, GameObject chica,

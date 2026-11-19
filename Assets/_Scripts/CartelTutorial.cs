@@ -60,6 +60,15 @@ public class CartelTutorial : MonoBehaviour
     [Tooltip("Si hay una hoja de loto aca, el cartel se desvanece cuando la chica la pisa.")]
     [SerializeField] private HojaLotoQueSeHunde desvanecerAlPisarHoja;
 
+    [Header("Cerrar con la tecla (intro)")]
+    [Tooltip("Si esta prendido, mientras se ve el cartel la chica no se puede mover (QuietaPorEscena). Al apretar una " +
+             "de 'teclasParaCerrar' (o el boton del mando) el cartel se borra solo y, cuando termino de borrarse, la " +
+             "chica se puede mover. No se borra al pasarle por delante.")]
+    [SerializeField] private bool cerrarConTecla;
+    [SerializeField] private UnityEngine.InputSystem.Key[] teclasParaCerrar;
+    public enum BotonMando { Ninguno, AdelanteConStick, Correr, Saltar }
+    [SerializeField] private BotonMando botonParaCerrar = BotonMando.Ninguno;
+
     private Canvas canvas;
     private CanvasGroup grupo;
     private SpriteRenderer dibujoChica;
@@ -105,6 +114,7 @@ public class CartelTutorial : MonoBehaviour
     {
         InicioNivel.SalidaTerminada -= AlSalir;
         if (desvanecerAlPisarHoja != null) desvanecerAlPisarHoja.Pisada -= Desvanecer;
+        if (frenaAhora) Frenar(false);   // si se apaga a la vista, no deja a la chica frenada
     }
     private void AlSalir() { salio = true; }
 
@@ -145,6 +155,7 @@ public class CartelTutorial : MonoBehaviour
     public void Mostrar()
     {
         if (visible || yendose || !gameObject.activeInHierarchy) return;
+        if (cerrarConTecla) Frenar(true);   // la chica espera desde que empieza a aparecer
         StartCoroutine(Aparecer());
     }
 
@@ -170,8 +181,83 @@ public class CartelTutorial : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    // ---- cerrar con la tecla: la chica queda quieta mientras haya algun cartel asi a la vista ----
+    private static int frenando;
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void AlArrancar() { frenando = 0; }
+    private bool frenaAhora;
+    private float apretado = -1f;   // momento en que se apreto la tecla (-1 = todavia no)
+
+    private void Frenar(bool si)
+    {
+        if (si == frenaAhora) return;
+        frenaAhora = si;
+        frenando += si ? 1 : -1;
+        if (frenando <= 0) { frenando = 0; QuietaPorEscena.Soltar(); }
+        else QuietaPorEscena.Frenar();
+    }
+
+    private void OnDestroy() { if (frenaAhora) Frenar(false); }
+
+    private bool ApretoParaCerrar()
+    {
+        var teclado = UnityEngine.InputSystem.Keyboard.current;
+        if (teclado != null && teclasParaCerrar != null)
+            foreach (var k in teclasParaCerrar)
+                if (k != UnityEngine.InputSystem.Key.None && teclado[k].wasPressedThisFrame) return true;
+        switch (botonParaCerrar)
+        {
+            case BotonMando.AdelanteConStick: return Mando.Horizontal() > 0.5f;
+            case BotonMando.Correr: return Mando.Correr;
+            case BotonMando.Saltar: return Mando.Saltar;
+        }
+        return false;
+    }
+
+    private void CerrarConTecla()
+    {
+        if (!visible || yendose || mascara == null) return;
+        var rt = mascara.rectTransform;
+        float ancho = rt.rect.width;
+        if (apretado < 0f)
+        {
+            Frenar(true);   // a la vista: la chica espera
+            if (MenuPausa.BloqueaControles || CuadroDialogo.Abierto || !ApretoParaCerrar()) return;
+            apretado = Time.time;
+        }
+        // se borra solo, parejo, de izquierda a derecha
+        float t = Mathf.SmoothStep(0f, 1f, (Time.time - apretado) / Mathf.Max(duracionBorrado, 0.01f));
+        float nuevo = Mathf.Max(borrado, Mathf.Lerp(0f, ancho, t));
+        if (nuevo > borrado)
+        {
+            borrado = nuevo;
+            if (!empezoABorrarse && borrado + bordeBorrado > margen)
+            {
+                empezoABorrarse = true;
+                if (desvanecerAlEmpezarABorrarme != null)
+                    foreach (var c in desvanecerAlEmpezarABorrarme) if (c != null && c != this) c.Desvanecer();
+            }
+            mascara.softness = new Vector2Int(bordeBorrado, 0);
+            mascara.padding = new Vector4(borrado, 0f, 0f, 0f);
+        }
+        if (borrado >= ancho)
+        {
+            // termino de borrarse: aparecen los siguientes (si se cierran con tecla, frenan a la chica en el acto) y
+            // recien despues este la suelta, asi no da ni un paso entre un cartel y otro
+            if (!mostroLosSiguientes)
+            {
+                mostroLosSiguientes = true;
+                if (mostrarAlTerminarDeBorrarme != null)
+                    foreach (var c in mostrarAlTerminarDeBorrarme) if (c != null && c != this) c.Mostrar();
+            }
+            Frenar(false);
+            gameObject.SetActive(false);
+        }
+    }
+
     private void LateUpdate()
     {
+        if (cerrarConTecla && !porCercania) { CerrarConTecla(); return; }
         if (porCercania || !borrarAlPasar || mascara == null || dibujoChica == null || yendose) return;
 
         // donde esta la chica, medido desde el borde izquierdo de la mascara (en px del cartel)

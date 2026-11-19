@@ -96,6 +96,9 @@ public class PuertaDelTemplo : MonoBehaviour
     {
         // la chica ya no se controla
         QuietaPorEscena.Frenar();
+        // la musica de la intro se apaga (lo hace tambien PortalFinIntro con su trigger; asi no depende de que la chica
+        // llegue a tocarlo)
+        if (MusicaIntro.Instancia != null) MusicaIntro.Instancia.SalirPorElPortal();
         var mov = chica.GetComponent<MovimientoPersonaje>();
         if (mov != null) mov.enabled = false;
         var animator = chica.GetComponent<Animator>();

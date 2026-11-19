@@ -927,7 +927,7 @@ public static class ArmarInicioIntroduccion
     private static readonly (string personaje, string texto)[] LineasMaestra =
     {
         ("Lady Li Hua", "“Es admirable tu valor para entrar aquí y querer conocer los saberes olvidados. Los demás maestros no tuvieron la misma suerte que yo, verás...”"),
-        ("Lady Li Hua", "“como mi estatua no fue completamente destruida, puedes ayudarme y no todo está perdido. Las artes todavía se pueden recuperar. Yo sola no puedo hacerlo... te necesito!”"),
+        ("Lady Li Hua", "“como mi estatua no fue completamente destruida, puedes ayudarme y no todo está perdido.\nLas artes todavía se pueden recuperar. Yo sola no puedo hacerlo... te necesito!”"),
     };
 
     private static void ArmarMaestra(Transform cascada, Transform canvas)

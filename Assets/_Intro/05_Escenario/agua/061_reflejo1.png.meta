@@ -1,0 +1,403 @@
+fileFormatVersion: 2
+guid: 88c52db202e263741a46fd5bdfaae9d7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -655438913959099904
+    second: 061_reflejo1_0
+  - first:
+      213: 5958377507180979123
+    second: 061_reflejo1_1
+  - first:
+      213: 6223650104737856997
+    second: 061_reflejo1_2
+  - first:
+      213: 3776827169142582124
+    second: 061_reflejo1_3
+  - first:
+      213: -9223311389438885832
+    second: 061_reflejo1_4
+  - first:
+      213: -7854579028848866649
+    second: 061_reflejo1_5
+  - first:
+      213: -3444699954106055602
+    second: 061_reflejo1_6
+  - first:
+      213: -4848567755192202536
+    second: 061_reflejo1_7
+  - first:
+      213: 8117419257475390733
+    second: 061_reflejo1_8
+  - first:
+      213: -1703934451475122955
+    second: 061_reflejo1_9
+  - first:
+      213: -9073929191892750948
+    second: 061_reflejo1_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 1
+  spritePivot: {x: 0, y: 1}
+  spritePixelsToUnits: 68.85228
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 061_reflejo1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 89
+        width: 104
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0020089c7c967e6f0800000000000000
+      internalID: -655438913959099904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 061_reflejo1_1
+      rect:
+        serializedVersion: 2
+        x: 971
+        y: 3
+        width: 276
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b3233126c860b250800000000000000
+      internalID: 5958377507180979123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 061_reflejo1_2
+      rect:
+        serializedVersion: 2
+        x: 1346
+        y: 13
+        width: 304
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5edf833cbc8de5650800000000000000
+      internalID: 6223650104737856997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 061_reflejo1_3
+      rect:
+        serializedVersion: 2
+        x: 2142
+        y: 6
+        width: 252
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6ba9c2cc4cf96430800000000000000
+      internalID: 3776827169142582124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 061_reflejo1_4
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 82
+        width: 188
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8304ea39827300080800000000000000
+      internalID: -9223311389438885832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 061_reflejo1_5
+      rect:
+        serializedVersion: 2
+        x: 2586
+        y: 82
+        width: 187
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aa0b351dfdeef290800000000000000
+      internalID: -7854579028848866649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 061_reflejo1_6
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 0
+        width: 236
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4444bd74a7f130d0800000000000000
+      internalID: -3444699954106055602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 061_reflejo1_7
+      rect:
+        serializedVersion: 2
+        x: 2561
+        y: 58
+        width: 84
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8da0b52c05d66bcb0800000000000000
+      internalID: -4848567755192202536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 061_reflejo1_8
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 6
+        width: 219
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0d5cb68ecdd6a070800000000000000
+      internalID: 8117419257475390733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 061_reflejo1_9
+      rect:
+        serializedVersion: 2
+        x: 1955
+        y: 0
+        width: 148
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f4764be4a86a58e0800000000000000
+      internalID: -1703934451475122955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 061_reflejo1_10
+      rect:
+        serializedVersion: 2
+        x: 2614
+        y: 0
+        width: 407
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9d6f28c97de21280800000000000000
+      internalID: -9073929191892750948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      061_reflejo1_0: -655438913959099904
+      061_reflejo1_1: 5958377507180979123
+      061_reflejo1_10: -9073929191892750948
+      061_reflejo1_2: 6223650104737856997
+      061_reflejo1_3: 3776827169142582124
+      061_reflejo1_4: -9223311389438885832
+      061_reflejo1_5: -7854579028848866649
+      061_reflejo1_6: -3444699954106055602
+      061_reflejo1_7: -4848567755192202536
+      061_reflejo1_8: 8117419257475390733
+      061_reflejo1_9: -1703934451475122955
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

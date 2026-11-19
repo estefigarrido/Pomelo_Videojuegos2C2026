@@ -82,6 +82,8 @@ public class LoreDeLaVasija : MonoBehaviour
         go.transform.SetParent(transform, false);
         sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = s;
+        // por encima del escenario (que esta en sus sorting layers): si quedara en Default no se veria
+        sr.sortingLayerName = Capas.Efectos;
         sr.sortingOrder = orden;
         return go.transform;
     }

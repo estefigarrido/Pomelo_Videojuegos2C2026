@@ -27,10 +27,29 @@ using UnityEngine.UI;
 // Menu:  Pomelo -> Escenas -> Armar escena Inicio_introducción
 public static class ArmarInicioIntroduccion
 {
-    private const string Carpeta = "Assets/_Entorno/_Inicio_introduccion";
+    // Todo lo de la intro esta en Assets/_Intro, en una carpeta por capa (las mismas que las sorting layers):
+    // 01_Fondo, 02_Edificios (murales, murales/hoja_botanica), 03_FondoDetalles, 04_Decorado,
+    // 05_Escenario (techo, rocas_de_la_cueva, agua, piedras_y_cascadas, piedras_y_cascadas/piezas) y 06_Frente.
+    // Cada archivo de capas.json se busca por su nombre en cualquiera de esas carpetas.
+    private const string Carpeta = "Assets/_Intro";
     private const string RutaManifiesto = Carpeta + "/capas.json";
+    private static Dictionary<string, string> archivos;
+    private static string Buscar(string archivo)
+    {
+        if (archivos == null)
+        {
+            archivos = new Dictionary<string, string>();
+            if (Directory.Exists(Carpeta))
+                foreach (var p in Directory.GetFiles(Carpeta, "*.png", SearchOption.AllDirectories))
+                    archivos[Path.GetFileName(p)] = p.Replace('\\', '/');
+        }
+        return archivos.TryGetValue(archivo, out var r) ? r : Carpeta + "/" + archivo;
+    }
     private const string RutaEscena = "Assets/Scenes/Inicio_introducción.unity";
-    private const float PixelesPorUnidad = 100f;
+    // px de la escena por unidad de Unity. Estefi (19/11): la chica mide lo mismo que en el nivel (escala 1: su dibujo
+    // visible mide 2.4 unidades) y todo lo demas se escala junto, en la proporcion del Figma: la chica de referencia
+    // del Figma ("001@2x 1") mide 459 px de alto visible = 165.24 px de la escena (x 0.36) -> 165.24 / 2.4 = 68.85.
+    private const float PixelesPorUnidad = 68.85f;
     private const float AnchoCuevaPx = 3612f;   // la parte de la cueva de inicio (lo que muestra la pantalla de inicio)
     // medidas de la escena (las pone el capas.json: el frame de Figma por 0.36)
     private static float AltoEscenaPx = 2347.2f;
@@ -48,7 +67,7 @@ public static class ArmarInicioIntroduccion
         public int i, sub; public string archivo, nombre, ruta, tipo, blend;
         public float x, y, ancho, alto, opacidad; public int imgW, imgH;
         public float F => ancho > 0f ? imgW / ancho : 1f;   // pixeles de la imagen por pixel de la escena
-        public string Ruta => Carpeta + "/" + archivo;
+        public string Ruta => Buscar(archivo);
     }
     [System.Serializable] private class Cuadro { public string nombre; public float ancho, alto, escala; }
     [System.Serializable] private class Manifiesto { public Cuadro frame; public Capa[] capas; }
@@ -62,6 +81,15 @@ public static class ArmarInicioIntroduccion
         if (man == null || man.capas == null || man.capas.Length == 0) { Debug.LogError("No pude leer " + RutaManifiesto); return; }
         AltoEscenaPx = man.frame.alto;
         AnchoEscenaPx = man.frame.ancho;
+        archivos = null;
+        capaDeI.Clear();
+        // el agua de adelante (los rectangulos de agua y los reflejos) va en Frente: pasa por delante de la chica
+        // y las piedras (con sus cascaditas) van en Frente despues del agua, enteras por encima de ella como en el
+        // Figma: de atras para adelante queda la chica, el agua y las piedras
+        foreach (var c in man.capas)
+            capaDeI[c.i] = (c.ruta.Contains("Escenario/agua") && (c.nombre == "agua" || c.nombre.StartsWith("reflejo"))) ||
+                           c.ruta.Contains("piedras y cascadas") || c.ruta == ""
+                ? Capas.Frente : CapaDeRuta(c.ruta);
         var aguaFondo = man.capas.FirstOrDefault(c => c.nombre == "agua" && c.ruta == "1 · Fondo");
         if (aguaFondo != null) LineaDelAguaPx = aguaFondo.y;
 
@@ -87,6 +115,9 @@ public static class ArmarInicioIntroduccion
             {
                 actual = ConservarAjustes.Tomar(viejas);
                 anterior = ConservarAjustes.LeerBase(RutaBase);
+                // el dibujo del escenario queda siempre como en el Figma: de el no se conservan ajustes a mano
+                // (si, los de la chica, los carteles, el lore, el dialogo y la pantalla de inicio)
+                if (anterior != null) SinAjustesDelDibujo(actual, anterior);
             }
             foreach (var g in viejas) g.name = "__viejo " + g.name;   // asi no se confunden con las nuevas
         }
@@ -205,7 +236,7 @@ public static class ArmarInicioIntroduccion
                 if (cascadasCueva != null) sr.sharedMaterial = cascadasCueva;
             }
             // las plataformas de agua de la derecha: la piedra gris oscura y el agua que cae
-            if (c.nombre.StartsWith("07 plataformas"))
+            if (c.nombre.StartsWith("07 plataformas") && AgregadosQueNoEstanEnElFigma)
             {
                 var m = MaterialAnimado("Pomelo/CascaditasAgua", "Cascaditas_agua");
                 if (m != null) { m.SetFloat("_AltoPx", c.imgH); sr.sharedMaterial = m; }
@@ -213,7 +244,8 @@ public static class ArmarInicioIntroduccion
             // la plantita de la cueva se mece con la brisa
             if (c.nombre == "inicio_13_planta") sr.sharedMaterial = MaterialAnimado("Pomelo/PlantaViento", "Planta_viento");
             // la neblina se mueve un poquito
-            if (c.nombre.Contains("niebla"))
+            // (solo la neblina sola: "01 cielo y niebla" tiene tambien sombras de piedras y agua, que no se mueven)
+            if (c.nombre.Contains("niebla") && c.nombre != "01 cielo y niebla")
             {
                 var so = new SerializedObject(go.AddComponent<Neblina>());
                 so.FindProperty("desfase").floatValue = (nNiebla++) * 5.3f;
@@ -237,13 +269,20 @@ public static class ArmarInicioIntroduccion
                 if (mp != null) sr.sharedMaterial = mp;
             }
             else if (c.ruta == "4 · Decorado") decorados.Add(new Piedra { go = go, x = c.x, y = c.y, ancho = c.ancho, alto = c.alto });
+            // la columna caida de la cueva (Group 296) es una pared: la chica no puede pasar al otro lado
+            // (con la forma del dibujo: una caja tomaria todo el rectangulo de la columna inclinada y empujaria a la chica)
+            if (c.nombre == "Group 296") go.AddComponent<PolygonCollider2D>();
             // los puntitos de luz de la cueva, adelante del musgo
             if (c.nombre == "inicio_15_musgo") ArmarDestellos(inicio, orden + 5);
         }
 
-        AgrandarPiedras();
-        var chica = PonerChica(cascada, ordenMax + 5, pisoChica);
+        // Estefi (19/11): las piedras quedan como en Figma, bajas sobre el agua y con la puerta dorada apoyada abajo.
+        // Para volver a agrandarlas (pedido anterior de Caro) poner AgrandarPiedrasParaLaChica en true.
+        if (AgrandarPiedrasParaLaChica) AgrandarPiedras();
+        var arranque = colocadas.FirstOrDefault(c => c.go != null && c.go.name == ChicaArrancaEn) ?? pisoChica;
+        var chica = PonerChica(cascada, ordenMax + 5, arranque);
         ArmarPisosParte2(cascada);
+        ArmarMusica(cascada);
         var dialogo = ArmarDialogoAlLlegar(cascada);
         var (cartel, cartelSaltar) = PonerCarteles(cascada, chica, actual);
         var posicionCartelArmado = cartel != null ? cartel.transform.position : Vector3.zero;
@@ -258,6 +297,11 @@ public static class ArmarInicioIntroduccion
         }
         ArmarPantalla(cam, chica, dialogo, cartel);
 
+        // cada capa en su sorting layer (Fondo, Edificios, FondoDetalles, Decorado, Escenario, Frente; la chica en
+        // Personajes) con ordenes chicos dentro de cada una
+        PonerSortingLayers(raiz);
+        LuzEnTodasLasCapas(luz);
+
         // la "base" para la proxima vez: lo que arma el menu, sin los ajustes a mano
         var nuevas = escena.GetRootGameObjects().Where(g => RaicesDelMenu.Contains(g.name)).ToList();
         var nuevo = ConservarAjustes.Tomar(nuevas);
@@ -267,6 +311,10 @@ public static class ArmarInicioIntroduccion
         int ajustes = 0;
         if (actual != null) ajustes = ConservarAjustes.Mezclar(actual, nuevo, anterior, escena);
         foreach (var g in viejas) if (g != null) Object.DestroyImmediate(g);
+        // los ajustes a mano pueden traer ordenes de antes (todo en Default, de -3000 a 0): se vuelven a repartir por
+        // capa respetando ese orden
+        var raizFinal = GameObject.Find("Escenario");
+        if (raizFinal != null) PonerSortingLayers(raizFinal.transform, primera: false);
 
         // la chica parada sobre la piedra que tenga abajo (aunque se haya movido a mano o se hayan movido las piedras)
         var chicaFinal = GameObject.Find("Escenario/Cascada (templo)/Chica");
@@ -296,10 +344,152 @@ public static class ArmarInicioIntroduccion
                    (viejas.Count > 0 ? " (Diseno nuevo: se armo de cero, sin los ajustes a mano de la escena anterior.)" : "")));
     }
 
+    // ---------- musica ----------
+    // Titulo: "Leaves from the Vine". Al Comenzar: "Katara" en loop hasta el portal del final (la puerta dorada).
+    // Mismo volumen y fundido que la musica del nivel (MusicaDeFondo de Nivel1_Templo: 0.072 y 3 s).
+    private const string RutaTemaTitulo = "Assets/_Musica/Leaves-from-the-Vine-_Orchestral-Version_.mp3";
+    private const string RutaTemaIntro = "Assets/_Musica/Katara.mp3";
+
+    private static void ArmarMusica(Transform cascada)
+    {
+        var go = new GameObject("Musica");
+        var m = go.AddComponent<MusicaIntro>();
+        var so = new SerializedObject(m);
+        so.FindProperty("temaTitulo").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>(RutaTemaTitulo);
+        so.FindProperty("temaIntro").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>(RutaTemaIntro);
+        so.FindProperty("volumen").floatValue = 0.072f;
+        so.FindProperty("duracionFade").floatValue = 3f;
+        so.ApplyModifiedPropertiesWithoutUndo();
+
+        // el portal: la entrada de la puerta dorada ("Group 290"), un trigger en el medio del dibujo
+        var puerta = cascada.GetComponentsInChildren<SpriteRenderer>(true).FirstOrDefault(s => s.name.EndsWith(" Group 290"));
+        if (puerta == null) { Debug.LogWarning("[Intro] No encontre la puerta dorada (Group 290) para el portal."); return; }
+        var b = puerta.bounds;
+        var portal = new GameObject("Portal (fin de la intro)");
+        portal.transform.SetParent(cascada, false);
+        portal.transform.position = new Vector3(b.center.x, b.min.y + b.size.y * 0.35f, 0f);
+        var caja = portal.AddComponent<BoxCollider2D>();
+        caja.isTrigger = true;
+        caja.size = new Vector2(b.size.x * 0.4f, b.size.y * 0.6f);
+        portal.AddComponent<PortalFinIntro>();
+    }
+
+    // ---------- ajustes a mano que se conservan ----------
+    // Lo que cuelga de "Escenario" es el dibujo del Figma, salvo la chica, los carteles, el lore y el dialogo.
+    private static bool EsDelDibujo(string ruta)
+    {
+        if (!ruta.StartsWith("Escenario/")) return false;
+        foreach (var p in new[] { "/Chica", "/Cartel", "Lore", "Dialogo", "/Donde", "/Boca" })
+            if (ruta.Contains(p)) return false;
+        return true;
+    }
+
+    // Para el dibujo: los valores cambiados a mano se igualan a la base (asi gana lo que arma el menu), lo agregado a
+    // mano no se pasa y lo que se borro (o se movio a otro grupo) a mano vuelve a estar.
+    private static void SinAjustesDelDibujo(ConservarAjustes.Foto actual, ConservarAjustes.Foto anterior)
+    {
+        foreach (var k in actual.valores.Keys.ToList())
+        {
+            // la chica y los carteles: su lugar depende del dibujo (y de su escala), asi que lo pone el menu; el resto
+            // de sus ajustes (textos, estilos...) se conserva
+            string obj = k.Split('|')[0];
+            bool lugarDeChicaOCartel = (obj.EndsWith("/Chica") || obj.Contains("/Cartel")) &&
+                                       (k.Contains("m_LocalPosition") || k.Contains("m_AnchoredPosition"));
+            if (!EsDelDibujo(obj) && !lugarDeChicaOCartel) continue;
+            if (anterior.valores.TryGetValue(k, out var v)) actual.valores[k] = v; else actual.valores.Remove(k);
+        }
+        foreach (var o in actual.objetos.ToList()) if (EsDelDibujo(o) && !anterior.objetos.Contains(o)) actual.objetos.Remove(o);
+        foreach (var o in anterior.objetos) if (EsDelDibujo(o)) actual.objetos.Add(o);
+        foreach (var c in actual.componentes.ToList())
+            if (EsDelDibujo(c.Split('|')[0]) && !anterior.componentes.Contains(c)) actual.componentes.Remove(c);
+    }
+
+    // ---------- sorting layers ----------
+    // La capa de cada objeto sale del grupo de Figma de su capa (el numero del principio de su nombre, "012 ...").
+    // Lo que no tiene numero (columnas y vasija flotantes, brillos, destellos) toma la capa de la que esta mas cerca
+    // en el orden de dibujo. Dentro de cada sorting layer, los ordenes van 1, 2, 3... en el mismo orden que tenian.
+    private static readonly Dictionary<int, string> capaDeI = new Dictionary<int, string>();
+
+    private static string CapaDeRuta(string ruta)
+    {
+        string r = ruta ?? "";
+        if (r.StartsWith("1 ")) return Capas.Fondo;
+        if (r.StartsWith("2 ")) return Capas.Edificios;
+        if (r.StartsWith("3 ")) return Capas.FondoDetalles;
+        if (r.StartsWith("4 ")) return Capas.Decorado;
+        if (r.StartsWith("6 ")) return Capas.Frente;
+        return Capas.Escenario;   // 5 · Escenario y lo suelto (el pilar de afuera)
+    }
+
+    private static string CapaDe(Renderer r)
+    {
+        if (r.GetComponentInParent<MovimientoPersonaje>() != null || r.name == "Chica") return Capas.Personajes;
+        for (var t = r.transform; t != null; t = t.parent)
+        {
+            var m = System.Text.RegularExpressions.Regex.Match(t.name, @"^(\d{3}) ");
+            if (m.Success && capaDeI.TryGetValue(int.Parse(m.Groups[1].Value), out var capa)) return capa;
+        }
+        // sin numero y ya repartido (segunda pasada): se queda en su capa
+        if (r.sortingLayerName != "Default") return r.sortingLayerName;
+        // sin numero: por el orden de dibujo (orden = i * 10 + sub - 3000; los agregados van de -1 a +6 de su capa)
+        int i =Mathf.FloorToInt((r.sortingOrder + 3003) / 10f);
+        var cerca = capaDeI.Keys.Where(k => k <= i).DefaultIfEmpty(capaDeI.Keys.Min()).Max();
+        return capaDeI.TryGetValue(cerca, out var c2) ? c2 : Capas.Escenario;
+    }
+
+    // orden global de antes (todo en Default) -> orden nuevo dentro de su capa, de la primera pasada
+    private static readonly Dictionary<string, SortedList<int, int>> globalARango = new Dictionary<string, SortedList<int, int>>();
+
+    private static void PonerSortingLayers(Transform raiz, bool primera = true)
+    {
+        if (primera) globalARango.Clear();
+        var todos = raiz.GetComponentsInChildren<Renderer>(true).Select((r, n) => (r, n, capa: CapaDe(r))).ToList();
+        foreach (var grupo in todos.GroupBy(x => x.capa))
+        {
+            // clave de orden: en la primera pasada todo esta en la escala de antes (global). En la segunda, los
+            // ordenes ya repartidos (1, 2, 3...) se usan tal cual, y si un ajuste a mano trajo un orden de antes
+            // (-3000 a 0), se ubica entre los que tenian ordenes de antes parecidos.
+            float Clave((Renderer r, int n, string capa) x)
+            {
+                int o = x.r.sortingOrder;
+                if (primera || o > 0 || !globalARango.TryGetValue(x.capa, out var mapa) || mapa.Count == 0) return o;
+                float rango = 0.5f;
+                foreach (var kv in mapa) { if (kv.Key <= o) rango = kv.Value + 0.5f; else break; }
+                return rango;
+            }
+            int rangoActual = 0; float anterior = float.MinValue;
+            foreach (var x in grupo.Select(x => (x, clave: Clave(x))).OrderBy(y => y.clave).ThenBy(y => y.x.n))
+            {
+                if (x.clave != anterior) { rangoActual++; anterior = x.clave; }
+                if (primera)
+                {
+                    if (!globalARango.TryGetValue(x.x.capa, out var mapa)) globalARango[x.x.capa] = mapa = new SortedList<int, int>();
+                    mapa[x.x.r.sortingOrder] = rangoActual;
+                }
+                x.x.r.sortingLayerName = x.x.capa;
+                x.x.r.sortingOrder = rangoActual;
+            }
+        }
+    }
+
+    // la luz global ilumina todas las sorting layers (si no, lo que no esta en Default se veria oscuro)
+    private static void LuzEnTodasLasCapas(Light2D luz)
+    {
+        if (luz == null) return;
+        var so = new SerializedObject(luz);
+        var p = so.FindProperty("m_ApplyToSortingLayers");
+        if (p == null) return;
+        var capas = SortingLayer.layers;
+        p.arraySize = capas.Length;
+        for (int k = 0; k < capas.Length; k++) p.GetArrayElementAtIndex(k).intValue = capas[k].id;
+        so.ApplyModifiedPropertiesWithoutUndo();
+    }
+
     // los objetos de primer nivel que arma este menu (los demas que haya en la escena no se tocan)
     private static readonly HashSet<string> RaicesDelMenu = new HashSet<string>
     {
-        "Main Camera", "Luz global", "Escenario", "Pantalla de inicio", "Canvas",
+        "Main Camera", "Luz global", "Escenario", "Pantalla de inicio", "UI",   // "UI": antes "Canvas" (Franco lo renombro)
+        "Musica",
     };
 
     // el centro de la camara en la cueva, medido desde arriba (px de la escena): el encuadre de antes
@@ -307,9 +497,9 @@ public static class ArmarInicioIntroduccion
 
     // ---------- que hace cada capa (por su nombre en Figma) ----------
 
-    private static bool EsAgua(Capa c) =>
-        c.nombre == "agua" || c.nombre.StartsWith("reflejo") || c.ruta.EndsWith("09 agua") ||
-        (c.ruta.EndsWith("5 · Escenario/agua") && c.nombre.StartsWith("Vector"));
+    // solo el agua y sus reflejos se mecen; las sombras oscuras de abajo (Vector..., Group 284 de "09 agua",
+    // sombra bajo piedra, Rectangle 7) quedan quietas, pegadas a sus piedras
+    private static bool EsAgua(Capa c) => c.nombre == "agua" || c.nombre.StartsWith("reflejo");
 
     private static bool EsPiso(Capa c) =>
         (c.nombre == "pilar" && c.ruta.Contains("piedras y cascadas")) || c.ruta.EndsWith("10 plataformas") ||
@@ -341,6 +531,9 @@ public static class ArmarInicioIntroduccion
     // asi se respetan los cambios a mano en el material.
     private static Material MaterialPiedrasConAgua()
     {
+        // Estefi (19/11): las piedras quedan como en el Figma (el shader animaba sus tiras de agua y debajo del agua
+        // se veian pedazos claros ondulados que no estan en el Figma)
+        if (!AgregadosQueNoEstanEnElFigma) return null;
         string ruta = $"{CarpetaAnimaciones}/Cascaditas_piedras.mat";
         bool nuevo = AssetDatabase.LoadAssetAtPath<Material>(ruta) == null;
         var m = MaterialAnimado("Pomelo/CascaditasAgua", "Cascaditas_piedras");
@@ -362,6 +555,11 @@ public static class ArmarInicioIntroduccion
     //   - grupos anchos (AnchoYaComodo o mas: ya hay lugar para caminar): solo mas altos, asi no se comen el resto
     // Lo que esta parado arriba de un grupo (la puerta dorada) sube lo mismo que crecio la piedra.
     // Las piedras de la cueva no se tocan (la chica no llega ahi).
+    private const bool AgrandarPiedrasParaLaChica = false;
+    // agua delante de lo que flota y tiras de agua animadas en las piedras: no estan en el Figma (Estefi, 19/11)
+    private const bool AgregadosQueNoEstanEnElFigma = false;
+    // hasta donde se hunde la chica en el agua (px de la escena, desde arriba): la guia roja del Figma
+    private const float FondoDelAguaPx = 2134.8f;
     private const float EscalaPiedras = 1.4f;
     private const float AnchoMinimoPiedra = 200f;   // px de la escena (la chica mide unos 110 de ancho)
     private const float AnchoYaComodo = 450f;
@@ -438,7 +636,7 @@ public static class ArmarInicioIntroduccion
             if (on && desde < 0) desde = x;
             if (!on && desde >= 0) { tramos.Add((desde, x)); desde = -1; }
         }
-        string carpetaPiezas = Carpeta + "/piezas";
+        string carpetaPiezas = Carpeta + "/05_Escenario/piedras_y_cascadas/piezas";
         Directory.CreateDirectory(carpetaPiezas);
         var rutas = new List<string>();
         for (int i = 0; i < tramos.Count; i++)
@@ -494,10 +692,14 @@ public static class ArmarInicioIntroduccion
 
     // el dibujo de la chica quieta (el de ChicaIdle): se busca por su GUID, asi no importa si se mueve de carpeta
     private const string GuidChicaQuieta = "f246479d5783035438e7d2f1468faa88";
-    // donde pisa: sobre el primer bloque de las plataformas del medio, a 60 px de su borde izquierdo
-    private const float ChicaEnElBloquePx = 60f;
+    // donde pisa (Estefi, 19/11): al principio de la fila de piedras de la cueva, junto a la columna caida, sobre el
+    // pilar "070", a 100 px de su borde izquierdo. Desde ahi recorre la cueva y la parte 2 (la camara la sigue).
+    private const string ChicaArrancaEn = "070 pilar";
+    private const float ChicaEnElBloquePx = 140f;
+    // donde empieza lo que se puede recorrer (px de la escena): la columna caida de la cueva (que tiene collider)
+    private const float InicioRecorridoPx = 1700f;
     // tamano: en el nivel mide 2.4 unidades; aca el dibujo de la cueva esta a otra escala (1.4)
-    private const float EscalaChica = 1.4f;
+    private const float EscalaChica = 1f;   // la chica mide lo mismo que en el nivel (antes 1.4)
     // cuanto se pasa el agua de adelante a cada lado de la base de lo que flota
     private const float MargenAguaColumna = 110f;
 
@@ -561,9 +763,11 @@ public static class ArmarInicioIntroduccion
         var pisos = new GameObject("Pisos (invisibles)").transform;
         pisos.SetParent(padre, false);
         foreach (var c in colocadas) PisosDe(c, true);
-        // el agua: se puede pisar apenas metida (los pies quedan 30 px debajo de la superficie), asi no se cae al vacio
-        float inicioX = AnchoCuevaPx, finX = AnchoEscenaPx;
-        Caja(pisos, "agua", inicioX, LineaDelAguaPx + 30f, finX - inicioX, 200f, false);
+        // el agua: la chica cae adentro hasta la guia roja del Figma (frame "intro juego · escena", guia Y = 5930,
+        // 2134.8 px de la escena), y el agua de adelante (capa Frente) le pasa por delante
+        // (desde la columna caida de la cueva: la chica arranca ahi y recorre la cueva y la parte 2)
+        float inicioX = InicioRecorridoPx, finX = AnchoEscenaPx;
+        Caja(pisos, "agua", inicioX, FondoDelAguaPx, finX - inicioX, 200f, false);
         // paredes en los bordes de la parte 2
         Caja(pisos, "pared izquierda", inicioX - 100f, -2000f, 100f, 4500f, false);
         Caja(pisos, "pared derecha", finX, -2000f, 100f, 4500f, false);
@@ -617,7 +821,7 @@ public static class ArmarInicioIntroduccion
     private static Dialogo ArmarDialogoAlLlegar(Transform padre)
     {
         // el cuadro de dialogo va en un Canvas como el del HUD del nivel (1920 x 1080), arriba de la pantalla de inicio
-        var canvasGo = new GameObject("Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
+        var canvasGo = new GameObject("UI", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
         var canvas = canvasGo.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 10;
@@ -682,6 +886,16 @@ public static class ArmarInicioIntroduccion
         mat.shader = shader;
         mat.SetFloat("_AnchoPx", sprite.rect.width);
         mat.SetFloat("_AltoPx", sprite.rect.height);
+        // Estefi (19/11): un movimiento de agua leve y poco cargado, como el agua plana del Figma: corre despacio,
+        // pocas rayitas finas y largas, y se mece apenas
+        mat.SetFloat("_VelocidadRio", 35f);
+        mat.SetFloat("_AltoFila", 16f);
+        mat.SetFloat("_LargoRaya", 170f);
+        mat.SetFloat("_CuantasRayas", 0.1f);
+        mat.SetFloat("_Rayas", 0.14f);
+        mat.SetFloat("_Amplitud", 0f);   // sin vaiven de costado: los bordes del agua no se corren de las sombras
+        mat.SetFloat("_Velocidad", 0.45f);
+        mat.SetFloat("_Brillo", 0.015f);
         EditorUtility.SetDirty(mat);
         return mat;
     }
@@ -998,6 +1212,9 @@ public static class ArmarInicioIntroduccion
         sr.sortingOrder = orden;
         var so = new SerializedObject(raiz.AddComponent<Flotante>());
         so.FindProperty("desfase").floatValue = desfase;
+        // Estefi (19/11): que no floten: quedan quietas, apoyadas en el agua (el agua de adelante sigue tapando la base)
+        so.FindProperty("subeYBaja").floatValue = 0f;
+        so.FindProperty("seMece").floatValue = 0f;
         // flota el dibujo; este objeto (la base) queda quieto con el agua de adelante de hijo
         so.FindProperty("queFlota").objectReferenceValue = dibujo.transform;
         so.ApplyModifiedPropertiesWithoutUndo();
@@ -1008,6 +1225,8 @@ public static class ArmarInicioIntroduccion
     // que se vea metido en el agua. centroX y ancho en px de la escena (el ancho sin los margenes).
     private static void AguaDelante(Transform padre, float centroX, float anchoPx, int orden)
     {
+        // Estefi (19/11): solo los elementos del Figma; esta agua agregada no va (el agua del Figma ya pasa por delante)
+        if (!AgregadosQueNoEstanEnElFigma) return;
         var agua = AguaDeAdelante();
         if (agua == null) return;
         var mat = MaterialAgua("frente_columnas", agua);

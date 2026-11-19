@@ -38,7 +38,8 @@ public class PuertaDelTemplo : MonoBehaviour
 
     [Header("Tiempos (como en el Nivel 1)")]
     [SerializeField] private float esperaAntesDeSubir = 0.3f;
-    [SerializeField] private float duracionSubidaPuerta = 2.5f;
+    [Tooltip("Segundos que tarda en subir (1.75 = lo que dura el arrastre de piedra, como la puerta del Nivel 1).")]
+    [SerializeField] private float duracionSubidaPuerta = 1.75f;
     [SerializeField] private float esperaAntesDeBajar = 0.5f;
     [Tooltip("Segundos que tarda en bajar (1.75 = lo que dura el arrastre de piedra, como la puerta del Nivel 1).")]
     [SerializeField] private float duracionBajadaPuerta = 1.75f;
@@ -46,7 +47,7 @@ public class PuertaDelTemplo : MonoBehaviour
     [SerializeField] private float esperaPantalla = 3f;
 
     [Header("Sonido")]
-    [Tooltip("Al cerrarse: el mismo arrastre de piedra que la puerta del Nivel 1 al abrirse (Puerta_piedra_subiendo).")]
+    [Tooltip("Al abrirse y al cerrarse: el mismo arrastre de piedra que la puerta del Nivel 1 (Puerta_piedra_subiendo).")]
     [SerializeField] private AudioClip sonidoPuerta;
     [SerializeField] private float volumenPuerta = 0.6f;
 
@@ -147,7 +148,8 @@ public class PuertaDelTemplo : MonoBehaviour
         ApoyarEnElPiso();
         yield return new WaitForSeconds(esperaAntesDeSubir);
 
-        // la puerta sube
+        // la puerta sube, con el arrastre de piedra (como la del Nivel 1 al abrirse)
+        if (sonidoPuerta != null) Sonido.Reproducir(sonidoPuerta, volumenPuerta);
         Vector3 cerrada = puerta.transform.position;
         Vector3 abierta = cerrada + Vector3.up * puerta.bounds.size.y;
         yield return Deslizar(puerta.transform, cerrada, abierta, duracionSubidaPuerta);

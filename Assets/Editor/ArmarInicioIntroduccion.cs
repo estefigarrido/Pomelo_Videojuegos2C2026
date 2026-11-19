@@ -405,6 +405,47 @@ public static class ArmarInicioIntroduccion
         caja.isTrigger = true;
         caja.size = new Vector2(b.size.x * 0.4f, b.size.y * 0.6f);
         portal.AddComponent<PortalFinIntro>();
+
+        PonerSonidoAgua(cascada);
+    }
+
+    // ---------- sonido del agua (Caro, 19/11) ----------
+    // Cuando la chica cae al agua suena un splash (SonidoAgua; el sonido del agua corriendo se saco). Esta en
+    // Assets/_Sonidos (de freesound, elegido por Caro). La superficie es el borde de arriba del agua de adelante ("agua", 2016 px).
+    private const string RutaSonidoSplash = "Assets/_Sonidos/Agua_splash.mp3";
+    private const float SuperficieAguaPx = 2016f;
+
+    [MenuItem("Pomelo/Escenas/Poner sonido del agua (intro)")]
+    private static void PonerSonidoAguaDesdeElMenu()
+    {
+        if (EditorApplication.isPlaying) { Debug.LogError("Para el Play antes."); return; }
+        var cascada = GameObject.Find("Escenario/Cascada (templo)");
+        if (cascada == null) { Debug.LogError("Abri la escena Inicio_introducción (no encontre Escenario/Cascada (templo))."); return; }
+        if (File.Exists(RutaManifiesto))
+        {
+            var man = JsonUtility.FromJson<Manifiesto>(File.ReadAllText(RutaManifiesto));
+            if (man != null && man.frame != null) AltoEscenaPx = man.frame.alto;
+        }
+        var go = PonerSonidoAgua(cascada.transform);
+        EditorSceneManager.MarkSceneDirty(go.scene);
+        Selection.activeGameObject = go;
+        Debug.Log("[Intro] Splash del agua puesto. Guarda la escena.");
+    }
+
+    private static GameObject PonerSonidoAgua(Transform padre)
+    {
+        var viejo = padre.Find("Sonido del agua");
+        if (viejo != null) Object.DestroyImmediate(viejo.gameObject);
+        var go = new GameObject("Sonido del agua");
+        go.transform.SetParent(padre, false);
+        var so = new SerializedObject(go.AddComponent<SonidoAgua>());
+        // la version en alta calidad (Pomelo -> Sonidos -> Mejorar splash), si ya se hizo; si no, el original
+        var hq = AssetDatabase.LoadAssetAtPath<AudioClip>(MejorarSplash.Destino);
+        so.FindProperty("splash").objectReferenceValue = hq != null ? hq : AssetDatabase.LoadAssetAtPath<AudioClip>(RutaSonidoSplash);
+        if (hq != null) so.FindProperty("tono").floatValue = 1f;   // el HQ ya viene con el tono bajado
+        so.FindProperty("superficie").floatValue = (AltoEscenaPx - SuperficieAguaPx) / PixelesPorUnidad;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        return go;
     }
 
     // ---------- ajustes a mano que se conservan ----------
@@ -849,8 +890,9 @@ public static class ArmarInicioIntroduccion
     private static readonly (string personaje, string texto)[] LineasAlLlegar =
     {
         // el texto de Caro (lo habia escrito en el cuadro de dialogo de la escena)
-        ("Jaya", "“Parece que la crecida del río trajo objetos que nunca había visto. Que raro...”"),
-        ("Jaya", "“¿Eso de allá es un portal? ¿A dónde llevará?”"),
+        // (Caro, 19/11: el dialogo queda solo con estas dos lineas)
+        ("Jaya", "“Parece que la crecida trajo ruinas de todos los templos de las antiguas artes.”"),
+        ("Jaya", "“¡Qué pena! Si esto sigue así, pronto no quedará nada de los conocimientos que alguna vez guardaron.”"),
     };
 
     private static Dialogo ArmarDialogoAlLlegar(Transform padre)

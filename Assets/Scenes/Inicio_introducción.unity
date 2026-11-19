@@ -7685,6 +7685,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1987650002}
   - {fileID: 900791174}
   - {fileID: 956138167}
   - {fileID: 566213113}
@@ -10606,12 +10607,13 @@ MonoBehaviour:
   lineas:
   - sinNombre: 0
     personaje: Jaya
-    texto: "\u201CParece que la crecida del r\xEDo trajo objetos que nunca hab\xEDa
-      visto. Que raro...\u201D"
+    texto: "\u201CParece que la crecida trajo ruinas de todos los templos de las
+      antiguas artes.\u201D"
     ilustracion: {fileID: 0}
   - sinNombre: 0
     personaje: Jaya
-    texto: "\u201C\xBFEso de all\xE1 es un portal? \xBFA d\xF3nde llevar\xE1?\u201D"
+    texto: "\u201C\xA1Qu\xE9 pena! Si esto sigue as\xED, pronto no quedar\xE1 nada
+      de los conocimientos que alguna vez guardaron.\u201D"
     ilustracion: {fileID: 0}
   distancia: {x: 3.5, y: 3}
   centro: {x: 0, y: 0}
@@ -18983,7 +18985,7 @@ MonoBehaviour:
   duracionGiro: 0.45
   velocidadCaminando: 3.5
   esperaAntesDeSubir: 0.3
-  duracionSubidaPuerta: 2.5
+  duracionSubidaPuerta: 1.75
   esperaAntesDeBajar: 0.5
   duracionBajadaPuerta: 1.75
   esperaPantalla: 3
@@ -22143,6 +22145,64 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1987650001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1987650002}
+  - component: {fileID: 1987650003}
+  m_Layer: 0
+  m_Name: Sonido del agua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1987650002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987650001}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 779327623}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1987650003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987650001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8438568f9ef5c0544af182c3c33ef1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SonidoAgua
+  splash: {fileID: 8300000, guid: ea0405ec0fab57b43861ae51df8c530c, type: 3}
+  volumenSplash: 0.8
+  tono: 1
+  variacionTono: 0.04
+  conEco: 1
+  ecoAbierto: 1
+  nivelEco: -1400
+  duracionEco: 1.5
+  presetEco: 6
+  colaEco: 2
+  superficie: 4.8105
+  velocidadMinima: 1.5
+  velocidadFuerte: 9
+  pausaEntreSplash: 0.35
 --- !u!1 &1994903919
 GameObject:
   m_ObjectHideFlags: 0
@@ -24057,8 +24117,8 @@ MonoBehaviour:
   abrirSolo: 1
   cartelAlTerminar: {fileID: 0}
   escalaCartel: 1.4
-  esperaQuieta: 0.35
-  duracionSalida: 1.8
+  esperaQuieta: 0.1
+  duracionSalida: 1.55
   duracionAparecer: 0.7
   curva: 0.8
 --- !u!1 &2129037734

@@ -19,6 +19,9 @@ public static class ArmarEntradaTemplo
 {
     public const string Nombre = "Entrada al templo";
     private const string Carpeta = "Assets/_Pantallas_info/Entrada_templo_botánica/";
+    // los brillos de la pantalla del final (los mismos archivos)
+    private const string EmblemaConBrillo = "Assets/_UI/Dialogo_y_lore/estadistica_emblema.png";
+    private const string Halo = "Assets/_UI/Dialogo_y_lore/estadistica_halo.png";
     private const string CarpetaFuente = "Assets/_Fuentes/Alegreya/";
     private const string Fuente = CarpetaFuente + "Alegreya SDF.asset";
 
@@ -136,16 +139,23 @@ public static class ArmarEntradaTemplo
         // como el diseno (Caro, captura del Figma): sin brillos detras, todo centrado y en peso normal.
         // El emblema y el ornamento son los SVG de la carpeta pasados a PNG (4x), porque la UI no muestra SVG vectoriales.
 
-        // 1) emblema de florecitas (110 x 140)
+        // (Caro) los mismos brillos que la pantalla del final del juego (Estadistica final), en los mismos objetos:
+        //  - el emblema con su resplandor (estadistica_emblema.png: 190 x 220 alrededor de los 110 x 140 del dibujo);
+        //  - el halo suave detras de "Templo de botanica" (estadistica_halo.png, blanco al 16 %, 1160 x 230)
+
+        // 1) emblema de florecitas (el dibujo de 110 x 140 queda en 905, 172) con su resplandor
         var pEmblema = Parte("Emblema", raiz);
-        var emblema = Imagen("Emblema", pEmblema, ImportarImagen(Carpeta + "Florecitas_inicio_botánica.png", true), Color.white, 905f, 172f, 110f, 140f);
+        var emblema = Imagen("Emblema", pEmblema, CargarSprite(EmblemaConBrillo), Color.white, 865f, 132f, 190f, 220f);
         emblema.preserveAspect = true;
 
-        // 2) "ingresaste al" + "Templo de botanica"
+        // 2) "ingresaste al" + "Templo de botanica", con el halo detras (como en la Estadistica final: 78 px arriba
+        //    del titulo y centrado)
         var pTitulo = Parte("Titulo", raiz);
+        Imagen("Brillo", pTitulo, CargarSprite(Halo), new Color(1f, 1f, 1f, 0.16f), 380f, 326f, 1160f, 230f);
         Texto("Ingresaste al", pTitulo, fuente, matNormal, "ingresaste al", 40f, FontStyles.SmallCaps, Blanco80,
               660f, 347f, 600f, 54f, TextAlignmentOptions.Center, false);
-        Texto("Templo", pTitulo, fuente, matNormal, "Templo de botánica", 64f, FontStyles.UpperCase, Color.white,
+        var matBrillo = AssetDatabase.LoadAssetAtPath<Material>(CarpetaFuente + "Alegreya SDF Brillo.mat") ?? matNormal;   // el del titulo del final
+        Texto("Templo", pTitulo, fuente, matBrillo, "Templo de botánica", 64f, FontStyles.UpperCase, Color.white,
               460f, 398f, 1000f, 87f, TextAlignmentOptions.Center, false);
 
         // 3) ornamento

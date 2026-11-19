@@ -46,8 +46,8 @@ public class LoreDeLaVasija : MonoBehaviour
 
     [Header("Tiempos")]
     [Tooltip("Segundos que la chica queda quieta en la linea antes de que salga el Lore.")]
-    [SerializeField] private float esperaQuieta = 0.35f;
-    [SerializeField] private float duracionSalida = 1.8f;
+    [SerializeField] private float esperaQuieta = 0.1f;      // (Caro: el Lore medio segundo antes: 0.35 -> 0.1
+    [SerializeField] private float duracionSalida = 1.55f;   //  y la salida de la bolita 1.8 -> 1.55)
     [SerializeField] private float duracionAparecer = 0.7f;
     [Tooltip("Cuanto se curva el camino de la bolita (unidades).")]
     [SerializeField] private float curva = 0.8f;

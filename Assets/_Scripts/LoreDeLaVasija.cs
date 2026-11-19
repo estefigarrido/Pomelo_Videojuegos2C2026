@@ -32,8 +32,7 @@ public class LoreDeLaVasija : MonoBehaviour
              "llega hasta que se cierra el dialogo.")]
     [SerializeField] private Dialogo dialogo;
     [Tooltip("Cartel de tutorial que aparece cuando se cierra el dialogo (el de Saltar).")]
-    [SerializeField] private CartelTutorial cartelAlTerminar;
-    [Tooltip("Tamano del cartel 'Interactuar' con respecto al del nivel (aca la chica esta a 1.4).")]
+    [SerializeField] private CartelTutorial cartelAlTerminar;    [Tooltip("Tamano del cartel 'Interactuar' con respecto al del nivel (aca la chica esta a 1.4).")]
     [SerializeField] private float escalaCartel = 1.4f;
 
     [Header("Tiempos")]

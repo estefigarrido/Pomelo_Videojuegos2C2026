@@ -19,7 +19,6 @@ public class CuadroDialogo : MonoBehaviour
     public static CuadroDialogo Instancia { get; private set; }
     // la chica se queda quieta mientras hay un dialogo abierto
     public static bool Abierto => Instancia != null && Instancia.dialogo != null;
-
     [Header("Piezas (las pone el menu que arma el cuadro)")]
     [SerializeField] private RectTransform cuadro;
     [SerializeField] private TMP_Text nombre;

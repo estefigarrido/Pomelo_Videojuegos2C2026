@@ -282,6 +282,10 @@ public static class ArmarInicioIntroduccion
                 cartel.transform.position = new Vector3(cx + CartelDesdeLosPies.x, pies + CartelDesdeLosPies.y, cartel.transform.position.z);
             if (cartelSaltar != null && (cartelSaltar.transform.position - posicionSaltarArmado).sqrMagnitude < 1e-6f)
                 cartelSaltar.transform.position = new Vector3(cx + SaltarDesdeLosPies.x, pies + SaltarDesdeLosPies.y, cartelSaltar.transform.position.z);
+            // la altura siempre es la del nivel (aunque se los haya corrido a mano de costado)
+            foreach (var ct in new[] { cartel, cartelSaltar })
+                if (ct != null)
+                    ct.transform.position = new Vector3(ct.transform.position.x, pies + AlturaCartelSobrePies, ct.transform.position.z);
         }
 
         Directory.CreateDirectory(Path.GetDirectoryName(RutaEscena));
@@ -607,6 +611,7 @@ public static class ArmarInicioIntroduccion
     {
         // el texto de Caro (lo habia escrito en el cuadro de dialogo de la escena)
         ("Jaya", "“Parece que la crecida del río trajo objetos que nunca había visto. Que raro...”"),
+        ("Jaya", "“¿Eso de allá es un portal? ¿A dónde llevará?”"),
     };
 
     private static Dialogo ArmarDialogoAlLlegar(Transform padre)
@@ -622,6 +627,16 @@ public static class ArmarInicioIntroduccion
         escalador.matchWidthOrHeight = 0.5f;
         ArmarCuadroDialogo.Armar();
         Selection.activeGameObject = null;
+        // igual que el cuadro del nivel (Nivel1_Templo, que Franco ajusto a mano): 248 de alto y el nombre 2 px mas
+        // arriba, asi queda a la misma altura que el resto de los cuadros de dialogo
+        var cuadro = canvasGo.transform.Find("Cuadro de dialogo/Cuadro") as RectTransform;
+        if (cuadro != null)
+        {
+            cuadro.anchoredPosition = new Vector2(10.5f, 103f);
+            cuadro.sizeDelta = new Vector2(1631f, 248f);
+            if (cuadro.Find("Nombre") is RectTransform nombreRt)
+                nombreRt.anchoredPosition = new Vector2(nombreRt.anchoredPosition.x, -44f);
+        }
 
         var go = new GameObject("Dialogo al llegar (Jaya)");
         go.transform.SetParent(padre, false);
@@ -720,8 +735,12 @@ public static class ArmarInicioIntroduccion
     // recuadro rojo): aparece cuando el de Caminar se termina de borrar, como en el nivel.
     private const string RutaCartelCaminar = "Assets/_UI/Carteles/Cartel_caminar.prefab";
     private const string RutaCartelSaltar = "Assets/_UI/Carteles/Cartel_saltoysupersalto.prefab";
-    private static readonly Vector2 CartelDesdeLosPies = new Vector2(4.06f, 2.08f);   // unidades, desde los pies de la chica
-    private static readonly Vector2 SaltarDesdeLosPies = new Vector2(5.62f, 1.63f);
+    // Altura: la misma que en el nivel con respecto a la chica (Caro). En Nivel1_Templo todos los carteles estan en
+    // y -28.33 y la chica sale del portal con los pies en -30.26 (centro -29.06, medio alto 1.2): 1.93 por encima de
+    // los pies con la chica a 1. Aca la chica esta a 1.4: 2.7 por encima de los pies.
+    private const float AlturaCartelSobrePies = (-28.33f - (-29.063f - 1.2f)) * EscalaChica;
+    private static readonly Vector2 CartelDesdeLosPies = new Vector2(4.06f, AlturaCartelSobrePies);   // unidades, desde los pies de la chica
+    private static readonly Vector2 SaltarDesdeLosPies = new Vector2(5.62f, AlturaCartelSobrePies);
     private const float EscalaCartelEnElNivel = 0.013f;
 
     // los dos carteles, encadenados: Caminar lo muestra PantallaInicio; Saltar lo muestra Caminar al borrarse

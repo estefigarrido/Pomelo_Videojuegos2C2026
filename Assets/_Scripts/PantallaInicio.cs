@@ -21,8 +21,11 @@ public class PantallaInicio : MonoBehaviour
     [Tooltip("La otra parte del dibujo (catarata y templo): empieza en x 36.11 y termina en 72.02.")]
     [SerializeField] private float inicioOtraParte = 36.11f;
     [SerializeField] private float finOtraParte = 72.02f;
-    [Tooltip("Alto de todo el dibujo (2160 px).")]
+    [Tooltip("Alto de todo el dibujo (unidades).")]
     [SerializeField] private float altoDibujo = 21.6f;
+    [Tooltip("Donde va el centro de la camara, medido desde arriba del dibujo (unidades). Si con eso la camara se " +
+             "saliera del dibujo, se corre lo justo para no salirse.")]
+    [SerializeField] private float centroDesdeArriba = 10.8f;
 
     [Header("Al comenzar")]
     [Tooltip("El titulo y 'Comenzar' (se desvanecen).")]
@@ -179,6 +182,8 @@ public class PantallaInicio : MonoBehaviour
         float alto = Mathf.Min(ancho / aspecto, altoDibujo);
         camara.orthographicSize = alto / 2f;
         var p = camara.transform.position;
-        camara.transform.position = new Vector3((desde + hasta) / 2f, altoDibujo / 2f, p.z);
+        // el centro a 'centroDesdeArriba' de arriba, sin que la camara se salga del dibujo (ni arriba ni abajo)
+        float centro = Mathf.Clamp(altoDibujo - centroDesdeArriba, alto / 2f, altoDibujo - alto / 2f);
+        camara.transform.position = new Vector3((desde + hasta) / 2f, centro, p.z);
     }
 }

@@ -10,86 +10,60 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.LowLevel;
 using UnityEngine.UI;
 
-// Arma la escena de la pantalla de inicio (Assets/Scenes/Inicio_introducción.unity) con el escenario de Caro:
-// la cueva con la plataforma de inicio (capas "inicio_*") y, a la derecha, la catarata y el templo (capas "cascada_*").
-// Las capas son los PNG de Assets/_Entorno/_Inicio_introduccion (salieron de pomelo_escena_completa_capas.zip) y van
-// en el mismo lugar y orden que en el SVG de la escena completa (posiciones.json del zip).
+// Arma la escena de la pantalla de inicio (Assets/Scenes/Inicio_introducción.unity) con el frame "intro juego ·
+// escena" del Figma de Caro. Cada capa del frame esta exportada como PNG en Assets/_Entorno/_Inicio_introduccion,
+// y capas.json dice, para cada una, donde va (px de la escena: 1 px = 0.36 unidades de Figma, como antes), su
+// tamano y su orden de dibujo (de atras hacia adelante, como en Figma). El menu pone todas las capas y les agrega
+// las animaciones segun su nombre:
+//   - agua (agua, reflejos, 09 agua...): se mece y corre como un rio (shader AguaOndulante)
+//   - agua cayendo (los chorritos de la cueva) y 07 plataformas de agua (derecha): el agua cae (CascaditasAgua)
+//   - inicio_13_planta: se mece con la brisa (PlantaViento)
+//   - niebla (inicio_02_niebla, 01 cielo y niebla, niebla al pie): se mueve un poquito (Neblina)
+//   - las dos columnas sueltas y el Jarron: flotan, con agua delante de la base (Flotante); el Jarron con brillo
+//     (Resplandor) y el Lore que sale de el (LoreDeLaVasija)
+//   - pilares, 10 plataformas, bloques de agua y 07 plataformas: tienen piso invisible (la chica camina encima)
+//   - los puntitos de luz de la cueva (Destellos), la chica, los carteles, el dialogo y la pantalla del titulo
 // Tambien pone la escena primera en la lista del build, asi el juego arranca por la pantalla de inicio.
 // Menu:  Pomelo -> Escenas -> Armar escena Inicio_introducción
 public static class ArmarInicioIntroduccion
 {
-    // la carpeta donde esten las capas (se busca por inicio_01_fondo.png, asi se puede mover sin romper nada;
-    // hoy esta en Assets/_Entorno/_Inicio_introduccion)
-    private static string carpeta;
-    private static string Carpeta
-    {
-        get
-        {
-            if (carpeta != null && AssetDatabase.IsValidFolder(carpeta)) return carpeta;
-            string ruta = AssetDatabase.FindAssets("inicio_01_fondo t:Texture2D")
-                .Select(AssetDatabase.GUIDToAssetPath)
-                .FirstOrDefault(r => Path.GetFileName(r) == "inicio_01_fondo.png");
-            carpeta = ruta != null ? Path.GetDirectoryName(ruta).Replace('\\', '/') : "Assets/_Entorno/_Inicio_introduccion";
-            return carpeta;
-        }
-    }
+    private const string Carpeta = "Assets/_Entorno/_Inicio_introduccion";
+    private const string RutaManifiesto = Carpeta + "/capas.json";
     private const string RutaEscena = "Assets/Scenes/Inicio_introducción.unity";
     private const float PixelesPorUnidad = 100f;
-    private const float AltoEscenaPx = 2160f;   // la escena completa mide 7202 x 2160 px
     private const float AnchoCuevaPx = 3612f;   // la parte de la cueva de inicio (lo que muestra la pantalla de inicio)
-    // cuanto se sube el agua (la de la cueva y la de la parte 2, que son una sola) y lo que esta en ella, respecto
-    // del SVG, en px de la escena. OJO: la isla de roca y sus piedritas (inicio_10 / inicio_15) estan redibujadas
-    // ya subidas 70: si se cambia este numero, hay que redibujarlas tambien.
-    private const int SubidaAgua = 70;
+    // medidas de la escena (las pone el capas.json: el frame de Figma por 0.36)
+    private static float AltoEscenaPx = 2347.2f;
+    private static float AnchoEscenaPx = 7839.36f;
+    // altura del agua (px de la escena, desde arriba): el borde de arriba de la capa "agua" del fondo
+    private static float LineaDelAguaPx = 1990.8f;
 
-    // capa, x, y (esquina de arriba a la izquierda, en px, con y para abajo). Ordenadas de atras hacia adelante.
-    private static readonly (string capa, int x, int y)[] Capas =
+    // Si cambia el diseno (otro frame de Figma), los ajustes a mano de la escena anterior ya no sirven: con otra
+    // version, el menu arma la escena de cero (sin mezclar). Con la misma version, conserva los ajustes a mano.
+    private const string VersionDisenio = "figma: intro juego · escena (18/11/2026)";
+    private const string RutaVersion = "Assets/Editor/ArmarInicioIntroduccion_base.version.txt";
+
+    [System.Serializable] private class Capa
     {
-        ("inicio_01_fondo", 0, 0),
-        ("inicio_02_niebla", 349, 920),
-        ("inicio_03_rayos_de_luz", 439, 0),
-        ("inicio_04_columnas_de_luz", 965, 0),
-        ("inicio_05_cascada", 3061, 0),
-        // el agua de la cueva sube igual que la de la parte 2 (es una sola agua), y se estira hasta abajo
-        ("inicio_06_agua", 0, 1996 - SubidaAgua),
-        ("inicio_07_lianas", 1870, 0),
-        ("inicio_08_techo", 0, 0),
-        ("inicio_09_plataforma_inicio", 0, 175),
-        // la isla de roca, redibujada subida con el agua y alargada hasta abajo (en el SVG: 2048, 1867). Las
-        // piedritas de arriba de ella (en inicio_15_musgo) tambien estan redibujadas subidas.
-        ("inicio_10_isla_roca", 2027, 1795),
-        ("inicio_13_planta", 674, 1132),
-        ("inicio_14_hojas_oscuras", 35, 1811),
-        ("inicio_15_musgo", 513, 1472),
-        ("inicio_16_hilos_colgantes", 1235, 117),
-        ("inicio_17_particulas", 1088, 1107),
-        ("cascada_00_fondo", 3611, 0),
-        ("cascada_01_cielo_y_niebla", 3611, 0),
-        ("cascada_02_selva_lejana_pilares_facetados", 3665, 0),
-        ("cascada_02b_acantilado_de_la_catarata", 4281, 0),
-        ("cascada_03_cueva_lejana_arcos_del_templo", 5181, 493),
-        ("cascada_04_rayos_de_luz", 5123, 0),
-        ("cascada_05_catarata_recta", 4252, 0),
-        // PARTE 2: el agua y todo lo que esta en el agua va SubidaAgua px mas arriba que en el SVG (Caro: el
-        // agua quedaba muy abajo). En x no cambia nada. El agua de base va despues del fondo (en el SVG iba antes),
-        // asi tapa la parte de abajo de la catarata y los pilares, que ahora quedaria debajo del agua.
-        ("cascada_00b_agua_base", 3611, 1990 - SubidaAgua),
-        // las hojas: en el SVG iban adelante de todo; Caro las paso atras de los objetos (arco, columnas, bloques)
-        ("cascada_12_plantas_de_fondo", 3660, 1714 - SubidaAgua),
-        ("cascada_06_fragmento_de_templo_roto", 4799, 1396 - SubidaAgua),
-        ("cascada_07_plataformas_de_agua_derecha", 5961, 1787 - SubidaAgua),
-        ("cascada_08_columnas_sueltas", 4472, 1375 - SubidaAgua),
-        ("cascada_09_agua", 3744, 2005 - SubidaAgua),
-        ("cascada_10_plataformas", 3975, 1947 - SubidaAgua),
-        ("cascada_11_techo_de_la_cueva", 4799, 0),
-        // (la columna de roca del medio, inicio_11_columna_roca, y su agua de adelante, inicio_12_agua_frente, se
-        // sacaron: Caro quiere el agua de las dos partes como una sola, sin corte)
-    };
+        public int i, sub; public string archivo, nombre, ruta, tipo, blend;
+        public float x, y, ancho, alto, opacidad; public int imgW, imgH;
+        public float F => ancho > 0f ? imgW / ancho : 1f;   // pixeles de la imagen por pixel de la escena
+        public string Ruta => Carpeta + "/" + archivo;
+    }
+    [System.Serializable] private class Cuadro { public string nombre; public float ancho, alto, escala; }
+    [System.Serializable] private class Manifiesto { public Cuadro frame; public Capa[] capas; }
 
     [MenuItem("Pomelo/Escenas/Armar escena Inicio_introducción")]
     public static void Armar()
     {
         if (EditorApplication.isPlaying) { Debug.LogError("Para el Play antes de armar la escena."); return; }
+        if (!File.Exists(RutaManifiesto)) { Debug.LogError("Falta " + RutaManifiesto + " (las capas exportadas de Figma)."); return; }
+        var man = JsonUtility.FromJson<Manifiesto>(File.ReadAllText(RutaManifiesto));
+        if (man == null || man.capas == null || man.capas.Length == 0) { Debug.LogError("No pude leer " + RutaManifiesto); return; }
+        AltoEscenaPx = man.frame.alto;
+        AnchoEscenaPx = man.frame.ancho;
+        var aguaFondo = man.capas.FirstOrDefault(c => c.nombre == "agua" && c.ruta == "1 · Fondo");
+        if (aguaFondo != null) LineaDelAguaPx = aguaFondo.y;
 
         // Si la escena ya existe, se rearma ENCIMA de ella y se conservan los ajustes hechos a mano (ver
         // ConservarAjustes): se saca una foto de como esta, se arma todo de nuevo y se le vuelven a poner los cambios
@@ -97,6 +71,7 @@ public static class ArmarInicioIntroduccion
         Scene escena;
         ConservarAjustes.Foto actual = null, anterior = null;
         var viejas = new List<GameObject>();
+        bool mismoDisenio = File.Exists(RutaVersion) && File.ReadAllText(RutaVersion).Trim() == VersionDisenio;
         if (File.Exists(RutaEscena))
         {
             var activa = SceneManager.GetActiveScene();
@@ -108,8 +83,11 @@ public static class ArmarInicioIntroduccion
                 escena = EditorSceneManager.OpenScene(RutaEscena, OpenSceneMode.Single);
             }
             viejas = escena.GetRootGameObjects().Where(g => RaicesDelMenu.Contains(g.name)).ToList();
-            actual = ConservarAjustes.Tomar(viejas);
-            anterior = ConservarAjustes.LeerBase(RutaBase);
+            if (mismoDisenio)
+            {
+                actual = ConservarAjustes.Tomar(viejas);
+                anterior = ConservarAjustes.LeerBase(RutaBase);
+            }
             foreach (var g in viejas) g.name = "__viejo " + g.name;   // asi no se confunden con las nuevas
         }
         else
@@ -117,9 +95,6 @@ public static class ArmarInicioIntroduccion
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
             escena = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         }
-
-        carpeta = null;   // la busca de nuevo, por si se movio
-        PrepararImagenes();
 
         // camara: ve la cueva de inicio entera (PantallaInicio la reencuadra segun la pantalla)
         var camGo = new GameObject("Main Camera");
@@ -129,7 +104,7 @@ public static class ArmarInicioIntroduccion
         cam.orthographicSize = AnchoCuevaPx / PixelesPorUnidad / (16f / 9f) / 2f;
         cam.clearFlags = CameraClearFlags.SolidColor;
         cam.backgroundColor = new Color32(0x14, 0x1a, 0x18, 0xff);
-        camGo.transform.position = new Vector3(AnchoCuevaPx / PixelesPorUnidad / 2f, AltoEscenaPx / PixelesPorUnidad / 2f, -10f);
+        camGo.transform.position = new Vector3(AnchoCuevaPx / PixelesPorUnidad / 2f, (AltoEscenaPx - CentroDesdeArribaPx) / PixelesPorUnidad, -10f);
         camGo.AddComponent<AudioListener>();
 
         // luz global, como en el nivel (los sprites usan el material iluminado del 2D)
@@ -144,76 +119,136 @@ public static class ArmarInicioIntroduccion
         inicio.SetParent(raiz, false);
         cascada.SetParent(raiz, false);
 
-        int faltan = 0;
-        GameObject chica = null;
         colocadas.Clear();
-        for (int i = 0; i < Capas.Length; i++)
+        Colocada pisoChica = null;
+        int faltan = 0, ordenMax = 0, nNiebla = 0, nFlota = 0;
+        Material cascadasCueva = null;
+        piedras.Clear();
+        decorados.Clear();
+        bloquesDeLaCueva = null;
+        foreach (var c in man.capas.OrderBy(c => c.i).ThenBy(c => c.sub))
         {
-            var (capa, x, y) = Capas[i];
-            // orden de dibujo: de a 10 por capa, asi entre una capa y la siguiente entran cosas (el agua de las columnas)
-            int orden = (i - Capas.Length) * 10;
-            // los puntitos de luz no van como imagen quieta: se arman uno por uno para que floten y destellen
-            if (capa == "inicio_17_particulas")
+            if (!File.Exists(c.Ruta)) { Debug.LogWarning("Falta la capa " + c.Ruta); faltan++; continue; }
+            // de a 10: entre una capa y la siguiente entran cosas (agua de adelante, brillo); 'sub' = partes de una capa
+            int orden = c.i * 10 + c.sub - 3000;
+            ordenMax = Mathf.Max(ordenMax, orden);
+            var padre = c.x + c.ancho / 2f < AnchoCuevaPx ? inicio : cascada;
+            var sprite = ImportarPieza(c.Ruta, PixelesPorUnidad * c.F);
+            if (sprite == null) { faltan++; continue; }
+
+            // las dos columnas sueltas: flotan, con la base metida en el agua
+            if (c.ruta.EndsWith("08 columnas sueltas"))
             {
-                ArmarDestellos(inicio, orden);
+                ArmarFlotante(c, sprite, padre, "Columna flotante " + (++nFlota), orden, nFlota * 1.7f);
                 continue;
             }
-            // las columnas grises caidas: sueltas, flotando, con la base metida en el agua
-            if (capa == "cascada_08_columnas_sueltas")
+            // el Jarron: flota, con un brillo suave, y de el sale el Lore cuando la chica se acerca
+            if (c.nombre.StartsWith("Jarr"))
             {
-                ArmarColumnasFlotantes(cascada, x, y, orden);
+                var raizVasija = ArmarFlotante(c, sprite, padre, "Vasija flotante", orden, 0.9f);
+                PonerBrillo(raizVasija, c.Ruta, c.F, 1f, orden - 1);
+                PonerLore(raizVasija, sprite, orden + 6);
                 continue;
             }
-            // los bloques negros y la vasija: separados en piezas y agrandados para la chica, que va parada en el
-            // primero (adelante de los bloques)
-            if (capa == "cascada_10_plataformas")
+
+            // las piedras de "10 plataformas" vienen en una sola imagen: se separan en piezas (cada bloque) para poder
+            // agrandarlas y pisarlas una por una
+            if (c.ruta.EndsWith("10 plataformas"))
             {
-                // los de segundo plano van detras del arco (que esta 4 capas antes: orden - 40)
-                ArmarBloques(cascada, capa, x, y, orden, orden - 45);
-                chica = PonerChica(cascada, orden + 5);
+                foreach (var pz in SepararEnPiezas(c))
+                {
+                    var gp = new GameObject($"{c.i:000} {c.nombre} pieza {pz.n}");
+                    gp.transform.SetParent(padre, false);
+                    gp.transform.localPosition = new Vector3(pz.x / PixelesPorUnidad, (AltoEscenaPx - pz.y) / PixelesPorUnidad, 0f);
+                    var srp = gp.AddComponent<SpriteRenderer>();
+                    srp.sprite = pz.sprite;
+                    srp.sortingOrder = orden;
+                    var mp = MaterialPiedrasConAgua();   // sus tiras de agua claras corren para abajo
+                    if (mp != null) srp.sharedMaterial = mp;
+                    var colp = new Colocada { ruta = pz.ruta, zona = new RectInt(0, 0, pz.imgW, pz.imgH), x = pz.x, y = pz.y,
+                                              escala = 1f, f = c.F, go = gp };
+                    colocadas.Add(colp);
+                    piedras.Add(new Piedra { go = gp, x = pz.x, y = pz.y, ancho = pz.ancho, alto = pz.alto, col = colp });
+                    if (pisoChica == null) pisoChica = colp;   // la chica arranca sobre el primer bloque
+                }
                 continue;
             }
-            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{Carpeta}/{capa}.png");
-            // el agua de las dos partes es una sola (Caro): una tira generada para todo el ancho, partida en dos
-            // (la de la cueva va en el lugar de inicio_06 y la de la parte 2 en el de cascada_00b, cada una en su
-            // orden de dibujo), asi no hay corte en el medio
-            if (capa == "inicio_06_agua" || capa == "cascada_00b_agua_base")
-            {
-                bool izquierda = capa == "inicio_06_agua";
-                sprite = AguaUnida(izquierda);
-                x = izquierda ? 0 : Mathf.RoundToInt(AnchoCuevaPx);
-                y = Mathf.RoundToInt(LineaDelAguaPx);
-            }
-            if (sprite == null) { Debug.LogWarning("Falta la capa " + capa + ".png en " + Carpeta); faltan++; continue; }
-            var go = new GameObject(capa);
-            go.transform.SetParent(capa.StartsWith("inicio") ? inicio : cascada, false);
-            // el pivot de cada imagen esta arriba a la izquierda; el piso de la escena queda en y = 0
-            go.transform.localPosition = new Vector3(x / PixelesPorUnidad, (AltoEscenaPx - y) / PixelesPorUnidad, 0f);
+
+            // los bloques con chorritos de agua de la cueva van todos juntos en un objeto, para moverlos de una vez
+            if (EsBloqueDeLaCueva(c)) padre = BloquesDeLaCueva(inicio, man);
+
+            var go = new GameObject($"{c.i:000} {c.nombre}");
+            go.transform.SetParent(padre, false);
+            // el punto de cada imagen esta arriba a la izquierda; el piso de la escena queda en y = 0
+            go.transform.position = new Vector3(c.x / PixelesPorUnidad, (AltoEscenaPx - c.y) / PixelesPorUnidad, 0f);
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = sprite;
-            sr.sortingOrder = orden;   // todo el fondo queda detras (numeros negativos), en el orden del SVG
-            if (CapasDeAgua.Contains(capa)) sr.sharedMaterial = MaterialAgua(capa, sprite);
-            // la plantita de la cueva se mece con la brisa
-            if (capa == "inicio_13_planta") sr.sharedMaterial = MaterialAnimado("Pomelo/PlantaViento", "Planta_viento");
-            // las tiras de agua de las plataformas de la derecha corren para abajo
-            if (capa == "cascada_07_plataformas_de_agua_derecha")
+            sr.sortingOrder = orden;
+
+            // agua que se mece y corre como un rio
+            if (EsAgua(c)) sr.sharedMaterial = MaterialAgua(Path.GetFileNameWithoutExtension(c.archivo), sprite);
+            // los chorritos de agua de la cueva caen
+            if (c.nombre == "agua cayendo")
+            {
+                if (cascadasCueva == null)
+                {
+                    cascadasCueva = MaterialAnimado("Pomelo/CascaditasAgua", "Cascadas_cueva");
+                    if (cascadasCueva != null)
+                    {
+                        // todo el dibujo es agua: sin tenir la piedra ni fundir la parte de abajo
+                        cascadasCueva.SetFloat("_AltoPx", c.imgH);
+                        cascadasCueva.SetFloat("_Umbral", 0f);
+                        cascadasCueva.SetFloat("_TonoPiedra", 0f);
+                        cascadasCueva.SetFloat("_FundidoAbajo", 0f);
+                    }
+                }
+                if (cascadasCueva != null) sr.sharedMaterial = cascadasCueva;
+            }
+            // las plataformas de agua de la derecha: la piedra gris oscura y el agua que cae
+            if (c.nombre.StartsWith("07 plataformas"))
             {
                 var m = MaterialAnimado("Pomelo/CascaditasAgua", "Cascaditas_agua");
-                if (m != null) { m.SetFloat("_AltoPx", sprite.rect.height); sr.sharedMaterial = m; }
-                // agrandadas para la chica, contra el borde derecho
-                AgrandarPlataformasDerecha(go.transform, capa, y, sprite);
-                // adelante de las columnas flotantes (si no, la columna alta se ve encima, como si las plataformas
-                // fueran transparentes). Sin sombra (Caro la saco); el gris lo da el material (_Gris).
-                sr.sortingOrder = orden + 15;
+                if (m != null) { m.SetFloat("_AltoPx", c.imgH); sr.sharedMaterial = m; }
             }
+            // la plantita de la cueva se mece con la brisa
+            if (c.nombre == "inicio_13_planta") sr.sharedMaterial = MaterialAnimado("Pomelo/PlantaViento", "Planta_viento");
+            // la neblina se mueve un poquito
+            if (c.nombre.Contains("niebla"))
+            {
+                var so = new SerializedObject(go.AddComponent<Neblina>());
+                so.FindProperty("desfase").floatValue = (nNiebla++) * 5.3f;
+                so.ApplyModifiedPropertiesWithoutUndo();
+            }
+            // lo que se puede pisar: piso invisible pegado al dibujo
+            Colocada col = null;
+            if (EsPiso(c))
+            {
+                col = new Colocada { ruta = c.Ruta, zona = new RectInt(0, 0, c.imgW, c.imgH), x = c.x, y = c.y,
+                                     escala = 1f, f = c.F, go = go };
+                colocadas.Add(col);
+            }
+            // las piedras de la parte 2 se agrandan para la chica (ver AgrandarPiedras); lo que esta parado encima
+            // (la puerta dorada) sube con ellas
+            if (EsPiedraAgrandable(c))
+            {
+                piedras.Add(new Piedra { go = go, x = c.x, y = c.y, ancho = c.ancho, alto = c.alto, col = col });
+                // las tiras de agua claras que tienen dibujadas corren para abajo
+                var mp = MaterialPiedrasConAgua();
+                if (mp != null) sr.sharedMaterial = mp;
+            }
+            else if (c.ruta == "4 · Decorado") decorados.Add(new Piedra { go = go, x = c.x, y = c.y, ancho = c.ancho, alto = c.alto });
+            // los puntitos de luz de la cueva, adelante del musgo
+            if (c.nombre == "inicio_15_musgo") ArmarDestellos(inicio, orden + 5);
         }
 
+        AgrandarPiedras();
+        var chica = PonerChica(cascada, ordenMax + 5, pisoChica);
         ArmarPisosParte2(cascada);
         var dialogo = ArmarDialogoAlLlegar(cascada);
         var (cartel, cartelSaltar) = PonerCarteles(cascada, chica, actual);
         var posicionCartelArmado = cartel != null ? cartel.transform.position : Vector3.zero;
         var posicionSaltarArmado = cartelSaltar != null ? cartelSaltar.transform.position : Vector3.zero;
-        // el dialogo de Jaya lo abre el Lore de la vasija, 1 s despues de aparecer (Caro)
+        // el dialogo de Jaya lo abre el Lore de la vasija
         foreach (var lore in cascada.GetComponentsInChildren<LoreDeLaVasija>(true))
         {
             var sol = new SerializedObject(lore);
@@ -226,17 +261,10 @@ public static class ArmarInicioIntroduccion
         var nuevas = escena.GetRootGameObjects().Where(g => RaicesDelMenu.Contains(g.name)).ToList();
         var nuevo = ConservarAjustes.Tomar(nuevas);
         ConservarAjustes.GuardarBase(nuevo, RutaBase);
+        File.WriteAllText(RutaVersion, VersionDisenio);
 
         int ajustes = 0;
-        if (actual != null)
-        {
-            ajustes = ConservarAjustes.Mezclar(actual, nuevo, anterior, escena);
-            // la primera vez (sin base) no se puede distinguir un ajuste a mano de un cambio del codigo: los bloques
-            // de segundo plano se dejan con el color nuevo (Caro pidio que se noten mas)
-            if (anterior == null)
-                foreach (var sr in cascada.GetComponentsInChildren<SpriteRenderer>(true))
-                    if (sr.name.EndsWith("(fondo)")) sr.color = ColorFondo;
-        }
+        if (actual != null) ajustes = ConservarAjustes.Mezclar(actual, nuevo, anterior, escena);
         foreach (var g in viejas) if (g != null) Object.DestroyImmediate(g);
 
         // la chica parada sobre la piedra que tenga abajo (aunque se haya movido a mano o se hayan movido las piedras)
@@ -258,8 +286,9 @@ public static class ArmarInicioIntroduccion
         Directory.CreateDirectory(Path.GetDirectoryName(RutaEscena));
         EditorSceneManager.SaveScene(escena, RutaEscena);
         PonerPrimeraEnElBuild();
-        Debug.Log($"Escena {RutaEscena} armada con {Capas.Length - faltan} capas. Quedo primera en el build." +
-                  (actual != null ? $" Se conservaron {ajustes} ajustes hechos a mano." : ""));
+        Debug.Log($"Escena {RutaEscena} armada con {man.capas.Length - faltan} capas del Figma. Quedo primera en el build." +
+                  (actual != null ? $" Se conservaron {ajustes} ajustes hechos a mano." :
+                   (viejas.Count > 0 ? " (Diseno nuevo: se armo de cero, sin los ajustes a mano de la escena anterior.)" : "")));
     }
 
     // los objetos de primer nivel que arma este menu (los demas que haya en la escena no se tocan)
@@ -267,6 +296,306 @@ public static class ArmarInicioIntroduccion
     {
         "Main Camera", "Luz global", "Escenario", "Pantalla de inicio", "Canvas",
     };
+
+    // el centro de la camara en la cueva, medido desde arriba (px de la escena): el encuadre de antes
+    private const float CentroDesdeArribaPx = 1080f;
+
+    // ---------- que hace cada capa (por su nombre en Figma) ----------
+
+    private static bool EsAgua(Capa c) =>
+        c.nombre == "agua" || c.nombre.StartsWith("reflejo") || c.ruta.EndsWith("09 agua") ||
+        (c.ruta.EndsWith("5 · Escenario/agua") && c.nombre.StartsWith("Vector"));
+
+    private static bool EsPiso(Capa c) =>
+        (c.nombre == "pilar" && c.ruta.Contains("piedras y cascadas")) || c.ruta.EndsWith("10 plataformas") ||
+        c.nombre.StartsWith("bloque agua") || c.nombre.StartsWith("07 plataformas");
+
+    // ---------- los bloques con chorritos de agua de la cueva, juntos ----------
+    // Los pilares negros, los chorritos de "agua cayendo", sus brillos y las rayitas de arriba (de "piedras y
+    // cascadas (encima del agua)", en la cueva) van de hijos de un solo objeto: moviendolo se mueve toda la fila.
+    // El objeto queda en el medio de la fila, a la altura de la base.
+    private static Transform bloquesDeLaCueva;
+
+    private static bool EsBloqueDeLaCueva(Capa c) =>
+        c.ruta == "5 · Escenario/piedras y cascadas (encima del agua)" && c.x + c.ancho / 2f < AnchoCuevaPx;
+
+    private static Transform BloquesDeLaCueva(Transform padre, Manifiesto man)
+    {
+        if (bloquesDeLaCueva != null) return bloquesDeLaCueva;
+        var todos = man.capas.Where(EsBloqueDeLaCueva).ToList();
+        float minX = todos.Min(c => c.x), maxX = todos.Max(c => c.x + c.ancho), abajo = todos.Max(c => c.y + c.alto);
+        var go = new GameObject("Bloques con agua (cueva)");
+        go.transform.SetParent(padre, false);
+        go.transform.position = new Vector3((minX + maxX) / 2f / PixelesPorUnidad, (AltoEscenaPx - abajo) / PixelesPorUnidad, 0f);
+        bloquesDeLaCueva = go.transform;
+        return bloquesDeLaCueva;
+    }
+
+    // el material de las piedras con tiras de agua dibujadas (bloques de la parte 2): solo lo claro (el agua) se
+    // anima y cae; la piedra queda como esta (sin tenirla ni fundir la parte de abajo). Se ajusta solo la primera vez,
+    // asi se respetan los cambios a mano en el material.
+    private static Material MaterialPiedrasConAgua()
+    {
+        string ruta = $"{CarpetaAnimaciones}/Cascaditas_piedras.mat";
+        bool nuevo = AssetDatabase.LoadAssetAtPath<Material>(ruta) == null;
+        var m = MaterialAnimado("Pomelo/CascaditasAgua", "Cascaditas_piedras");
+        if (m != null && nuevo)
+        {
+            m.SetFloat("_TonoPiedra", 0f);
+            m.SetFloat("_FundidoAbajo", 0f);
+            m.SetFloat("_Umbral", 0.6f);
+            EditorUtility.SetDirty(m);
+        }
+        return m;
+    }
+
+    // ---------- piedras agrandadas para la chica ----------
+    // Caro: las estructuras de piedra de la parte 2 tienen que ser proporcionales a la chica, con lugar para caminar.
+    // Las piedras que se tocan (o casi) forman un grupo, y cada grupo se agranda desde su base (abajo, en el agua):
+    //   - grupos angostos: EscalaPiedras para arriba y para los costados, y si aun asi quedan mas angostos que
+    //     AnchoMinimoPiedra, se ensanchan hasta ese ancho
+    //   - grupos anchos (AnchoYaComodo o mas: ya hay lugar para caminar): solo mas altos, asi no se comen el resto
+    // Lo que esta parado arriba de un grupo (la puerta dorada) sube lo mismo que crecio la piedra.
+    // Las piedras de la cueva no se tocan (la chica no llega ahi).
+    private const float EscalaPiedras = 1.4f;
+    private const float AnchoMinimoPiedra = 200f;   // px de la escena (la chica mide unos 110 de ancho)
+    private const float AnchoYaComodo = 450f;
+    private const float JuntasHasta = 4f;            // px: piedras a esta distancia o menos van juntas
+
+    private class Piedra { public GameObject go; public float x, y, ancho, alto, subio; public Colocada col; }
+    private static readonly List<Piedra> piedras = new List<Piedra>();
+    private static readonly List<Piedra> decorados = new List<Piedra>();
+
+    private static bool EsPiedraAgrandable(Capa c) =>
+        c.x >= AnchoCuevaPx &&
+        (c.nombre.StartsWith("bloque agua") || c.ruta.EndsWith("12 plantas de fondo"));
+
+    private static void AgrandarPiedras()
+    {
+        var orden = piedras.OrderBy(p => p.x).ToList();
+        var grupos = new List<List<Piedra>>();
+        foreach (var p in orden)
+        {
+            var g = grupos.LastOrDefault();
+            if (g != null && p.x <= g.Max(q => q.x + q.ancho) + JuntasHasta) g.Add(p);
+            else grupos.Add(new List<Piedra> { p });
+        }
+        foreach (var g in grupos)
+        {
+            float minX = g.Min(p => p.x), maxX = g.Max(p => p.x + p.ancho);
+            float abajo = g.Max(p => p.y + p.alto);
+            float ancho = maxX - minX;
+            float sy = EscalaPiedras;
+            float sx = ancho >= AnchoYaComodo ? 1f : Mathf.Max(EscalaPiedras, AnchoMinimoPiedra / Mathf.Max(1f, ancho));
+            float cx = (minX + maxX) / 2f;
+            // que no se salga por la derecha del dibujo
+            float corrido = Mathf.Max(0f, cx + (maxX - cx) * sx - (AnchoEscenaPx - 5f));
+            foreach (var p in g)
+            {
+                float nx = cx + (p.x - cx) * sx - corrido;
+                float ny = abajo + (p.y - abajo) * sy;
+                // cuanto subio el borde de arriba de esta piedra (para lo que este parado encima)
+                p.subio = p.y - ny;
+                p.go.transform.localPosition = new Vector3(nx / PixelesPorUnidad, (AltoEscenaPx - ny) / PixelesPorUnidad, 0f);
+                p.go.transform.localScale = new Vector3(sx, sy, 1f);
+                if (p.col != null) { p.col.x = nx; p.col.y = ny; p.col.escala = sy; }
+            }
+        }
+        // lo que esta parado arriba de una piedra (la puerta dorada) sube lo mismo que subio esa piedra
+        foreach (var d in decorados)
+        {
+            float base_ = d.y + d.alto, centro = d.x + d.ancho / 2f;
+            var debajo = piedras.Where(p => centro >= p.x && centro <= p.x + p.ancho && Mathf.Abs(p.y - base_) < 40f)
+                                .OrderBy(p => Mathf.Abs(p.y - base_)).FirstOrDefault();
+            if (debajo == null || debajo.subio <= 0f) continue;
+            d.go.transform.localPosition += new Vector3(0f, debajo.subio / PixelesPorUnidad, 0f);
+        }
+    }
+
+    // una pieza recortada de una capa: su sprite (en la carpeta piezas), su lugar y tamano (px de la escena)
+    private class Pieza { public int n; public Sprite sprite; public string ruta; public float x, y, ancho, alto; public int imgW, imgH; }
+
+    // separa una capa en piezas: cada tramo de columnas con algo dibujado
+    private static List<Pieza> SepararEnPiezas(Capa c)
+    {
+        var res = new List<Pieza>();
+        var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+        tex.LoadImage(File.ReadAllBytes(c.Ruta));
+        int W = tex.width, H = tex.height;
+        var hay = new bool[W];
+        for (int x = 0; x < W; x++)
+            for (int y = 0; y < H && !hay[x]; y++)
+                hay[x] = tex.GetPixel(x, y).a > 0.15f;
+        var tramos = new List<(int desde, int hasta)>();
+        for (int x = 0, desde = -1; x <= W; x++)
+        {
+            bool on = x < W && hay[x];
+            if (on && desde < 0) desde = x;
+            if (!on && desde >= 0) { tramos.Add((desde, x)); desde = -1; }
+        }
+        string carpetaPiezas = Carpeta + "/piezas";
+        Directory.CreateDirectory(carpetaPiezas);
+        var rutas = new List<string>();
+        for (int i = 0; i < tramos.Count; i++)
+        {
+            int w = tramos[i].hasta - tramos[i].desde;
+            var p = new Texture2D(w, H, TextureFormat.RGBA32, false);
+            p.SetPixels(tex.GetPixels(tramos[i].desde, 0, w, H));
+            p.Apply();
+            string rp = $"{carpetaPiezas}/{Path.GetFileNameWithoutExtension(c.archivo)}_pieza_{i + 1}.png";
+            File.WriteAllBytes(rp, p.EncodeToPNG());
+            Object.DestroyImmediate(p);
+            rutas.Add(rp);
+        }
+        Object.DestroyImmediate(tex);
+        AssetDatabase.Refresh();
+        for (int i = 0; i < tramos.Count; i++)
+        {
+            int w = tramos[i].hasta - tramos[i].desde;
+            var sprite = ImportarPieza(rutas[i], PixelesPorUnidad * c.F);
+            if (sprite == null) continue;
+            res.Add(new Pieza { n = i + 1, sprite = sprite, ruta = rutas[i], x = c.x + tramos[i].desde / c.F, y = c.y,
+                                ancho = w / c.F, alto = c.alto, imgW = w, imgH = H });
+        }
+        return res;
+    }
+
+    // algo que flota (columna o jarron): la base en el agua, el dibujo encima, y agua translucida delante de la base
+    private static Transform ArmarFlotante(Capa c, Sprite sprite, Transform padre, string nombre, int orden, float desfase)
+    {
+        var (desde, hasta) = BajoElAgua(c);
+        float centro = (desde + hasta) / 2f;
+        var raiz = Flotar(padre, nombre, sprite, 1f, centro, LineaDelAguaPx, c.x, c.y, orden, desfase);
+        AguaDelante(raiz, centro, hasta - desde, orden + 3);
+        return raiz;
+    }
+
+    // de donde a donde (x, px de la escena) llega lo que una capa tiene debajo de la linea del agua
+    private static (float desde, float hasta) BajoElAgua(Capa c)
+    {
+        var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+        tex.LoadImage(File.ReadAllBytes(c.Ruta));
+        int linea = Mathf.Clamp(Mathf.CeilToInt((LineaDelAguaPx - c.y) * c.F), 0, tex.height - 1);
+        int min = int.MaxValue, max = int.MinValue;
+        for (int yArriba = linea; yArriba < tex.height; yArriba++)
+            for (int x = 0; x < tex.width; x++)
+                if (tex.GetPixel(x, tex.height - 1 - yArriba).a > 0.08f) { if (x < min) min = x; if (x > max) max = x; }
+        Object.DestroyImmediate(tex);
+        if (max < min) return (c.x, c.x + c.ancho);   // no llega al agua: toda su base
+        return (c.x + min / c.F, c.x + (max + 1) / c.F);
+    }
+
+    // ---------- la chica ----------
+
+    // el dibujo de la chica quieta (el de ChicaIdle): se busca por su GUID, asi no importa si se mueve de carpeta
+    private const string GuidChicaQuieta = "f246479d5783035438e7d2f1468faa88";
+    // donde pisa: sobre el primer bloque de las plataformas del medio, a 60 px de su borde izquierdo
+    private const float ChicaEnElBloquePx = 60f;
+    // tamano: en el nivel mide 2.4 unidades; aca el dibujo de la cueva esta a otra escala (1.4)
+    private const float EscalaChica = 1.4f;
+    // cuanto se pasa el agua de adelante a cada lado de la base de lo que flota
+    private const float MargenAguaColumna = 110f;
+
+    // lo que se puede pisar: la imagen, la zona que se usa, donde quedo (arriba a la izquierda, px de la escena),
+    // cuanto se agrando y f = pixeles de la imagen por pixel de la escena. go = el objeto (los pisos van como
+    // componentes de el, asi lo siguen si se mueve o se agranda a mano).
+    private class Colocada { public string ruta; public RectInt zona; public float x, y, escala, f = 1f; public GameObject go; }
+    private static readonly List<Colocada> colocadas = new List<Colocada>();
+
+    // La chica jugable: el prefab Assets/_Prefabs/Chica.prefab es una copia de la del nivel (con todos sus
+    // componentes: moverse, correr, saltar, dash, atacar, pasos, vida). Arranca quieta y PantallaInicio le da los
+    // controles cuando la camara llega a la parte 2.
+    private const string RutaPrefabChica = "Assets/_Prefabs/Chica.prefab";
+
+    private static GameObject PonerChica(Transform padre, int orden, Colocada piso)
+    {
+        var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(RutaPrefabChica);
+        GameObject go;
+        if (prefab != null) go = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+        else
+        {
+            // sin el prefab, al menos el dibujo quieto
+            Debug.LogWarning("No encontre " + RutaPrefabChica + ": la chica queda quieta, sin controles.");
+            var sprite = AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GUIDToAssetPath(GuidChicaQuieta))
+                .OfType<Sprite>().FirstOrDefault();
+            if (sprite == null) return null;
+            go = new GameObject("Chica");
+            go.AddComponent<SpriteRenderer>().sprite = sprite;
+        }
+        go.name = "Chica";
+        go.transform.SetParent(padre, false);
+        go.transform.localScale = Vector3.one * EscalaChica;
+        var sr = go.GetComponent<SpriteRenderer>();
+        sr.sortingLayerID = 0;   // la capa Default, como todo el dibujo de la escena
+        sr.sortingOrder = orden;
+        // sobre el primer bloque: x a ChicaEnElBloquePx del borde, y en el borde de arriba ahi
+        float xPx = AnchoCuevaPx + 300f, pisoPx = LineaDelAguaPx;
+        if (piso != null)
+        {
+            var arriba = BordeDeArriba(piso);
+            int col = Mathf.Clamp(Mathf.RoundToInt(ChicaEnElBloquePx * piso.f), 0, arriba.Length - 1);
+            xPx = piso.x + ChicaEnElBloquePx * piso.escala;
+            pisoPx = piso.y + Mathf.Max(0, arriba[col]) / piso.f * piso.escala;
+        }
+        // los pies DIBUJADOS quedan sobre la piedra. El colisionador de la chica termina un poquito mas arriba que
+        // sus pies dibujados: los pisos se suben esa diferencia (pisoSobreLaPiedra), asi parada se ve apoyada.
+        float pies = sr.sprite != null ? sr.sprite.bounds.min.y : 0f;
+        pisoSobreLaPiedra = 0f;
+        if (go.TryGetComponent<CapsuleCollider2D>(out var capsula))
+            pisoSobreLaPiedra = Mathf.Max(0f, (capsula.offset.y - capsula.size.y / 2f - pies) * EscalaChica);
+        go.transform.position = new Vector3(xPx / PixelesPorUnidad,
+                                            (AltoEscenaPx - pisoPx) / PixelesPorUnidad - pies * EscalaChica + 0.02f, 0f);
+        return go;
+    }
+
+    // cuanto (unidades) quedan los pisos invisibles por encima del borde dibujado de las piedras (ver PonerChica)
+    private static float pisoSobreLaPiedra;
+
+    private static void ArmarPisosParte2(Transform padre)
+    {
+        var pisos = new GameObject("Pisos (invisibles)").transform;
+        pisos.SetParent(padre, false);
+        foreach (var c in colocadas) PisosDe(c, true);
+        // el agua: se puede pisar apenas metida (los pies quedan 30 px debajo de la superficie), asi no se cae al vacio
+        float inicioX = AnchoCuevaPx, finX = AnchoEscenaPx;
+        Caja(pisos, "agua", inicioX, LineaDelAguaPx + 30f, finX - inicioX, 200f, false);
+        // paredes en los bordes de la parte 2
+        Caja(pisos, "pared izquierda", inicioX - 100f, -2000f, 100f, 4500f, false);
+        Caja(pisos, "pared derecha", finX, -2000f, 100f, 4500f, false);
+    }
+
+    // las importa como sprite, con el punto arriba a la izquierda (como las coordenadas de Figma), sin achicarlas.
+    // Si ya estan bien importadas no se tocan (reimportar todo cada vez tarda mucho y llena la memoria).
+    private static Sprite ImportarPieza(string ruta, float pixelesPorUnidad = PixelesPorUnidad)
+    {
+        if (AssetImporter.GetAtPath(ruta) == null) AssetDatabase.ImportAsset(ruta, ImportAssetOptions.ForceUpdate);
+        if (AssetImporter.GetAtPath(ruta) is TextureImporter imp)
+        {
+            var ajustes = new TextureImporterSettings();
+            imp.ReadTextureSettings(ajustes);
+            bool listo = imp.textureType == TextureImporterType.Sprite && imp.spriteImportMode == SpriteImportMode.Single &&
+                         imp.maxTextureSize == 4096 && !imp.mipmapEnabled &&
+                         ajustes.spriteAlignment == (int)SpriteAlignment.TopLeft &&
+                         Mathf.Abs(ajustes.spritePixelsPerUnit - pixelesPorUnidad) < 0.01f;
+            if (!listo)
+            {
+                imp.textureType = TextureImporterType.Sprite;
+                imp.spriteImportMode = SpriteImportMode.Single;
+                imp.alphaIsTransparency = true;
+                imp.mipmapEnabled = false;
+                imp.textureCompression = TextureImporterCompression.CompressedHQ;
+                imp.ReadTextureSettings(ajustes);
+                ajustes.spriteAlignment = (int)SpriteAlignment.TopLeft;
+                ajustes.spritePivot = new Vector2(0f, 1f);
+                ajustes.spritePixelsPerUnit = pixelesPorUnidad;
+                ajustes.spriteMeshType = SpriteMeshType.FullRect;
+                imp.SetTextureSettings(ajustes);
+                imp.maxTextureSize = 4096;
+                imp.SaveAndReimport();
+            }
+        }
+        return AssetDatabase.LoadAssetAtPath<Sprite>(ruta);
+    }
 
     // ---------- dialogo al llegar a la parte 2 ----------
     // Usa los dialogos de Franco (Dialogo + CuadroDialogo, el cuadro lo arma Pomelo -> Dialogos -> Armar cuadro de
@@ -320,102 +649,6 @@ public static class ArmarInicioIntroduccion
     // como dejo el menu la escena la ultima vez (para saber que se cambio a mano)
     private const string RutaBase = "Assets/Editor/ArmarInicioIntroduccion_base.json";
 
-    // ---------- el agua de las dos partes, como una sola ----------
-
-    // Una tira de agua de todo el ancho (7202 px), desde la linea del agua hasta abajo, con el estilo del agua de
-    // la cueva (inicio_06_agua del SVG): la linea clara de la superficie, el degrade de verdes, el reflejo claro
-    // del medio de la cueva y las rayitas de luz. Se parte en dos PNG (cueva y parte 2) que se tocan sin corte.
-    private static Sprite AguaUnida(bool izquierda)
-    {
-        const float k = 3612f / 1234f;   // px del SVG -> px de la escena
-        int ancho = 7202, alto = Mathf.RoundToInt(AltoEscenaPx - LineaDelAguaPx);
-        int corte = Mathf.RoundToInt(AnchoCuevaPx);
-        string nombre = izquierda ? "agua_unida_cueva" : "agua_unida_parte2";
-        string ruta = $"{Carpeta}/{nombre}.png";
-        Directory.CreateDirectory(Carpeta);
-
-        Color linea = new Color32(0xd5, 0xde, 0xcf, 255);
-        Color[] degrade = { new Color32(0x7b, 0x98, 0x8d, 255), new Color32(0x6d, 0x89, 0x7e, 255),
-                            new Color32(0x5c, 0x75, 0x6c, 255), new Color32(0x4b, 0x61, 0x58, 255),
-                            new Color32(0x37, 0x4a, 0x43, 255) };
-        float[] paradas = { 0f, 0.2f, 0.45f, 0.7f, 1f };
-        Color reflejo = new Color32(0xa7, 0xbd, 0xb2, 255);
-        Color brilloReflejo = new Color32(0xf0, 0xf4, 0xe8, 255);
-        Color rayita = new Color32(0xe3, 0xec, 0xdf, 255);
-        int altoLinea = Mathf.RoundToInt(8f * k);                    // la linea clara de arriba (8 del SVG)
-        float reflejoDesde = 300f * k, reflejoAncho = 720f * k;      // el reflejo del medio de la cueva
-
-        // rayitas de luz del agua de la cueva (x, y, ancho, opacidad del SVG) y otras parecidas en la parte 2
-        var rayitas = new List<(float x, float y, float w, float a)>
-        {
-            (783, 727, 48, .25f), (921, 710, 31, .31f), (807, 709, 26, .24f), (465, 703, 54, .31f), (1030, 700, 58, .35f),
-            (783, 708, 59, .15f), (861, 702, 23, .16f), (567, 699, 69, .24f), (771, 710, 53, .20f), (621, 729, 20, .28f),
-            (788, 715, 46, .35f), (405, 714, 40, .30f), (845, 716, 21, .16f), (1104, 704, 45, .17f),
-        };
-        var azar = new System.Random(7);
-        for (int i = 0; i < 18; i++)
-            rayitas.Add((1240f + (float)azar.NextDouble() * 1200f, 696f + (float)azar.NextDouble() * 36f,
-                         20f + (float)azar.NextDouble() * 45f, 0.12f + (float)azar.NextDouble() * 0.2f));
-
-        int x0 = izquierda ? 0 : corte, x1 = izquierda ? corte : ancho, W = x1 - x0;
-        var px = new Color[W * alto];
-        for (int yArriba = 0; yArriba < alto; yArriba++)
-        {
-            Color fila;
-            if (yArriba < altoLinea) fila = linea;
-            else
-            {
-                float t = (yArriba - altoLinea) / (float)Mathf.Max(1, alto - altoLinea - 1);
-                int s = 0;
-                while (s < paradas.Length - 2 && t > paradas[s + 1]) s++;
-                fila = Color.Lerp(degrade[s], degrade[s + 1], (t - paradas[s]) / (paradas[s + 1] - paradas[s]));
-            }
-            for (int xx = 0; xx < W; xx++)
-            {
-                float xEscena = x0 + xx;
-                Color c = fila;
-                // el reflejo claro del medio de la cueva: se desvanece hacia abajo y hacia la derecha
-                float u = (xEscena - reflejoDesde) / reflejoAncho;
-                if (yArriba >= altoLinea && u >= 0f && u <= 1f)
-                {
-                    float lado = u < 0.75f ? 1f : 1f - (u - 0.75f) / 0.25f;
-                    float abajo = 1f - (yArriba - altoLinea) / (float)(alto - altoLinea);
-                    c = Color.Lerp(c, reflejo, 0.55f * abajo * lado);
-                    if (yArriba - altoLinea < 2f * k) c = Color.Lerp(c, brilloReflejo, 0.9f * lado);
-                }
-                px[(alto - 1 - yArriba) * W + xx] = c;
-            }
-        }
-        // rayitas (1.5 del SVG de alto)
-        int altoRayita = Mathf.Max(2, Mathf.RoundToInt(1.5f * k));
-        foreach (var r in rayitas)
-        {
-            int ry = Mathf.RoundToInt(r.y * k) - Mathf.RoundToInt(682f * k);   // desde la superficie del agua
-            int rx0 = Mathf.RoundToInt(r.x * k) - x0, rx1 = Mathf.RoundToInt((r.x + r.w) * k) - x0;
-            for (int yy = ry; yy < ry + altoRayita; yy++)
-                for (int xx = Mathf.Max(0, rx0); xx < Mathf.Min(W, rx1); xx++)
-                {
-                    if (yy < 0 || yy >= alto) continue;
-                    int i = (alto - 1 - yy) * W + xx;
-                    px[i] = Color.Lerp(px[i], rayita, r.a);
-                }
-        }
-        var tex = new Texture2D(W, alto, TextureFormat.RGBA32, false);
-        tex.SetPixels(px);
-        tex.Apply();
-        File.WriteAllBytes(ruta, tex.EncodeToPNG());
-        Object.DestroyImmediate(tex);
-        AssetDatabase.Refresh();
-        return ImportarPieza(ruta);
-    }
-
-    // ---------- agua que se mece ----------
-
-    private static readonly HashSet<string> CapasDeAgua = new HashSet<string>
-    {
-        "inicio_06_agua", "cascada_00b_agua_base", "cascada_09_agua",
-    };
-
     // un material por capa de agua (cada imagen tiene otro tamano), con el shader Pomelo/AguaOndulante
     private static Material MaterialAgua(string capa, Sprite sprite)
     {
@@ -453,133 +686,6 @@ public static class ArmarInicioIntroduccion
         mat.shader = shader;
         EditorUtility.SetDirty(mat);
         return mat;
-    }
-
-    // ---------- la chica en la parte 2 ----------
-
-    // el dibujo de la chica quieta (el de ChicaIdle): se busca por su GUID, asi no importa si se mueve de carpeta
-    private const string GuidChicaQuieta = "f246479d5783035438e7d2f1468faa88";
-    // donde pisa: sobre el primer bloque negro de las plataformas (el circulo rojo de Caro), a 50 px (sin agrandar)
-    // del borde izquierdo del bloque
-    private const float ChicaEnElBloquePx = 50f;
-    // tamano: en el nivel mide 2.4 unidades; aca el dibujo de la cueva esta a otra escala y se ve como en la captura
-    // de Caro con 1.4
-    private const float EscalaChica = 1.4f;
-
-    // ---------- bloques y plataformas agrandados para la chica ----------
-    // Caro: las estructuras de abajo tienen que ser proporcionales a la chica, para que se pueda mover comoda.
-    // Los bloques negros y la vasija (cascada_10_plataformas) se separan en piezas y cada una se agranda
-    // EscalaBloques desde su base; quedan en el mismo orden, uno al lado del otro, con los espacios entre ellos un
-    // poco mas chicos (EspacioEntreBloques) para que entren en la parte 2. Las plataformas con agua de la derecha
-    // (cascada_07) se agrandan EscalaPlataformasDerecha, apoyadas en su base y contra el borde derecho.
-    private const float EscalaBloques = 1.6f;
-    private const float EspacioEntreBloques = 0.75f;
-    private const float InicioBloquesPx = 3680f;              // borde izquierdo del primer bloque
-    private const float EscalaPlataformasDerecha = 1.4f;
-    private const float BordeDerechoPlataformasPx = 7192f;    // borde derecho de las plataformas de la derecha
-
-    // lo que se agrando: la imagen, la zona de ella que se usa, donde quedo (esquina de arriba a la izquierda, px de
-    // la escena) y cuanto se agrando. Con esto se arman los pisos invisibles y se ubica a la chica.
-    // go = el objeto (los pisos van como componentes de el, asi lo siguen si se mueve o agranda a mano);
-    // f = pixeles de la imagen por pixel de la escena (3 en las piedras en alta resolucion)
-    private class Colocada { public string ruta; public RectInt zona; public float x, y, escala, f = 1f; public GameObject go; }
-    private static readonly List<Colocada> colocadas = new List<Colocada>();
-
-    // separa la capa de bloques en piezas (cada tramo de columnas con algo dibujado), guarda cada pieza como PNG
-    // y la pone agrandada
-    private static void ArmarBloques(Transform padre, string capa, int capaX, int capaY, int orden, int ordenFondo)
-    {
-        string ruta = $"{Carpeta}/{capa}.png";
-        if (!File.Exists(ruta)) { Debug.LogWarning("Falta la capa " + ruta); return; }
-        // las piedras se ven agrandadas: si esta la version en alta resolucion (capa_hd.png, redibujada desde el
-        // SVG a 3x), se usa esa, asi no se pixelan. f = cuantos pixeles de la imagen hay por pixel de la escena.
-        float anchoEscena = AssetDatabase.LoadAssetAtPath<Sprite>(ruta)?.rect.width ?? 0f;
-        string rutaHd = $"{Carpeta}/{capa}_hd.png";
-        if (File.Exists(rutaHd)) ruta = rutaHd;
-        var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
-        tex.LoadImage(File.ReadAllBytes(ruta));
-        int W = tex.width, H = tex.height;
-        float f = anchoEscena > 0f ? W / anchoEscena : 1f;
-        var hay = new bool[W];
-        for (int x = 0; x < W; x++)
-            for (int y = 0; y < H && !hay[x]; y++)
-                hay[x] = tex.GetPixel(x, y).a > 0.15f;
-        var piezas = new List<RectInt>();
-        for (int x = 0, desde = -1; x <= W; x++)
-        {
-            bool on = x < W && hay[x];
-            if (on && desde < 0) desde = x;
-            if (!on && desde >= 0) { piezas.Add(new RectInt(desde, 0, x - desde, H)); desde = -1; }
-        }
-
-        // cada pieza como PNG aparte (en la carpeta piezas, al lado de las capas)
-        string carpetaPiezas = $"{Carpeta}/piezas";
-        Directory.CreateDirectory(carpetaPiezas);
-        var rutas = new List<string>();
-        for (int i = 0; i < piezas.Count; i++)
-        {
-            var z = piezas[i];
-            var p = new Texture2D(z.width, z.height, TextureFormat.RGBA32, false);
-            p.SetPixels(tex.GetPixels(z.x, 0, z.width, z.height));
-            p.Apply();
-            string rp = $"{carpetaPiezas}/{capa}_pieza_{i + 1}.png";
-            File.WriteAllBytes(rp, p.EncodeToPNG());
-            Object.DestroyImmediate(p);
-            rutas.Add(rp);
-        }
-        Object.DestroyImmediate(tex);
-        AssetDatabase.Refresh();
-
-        float x0 = InicioBloquesPx;
-        float baseY = capaY + H / f;   // la base de los bloques (debajo del agua) queda donde estaba
-        for (int i = 0; i < piezas.Count; i++)
-        {
-            var z = piezas[i];
-            if (i > 0) x0 += (z.x - (piezas[i - 1].x + piezas[i - 1].width)) / f * EspacioEntreBloques;
-            var sprite = ImportarPieza(rutas[i], PixelesPorUnidad * f);
-            if (sprite == null) continue;
-            bool fondo = PiezasDeFondo.Contains(i + 1);
-            bool vasija = i + 1 == PiezaVasija;
-            float escala = fondo ? EscalaBloquesFondo : EscalaBloques;
-            float anchoPx = z.width / f, altoPx = z.height / f;   // en px de la escena, sin agrandar
-            float yArriba = baseY - (fondo ? SubidaBloquesFondo : 0f) - altoPx * escala;
-
-            if (vasija)
-            {
-                // la vasija flota (como las columnas), con agua delante de su base. No se puede pisar.
-                float centro = x0 + anchoPx * escala / 2f;
-                var raiz = Flotar(padre, "Vasija flotante", sprite, escala, centro, LineaDelAguaPx, x0, yArriba, orden, 0.9f);
-                AguaDelante(raiz, centro, anchoPx * escala * 0.8f, orden + 3);
-                // un brillo suave con su misma forma, detras, que late despacio: se nota que es "especial"
-                PonerBrillo(raiz, rutas[i], f, escala, orden - 1);
-                // y de ella sale el Lore cuando la chica se acerca
-                PonerLore(raiz, sprite, orden + 6);
-            }
-            else
-            {
-                var go = new GameObject($"{capa} pieza {i + 1}" + (fondo ? " (fondo)" : ""));
-                go.transform.SetParent(padre, false);
-                go.transform.localPosition = new Vector3(x0 / PixelesPorUnidad, (AltoEscenaPx - yArriba) / PixelesPorUnidad, 0f);
-                go.transform.localScale = Vector3.one * escala;
-                var sr = go.AddComponent<SpriteRenderer>();
-                sr.sprite = sprite;
-                if (fondo)
-                {
-                    // mas atras: mas chicas, un poco mas arriba, apagadas por la niebla del agua, detras del arco y
-                    // de las columnas, con agua delante de la base, y sin piso (no se pueden pisar)
-                    sr.color = ColorFondo;
-                    sr.sortingOrder = ordenFondo;
-                    // de hijo del bloque: si se lo mueve a mano, su agua lo acompana
-                    AguaDelante(go.transform, x0 + anchoPx * escala / 2f, anchoPx * escala, ordenFondo + 1);
-                }
-                else
-                {
-                    sr.sortingOrder = orden;
-                    colocadas.Add(new Colocada { ruta = ruta, zona = z, x = x0, y = yArriba, escala = escala, f = f, go = go });
-                }
-            }
-            x0 += anchoPx * escala;
-        }
     }
 
     // ---------- brillo de la vasija ----------
@@ -708,13 +814,6 @@ public static class ArmarInicioIntroduccion
         so.ApplyModifiedPropertiesWithoutUndo();
     }
 
-    // la sombra de las plataformas de la derecha: muy suave, apenas corrida para abajo, para que se separen del fondo
-    private static readonly Color ColorSombra = new Color32(0x0c, 0x11, 0x0f, 255);
-    private static void PonerSombra(Transform padre, string rutaImagen, int orden)
-    {
-        Halo(padre, rutaImagen, 1f, "_sombra", "Sombra", 6f, 22f, ColorSombra, 0.45f, new Vector2(4f, -8f), orden);
-    }
-
     // Un halo con la forma de una imagen: la forma agrandada 'margen' px y difuminada 'desenfoque' px (px de la
     // escena), del color dado, con 'fuerza' de opacidad. Se calcula a la resolucion de la escena (aunque la imagen
     // este en alta), se guarda al lado de la imagen y se pone de hijo de 'padre', detras ('orden'), corrido 'corrido'
@@ -807,101 +906,6 @@ public static class ArmarInicioIntroduccion
         return res;
     }
 
-    // las piezas de la capa de bloques (contando desde 1, de izquierda a derecha) que van "en segundo plano": los
-    // bloquecitos con la raya de agua clara (los circulos rojos de Caro). Y cual es la vasija.
-    private static readonly HashSet<int> PiezasDeFondo = new HashSet<int> { 2, 4, 6 };
-    private const int PiezaVasija = 5;
-    private const float EscalaBloquesFondo = 1.2f;
-    private const float SubidaBloquesFondo = 30f;   // px: un poco mas arriba, como si estuvieran mas lejos
-    // semitransparentes: como son casi negras, oscurecerlas no alcanza; asi se mezclan con el agua y el fondo y se
-    // ven lejos, como en la niebla
-    // (Caro: al 50 % no se veian; al 85 % se notan, pero siguen un poco apagadas, como mas lejos)
-    private static readonly Color ColorFondo = new Color(0.85f, 0.92f, 0.88f, 0.85f);
-
-    private static Sprite ImportarPieza(string ruta, float pixelesPorUnidad = PixelesPorUnidad)
-    {
-        if (AssetImporter.GetAtPath(ruta) is TextureImporter imp)
-        {
-            imp.textureType = TextureImporterType.Sprite;
-            imp.spriteImportMode = SpriteImportMode.Single;
-            imp.alphaIsTransparency = true;
-            imp.mipmapEnabled = false;
-            imp.textureCompression = TextureImporterCompression.CompressedHQ;
-            var ajustes = new TextureImporterSettings();
-            imp.ReadTextureSettings(ajustes);
-            ajustes.spriteAlignment = (int)SpriteAlignment.TopLeft;
-            ajustes.spritePivot = new Vector2(0f, 1f);
-            ajustes.spritePixelsPerUnit = pixelesPorUnidad;
-            ajustes.spriteMeshType = SpriteMeshType.FullRect;
-            imp.SetTextureSettings(ajustes);
-            imp.maxTextureSize = 4096;
-            imp.SaveAndReimport();
-        }
-        return AssetDatabase.LoadAssetAtPath<Sprite>(ruta);
-    }
-
-    // las plataformas de la derecha: agrandadas desde su base, contra el borde derecho
-    private static void AgrandarPlataformasDerecha(Transform t, string capa, int capaY, Sprite sprite)
-    {
-        float w = sprite.rect.width, h = sprite.rect.height;
-        float x = BordeDerechoPlataformasPx - w * EscalaPlataformasDerecha;
-        float y = capaY + h - h * EscalaPlataformasDerecha;
-        t.localPosition = new Vector3(x / PixelesPorUnidad, (AltoEscenaPx - y) / PixelesPorUnidad, 0f);
-        t.localScale = Vector3.one * EscalaPlataformasDerecha;
-        colocadas.Add(new Colocada { ruta = $"{Carpeta}/{capa}.png", zona = new RectInt(0, 0, (int)w, (int)h),
-                                     x = x, y = y, escala = EscalaPlataformasDerecha, go = t.gameObject });
-    }
-
-    // La chica jugable: el prefab Assets/_Prefabs/Chica.prefab es una copia de la del nivel (con todos sus
-    // componentes: moverse, correr, saltar, dash, atacar, pasos, vida). Arranca quieta y PantallaInicio le da los
-    // controles cuando la camara llega a la parte 2.
-    private const string RutaPrefabChica = "Assets/_Prefabs/Chica.prefab";
-
-    private static GameObject PonerChica(Transform padre, int orden)
-    {
-        var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(RutaPrefabChica);
-        GameObject go;
-        if (prefab != null) go = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-        else
-        {
-            // sin el prefab, al menos el dibujo quieto
-            Debug.LogWarning("No encontre " + RutaPrefabChica + ": la chica queda quieta, sin controles.");
-            var sprite = AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GUIDToAssetPath(GuidChicaQuieta))
-                .OfType<Sprite>().FirstOrDefault();
-            if (sprite == null) return null;
-            go = new GameObject("Chica");
-            go.AddComponent<SpriteRenderer>().sprite = sprite;
-        }
-        go.name = "Chica";
-        go.transform.SetParent(padre, false);
-        go.transform.localScale = Vector3.one * EscalaChica;
-        var sr = go.GetComponent<SpriteRenderer>();
-        sr.sortingLayerID = 0;   // la capa Default, como todo el dibujo de la escena
-        sr.sortingOrder = orden;
-        // sobre el primer bloque (ya agrandado): x a ChicaEnElBloquePx del borde, y en el borde de arriba ahi
-        float xPx = 4025f, pisoPx = 1932f;
-        var primero = colocadas.FirstOrDefault(c => c.ruta.Contains("cascada_10_plataformas"));
-        if (primero != null)
-        {
-            var arriba = BordeDeArriba(primero);
-            int col = Mathf.Clamp(Mathf.RoundToInt(ChicaEnElBloquePx * primero.f), 0, arriba.Length - 1);
-            xPx = primero.x + ChicaEnElBloquePx * primero.escala;
-            pisoPx = primero.y + Mathf.Max(0, arriba[col]) / primero.f * primero.escala;
-        }
-        // los pies DIBUJADOS quedan sobre la piedra. El colisionador de la chica termina un poquito mas arriba que
-        // sus pies dibujados: los pisos se suben esa diferencia (pisoSobreLaPiedra), asi parada se ve apoyada.
-        float pies = sr.sprite != null ? sr.sprite.bounds.min.y : 0f;
-        pisoSobreLaPiedra = 0f;
-        if (go.TryGetComponent<CapsuleCollider2D>(out var capsula))
-            pisoSobreLaPiedra = Mathf.Max(0f, (capsula.offset.y - capsula.size.y / 2f - pies) * EscalaChica);
-        go.transform.position = new Vector3(xPx / PixelesPorUnidad,
-                                            (AltoEscenaPx - pisoPx) / PixelesPorUnidad - pies * EscalaChica + 0.02f, 0f);
-        return go;
-    }
-
-    // cuanto (unidades) quedan los pisos invisibles por encima del borde dibujado de las piedras (ver PonerChica)
-    private static float pisoSobreLaPiedra;
-
     // para cada columna de la zona: la fila (desde arriba) donde empieza lo dibujado, -1 si no hay nada
     private static int[] BordeDeArriba(Colocada c)
     {
@@ -963,72 +967,6 @@ public static class ArmarInicioIntroduccion
         if (piedra) go.AddComponent<PisoPlataformaPiedra>();
     }
 
-    private static void ArmarPisosParte2(Transform padre)
-    {
-        var pisos = new GameObject("Pisos (invisibles)").transform;
-        pisos.SetParent(padre, false);
-        foreach (var c in colocadas) PisosDe(c, true);
-        // el agua: se puede pisar apenas metida (los pies quedan 30 px debajo de la superficie), asi no se cae al vacio
-        float inicioX = 3611f, finX = 7202f;
-        Caja(pisos, "agua", inicioX, LineaDelAguaPx + 30f, finX - inicioX, 200f, false);
-        // paredes en los bordes de la parte 2
-        Caja(pisos, "pared izquierda", inicioX - 100f, -2000f, 100f, 4160f, false);
-        Caja(pisos, "pared derecha", finX, -2000f, 100f, 4160f, false);
-    }
-
-    // ---------- columnas grises que flotan (cascada_08_columnas_sueltas) ----------
-
-    // altura del agua en la parte 2 (px de la escena, desde arriba): 1995 en el SVG, subida con el resto del agua
-    private const float LineaDelAguaPx = 1995f - SubidaAgua;
-
-    // cada columna: su recorte dentro de la capa (px, desde arriba a la izquierda) y la x del medio de su base
-    // (lo que queda debajo del agua). Medido sobre el PNG de la capa.
-    private static readonly (RectInt recorte, float baseX)[] Columnas =
-    {
-        (new RectInt(0, 214, 366, 502), 83f),       // la chica, inclinada a la izquierda
-        (new RectInt(1103, 0, 387, 756), 1380f),    // la alta, a la derecha
-    };
-    // cuanto se pasa el agua de adelante a cada lado de la base (antes 60: a la columna alta no le llegaba a tapar
-    // el costado derecho de la base, que no se veia sumergido)
-    private const float MargenAguaColumna = 110f;
-
-    private static void ArmarColumnasFlotantes(Transform padre, int capaX, int capaY, int orden)
-    {
-        // cada columna se recorta de la capa como pieza propia (queda en la escena, se ve tambien sin darle Play)
-        // y flota sobre el medio de su base, a la altura del agua
-        string capa = "cascada_08_columnas_sueltas";
-        for (int i = 0; i < Columnas.Length; i++)
-        {
-            var r = Columnas[i].recorte;
-            var sprite = GuardarPieza($"{Carpeta}/{capa}.png", r, $"{capa}_columna_{i + 1}");
-            if (sprite == null) continue;
-            var raiz = Flotar(padre, "Columna flotante " + (i + 1), sprite, 1f, capaX + Columnas[i].baseX, LineaDelAguaPx,
-                              capaX + r.x, capaY + r.y, orden, i * 1.7f);
-            // el agua de adelante de la base, de hijo de la base (si se mueve la columna a mano, el agua la sigue):
-            // la columna sube y baja detras de ella
-            AguaDelante(raiz, capaX + Columnas[i].baseX, MedirAnchoBajoElAgua(capa, r, LineaDelAguaPx - capaY), orden + 3);
-        }
-    }
-
-    // recorta una zona de una imagen (x, y desde arriba a la izquierda) y la guarda como PNG en la carpeta piezas
-    private static Sprite GuardarPieza(string rutaImagen, RectInt zona, string nombre)
-    {
-        if (!File.Exists(rutaImagen)) { Debug.LogWarning("Falta " + rutaImagen); return null; }
-        var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
-        tex.LoadImage(File.ReadAllBytes(rutaImagen));
-        var p = new Texture2D(zona.width, zona.height, TextureFormat.RGBA32, false);
-        p.SetPixels(tex.GetPixels(zona.x, tex.height - (zona.y + zona.height), zona.width, zona.height));
-        p.Apply();
-        string carpetaPiezas = $"{Carpeta}/piezas";
-        Directory.CreateDirectory(carpetaPiezas);
-        string ruta = $"{carpetaPiezas}/{nombre}.png";
-        File.WriteAllBytes(ruta, p.EncodeToPNG());
-        Object.DestroyImmediate(p);
-        Object.DestroyImmediate(tex);
-        AssetDatabase.Refresh();
-        return ImportarPieza(ruta);
-    }
-
     // algo que flota: un objeto en el punto de la base (a la altura del agua) con el componente Flotante, y el
     // dibujo de hijo, en su lugar. pivote / esquina en px de la escena (esquina = arriba a la izquierda del dibujo).
     private static Transform Flotar(Transform padre, string nombre, Sprite sprite, float escala, float pivoteX, float pivoteY,
@@ -1074,18 +1012,6 @@ public static class ArmarInicioIntroduccion
         if (mat != null) sr.sharedMaterial = mat;
     }
 
-    // ancho de lo que una zona de una capa tiene debajo de la linea del agua (px)
-    private static float MedirAnchoBajoElAgua(string capa, RectInt r, float lineaEnCapa)
-    {
-        var leer = new Texture2D(2, 2, TextureFormat.RGBA32, false);
-        leer.LoadImage(File.ReadAllBytes($"{Carpeta}/{capa}.png"));
-        int min = int.MaxValue, max = int.MinValue;
-        for (int yArriba = Mathf.Max(r.y, Mathf.CeilToInt(lineaEnCapa)); yArriba < r.y + r.height && yArriba < leer.height; yArriba++)
-            for (int x = r.x; x < r.x + r.width && x < leer.width; x++)
-                if (leer.GetPixel(x, leer.height - 1 - yArriba).a > 0.08f) { if (x < min) min = x; if (x > max) max = x; }
-        Object.DestroyImmediate(leer);
-        return max < min ? r.width : max + 1 - min;
-    }
 
     // la imagen del agua de adelante: los colores del agua del dibujo (#7b988d arriba -> #374a43 abajo) al 60 %,
     // con la linea clara (#d5decf) en la superficie, y que se desvanece a los costados
@@ -1170,38 +1096,6 @@ public static class ArmarInicioIntroduccion
         so.FindProperty("pixelesPorUnidad").floatValue = PixelesPorUnidad;
         so.FindProperty("ordenDibujo").intValue = orden;
         so.ApplyModifiedPropertiesWithoutUndo();
-    }
-
-    // las importa como sprite, con el pivot arriba a la izquierda (como las coordenadas del SVG) y sin achicarlas
-    private static void PrepararImagenes()
-    {
-        foreach (var (capa, _, _) in Capas)
-        {
-            string ruta = $"{Carpeta}/{capa}.png";
-            if (AssetImporter.GetAtPath(ruta) is not TextureImporter imp) continue;
-            // si ya estan bien importadas no se tocan: reimportar las 32 imagenes grandes (hasta 3612 x 2160)
-            // cada vez que se rearma la escena tarda mucho y llena la memoria
-            var actuales = new TextureImporterSettings();
-            imp.ReadTextureSettings(actuales);
-            if (imp.textureType == TextureImporterType.Sprite && imp.spriteImportMode == SpriteImportMode.Single &&
-                imp.maxTextureSize == 4096 && actuales.spriteAlignment == (int)SpriteAlignment.TopLeft &&
-                Mathf.Approximately(actuales.spritePixelsPerUnit, PixelesPorUnidad))
-                continue;
-            imp.textureType = TextureImporterType.Sprite;
-            imp.spriteImportMode = SpriteImportMode.Single;
-            imp.mipmapEnabled = false;
-            imp.alphaIsTransparency = true;
-            imp.maxTextureSize = 4096;   // el fondo mide 3612 px de ancho
-            imp.textureCompression = TextureImporterCompression.CompressedHQ;
-            var ajustes = new TextureImporterSettings();
-            imp.ReadTextureSettings(ajustes);
-            ajustes.spriteAlignment = (int)SpriteAlignment.TopLeft;
-            ajustes.spritePivot = new Vector2(0f, 1f);
-            ajustes.spritePixelsPerUnit = PixelesPorUnidad;
-            ajustes.spriteMeshType = SpriteMeshType.FullRect;
-            imp.SetTextureSettings(ajustes);
-            imp.SaveAndReimport();
-        }
     }
 
     // ---------- titulo y "Comenzar" ----------
@@ -1311,6 +1205,12 @@ public static class ArmarInicioIntroduccion
         // el dialogo de Jaya ya no se abre al llegar: lo abre el Lore de la vasija (Caro)
         so.FindProperty("dialogoAlLlegar").objectReferenceValue = null;
         so.FindProperty("cartelAlLlegar").objectReferenceValue = cartel;
+        // el encuadre, con las medidas del dibujo de Figma (unidades: px / 100)
+        so.FindProperty("anchoCueva").floatValue = AnchoCuevaPx / PixelesPorUnidad;
+        so.FindProperty("inicioOtraParte").floatValue = AnchoCuevaPx / PixelesPorUnidad;
+        so.FindProperty("finOtraParte").floatValue = AnchoEscenaPx / PixelesPorUnidad;
+        so.FindProperty("altoDibujo").floatValue = AltoEscenaPx / PixelesPorUnidad;
+        so.FindProperty("centroDesdeArriba").floatValue = CentroDesdeArribaPx / PixelesPorUnidad;
         so.ApplyModifiedPropertiesWithoutUndo();
 
         if (iosevka == null)
@@ -1493,3 +1393,4 @@ public static class ArmarInicioIntroduccion
         EditorBuildSettings.scenes = lista.ToArray();
     }
 }
+

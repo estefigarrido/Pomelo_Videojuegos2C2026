@@ -36,7 +36,7 @@ Shader "Pomelo/CascaditasAgua"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             struct Attributes { float3 positionOS : POSITION; float4 color : COLOR; float2 uv : TEXCOORD0; };
-            struct Varyings { float4 positionCS : SV_POSITION; half4 color : COLOR; float2 uv : TEXCOORD0; };
+            struct Varyings { float4 positionCS : SV_POSITION; half4 color : COLOR; float2 uv : TEXCOORD0; float2 mundo : TEXCOORD1; };
 
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
@@ -59,6 +59,9 @@ Shader "Pomelo/CascaditasAgua"
             {
                 Varyings o;
                 o.positionCS = TransformObjectToHClip(i.positionOS);
+                // los chorritos se miden en el mundo (px de la escena), asi corren igual en todas las piedras, sea
+                // cual sea el tamano de su imagen o cuanto se las haya agrandado
+                o.mundo = TransformObjectToWorld(i.positionOS).xy * 100.0;
                 o.uv = i.uv;
                 o.color = i.color;
                 return o;
@@ -71,8 +74,8 @@ Shader "Pomelo/CascaditasAgua"
                 float agua = smoothstep(_Umbral - 0.06, _Umbral + 0.06, claro);   // 1 en las tiras, 0 en lo demas
 
                 // uv.y crece para arriba: sumarle el tiempo hace que las bandas bajen
-                float yPx = i.uv.y * _AltoPx;
-                float x = i.uv.x * 897.0;
+                float yPx = i.mundo.y;
+                float x = i.mundo.x;
                 float u = (yPx + _TiempoAgua * _Velocidad) / _LargoBanda + sin(x * 0.35) * 0.6;   // cada tira desfasada
                 float banda = sin(u * 6.2831853) * 0.5 + 0.5;
                 banda = banda * banda;                                                            // chorritos finos

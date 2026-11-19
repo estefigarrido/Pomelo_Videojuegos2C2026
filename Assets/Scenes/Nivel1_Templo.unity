@@ -60095,6 +60095,9 @@ MonoBehaviour:
   duracionFade: 3
   aleatorio: 0
   duracionCambioTema: 1.5
+  temaPausa: {fileID: 8300000, guid: 1b34f31d5e6ee6342ad537d9ee930f60, type: 3}
+  volumenPausa: 0.0432
+  fadePausa: 1.5
 --- !u!4 &795861792
 Transform:
   m_ObjectHideFlags: 0

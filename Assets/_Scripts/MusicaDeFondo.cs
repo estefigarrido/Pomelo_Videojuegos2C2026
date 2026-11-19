@@ -19,6 +19,17 @@ public class MusicaDeFondo : MonoBehaviour
     [Tooltip("Segundos que tarda en pasar de la lista a un tema especial (y al volver).")]
     [SerializeField] private float duracionCambioTema = 1.5f;
 
+    [Header("Musica de la pausa")]
+    [Tooltip("Suena mientras el menu de pausa esta abierto (Leaves from the Vine); la musica del juego queda frenada.")]
+    [SerializeField] private AudioClip temaPausa;
+    [Tooltip("Volumen del tema de la pausa: 40 % menos que en la pantalla de titulo (0.072 x 0.6 = 0.0432).")]
+    [Range(0f, 1f)] [SerializeField] private float volumenPausa = 0.0432f;
+    [Tooltip("Segundos del fundido al abrir y cerrar la pausa (corre aunque el juego este frenado).")]
+    [SerializeField] private float fadePausa = 1.5f;
+
+    private AudioSource fuentePausa;
+    private float nivelPausa;
+
     private AudioSource[] fuentes;
     private float[] nivel;           // fundido propio de cada fuente de la lista (0 a 1)
     private int actual;
@@ -38,6 +49,23 @@ public class MusicaDeFondo : MonoBehaviour
         for (int i = 0; i < 2; i++) fuentes[i] = CrearFuente(false);
         fuenteTema = CrearFuente(true);
         fuenteSaliente = CrearFuente(true);
+        fuentePausa = CrearFuente(true);
+    }
+
+    // el tema de la pausa: entra con fundido al abrir el menu y se va con fundido al cerrarlo (sigue desde donde
+    // quedo la proxima vez). Usa el tiempo real, porque con la pausa el tiempo del juego esta frenado.
+    private void MusicaDePausa()
+    {
+        if (temaPausa == null) return;
+        bool abierta = MenuPausa.Abierto;
+        nivelPausa = Mathf.MoveTowards(nivelPausa, abierta ? 1f : 0f, Time.unscaledDeltaTime / Mathf.Max(0.01f, fadePausa));
+        if (abierta && !fuentePausa.isPlaying)
+        {
+            if (fuentePausa.clip != temaPausa) { fuentePausa.clip = temaPausa; fuentePausa.Play(); }
+            else fuentePausa.UnPause();
+        }
+        fuentePausa.volume = volumenPausa * nivelPausa;
+        if (!abierta && nivelPausa <= 0f && fuentePausa.isPlaying) fuentePausa.Pause();
     }
 
     private AudioSource CrearFuente(bool loop)
@@ -146,6 +174,7 @@ public class MusicaDeFondo : MonoBehaviour
 
     private void Update()
     {
+        MusicaDePausa();
         PausarConElMenu();
         // mismo reloj que la camara, asi el cambio de musica va junto con el de-zoom
         mezclaTema = Mathf.MoveTowards(mezclaTema, temaActivo ? 1f : 0f, Time.deltaTime / Mathf.Max(0.01f, duracionCambioTema));

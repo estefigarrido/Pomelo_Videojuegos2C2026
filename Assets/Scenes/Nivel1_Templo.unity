@@ -24150,7 +24150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8686147819646942596, guid: 04046a934046de5439d1903b85293be4, type: 3}
       propertyPath: esperarAOtroCartel
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8686147819646942596, guid: 04046a934046de5439d1903b85293be4, type: 3}
       propertyPath: mostrarAlTerminarDeBorrarme.Array.size
@@ -142865,8 +142865,8 @@ MonoBehaviour:
     ilustracion: {fileID: 0}
   - sinNombre: 0
     personaje: Jaya
-    texto: "\xBFSer\xE1 esto lo que dijo la maestra que me ayudar\xEDa a reparar
-      el templo?"
+    texto: "\xBFSer\xE1 esto lo le da vida al templo? Quiz\xE1s me permita repararlo
+      si consigo suficiente."
     ilustracion: {fileID: 0}
   distancia: {x: 5, y: 2.5}
   centro: {x: 0, y: 0}

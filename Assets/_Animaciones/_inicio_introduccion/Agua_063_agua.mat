@@ -29,17 +29,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AltoFila: 16
+    - _AltoFila: 9
     - _AltoPx: 97
-    - _Amplitud: 0
+    - _Amplitud: 4
     - _AnchoPx: 4096
-    - _Brillo: 0.015
-    - _CuantasRayas: 0.1
-    - _LargoRaya: 170
+    - _Brillo: 0.04
+    - _CuantasRayas: 0.35
+    - _LargoRaya: 110
     - _Ondas: 0.09
-    - _Rayas: 0.14
-    - _Velocidad: 0.45
-    - _VelocidadRio: 35
+    - _Rayas: 0.28
+    - _Velocidad: 1.1
+    - _VelocidadRio: 140
     m_Colors:
     - _ColorRayas: {r: 0.89, g: 0.925, b: 0.875, a: 1}
   m_BuildTextureStacks: []

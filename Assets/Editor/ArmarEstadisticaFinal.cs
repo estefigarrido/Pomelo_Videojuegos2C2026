@@ -65,7 +65,9 @@ public static class ArmarEstadisticaFinal
 
         // 2) "completaste el" + "Templo de botanica"
         var pTitulo = Parte("Titulo", raiz);
-        Imagen("Brillo", pTitulo, halo, new Color(1f, 1f, 1f, 0.12f), 560f, 350f, 800f, 130f);
+        // (Caro: brillos mas suaves) el halo es un difuminado que se apaga de a poco hasta el borde, asi que va
+        // mas grande que el texto para que no se note donde termina
+        Imagen("Brillo", pTitulo, halo, new Color(1f, 1f, 1f, 0.16f), 380f, 300f, 1160f, 230f);
         Texto("Completaste el", pTitulo, fuente, matNormal, "completaste el", 40f, FontStyles.SmallCaps, Blanco80,
               660f, 318f, 600f, 54f, TextAlignmentOptions.Center);
         Texto("Templo", pTitulo, fuente, matBrillo, "Templo de botánica", 64f, FontStyles.UpperCase, Color.white,
@@ -77,7 +79,7 @@ public static class ArmarEstadisticaFinal
 
         // 4) "¡Bien hecho!"
         var pBien = Parte("Bien hecho", raiz);
-        Imagen("Brillo", pBien, halo, new Color(1f, 1f, 1f, 0.10f), 760f, 590f, 400f, 90f);
+        Imagen("Brillo", pBien, halo, new Color(1f, 1f, 1f, 0.13f), 680f, 562f, 560f, 146f);
         Texto("Bien hecho", pBien, fuente, matMedioBrillo, "¡Bien hecho!", 40f, FontStyles.SmallCaps, Color.white,
               660f, 607f, 600f, 54f, TextAlignmentOptions.Center);
 

@@ -110,6 +110,15 @@ public static class ArmarInicioIntroduccion
                 if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
                 escena = EditorSceneManager.OpenScene(RutaEscena, OpenSceneMode.Single);
             }
+            // el Canvas (cuadro de dialogo y pantalla de entrada) se llama "UI": si en la escena quedo con el nombre
+            // viejo ("Canvas"), se lo renombra, asi la mezcla no cree que se borro a mano
+            var raices = escena.GetRootGameObjects();
+            if (!raices.Any(g => g.name == "UI"))
+            {
+                var renombrado = raices.FirstOrDefault(g => g.GetComponent<Canvas>() != null &&
+                                                            g.GetComponentInChildren<CuadroDialogo>(true) != null);
+                if (renombrado != null) renombrado.name = "UI";
+            }
             viejas = escena.GetRootGameObjects().Where(g => RaicesDelMenu.Contains(g.name)).ToList();
             if (mismoDisenio)
             {
@@ -296,6 +305,9 @@ public static class ArmarInicioIntroduccion
             sol.ApplyModifiedPropertiesWithoutUndo();
         }
         ArmarPantalla(cam, chica, dialogo, cartel);
+        // la pantalla "Ingresaste al Templo de botanica" (Assets/_Pantallas_info/Entrada_templo_botánica), en el Canvas
+        var canvasNuevo = escena.GetRootGameObjects().FirstOrDefault(g => g.name == "UI");
+        if (canvasNuevo != null) ArmarEntradaTemplo.Armar(canvasNuevo.transform);
 
         // cada capa en su sorting layer (Fondo, Edificios, FondoDetalles, Decorado, Escenario, Frente; la chica en
         // Personajes) con ordenes chicos dentro de cada una
@@ -315,6 +327,8 @@ public static class ArmarInicioIntroduccion
         // capa respetando ese orden
         var raizFinal = GameObject.Find("Escenario");
         if (raizFinal != null) PonerSortingLayers(raizFinal.transform, primera: false);
+        // la puerta dorada que se abre y deja entrar a la chica (despues de la mezcla, sobre la escena ya armada)
+        ArmarEntradaTemplo.PonerPuerta();
 
         // la chica parada sobre la piedra que tenga abajo (aunque se haya movido a mano o se hayan movido las piedras)
         var chicaFinal = GameObject.Find("Escenario/Cascada (templo)/Chica");
@@ -556,8 +570,10 @@ public static class ArmarInicioIntroduccion
     // Lo que esta parado arriba de un grupo (la puerta dorada) sube lo mismo que crecio la piedra.
     // Las piedras de la cueva no se tocan (la chica no llega ahi).
     private const bool AgrandarPiedrasParaLaChica = false;
-    // agua delante de lo que flota y tiras de agua animadas en las piedras: no estan en el Figma (Estefi, 19/11)
-    private const bool AgregadosQueNoEstanEnElFigma = false;
+    // agua delante de lo que flota y tiras de agua animadas en las piedras y en las plataformas de agua de la derecha.
+    // Estefi (19/11) los habia apagado porque no estan en el Figma; Caro (19/11) pidio volver a aplicar la animacion
+    // al agua y a las cascadas.
+    private const bool AgregadosQueNoEstanEnElFigma = true;
     // hasta donde se hunde la chica en el agua (px de la escena, desde arriba): la guia roja del Figma
     private const float FondoDelAguaPx = 2134.8f;
     private const float EscalaPiedras = 1.4f;
@@ -836,10 +852,18 @@ public static class ArmarInicioIntroduccion
         var cuadro = canvasGo.transform.Find("Cuadro de dialogo/Cuadro") as RectTransform;
         if (cuadro != null)
         {
-            cuadro.anchoredPosition = new Vector2(10.5f, 103f);
-            cuadro.sizeDelta = new Vector2(1631f, 248f);
+            // (Franco, "Tamano cuadro de dialogo": mas ancho y mas abajo)
+            cuadro.anchoredPosition = new Vector2(10.5f, 70f);
+            cuadro.sizeDelta = new Vector2(1800f, 248f);
             if (cuadro.Find("Nombre") is RectTransform nombreRt)
                 nombreRt.anchoredPosition = new Vector2(nombreRt.anchoredPosition.x, -44f);
+            // el texto, como en el nivel: centrado en alto (no arriba) y con un margen de abajo de 16.9
+            var textoDialogo = cuadro.Find("Texto")?.GetComponent<TextMeshProUGUI>();
+            if (textoDialogo != null)
+            {
+                textoDialogo.verticalAlignment = VerticalAlignmentOptions.Middle;
+                textoDialogo.margin = new Vector4(0f, 0f, 0f, 16.907791f);
+            }
         }
 
         var go = new GameObject("Dialogo al llegar (Jaya)");
@@ -886,16 +910,8 @@ public static class ArmarInicioIntroduccion
         mat.shader = shader;
         mat.SetFloat("_AnchoPx", sprite.rect.width);
         mat.SetFloat("_AltoPx", sprite.rect.height);
-        // Estefi (19/11): un movimiento de agua leve y poco cargado, como el agua plana del Figma: corre despacio,
-        // pocas rayitas finas y largas, y se mece apenas
-        mat.SetFloat("_VelocidadRio", 35f);
-        mat.SetFloat("_AltoFila", 16f);
-        mat.SetFloat("_LargoRaya", 170f);
-        mat.SetFloat("_CuantasRayas", 0.1f);
-        mat.SetFloat("_Rayas", 0.14f);
-        mat.SetFloat("_Amplitud", 0f);   // sin vaiven de costado: los bordes del agua no se corren de las sombras
-        mat.SetFloat("_Velocidad", 0.45f);
-        mat.SetFloat("_Brillo", 0.015f);
+        // (Caro, 19/11: volver a la animacion del agua de antes) el movimiento (velocidad, rayitas, vaiven, brillo) no
+        // se pisa aca: queda el que tiene cada material, asi se puede retocar a mano
         EditorUtility.SetDirty(mat);
         return mat;
     }
@@ -1005,7 +1021,8 @@ public static class ArmarInicioIntroduccion
     // se activa, a la izquierda de la vasija) y la cruz naranja (donde aparece el Lore, arriba y un poco a la
     // izquierda). Se pueden mover despues en la escena (son objetos hijos).
     // (Caro: que se active cuando la chica llega justo delante del arco, a unas 2.5 unidades de la vasija)
-    private static readonly Vector2 LoreSeActiva = new Vector2(-2.5f, 0f);
+    // (Caro, 19/11: que frene en el borde derecho de la piedra que esta antes de la vasija, x 72.04)
+    private static readonly Vector2 LoreSeActiva = new Vector2(-2.55f, 0f);
     private static readonly Vector2 LoreDestino = new Vector2(-0.5f, 3f);
     private const string RutaLore = "Assets/_Entorno/_Items/Lore.png";
 

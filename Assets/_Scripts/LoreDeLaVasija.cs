@@ -1,7 +1,8 @@
 using UnityEngine;
 
 // El "Lore" que sale de la vasija flotante (pantalla de inicio, parte 2):
-//   1) cuando la chica llega a 'dondeSeActiva' (en x), de la boca de la vasija sale una bolita de luz;
+//   1) cuando el medio de la chica llega a 'dondeSeActiva' (en x) frena en seco y, ya quieta, de la boca de la
+//      vasija sale una bolita de luz;
 //   2) la bolita sube haciendo una curva suave hasta 'destino';
 //   3) ahi se abre: la bolita se agranda y se apaga mientras aparece el emblema de Lore (Assets/_Entorno/_Items/
 //      Lore.png) con una luz suave detras, que queda flotando y latiendo despacio.
@@ -9,6 +10,11 @@ using UnityEngine;
 // Lo arma el menu  Pomelo -> Escenas -> Armar escena Inicio_introducción
 public class LoreDeLaVasija : MonoBehaviour
 {
+    [Header("Donde frena la chica")]
+    [Tooltip("x del mundo donde frena la chica (su medio) y sale el Lore: sobre el final de la piedra que esta antes de " +
+             "la vasija (Caro, recuadro azul). 0 = usar el punto 'Donde se activa'.")]
+    [SerializeField] private float frenarEnX = 71.6f;
+
     [Header("Puntos (se pueden mover en la escena)")]
     [Tooltip("Cuando la chica pasa esta x, sale la bolita.")]
     [SerializeField] private Transform dondeSeActiva;
@@ -36,12 +42,14 @@ public class LoreDeLaVasija : MonoBehaviour
     [SerializeField] private float escalaCartel = 1.4f;
 
     [Header("Tiempos")]
+    [Tooltip("Segundos que la chica queda quieta en la linea antes de que salga el Lore.")]
+    [SerializeField] private float esperaQuieta = 0.35f;
     [SerializeField] private float duracionSalida = 1.8f;
     [SerializeField] private float duracionAparecer = 0.7f;
     [Tooltip("Cuanto se curva el camino de la bolita (unidades).")]
     [SerializeField] private float curva = 0.8f;
 
-    private enum Estado { Esperando, Saliendo, Apareciendo, Quieto }
+    private enum Estado { Esperando, Frenando, Saliendo, Apareciendo, Quieto }
     private enum Charla { Nada, Esperando, Abierto, Terminado }
     private Charla charla = Charla.Nada;
     private bool cartelAgrandado;
@@ -95,10 +103,22 @@ public class LoreDeLaVasija : MonoBehaviour
         switch (estado)
         {
             case Estado.Esperando:
-                if (chica != null && dondeSeActiva != null && chica.position.x >= dondeSeActiva.position.x)
+                if (chica != null && CentroChica() >= XDondeFrena())
                 {
-                    // la chica se queda quieta (en reposo) hasta que termina el dialogo
+                    // (Caro) la chica frena en seco en la linea y se queda quieta (en reposo) hasta que termina el
+                    // dialogo; recien cuando ya esta quieta sale el Lore
                     QuietaPorEscena.Frenar();
+                    var rb = chica.GetComponent<Rigidbody2D>();
+                    if (rb != null) rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                    estado = Estado.Frenando;
+                    t = 0f;
+                }
+                break;
+
+            case Estado.Frenando:
+                t += dt;
+                if (t >= esperaQuieta)
+                {
                     estado = Estado.Saliendo;
                     t = 0f;
                     desde = boca != null ? boca.position : transform.position;
@@ -170,6 +190,20 @@ public class LoreDeLaVasija : MonoBehaviour
         }
     }
 
+    // donde frena: 'frenarEnX' si esta puesto (> 0); si no, el punto 'dondeSeActiva'
+    private float XDondeFrena()
+    {
+        if (frenarEnX > 0f) return frenarEnX;
+        return dondeSeActiva != null ? dondeSeActiva.position.x : float.MaxValue;
+    }
+
+    // el medio de la chica (su colisionador; si no tiene, su posicion)
+    private float CentroChica()
+    {
+        var col = chica.GetComponent<Collider2D>();
+        return col != null ? col.bounds.center.x : chica.position.x;
+    }
+
     private void PrenderDialogo()
     {
         if (dialogo == null) { charla = Charla.Terminado; QuietaPorEscena.Soltar(); return; }
@@ -231,8 +265,13 @@ public class LoreDeLaVasija : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0.4f, 0.8f, 1f, 0.9f);
-        if (dondeSeActiva != null)
-            Gizmos.DrawLine(dondeSeActiva.position + Vector3.down * 2f, dondeSeActiva.position + Vector3.up * 3f);
+        // la linea celeste: donde frena la chica
+        float x = XDondeFrena();
+        if (x < float.MaxValue)
+        {
+            float y = dondeSeActiva != null ? dondeSeActiva.position.y : transform.position.y;
+            Gizmos.DrawLine(new Vector3(x, y - 2f, 0f), new Vector3(x, y + 3f, 0f));
+        }
         Gizmos.color = new Color(1f, 0.6f, 0.2f, 0.9f);
         if (destino != null) Gizmos.DrawWireSphere(destino.position, 0.3f);
         if (boca != null) Gizmos.DrawWireSphere(boca.position, 0.15f);

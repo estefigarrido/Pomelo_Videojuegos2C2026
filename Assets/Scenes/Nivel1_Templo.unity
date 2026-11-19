@@ -143073,6 +143073,7 @@ GameObject:
   - component: {fileID: 1964536187}
   - component: {fileID: 1964536188}
   - component: {fileID: 1964536189}
+  - component: {fileID: 1964536190}
   m_Layer: 0
   m_Name: Estatua botanica (arco)
   m_TagString: Untagged
@@ -143212,6 +143213,42 @@ MonoBehaviour:
   segundosBajar: 0.9
   segundosAbrir: 1.3
   cantidadBrillitos: 26
+--- !u!114 &1964536190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964536186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3656c2a8b0f344a7848f49c481a99587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dialogo
+  lineas:
+  - sinNombre: 0
+    personaje: Maestra Li Hua
+    texto: "\xA1Valiente aprendiz! As\xED que finalmente has llegado hasta aqu\xED...
+      Y no solo has restaurado mi templo y mi estatua, has devuelto la vida a un
+      arte que cre\xEDamos perdido. "
+    ilustracion: {fileID: 0}
+  - sinNombre: 0
+    personaje: Maestra Li Hua
+    texto: "Los otros templos tambi\xE9n aguardan, aunque no te recibir\xE1n con
+      la misma calma que este. El camino apenas comienza. "
+    ilustracion: {fileID: 0}
+  distancia: {x: 12.52, y: 3.87}
+  centro: {x: 0, y: -6.39}
+  tecla: 19
+  cartelInteractuar: {fileID: 4250720034094768461, guid: e75e8e08518b2ad43bc257cd2da52b06, type: 3}
+  posicionCartel: {x: 0, y: -8.94}
+  indicador: {fileID: 0}
+  soloUnaVez: 0
+  abrirAlEntrar: 0
+  abrirAlEntrarSoloLaPrimeraVez: 1
+  alTerminar:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1967042647
 GameObject:
   m_ObjectHideFlags: 0

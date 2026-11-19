@@ -2,8 +2,9 @@ using System.Collections;
 using UnityEngine;
 
 // Escena de la maestra (Lady Li Hua) en Inicio_introduccion.
-//  - Cuando la camara termina de alejarse (PantallaInicio: 2 s parada en la piedra que sigue al jarron), la hojita del
-//    mural de botanica empieza a brillar verde, suave y latiendo despacio, hasta que termina el dialogo de la maestra.
+//  - Cuando la camara termina de alejarse (PantallaInicio: apenas la chica llega a la piedra que sigue al jarron), la
+//    hojita del mural de botanica empieza a brillar verde clarito, con el destello encima, y queda asi hasta que se
+//    sale del templo al Nivel 1.
 //  - Cuando la chica se para sobre el bloque negro de adelante de la columna inclinada (justo antes de la cascadita),
 //    se queda quieta y:
 //     1. aparece la pantalla de la maestra (Assets/_Pantallas_info/dialogo_maestrabotanica) en 'segundosFundido',
@@ -26,7 +27,8 @@ public class EscenaMaestra : MonoBehaviour
     [SerializeField] private SpriteRenderer hoja;
 
     [Header("Donde")]
-    [Tooltip("La chica tiene que estar parada (en el piso) entre estas x del mundo: el bloque de antes de la cascadita.")]
+    [Tooltip("La escena empieza cuando la chica cruza 'desdeX' (la linea roja del Figma sobre el bloque de antes de la " +
+             "cascadita). 'hastaX' es el fin del bloque (solo de referencia).")]
     [SerializeField] private float desdeX;
     [SerializeField] private float hastaX;
 
@@ -53,7 +55,7 @@ public class EscenaMaestra : MonoBehaviour
 
     private MovimientoPersonaje chica;
     private PantallaInicio pantallaInicio;
-    private bool usada, enEscena, terminada;
+    private bool usada, enEscena;
     private SpriteRenderer halo, brilloDestello;
     private Color colorHoja;
     private float brillo;   // 0 a 1
@@ -109,17 +111,18 @@ public class EscenaMaestra : MonoBehaviour
         if (enEscena && !QuietaPorEscena.Activa) QuietaPorEscena.Frenar();
         if (usada || chica == null || dialogo == null) return;
         if (CuadroDialogo.Abierto || QuietaPorEscena.Activa || MenuPausa.BloqueaControles) return;
-        float x = chica.transform.position.x;
-        if (x < desdeX || x > hastaX || !chica.EnPiso) return;
+        // pasa al cruzar la linea marcada en el Figma ('desdeX'), pisando o en el aire
+        if (chica.transform.position.x < desdeX) return;
         usada = true;
         StartCoroutine(Escena());
     }
 
-    // la hojita brilla desde que la camara termino de alejarse hasta que se cierra el dialogo de la maestra
+    // la hojita brilla desde que la camara termino de alejarse y queda brillando hasta que se sale del templo al
+    // Nivel 1 (al cambiar de escena se va con ella)
     private void Brillar()
     {
         if (hoja == null || halo == null) return;
-        bool prendida = !terminada && pantallaInicio != null && pantallaInicio.TerminoDeAlejarse;
+        bool prendida = pantallaInicio != null && pantallaInicio.TerminoDeAlejarse;
         brillo = Mathf.MoveTowards(brillo, prendida ? 1f : 0f, Time.deltaTime / Mathf.Max(0.01f, segundosBrillo));
         float k = Mathf.SmoothStep(0f, 1f, brillo) * intensidadBrillo;
         float latido = 0.8f + 0.2f * Mathf.Sin(Time.time * 2.2f);
@@ -148,7 +151,6 @@ public class EscenaMaestra : MonoBehaviour
             while (CuadroDialogo.Abierto) yield return null;
         }
         else if (mostrarDebug) Debug.Log("[Maestra] no hay cuadro de dialogo en la escena");
-        terminada = true;   // la hojita se apaga
 
         if (pantalla != null) yield return Fundir(pantalla, 0f, segundosFundido);
         enEscena = false;

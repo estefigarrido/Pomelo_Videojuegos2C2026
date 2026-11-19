@@ -311,6 +311,7 @@ public static class ArmarInicioIntroduccion
             var sol = new SerializedObject(lore);
             sol.FindProperty("dialogo").objectReferenceValue = dialogo;
             sol.FindProperty("cartelAlTerminar").objectReferenceValue = null;
+            sol.FindProperty("frenarEnX").floatValue = LineaJaya;
             sol.ApplyModifiedPropertiesWithoutUndo();
         }
         ArmarPantalla(cam, chica, dialogo, cartel);
@@ -918,10 +919,15 @@ public static class ArmarInicioIntroduccion
     // pantalla de la maestra (2 s, easing suave), a los 2 s el dialogo (dos lineas, con las flechas como el resto) y al
     // cerrarlo la pantalla se va igual. Lo maneja EscenaMaestra.
     private const string RutaPantallaMaestra = "Assets/_Pantallas_info/dialogo_maestrabotanica.png";
+    // Las tres lineas rojas que marco Estefi en el Figma (pagina "intro juego", Line 3, 4 y 5 sobre la captura
+    // "image 331"), pasadas a x del mundo: al cruzarlas pasa cada interaccion.
+    private const float LineaJaya = 70.85f;     // Line 3: sobre la piedra de antes del jarron -> dialogo de Jaya (Lore)
+    private const float LineaAlejar = 77.9f;    // Line 4: sobre la piedra que sigue al jarron -> la camara se aleja
+    private const float LineaLiHua = 87.2f;     // Line 5: sobre el bloque de antes de la cascadita -> Lady Li Hua
     private static readonly (string personaje, string texto)[] LineasMaestra =
     {
         ("Lady Li Hua", "“Es admirable tu valor para entrar aquí y querer conocer los saberes olvidados. Los demás maestros no tuvieron la misma suerte que yo, verás...”"),
-        ("Lady Li Hua", "“como mi estatua no fue completamente destruida, creo que aún recuerdo un par de trucos que podrían servirte para comenzar este camino. A ver... ¿cómo eran?...”"),
+        ("Lady Li Hua", "“como mi estatua no fue completamente destruida, puedes ayudarme y no todo está perdido. Las artes todavía se pueden recuperar. Yo sola no puedo hacerlo... te necesito!”"),
     };
 
     private static void ArmarMaestra(Transform cascada, Transform canvas)
@@ -982,7 +988,8 @@ public static class ArmarInicioIntroduccion
             var b = bloque.bounds;
             var tira = srs.FirstOrDefault(s => s.name.Contains("Vector 195"));
             float hasta = tira != null && tira.bounds.min.x > b.min.x ? tira.bounds.min.x : b.min.x + 2.5f;
-            so.FindProperty("desdeX").floatValue = b.min.x;
+            // arranca al cruzar la linea roja del Figma (sobre este bloque)
+            so.FindProperty("desdeX").floatValue = Mathf.Clamp(LineaLiHua, b.min.x, hasta);
             so.FindProperty("hastaX").floatValue = hasta;
             go.transform.position = new Vector3((b.min.x + hasta) / 2f, b.max.y, 0f);
         }
@@ -1613,9 +1620,10 @@ public static class ArmarInicioIntroduccion
         so.FindProperty("finOtraParte").floatValue = AnchoEscenaPx / PixelesPorUnidad;
         so.FindProperty("altoDibujo").floatValue = AltoEscenaPx / PixelesPorUnidad;
         so.FindProperty("centroDesdeArriba").floatValue = CentroDesdeArribaPx / PixelesPorUnidad;
-        // la piedra que sigue al jarron (la de adelante del mural verde): parada ahi 2 s, la camara se aleja
-        // (Estefi, 19/11; antes era la de antes del jarron, donde ahora frena el dialogo de Jaya)
-        so.FindProperty("esperaAlejar").floatValue = 2f;
+        // la piedra que sigue al jarron (la de adelante del mural verde): apenas llega (pisandola o saltandola) la camara
+        // se aleja en 2 s (Estefi, 19/11; antes era la de antes del jarron, donde ahora frena el dialogo de Jaya)
+        so.FindProperty("esperaAlejar").floatValue = 0f;
+        so.FindProperty("duracionAlejar").floatValue = 2f;
         var vasija = GameObject.Find("Escenario/Cascada (templo)/Vasija flotante");
         if (vasija != null)
         {
@@ -1626,7 +1634,8 @@ public static class ArmarInicioIntroduccion
                                   .OrderBy(b => b.min.x).FirstOrDefault();
             if (piedra.size.x > 0f)
             {
-                so.FindProperty("alejarDesdeX").floatValue = piedra.min.x;
+                // se aleja al cruzar la linea roja del Figma (sobre esta piedra)
+                so.FindProperty("alejarDesdeX").floatValue = Mathf.Clamp(LineaAlejar, piedra.min.x, piedra.max.x);
                 so.FindProperty("alejarHastaX").floatValue = piedra.max.x;
             }
         }

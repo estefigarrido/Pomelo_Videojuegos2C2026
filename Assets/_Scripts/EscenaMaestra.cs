@@ -45,9 +45,10 @@ public class EscenaMaestra : MonoBehaviour
     [SerializeField] private Color colorBrillo = new Color(0.78f, 1f, 0.74f, 1f);
     [Tooltip("Destello encima de la hojita (Assets/_Entorno/_Items/destello_gema).")]
     [SerializeField] private Sprite destello;
-    [Range(0f, 1f)] [SerializeField] private float opacidadDestello = 0.6f;
+    [Tooltip("La imagen del destello es muy tenue: 1 = entera. Hay ademas una segunda copia girada (rayos mas densos).")]
+    [Range(0f, 1f)] [SerializeField] private float opacidadDestello = 1f;
     [Tooltip("Tamano del destello con respecto a la hojita.")]
-    [SerializeField] private float tamanoDestello = 1.8f;
+    [SerializeField] private float tamanoDestello = 4.5f;
     [Tooltip("Que tan fuerte brilla (0 a 1): leve.")]
     [Range(0f, 1f)] [SerializeField] private float intensidadBrillo = 0.45f;
     [Tooltip("Tamano del halo con respecto a la hojita.")]
@@ -58,7 +59,7 @@ public class EscenaMaestra : MonoBehaviour
     private MovimientoPersonaje chica;
     private PantallaInicio pantallaInicio;
     private bool usada, enEscena;
-    private SpriteRenderer halo, brilloDestello;
+    private SpriteRenderer halo, brilloDestello, brilloDestello2;
     private Color colorHoja;
     private float brillo;   // 0 a 1
 
@@ -101,6 +102,14 @@ public class EscenaMaestra : MonoBehaviour
                 float s = ladoD / Mathf.Max(0.0001f, Mathf.Max(destello.bounds.size.x, destello.bounds.size.y));
                 gd.transform.localScale = new Vector3(s / Mathf.Max(0.0001f, Mathf.Abs(l.x)), s / Mathf.Max(0.0001f, Mathf.Abs(l.y)), 1f);
                 brilloDestello.color = new Color(1f, 1f, 1f, 0f);
+                // segunda copia, girada medio rayo y un poco mas chica: los rayos se ven mas y mas parejos
+                var gd2 = Instantiate(gd, hoja.transform);
+                gd2.name = "Destello de la hojita 2";
+                gd2.transform.position = gd.transform.position;
+                gd2.transform.localScale = gd.transform.localScale * 0.8f;
+                gd2.transform.Rotate(0f, 0f, 7.5f);
+                brilloDestello2 = gd2.GetComponent<SpriteRenderer>();
+                brilloDestello2.sortingOrder = hoja.sortingOrder + 3;
             }
         }
     }
@@ -135,6 +144,11 @@ public class EscenaMaestra : MonoBehaviour
             float b = Mathf.SmoothStep(0f, 1f, brillo);
             brilloDestello.color = new Color(1f, 1f, 1f, opacidadDestello * b * (0.85f + 0.15f * Mathf.Sin(Time.time * 2.2f)));
             brilloDestello.transform.Rotate(0f, 0f, -8f * Time.deltaTime);   // gira muy despacio
+            if (brilloDestello2 != null)
+            {
+                brilloDestello2.color = new Color(1f, 1f, 1f, opacidadDestello * b * (0.85f + 0.15f * Mathf.Sin(Time.time * 2.2f + 1.5f)));
+                brilloDestello2.transform.Rotate(0f, 0f, 6f * Time.deltaTime);   // para el otro lado
+            }
         }
     }
 

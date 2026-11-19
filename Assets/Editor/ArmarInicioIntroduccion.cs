@@ -926,7 +926,7 @@ public static class ArmarInicioIntroduccion
     private const float LineaLiHua = 87.2f;     // Line 5: sobre el bloque de antes de la cascadita -> Lady Li Hua
     private static readonly (string personaje, string texto)[] LineasMaestra =
     {
-        ("Lady Li Hua", "“Es admirable tu valor para entrar aquí y querer conocer los saberes olvidados. Los demás maestros no tuvieron la misma suerte que yo, verás...”"),
+        ("Lady Li Hua", "“Es admirable tu valor para entrar aquí y querer conocer los saberes olvidados.\nLos demás maestros no tuvieron la misma suerte que yo, verás...”"),
         ("Lady Li Hua", "“como mi estatua no fue completamente destruida, puedes ayudarme y no todo está perdido.\nLas artes todavía se pueden recuperar. Yo sola no puedo hacerlo... te necesito!”"),
     };
 
@@ -1001,7 +1001,9 @@ public static class ArmarInicioIntroduccion
         // glow verde clarito y, encima, el destello de la gema al 60 % (Estefi, 19/11)
         so.FindProperty("colorBrillo").colorValue = new Color(0.78f, 1f, 0.74f, 1f);
         so.FindProperty("destello").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Entorno/_Items/destello_gema.png");
-        so.FindProperty("opacidadDestello").floatValue = 0.6f;
+        // (la imagen del destello es muy tenue: al 60 % y chico no se veia) entero y 4,5 veces la hojita
+        so.FindProperty("opacidadDestello").floatValue = 1f;
+        so.FindProperty("tamanoDestello").floatValue = 4.5f;
         if (hoja == null) Debug.LogWarning("[Inicio] No encontre la hojita del mural de botanica (hoja_mural_botanica).");
         so.ApplyModifiedPropertiesWithoutUndo();
     }

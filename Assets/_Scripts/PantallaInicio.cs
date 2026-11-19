@@ -94,6 +94,8 @@ public class PantallaInicio : MonoBehaviour
     private bool chicaActiva;
     private bool esperandoDialogo;
     private bool comenzando;
+    // ya se apreto "Comenzar juego" (lo usa EntradaTemplo para empezar a precargar el Nivel 1)
+    public bool Comenzo => comenzando;
     private float inicio;
     private float avance;   // 0 = la cueva, 1 = la otra parte
 

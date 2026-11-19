@@ -8401,7 +8401,7 @@ MonoBehaviour:
   duracionSubidaPuerta: 2.5
   esperaAntesDeBajar: 0.5
   duracionBajadaPuerta: 1.75
-  esperaPantalla: 2
+  esperaPantalla: 3
   sonidoPuerta: {fileID: 8300000, guid: ee1e4ba20406b9c4b95f7eb2f19b5016, type: 3}
   volumenPuerta: 0.6
 --- !u!212 &692902335

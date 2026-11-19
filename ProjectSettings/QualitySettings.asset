@@ -44,8 +44,8 @@ QualitySettings:
     streamingMipmapsMaxLevelReduction: 2
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 4
-    asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
+    asyncUploadTimeSlice: 8
+    asyncUploadBufferSize: 64
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: 681886c5eb7344803b6206f758bf0b1c, type: 2}
@@ -97,8 +97,8 @@ QualitySettings:
     streamingMipmapsMaxLevelReduction: 2
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 16
-    asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
+    asyncUploadTimeSlice: 8
+    asyncUploadBufferSize: 64
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: 681886c5eb7344803b6206f758bf0b1c, type: 2}
@@ -150,8 +150,8 @@ QualitySettings:
     streamingMipmapsMaxLevelReduction: 2
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 64
-    asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
+    asyncUploadTimeSlice: 8
+    asyncUploadBufferSize: 64
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: 681886c5eb7344803b6206f758bf0b1c, type: 2}
@@ -203,8 +203,8 @@ QualitySettings:
     streamingMipmapsMaxLevelReduction: 2
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 256
-    asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
+    asyncUploadTimeSlice: 8
+    asyncUploadBufferSize: 64
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: 681886c5eb7344803b6206f758bf0b1c, type: 2}
@@ -256,8 +256,8 @@ QualitySettings:
     streamingMipmapsMaxLevelReduction: 2
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 1024
-    asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
+    asyncUploadTimeSlice: 8
+    asyncUploadBufferSize: 64
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: 681886c5eb7344803b6206f758bf0b1c, type: 2}
@@ -309,8 +309,8 @@ QualitySettings:
     streamingMipmapsMaxLevelReduction: 2
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 4096
-    asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
+    asyncUploadTimeSlice: 8
+    asyncUploadBufferSize: 64
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: 681886c5eb7344803b6206f758bf0b1c, type: 2}

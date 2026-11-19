@@ -43,7 +43,7 @@ public class PuertaDelTemplo : MonoBehaviour
     [Tooltip("Segundos que tarda en bajar (1.75 = lo que dura el arrastre de piedra, como la puerta del Nivel 1).")]
     [SerializeField] private float duracionBajadaPuerta = 1.75f;
     [Tooltip("Segundos despues de que se cierra la puerta hasta que aparece la pantalla de entrada.")]
-    [SerializeField] private float esperaPantalla = 2f;
+    [SerializeField] private float esperaPantalla = 3f;
 
     [Header("Sonido")]
     [Tooltip("Al cerrarse: el mismo arrastre de piedra que la puerta del Nivel 1 al abrirse (Puerta_piedra_subiendo).")]

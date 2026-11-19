@@ -39,14 +39,22 @@ public class EntradaTemplo : MonoBehaviour
     [SerializeField] private float subida = 14f;
 
     [Header("Despues")]
-    [Tooltip("Segundos (despues de que aparece todo) en que todavia no se puede seguir: asi no se saltea sin querer.")]
+    [Tooltip("Segundos que la pantalla queda entera a la vista (despues de aparecer todo) antes de pasar al nivel.")]
+    [SerializeField] private float segundosEnPantalla = 5f;
+    [Tooltip("Ya no se usa (la pantalla dura 'segundosEnPantalla' y no se saltea).")]
     [SerializeField] private float minimoAntesDeSeguir = 0.5f;
-    [Tooltip("Segundos para leerla (desde que aparecio todo): despues sigue sola (0 = espera a que se toque algo).")]
+    [Tooltip("Ya no se usa (ver 'segundosEnPantalla').")]
     [SerializeField] private float segundosHastaSeguirSola = 3.5f;
     [Tooltip("Segundos que la pantalla se queda sobre el nivel ya cargado antes de irse.")]
     [SerializeField] private float esperaEnElNivel = 0f;
+    [Tooltip("Ya en el nivel: como mucho estos segundos esperando a que vaya fluido antes de desvanecerse.")]
+    [SerializeField] private float esperaMaximaFluido = 3f;
     [Tooltip("Segundos que tarda la pantalla en desvanecerse y dejar ver el nivel.")]
     [SerializeField] private float segundosSalida = 0.6f;
+    [Tooltip("Empieza a cargar el nivel en segundo plano apenas arranca la intro (asi al final no hay que esperarlo).")]
+    [SerializeField] private bool precargarAlEmpezar = false;   // (Caro: con el proyecto en el disco rigido trababa la intro)
+    [Tooltip("Segundos despues de apretar 'Comenzar juego' en que empieza la precarga del nivel.")]
+    [SerializeField] private float esperaPrecarga = 3f;
     [Tooltip("Escena que se carga al seguir (tiene que estar en la lista del build). Vacio = se queda en la pantalla.")]
     [SerializeField] private string escenaSiguiente = "Nivel1_Templo";
 
@@ -66,9 +74,37 @@ public class EntradaTemplo : MonoBehaviour
         Visible = false;
     }
 
+    // (Caro: tardaba mucho en empezar el nivel) el Nivel 1 tarda ~50 s en leer sus assets en el editor: se empieza a
+    // cargar en segundo plano apenas arranca la intro (sin activarse), asi cuando termina la pantalla ya esta listo.
+    // La lectura pesada va en otro hilo: no traba la intro.
+    private static AsyncOperation precarga;
+    private static string escenaPrecargada;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void AlArrancar() { precarga = null; escenaPrecargada = null; }
+
+    private IEnumerator Start()
+    {
+        if (string.IsNullOrEmpty(escenaSiguiente) || !precargarAlEmpezar) yield break;
+        if (precarga != null && escenaPrecargada == escenaSiguiente) yield break;
+        // (Caro: arrancando de entrada, la intro tardaba en cargar) recien despues de apretar "Comenzar juego" (con la
+        // intro ya cargada y andando) y unos segundos mas
+        var inicio = FindFirstObjectByType<PantallaInicio>();
+        while (inicio != null && !inicio.Comenzo) yield return null;
+        yield return new WaitForSecondsRealtime(esperaPrecarga);
+        if (mostrado || (precarga != null && escenaPrecargada == escenaSiguiente)) yield break;
+        Application.backgroundLoadingPriority = ThreadPriority.Low;   // poco tiempo por cuadro: la intro va fluida
+        precarga = SceneManager.LoadSceneAsync(escenaSiguiente);
+        if (precarga == null) yield break;
+        precarga.allowSceneActivation = false;
+        escenaPrecargada = escenaSiguiente;
+        if (mostrarDebug) Debug.Log("[Entrada templo] precargando " + escenaSiguiente);
+    }
+
     private void OnDestroy()
     {
         if (mostrado) { Visible = false; QuietaPorEscena.Soltar(); }
+        Application.backgroundLoadingPriority = ThreadPriority.Normal;
     }
 
     // La llama la puerta (PuertaDelTemplo). Tambien se puede llamar a mano para probarla.
@@ -84,14 +120,6 @@ public class EntradaTemplo : MonoBehaviour
 
     private IEnumerator Mostrar()
     {
-        // el nivel se va cargando mientras se lee la pantalla (sin activarse): al seguir, el cambio es inmediato
-        AsyncOperation carga = null;
-        if (!string.IsNullOrEmpty(escenaSiguiente))
-        {
-            carga = SceneManager.LoadSceneAsync(escenaSiguiente);
-            if (carga != null) carga.allowSceneActivation = false;
-        }
-
         yield return new WaitForSecondsRealtime(espera);
         Visible = true;
         grupo.alpha = 1f;
@@ -107,27 +135,50 @@ public class EntradaTemplo : MonoBehaviour
             }
         yield return new WaitForSecondsRealtime(segundosParte);
 
-        // espera a que se toque algo (o sigue sola)
-        for (float t = 0f; ; t += Time.unscaledDeltaTime)
-        {
-            if (t >= minimoAntesDeSeguir && Seguir()) break;
-            if (segundosHastaSeguirSola > 0f && t >= segundosHastaSeguirSola) break;
-            yield return null;
-        }
-        if (carga == null) yield break;
+        // (Caro) ya entera, la pantalla dura 'segundosEnPantalla' (unos 5 s) y pasa sola al nivel
+        yield return new WaitForSecondsRealtime(segundosEnPantalla);
+        if (string.IsNullOrEmpty(escenaSiguiente)) yield break;
 
-        // la pantalla pasa al nivel con ella (sin fundido a negro): el nivel (ya cargado detras) se activa y la pantalla
-        // se desvanece y deja ver su comienzo
+        // (Caro: se trababa con la carga en segundo plano) el nivel se carga de una vez, con la pantalla tapando todo:
+        // mientras carga la imagen queda quieta (no se ve el tiron). La pantalla pasa al nivel con ella y despues se
+        // desvanece y deja ver su comienzo (sin fundido a negro)
         if (mostrarDebug) Debug.Log("[Entrada templo] pasando a " + escenaSiguiente);
         SeparDelCanvas();
         DontDestroyOnLoad(gameObject);
-        carga.allowSceneActivation = true;
-        while (!carga.isDone) yield return null;
+        yield return null;   // un cuadro con la pantalla ya en su propio Canvas antes de cambiar
+        if (precarga != null && escenaPrecargada == escenaSiguiente)
+        {
+            // ya se venia cargando desde el principio de la intro: si le falta, termina rapido (la pantalla tapa) y se
+            // activa
+            Application.backgroundLoadingPriority = ThreadPriority.High;
+            while (precarga.progress < 0.9f) yield return null;
+            var carga = precarga;
+            precarga = null; escenaPrecargada = null;
+            carga.allowSceneActivation = true;
+            while (!carga.isDone) yield return null;
+            Application.backgroundLoadingPriority = ThreadPriority.Normal;
+        }
+        else
+        {
+            SceneManager.LoadScene(escenaSiguiente);
+            yield return null;   // la escena nueva se arma al terminar este cuadro
+        }
         QuietaPorEscena.Frenar();   // (al cargar la escena se suelta sola) la chica espera a que se vaya la pantalla
+
+        // los primeros cuadros del nivel son pesados (arranca todo y se descarga la intro): la pantalla se queda
+        // tapando hasta que el nivel va fluido (unos cuadros seguidos rapidos; como mucho 'esperaMaximaFluido' s)
+        int fluidos = 0;
+        for (float t = 0f; t < esperaMaximaFluido && fluidos < 5; t += Time.unscaledDeltaTime)
+        {
+            QuietaPorEscena.Frenar();
+            fluidos = Time.unscaledDeltaTime < 1f / 25f ? fluidos + 1 : 0;
+            yield return null;
+        }
         yield return new WaitForSecondsRealtime(esperaEnElNivel);
 
+        // se desvanece parejo (si algun cuadro tarda, no salta: avanza como mucho 1/30 s por cuadro)
         grupo.blocksRaycasts = false;
-        for (float t = 0f; t < segundosSalida; t += Time.unscaledDeltaTime)
+        for (float t = 0f; t < segundosSalida; t += Mathf.Min(Time.unscaledDeltaTime, 1f / 30f))
         {
             grupo.alpha = 1f - Mathf.SmoothStep(0f, 1f, t / segundosSalida);
             yield return null;

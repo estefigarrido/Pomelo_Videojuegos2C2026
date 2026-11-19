@@ -54,6 +54,7 @@ public class PuertaDelTemplo : MonoBehaviour
     private Collider2D colChica;
     private SpriteRenderer dibujoChica;
     private bool empezo;
+    private float piesDesdePosicion, anchoMedio;
 
     public bool Empezo => empezo;
 
@@ -111,6 +112,9 @@ public class PuertaDelTemplo : MonoBehaviour
         if (mov != null) mov.enabled = false;
         var animator = chica.GetComponent<Animator>();
         var rb = chica.GetComponent<Rigidbody2D>();
+        // donde estan los pies con respecto a su posicion (sin fisica, el colisionador no se actualiza al moverla)
+        piesDesdePosicion = colChica != null ? colChica.bounds.min.y - chica.position.y : 0f;
+        anchoMedio = colChica != null ? colChica.bounds.center.x - chica.position.x : 0f;
         if (rb != null) { rb.linearVelocity = Vector2.zero; rb.simulated = false; }
 
         // camina (con su animacion de caminar, sin deslizarse) hasta quedar centrada con el portal
@@ -138,6 +142,9 @@ public class PuertaDelTemplo : MonoBehaviour
         }
         if (animator != null) { PonerBool(animator, "caminando", false); animator.enabled = false; }
         if (quieta != null && dibujoChica != null) dibujoChica.sprite = quieta;
+        // (Estefi, 19/11) sin fisica la chica no cae: si llego saltando, o el piso del medio del portal esta mas abajo,
+        // quedaba flotando. Se apoya en el piso que tiene debajo.
+        ApoyarEnElPiso();
         yield return new WaitForSeconds(esperaAntesDeSubir);
 
         // la puerta sube
@@ -164,6 +171,22 @@ public class PuertaDelTemplo : MonoBehaviour
         yield return new WaitForSeconds(esperaPantalla);
         if (mostrarDebug) Debug.Log("[Puerta del templo] entro: aparece la pantalla");
         if (pantalla != null) pantalla.MostrarAhora();
+    }
+
+    // baja (o sube un poquito) a la chica hasta que sus pies tocan el primer piso solido que tiene debajo
+    private void ApoyarEnElPiso()
+    {
+        if (colChica == null) return;
+        float pies = chica.position.y + piesDesdePosicion;
+        var desde = new Vector2(chica.position.x + anchoMedio, pies + 0.3f);
+        foreach (var h in Physics2D.RaycastAll(desde, Vector2.down, 20f))
+        {
+            if (h.collider == null || h.collider.isTrigger || h.collider.transform.IsChildOf(chica)) continue;
+            float bajar = pies - h.point.y;
+            chica.position += Vector3.down * bajar;
+            if (mostrarDebug) Debug.Log("[Puerta del templo] la chica se apoya en " + h.collider.name + " (bajo " + bajar.ToString("F2") + ")");
+            return;
+        }
     }
 
     private static void PonerBool(Animator a, string nombre, bool valor)

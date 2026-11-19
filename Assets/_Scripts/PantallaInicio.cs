@@ -74,16 +74,17 @@ public class PantallaInicio : MonoBehaviour
     [SerializeField] private bool chicaPuedeAtacar = false;
 
     [Header("Alejar la camara despues del jarron")]
-    [Tooltip("Cuando la chica esta parada sobre la piedra que sigue al jarron (de 'alejarDesdeX' a 'alejarHastaX') " +
-             "durante 'esperaAlejar' segundos, la camara se aleja de a poco hasta 'tamanoAlejado' y queda asi, para " +
-             "ver el alrededor (los murales, el techo y el agua). Lo pone el menu que arma la escena.")]
+    [Tooltip("Apenas la chica llega a la piedra que sigue al jarron ('alejarDesdeX'), pisandola o pasandole por arriba " +
+             "(aunque la salte), y despues de 'esperaAlejar' segundos, la camara se aleja de a poco hasta " +
+             "'tamanoAlejado' y queda asi, para ver el alrededor (los murales, el techo y el agua). Lo pone el menu " +
+             "que arma la escena.")]
     [SerializeField] private float alejarDesdeX = float.NaN;
     [SerializeField] private float alejarHastaX = float.NaN;
-    [SerializeField] private float esperaAlejar = 2f;
+    [SerializeField] private float esperaAlejar = 0f;
     [Tooltip("Mitad del alto que muestra la camara alejada (antes 5.4: muestra unas 28 unidades de alto).")]
     [SerializeField] private float tamanoAlejado = 14f;
     [Tooltip("Segundos que tarda en alejarse (gradual).")]
-    [SerializeField] private float duracionAlejar = 2.5f;
+    [SerializeField] private float duracionAlejar = 2f;
     private float tiempoSobrePiedra;
     private float alejado = -1f;   // -1 = todavia no; de 0 a 1 mientras se aleja; 1 = alejada
     // la camara ya termino de alejarse (lo usa EscenaMaestra para que brille la hojita del mural)
@@ -217,7 +218,8 @@ public class PantallaInicio : MonoBehaviour
         if (MusicaIntro.Instancia != null) MusicaIntro.Instancia.Comenzar();
     }
 
-    // 2 s parada sobre la piedra que sigue al jarron -> la camara se aleja de a poco y queda alejada
+    // apenas llega a la piedra que sigue al jarron (pisandola o saltandola) -> la camara se aleja de a poco (2 s) y queda
+    // alejada
     private void RevisarAlejar()
     {
         if (alejado >= 0f)
@@ -226,11 +228,11 @@ public class PantallaInicio : MonoBehaviour
             return;
         }
         if (!chicaActiva || chica == null || float.IsNaN(alejarDesdeX)) return;
-        var mov = chica.GetComponent<MovimientoPersonaje>();
-        float x = chica.transform.position.x;
-        bool encima = mov != null && mov.EnPiso && x >= alejarDesdeX && x <= alejarHastaX;
-        tiempoSobrePiedra = encima ? tiempoSobrePiedra + Time.deltaTime : 0f;
-        if (tiempoSobrePiedra >= esperaAlejar) alejado = 0f;
+        // cuenta desde que llega al borde izquierdo de la piedra, este en el piso o en el aire (y aunque ya la haya
+        // pasado de un salto)
+        bool llego = chica.transform.position.x >= alejarDesdeX;
+        tiempoSobrePiedra = llego ? tiempoSobrePiedra + Time.deltaTime : 0f;
+        if (llego && tiempoSobrePiedra >= esperaAlejar) alejado = 0f;
     }
 
     private void ActivarChica()

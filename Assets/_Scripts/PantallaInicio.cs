@@ -190,6 +190,8 @@ public class PantallaInicio : MonoBehaviour
         if (comenzando) return;
         comenzando = true;
         inicio = Time.unscaledTime;
+        // la musica del titulo se va y entra la de la intro
+        if (MusicaIntro.Instancia != null) MusicaIntro.Instancia.Comenzar();
     }
 
     private void ActivarChica()

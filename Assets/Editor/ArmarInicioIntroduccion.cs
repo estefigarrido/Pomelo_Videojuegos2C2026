@@ -282,6 +282,7 @@ public static class ArmarInicioIntroduccion
         var arranque = colocadas.FirstOrDefault(c => c.go != null && c.go.name == ChicaArrancaEn) ?? pisoChica;
         var chica = PonerChica(cascada, ordenMax + 5, arranque);
         ArmarPisosParte2(cascada);
+        ArmarMusica(cascada);
         var dialogo = ArmarDialogoAlLlegar(cascada);
         var (cartel, cartelSaltar) = PonerCarteles(cascada, chica, actual);
         var posicionCartelArmado = cartel != null ? cartel.transform.position : Vector3.zero;
@@ -341,6 +342,36 @@ public static class ArmarInicioIntroduccion
         Debug.Log($"Escena {RutaEscena} armada con {man.capas.Length - faltan} capas del Figma. Quedo primera en el build." +
                   (actual != null ? $" Se conservaron {ajustes} ajustes hechos a mano." :
                    (viejas.Count > 0 ? " (Diseno nuevo: se armo de cero, sin los ajustes a mano de la escena anterior.)" : "")));
+    }
+
+    // ---------- musica ----------
+    // Titulo: "Leaves from the Vine". Al Comenzar: "Katara" en loop hasta el portal del final (la puerta dorada).
+    // Mismo volumen y fundido que la musica del nivel (MusicaDeFondo de Nivel1_Templo: 0.072 y 3 s).
+    private const string RutaTemaTitulo = "Assets/_Musica/Leaves-from-the-Vine-_Orchestral-Version_.mp3";
+    private const string RutaTemaIntro = "Assets/_Musica/Katara.mp3";
+
+    private static void ArmarMusica(Transform cascada)
+    {
+        var go = new GameObject("Musica");
+        var m = go.AddComponent<MusicaIntro>();
+        var so = new SerializedObject(m);
+        so.FindProperty("temaTitulo").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>(RutaTemaTitulo);
+        so.FindProperty("temaIntro").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>(RutaTemaIntro);
+        so.FindProperty("volumen").floatValue = 0.072f;
+        so.FindProperty("duracionFade").floatValue = 3f;
+        so.ApplyModifiedPropertiesWithoutUndo();
+
+        // el portal: la entrada de la puerta dorada ("Group 290"), un trigger en el medio del dibujo
+        var puerta = cascada.GetComponentsInChildren<SpriteRenderer>(true).FirstOrDefault(s => s.name.EndsWith(" Group 290"));
+        if (puerta == null) { Debug.LogWarning("[Intro] No encontre la puerta dorada (Group 290) para el portal."); return; }
+        var b = puerta.bounds;
+        var portal = new GameObject("Portal (fin de la intro)");
+        portal.transform.SetParent(cascada, false);
+        portal.transform.position = new Vector3(b.center.x, b.min.y + b.size.y * 0.35f, 0f);
+        var caja = portal.AddComponent<BoxCollider2D>();
+        caja.isTrigger = true;
+        caja.size = new Vector2(b.size.x * 0.4f, b.size.y * 0.6f);
+        portal.AddComponent<PortalFinIntro>();
     }
 
     // ---------- ajustes a mano que se conservan ----------
@@ -458,6 +489,7 @@ public static class ArmarInicioIntroduccion
     private static readonly HashSet<string> RaicesDelMenu = new HashSet<string>
     {
         "Main Camera", "Luz global", "Escenario", "Pantalla de inicio", "UI",   // "UI": antes "Canvas" (Franco lo renombro)
+        "Musica",
     };
 
     // el centro de la camara en la cueva, medido desde arriba (px de la escena): el encuadre de antes

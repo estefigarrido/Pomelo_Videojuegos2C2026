@@ -53,6 +53,7 @@ public class PantallaInicio : MonoBehaviour
     [Tooltip("Cartel de tutorial (Caminar) que aparece cuando la chica recibe los controles.")]
     [SerializeField] private CartelTutorial cartelAlLlegar;
 
+    private BotonesInicio botones;
     private Behaviour[] controlesChica;
     private bool chicaActiva;
     private bool esperandoDialogo;
@@ -69,6 +70,7 @@ public class PantallaInicio : MonoBehaviour
             fundido.raycastTarget = false;
         }
         Encuadrar();
+        botones = GetComponentInChildren<BotonesInicio>(true);
 
         // la chica no se mueve ni ataca mientras se ve la cueva (la barra espaciadora es tambien "Comenzar")
         if (chica != null)
@@ -111,11 +113,12 @@ public class PantallaInicio : MonoBehaviour
 
         if (!comenzando)
         {
-            var teclado = Keyboard.current;
-            if ((teclado != null && teclado.spaceKey.wasPressedThisFrame) || Mando.Aceptar)
+            // con los botones de inicio, comienza el boton "Comenzar juego" (BotonesInicio llama a Comenzar).
+            // Sin botones (escena vieja): la barra espaciadora o la X, como antes.
+            if (botones == null)
             {
-                comenzando = true;
-                inicio = Time.unscaledTime;
+                var teclado = Keyboard.current;
+                if ((teclado != null && teclado.spaceKey.wasPressedThisFrame) || Mando.Aceptar) Comenzar();
             }
             Encuadrar();   // por si cambia el tamano de la ventana
             return;
@@ -162,6 +165,14 @@ public class PantallaInicio : MonoBehaviour
             enabled = false;
             SceneManager.LoadScene(escenaJuego);
         }
+    }
+
+    // Lo llama el boton "Comenzar juego" (BotonesInicio): el titulo y los botones se desvanecen y la camara arranca
+    public void Comenzar()
+    {
+        if (comenzando) return;
+        comenzando = true;
+        inicio = Time.unscaledTime;
     }
 
     private void ActivarChica()

@@ -1165,7 +1165,9 @@ public static class ArmarInicioIntroduccion
         // el titulo ahora es la imagen del SVG de Caro (letras + brillo + sombra), ver TituloImagen.cs
         TituloImagen.Crear(lienzo);
 
-        // fila de Comenzar (baja lo mismo que el titulo, asi queda a la misma distancia)
+        // boton "Comenzar juego" (Figma "intro juego"), ver BotonesInicioEditor.cs (ahi se suman mas botones).
+        // La fila vieja "Comenzar [espacio] o [X]" se sigue armando pero queda apagada.
+        BotonesInicioEditor.Crear(lienzo, go.GetComponent<PantallaInicio>());
         var fila = new GameObject("Comenzar", typeof(RectTransform)).GetComponent<RectTransform>();
         fila.SetParent(lienzo, false);
         fila.anchorMin = fila.anchorMax = fila.pivot = new Vector2(0.5f, 0.5f);
@@ -1186,6 +1188,7 @@ public static class ArmarInicioIntroduccion
         Texto("o", fila, alegreya, 15f * EscalaCartel, FontStyles.Normal, TextAlignmentOptions.Midline, LugarO,
               new Vector2(30f, 30f));
         Icono(Joystick + "Boton_Equis.png", fila, LugarEquis);
+        fila.gameObject.SetActive(false);
 
         // fundido a negro al comenzar (arriba de todo)
         var negro = new GameObject("Fundido", typeof(RectTransform), typeof(Image)).GetComponent<RectTransform>();
